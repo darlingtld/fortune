@@ -30,7 +30,7 @@
               <property name="dataSource" ref="dataSource"/>
               <property name="annotatedClasses">
                      <list>
-                            <!--<value>createsh.pojo.Product</value>-->
+                            <value>fortune.pojo.User</value>
                      </list>
               </property>
               <property name="hibernateProperties">
