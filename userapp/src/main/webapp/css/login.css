@@ -1,0 +1,50 @@
+body{
+	background:#eee;
+	font-size:14px;
+	color:#666;
+}
+
+.login_area{
+	margin:100px auto auto auto;
+	width:400px;
+	border:1px solid #dedede;
+	background:white;
+}
+
+.login_header{
+	font-size:1.4em;
+	font-weight:bold;
+	color:white;
+	background:#1FADFB;
+	padding:10px 20px 10px 20px;
+}
+
+.login_body{
+	padding:20px;
+}
+
+.login_body>input{
+	width:200px;
+	padding:5px;
+	border:1px solid #ccc;
+}
+
+.login_footer{
+	background:#dedede;
+	height:30px;
+	padding:5px;
+}
+
+#login_btn{
+	border:1px solid #04A21F;
+	background:#24C578;
+	color:white;
+	font-size:1.1em;
+	display:block;
+	width:50px;
+	margin-left:auto;
+	margin-right:auto;
+	line-height:28px;
+	text-align:center;
+	text-decoration:none;
+}
