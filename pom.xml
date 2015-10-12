@@ -255,36 +255,5 @@
             <artifactId>joda-time</artifactId>
             <version>2.8.1</version>
         </dependency>
-
     </dependencies>
-
-    <build>
-        <finalName>fortune</finalName>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <encoding>utf-8</encoding>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*Tests.java</include>
-                    </includes>
-                </configuration>
-            </plugin>
-        </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/resource</directory>
-            </resource>
-        </resources>
-    </build>
-
-
 </project>

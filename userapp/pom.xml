@@ -10,7 +10,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>userapp</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <dependencies>
         <dependency>
@@ -18,7 +17,5 @@
             <artifactId>configuration</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-    </dependencies>
-
-    
+    </dependencies>    
 </project>
