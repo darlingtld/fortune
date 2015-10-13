@@ -28,4 +28,8 @@ public class UserDao {
     public List<User> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from User").list();
     }
+
+    public User getUserByUsername(String username) {
+        return (User) sessionFactory.getCurrentSession().createQuery(String.format("from User where username='%s'", username)).uniqueResult();
+    }
 }

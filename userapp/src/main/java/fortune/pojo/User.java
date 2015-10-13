@@ -1,5 +1,9 @@
 package fortune.pojo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -34,7 +38,6 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", PGroups=" + PGroups +
                 ", account=" + account +
                 ", lastLoginTime=" + lastLoginTime +
                 '}';

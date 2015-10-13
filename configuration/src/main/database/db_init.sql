@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2015-10-13 17:11:15
+Date: 2015-10-13 17:58:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,13 +61,14 @@ CREATE TABLE `user` (
   `last_login_time` datetime DEFAULT NULL,
   `account` double(11,0) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'lingda', '123', 'NORMAL_USER', '2015-10-13 17:10:51', '10');
-INSERT INTO `user` VALUES ('2', 'darling', '456', 'NORMAL_USER', '2015-10-13 16:46:26', '0');
-INSERT INTO `user` VALUES ('3', 'darling', '456', 'NORMAL_USER', '2015-10-13 16:48:40', '0');
-INSERT INTO `user` VALUES ('4', 'darling tang', '12345', 'NORMAL_USER', '2015-10-13 17:05:13', '0');
-INSERT INTO `user` VALUES ('5', 'darling tang', '12345', 'NORMAL_USER', '2015-10-13 17:07:15', '0');
+INSERT INTO `user` VALUES ('1', 'lingda', '$2a$10$miuPjytd/BpclHpiY/jKbO31qcg6JVr6GYd2IbzEp6M2u6./oN.na', 'NORMAL_USER', '2015-10-13 17:10:51', '10');
+INSERT INTO `user` VALUES ('2', 'darling', '$2a$10$tivdgootjezOVMvzf5Dgc.IIhIBAnCmyO1YQzb7wlb.nw7xOM8Sdy', 'NORMAL_USER', '2015-10-13 16:46:26', '0');
+INSERT INTO `user` VALUES ('3', 'darling1', '$2a$10$tivdgootjezOVMvzf5Dgc.IIhIBAnCmyO1YQzb7wlb.nw7xOM8Sdy', 'NORMAL_USER', '2015-10-13 16:48:40', '0');
+INSERT INTO `user` VALUES ('4', 'darling tang', '$2a$10$2e598txs8FLEpoYyCU9QW.0KB7EfN8/2ueVrFVME/KAL0LmfVXfuS', 'NORMAL_USER', '2015-10-13 17:05:13', '0');
+INSERT INTO `user` VALUES ('5', 'darling tang1', '$2a$10$7sTrLvT2sTtiXZhWUCcsQuj7YIOe5vsAWINmzuiwaurKotGJg0EzO', 'NORMAL_USER', '2015-10-13 17:07:15', '0');
+INSERT INTO `user` VALUES ('6', 'lingda tang', '$2a$10$XWHkwpDL.wYEcDI7kHC4..cl2k8QKUani5vR0S8TXEUWBu5PWVxRy', 'NORMAL_USER', '2015-10-13 17:31:35', '0');

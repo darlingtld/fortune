@@ -33,7 +33,7 @@ public class UserServiceTest {
     @Test
     public void createUser() {
         User user = new User();
-        user.setUsername("darling tang");
+        user.setUsername("lingda tang");
         user.setPassword("12345");
         user.setRole(Role.NORMAL_USER);
         user.setLastLoginTime(new Date());
@@ -47,5 +47,12 @@ public class UserServiceTest {
         List<User> userList = userService.getAll();
         PGroup.setUsers(Sets.newHashSet(userList));
         pGroupService.createGroup(PGroup);
+    }
+
+    @Test
+    public void loginUser() {
+        User user = userService.login("lingda", "123");
+        System.out.println(user+"==>"+user.getPGroups().size());
+
     }
 }
