@@ -7,7 +7,7 @@ body{
 .login_area{
 	margin:100px auto auto auto;
 	width:400px;
-	border:1px solid #dedede;
+	border:2px solid #dedede;
 	background:white;
 }
 
@@ -24,7 +24,7 @@ body{
 }
 
 .login_body>input{
-	width:200px;
+	width:286px;
 	padding:5px;
 	border:1px solid #ccc;
 }
