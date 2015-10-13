@@ -1,24 +1,68 @@
 package fortune.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by darlingtld on 2015/10/6 0006.
  */
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
-    @Column(name="account")
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    private Set<PGroup> PGroups;
+    @Column(name = "account")
     private double account;
+    @Column(name = "last_login_time")
+    private Date lastLoginTime;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", PGroups=" + PGroups +
+                ", account=" + account +
+                ", lastLoginTime=" + lastLoginTime +
+                '}';
+    }
+
+    public Set<PGroup> getPGroups() {
+        return PGroups;
+    }
+
+    public void setPGroups(Set<PGroup> PGroups) {
+        this.PGroups = PGroups;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public int getId() {
         return id;
