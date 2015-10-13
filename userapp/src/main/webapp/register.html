@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	    <meta charset="utf-8">
+	    <link rel="stylesheet" href="css/register.css">
+	    <title>会员注册</title>
+    </head>
+    <body>
+        <div class="register_area" ng-app="register" ng-controller="RegisterController">
+        	<div class="register_header">会员注册</div>
+        	<div class="register_body">
+        		<label for="username">请输入账号：</label>
+        		<input type="text" id="username" ng-model="username"/><br/><br/>
+        		<label for="password">请输入密码：</label>
+        		<input type="password" id="password" ng-model="password"/><br/><br/>
+        		<label for="password2">请再次输入密码：</label>
+        		<input type="password" id="password2" ng-model="password2"/>
+        		<p class="error_message" ng-show="isError">{{errorMessage}}</p>
+        	</div>
+        	<div class="register_footer">
+        		<a href="javascript:;" class="btn" ng-click="register()">注册</a>
+        	</div>
+        </div>
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/register.js"></script>
+    </body>
+</html>

@@ -9,16 +9,19 @@
     </head>
     <body>
         <div class="login_area" ng-app="login" ng-controller="LoginController">
-        	<div class="login_header">会员登录</div>
+        	<div class="login_header">
+        		会员登录
+        	</div>
         	<div class="login_body">
         		<label for="username">账号：</label>
-        		<input type="text" ng-model="username"/><br/><br/>
+        		<input type="text" id="username" ng-model="username"/><br/><br/>
         		<label for="password">密码：</label>
-        		<input type="password" ng-model="password"/>
+        		<input type="password" id="password" ng-model="password"/>
+        		<p class="error_message" ng-show="isError">登录失败！</p>
         	</div>
         	<div class="login_footer">
-        		<a href="javascript:;" id="login_btn" ng-click="login()">登录</a>
-        		<span class="error_message" ng-show="isError">登录失败！</span>
+        		<a href="javascript:;" class="btn" ng-click="login()">登录</a>
+        		<a href="register.html" class="btn">注册</a>
         	</div>
         </div>
         <script src="js/lib/angular.min.js"></script>

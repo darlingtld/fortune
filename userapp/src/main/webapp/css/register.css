@@ -4,14 +4,14 @@ body{
 	color:#666;
 }
 
-.login_area{
+.register_area{
 	margin:100px auto auto auto;
 	width:400px;
 	border:2px solid #dedede;
 	background:white;
 }
 
-.login_header{
+.register_header{
 	font-size:1.4em;
 	font-weight:bold;
 	color:white;
@@ -19,20 +19,25 @@ body{
 	padding:10px 20px 10px 20px;
 }
 
-.login_body{
+.register_body{
 	padding:20px;
 }
 
-.login_body>input{
-	width:286px;
+.register_body>input{
+	width:200px;
 	padding:5px;
 	border:1px solid #ccc;
 }
 
-.login_footer{
+.register_body>label{
+	display:inline-block;
+	width:112px;
+}
+
+.register_footer{
 	background:#dedede;
 	height:30px;
-	padding:5px 100px;
+	padding:5px;
 }
 
 .btn{
@@ -45,8 +50,8 @@ body{
 	line-height:28px;
 	text-align:center;
 	text-decoration:none;
-	float:left;
-	margin-left:20px;
+	margin-left:auto;
+	margin-right:auto;
 	border-radius:5px;
 }
 
