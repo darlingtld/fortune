@@ -48,3 +48,9 @@ body{
 	text-align:center;
 	text-decoration:none;
 }
+
+.error_message{
+	float:right;
+	color:red;
+	font-weight:bold;
+}
