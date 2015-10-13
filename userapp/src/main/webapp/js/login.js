@@ -2,7 +2,7 @@ var loginApp = angular.module("login", []);
 loginApp.controller("LoginController", function($scope, $http) {
 	$scope.isError = false;
 	$scope.login = function() {
-		$scope.isError = true;
+		$scope.isError = false;
 		$http.post("user/login", {
 			"name" : $scope.username,
 			"password" : $scope.password
