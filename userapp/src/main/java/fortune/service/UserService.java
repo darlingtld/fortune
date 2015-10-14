@@ -1,11 +1,10 @@
 package fortune.service;
 
 import com.google.common.base.Strings;
-import com.google.zxing.common.StringUtils;
+import common.Utils;
 import fortune.dao.UserDao;
 import fortune.pojo.Role;
 import fortune.pojo.User;
-import fortune.utililty.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

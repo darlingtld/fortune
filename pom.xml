@@ -12,6 +12,8 @@
         <module>configuration</module>
         <module>userapp</module>
         <module>security</module>
+        <module>gamble-core</module>
+        <module>utility</module>
     </modules>
 
     <properties>

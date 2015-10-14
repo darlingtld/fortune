@@ -1,9 +1,9 @@
 package fortune.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import common.Utils;
 import fortune.pojo.User;
 import fortune.service.UserService;
-import fortune.utililty.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;

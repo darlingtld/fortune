@@ -1,8 +1,8 @@
 package fortune.service;
 
+import common.Utils;
 import fortune.dao.PGroupDao;
 import fortune.pojo.PGroup;
-import fortune.utililty.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
