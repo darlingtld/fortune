@@ -19,10 +19,10 @@ registerApp.controller("RegisterController", function ($scope, $http) {
                 password: $scope.password
             }).success(function () {
                 $scope.isError = false;
-                document.location.href = "index.html"
+                document.location.href = "login.html";
             }).error(function (data, status, headers) {
                 $scope.isError = true;
-                console.log(headers('message'));
+                $scope.errorMessage = headers('message');
             })
         }
 

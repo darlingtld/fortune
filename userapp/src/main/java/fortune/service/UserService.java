@@ -71,11 +71,11 @@ public class UserService {
     public void register(String name, String password) {
         Utils.logger.info("register user {} {}", name, password);
         if (Strings.isNullOrEmpty(name)) {
-            throw new RuntimeException("username is empty");
+            throw new RuntimeException("账号不能为空！");
         } else if (Strings.isNullOrEmpty(password)) {
-            throw new RuntimeException("password is empty");
+            throw new RuntimeException("密码不能为空！");
         } else if (userDao.getUserByUsername(name) != null) {
-            throw new RuntimeException("username existed");
+            throw new RuntimeException("该用户名已存在！");
         } else {
             User user = new User();
             user.setUsername(name);
