@@ -40,13 +40,32 @@ body {
 
 .content {
 	float: left;
-	width: 890px;
+	width: 870px;
 	height: 500px;
+	background:white;
+	margin-top:15px;
+	border: 1px solid #dedede;
+	margin-left:15px;
 }
 
 .menu_logo {
 	background: #1FADFB;
 	height: 80px;
+}
+
+.logo{
+	width: 1190px;
+	margin: 0px auto;
+	padding:10px;
+	height:60px;
+}
+
+.logo>span{
+	margin-left:20px;
+	margin-right:20px;
+	font-size:1.5em;
+	color:white;
+	font-weight:bold;
 }
 
 .menu_bar {
@@ -92,7 +111,8 @@ body {
 }
 
 .side_area {
-	border: 2px solid #dedede;
+	border: 1px solid #dedede;
+	border-bottom-width:3px;
 	background: white;
 	margin-top: 15px;
 }
