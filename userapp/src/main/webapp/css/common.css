@@ -1,0 +1,112 @@
+body {
+	background: #eee;
+	font-size: 14px;
+	color: #666;
+	margin: 0px;
+}
+
+.btn {
+	border: 1px solid #04A21F;
+	background: #24C578;
+	color: white;
+	font-size: 1.1em;
+	display: block;
+	width: 50px;
+	line-height: 28px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+.btn:hover {
+	background: #1CE845;
+}
+
+.nav {
+	height: 100px;
+}
+
+.section {
+	width: 1190px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.sidebar {
+	float: left;
+	width: 300px;
+	height: 500px;
+}
+
+.content {
+	float: left;
+	width: 890px;
+	height: 500px;
+}
+
+.menu_logo {
+	background: #1FADFB;
+	height: 60px;
+}
+
+.menu_bar {
+	background: #333;
+	height: 40px;
+}
+
+.menu_item_list {
+	width: 1090px;
+	margin: 0px auto;
+	list-style: none;
+}
+
+.menu_item {
+	float: left;
+}
+
+.menu_item>a {
+	color: white;
+	text-decoration: none;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	padding: 5px 20px 5px 20px;
+	cursor: pointer;
+}
+
+.menu_item>a:hover {
+	background: #898989;
+}
+
+.side_area {
+	border: 2px solid #dedede;
+	background: white;
+	margin-top: 15px;
+}
+
+.side_header {
+	color: white;
+	background: #1FADFB;
+	text-align: center;
+	padding: 10px;
+}
+
+.side_body table {
+	width: 90%;
+	margin: 5px auto;
+	border-collapse: collapse;
+}
+
+.side_body table th, .side_body table td {
+	padding: 5px;
+	text-align: left;
+}
+
+.side_body table th {
+	font-weight: bold;
+	background: #BAE4FB;
+}
+
+.side_body table tr:nth-child(odd) {
+	background: #FDFDCE;
+}

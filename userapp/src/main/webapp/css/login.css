@@ -1,8 +1,4 @@
-body{
-	background:#eee;
-	font-size:14px;
-	color:#666;
-}
+@import url("common.css");
 
 .login_area{
 	margin:100px auto auto auto;
@@ -36,22 +32,8 @@ body{
 }
 
 .btn{
-	border:1px solid #04A21F;
-	background:#24C578;
-	color:white;
-	font-size:1.1em;
-	display:block;
-	width:50px;
-	line-height:28px;
-	text-align:center;
-	text-decoration:none;
-	float:left;
 	margin-left:20px;
-	border-radius:5px;
-}
-
-.btn:hover{
-	background:#1CE845;
+	float:left;
 }
 
 .error_message{
