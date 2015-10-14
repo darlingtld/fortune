@@ -10,4 +10,6 @@ public class Utils {
 
     public static final Logger logger = LoggerFactory.getLogger(Utils.class);
 
+    public static final String HEADER_MESSAGE = "message";
+
 }

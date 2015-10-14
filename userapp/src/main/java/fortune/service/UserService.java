@@ -1,6 +1,9 @@
 package fortune.service;
 
+import com.google.common.base.Strings;
+import com.google.zxing.common.StringUtils;
 import fortune.dao.UserDao;
+import fortune.pojo.Role;
 import fortune.pojo.User;
 import fortune.utililty.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +66,23 @@ public class UserService {
     public User getUserByUsername(String name) {
         Utils.logger.info("get user by name {}", name);
         return userDao.getUserByUsername(name);
+    }
+
+    @Transactional
+    public void register(String name, String password) {
+        Utils.logger.info("register user {} {}", name, password);
+        if (Strings.isNullOrEmpty(name)) {
+            throw new RuntimeException("username is empty");
+        } else if (Strings.isNullOrEmpty(password)) {
+            throw new RuntimeException("password is empty");
+        } else if (userDao.getUserByUsername(name) != null) {
+            throw new RuntimeException("username existed");
+        } else {
+            User user = new User();
+            user.setUsername(name);
+            user.setPassword(PasswordEncryptUtil.encrypt(password));
+            user.setRole(Role.NORMAL_USER);
+            userDao.createUser(user);
+        }
     }
 }
