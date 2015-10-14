@@ -23,7 +23,7 @@ body {
 }
 
 .nav {
-	height: 100px;
+	height: 120px;
 }
 
 .section {
@@ -46,7 +46,7 @@ body {
 
 .menu_logo {
 	background: #1FADFB;
-	height: 60px;
+	height: 80px;
 }
 
 .menu_bar {
@@ -55,13 +55,26 @@ body {
 }
 
 .menu_item_list {
-	width: 1090px;
+	width: 1190px;
 	margin: 0px auto;
 	list-style: none;
+	padding:0px;
 }
 
 .menu_item {
 	float: left;
+}
+
+.menu_user_info{
+	float: right;
+	color: white;
+	line-height: 40px;
+}
+
+.menu_user_info>a{
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
 }
 
 .menu_item>a {
