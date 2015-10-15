@@ -7,11 +7,11 @@
 	    <link rel="stylesheet" href="css/index.css">
 	    <title>博彩大厅</title>
     </head>
-    <body ng-app="index">        
+    <body ng-app="index" ng-controller="IndexController">        
         <div class="nav" ng-include="'includes/nav.html'"></div>
         <div class="section">
 	        <div class="sidebar" ng-include="'includes/sidebar.html'"></div>
-    	    <div class="content" ng-controller="TabController">
+    	    <div class="content">
     	    	<div class="tab_bar">
     	    		<div ng-repeat="item in items" ng-class="{true: 'tab_item selected', false: 'tab_item'}[$index==selectedIndex]" ng-click="goTab($index)">{{item}}</div>
     	    	</div>
