@@ -106,7 +106,7 @@ body {
 	cursor: pointer;
 }
 
-.menu_item>a:hover {
+.menu_item>a:hover, .menu_item.current {
 	background: #898989;
 }
 
@@ -142,4 +142,8 @@ body {
 
 .side_body table tr:nth-child(odd) {
 	background: #FDFDCE;
+}
+
+.clear{
+	clear:both;
 }

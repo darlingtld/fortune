@@ -1,1 +1,32 @@
 @import url("common.css");
+
+.tab_bar{
+	overflow: hidden;
+}
+
+.tab_item{
+	border-bottom:1px solid #dedede;
+	border-right:1px solid #dedede;
+	width:66px;
+	float:left;
+	text-align:center;
+	padding-top:9px;
+	padding-bottom:9px;
+	background:#1FADFB;
+	color:white;
+	cursor:pointer;
+}
+
+.tab_item:hover{
+	background:#1FC1FB;
+}
+
+.tab_item.selected{
+	border-bottom:none;
+	background:white;
+	color:#666;
+}
+
+.tab_item:last-child{
+	border-right:none;
+}

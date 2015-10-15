@@ -7,14 +7,56 @@
 	    <link rel="stylesheet" href="css/index.css">
 	    <title>博彩大厅</title>
     </head>
-    <body ng-app>        
+    <body ng-app="index">        
         <div class="nav" ng-include="'includes/nav.html'"></div>
         <div class="section">
 	        <div class="sidebar" ng-include="'includes/sidebar.html'"></div>
-    	    <div class="content">
-    	    	
+    	    <div class="content" ng-controller="TabController">
+    	    	<div class="tab_bar">
+    	    		<div ng-repeat="item in items" ng-class="{true: 'tab_item selected', false: 'tab_item'}[$index==selectedIndex]" ng-click="goTab($index)">{{item}}</div>
+    	    	</div>
+    	    	<div ng-show="selectedIndex==0">
+    	    		0
+    	    	</div>
+    	    	<div ng-show="selectedIndex==1">
+    	    		1
+    	    	</div>
+    	    	<div ng-show="selectedIndex==2">
+    	    		2
+    	    	</div>
+    	    	<div ng-show="selectedIndex==3">
+    	    		3
+    	    	</div>
+    	    	<div ng-show="selectedIndex==4">
+    	    		4
+    	    	</div>
+    	    	<div ng-show="selectedIndex==5">
+    	    		5
+    	    	</div>
+    	    	<div ng-show="selectedIndex==6">
+    	    		6
+    	    	</div>
+    	    	<div ng-show="selectedIndex==7">
+    	    		7
+    	    	</div>
+    	    	<div ng-show="selectedIndex==8">
+    	    		8
+    	    	</div>
+    	    	<div ng-show="selectedIndex==9">
+    	    		9
+    	    	</div>
+    	    	<div ng-show="selectedIndex==10">
+    	    		10
+    	    	</div>
+    	    	<div ng-show="selectedIndex==11">
+    	    		11
+    	    	</div>
+    	    	<div ng-show="selectedIndex==12">
+    	    		12
+    	    	</div>
     	    </div>
     	</div>
         <script src="js/lib/angular.min.js"></script>
+        <script src="js/index.js"></script>
     </body>
 </html>
