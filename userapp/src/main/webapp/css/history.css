@@ -1,0 +1,59 @@
+@import url("common.css");
+
+.content>table{
+	width:100%;
+	border-collapse: collapse;
+	background:white;
+	margin-top:15px;
+}
+
+.content>table td{
+	padding-top:10px;
+	padding-bottom:10px;
+	text-align:center;
+	border-right:1px solid #eee;
+}
+
+.content>table th{
+	color:white;
+	background:#1FADFB;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-right:1px solid #eee;
+	text-align:center;
+}
+
+.content>table th:last-child, .content>table td:last-child{
+	border-right:none;
+}
+
+.content>table tr:nth-child(odd) {
+	background: #FDFDCE;
+}
+
+.th_two>th{
+	border-top:1px solid #eee;
+	font-weight:normal;
+}
+
+.ball{
+	color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 13px;
+    float: left;
+    line-height: 25px;
+    margin-left:2px;
+}
+
+.red{
+	background:red;
+}
+
+.blue{
+	background:blue;
+}
+
+.green{
+	background:green;
+}

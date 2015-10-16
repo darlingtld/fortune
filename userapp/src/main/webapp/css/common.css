@@ -41,10 +41,7 @@ body {
 .content {
 	float: left;
 	width: 870px;
-	height: 500px;
-	background:white;
 	margin-top:15px;
-	border: 1px solid #dedede;
 	margin-left:15px;
 }
 

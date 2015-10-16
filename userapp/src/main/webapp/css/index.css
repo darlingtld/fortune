@@ -30,3 +30,17 @@
 .tab_item:last-child{
 	border-right:none;
 }
+
+.error_content{
+	font-weight:bold;
+	text-align:center;
+	font-size:1.5em;
+	color:red;
+	padding-top:30px;
+	padding-bottom:30px;
+}
+
+.content{
+	background:white;
+	border: 1px solid #dedede;
+}

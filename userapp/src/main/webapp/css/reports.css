@@ -1,0 +1,65 @@
+@import url("common.css");
+
+.date_area{
+	width:830px;
+	background:white;
+	border: 1px solid #dedede;
+	padding:20px;
+	height:35px;
+}
+
+.date_area>input{
+	padding:5px;
+	line-height:20px;
+	border:1px solid ＃999;
+}
+
+.content>table{
+	width:100%;
+	border-collapse: collapse;
+	background:white;
+	margin-top:15px;
+}
+
+.content>table td{
+	padding:10px;
+	text-align:left;
+}
+
+.content>table th{
+	color:white;
+	background:#1FADFB;
+	padding:10px;
+	border-right:1px solid #fff;
+	text-align:left;
+}
+
+.content>table .sum_row>th{
+	background:#BAE4FB;
+	color:#666;
+	font-weight:normal;
+	border-right:none;
+}
+
+.content>table th:last-child{
+	border-right:none;
+}
+
+.content>table tr:nth-child(odd) {
+	background: #FDFDCE;
+}
+
+.btn{
+	float: left;
+	margin-left:10px;
+}
+
+.date_area>span, .date_area>input{
+	float:left;
+}
+
+.date_area>span{
+	margin-left:10px;
+	margin-right:10px;
+	line-height:35px;
+}

@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+    <head>
+    	<meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	    <meta charset="utf-8">
+	    <link rel="stylesheet" href="css/history.css">
+	    <title>开奖历史</title>
+    </head>
+    <body ng-app="history" ng-controller="HistoryController">        
+        <div class="nav" ng-include="'includes/nav.html'"></div>
+        <div class="section">
+	        <div class="sidebar" ng-include="'includes/sidebar.html'"></div>
+    	    <div class="content">
+    	    	<table>
+    	    		<tr>
+    	    			<th rowspan="2">期数</th>
+    	    			<th rowspan="2">星期</th>
+    	    			<th rowspan="2">日期</th>
+    	    			<th rowspan="2">彩球号码</th>
+    	    			<th>特</th>
+    	    			<th>特</th>
+    	    			<th>特</th>
+    	    			<th rowspan="2">总分</th>
+    	    			<th>总</th>
+    	    			<th>总</th>
+    	    			<th rowspan="2">生肖</th>
+    	    			<th>合</th>
+    	    			<th>合</th>
+    	    			<th rowspan="2">一肖</th>
+    	    			<th rowspan="2">波段</th>
+    	    		</tr>
+    	    		<tr class="th_two">
+    	    			<th>(单双)</th>
+    	    			<th>(大小)</th>
+    	    			<th>(大中小)</th>
+    	    			<th>(单双)</th>
+    	    			<th>(大小)</th>
+    	    			<th>(单双)</th>
+    	    			<th>(大小)</th>
+    	    		</tr>
+    	    		<tr>
+    	    			<td>120</td>
+    	    			<td>四</td>
+    	    			<td>2010-10-05</td>
+    	    			<td>
+    	    				<div class="red ball">11</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">11</div>
+    	    				<div class="blue ball">31</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">22</div>
+    	    				<div class="blue ball">44</div>
+						</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>中</td>
+    	    			<td>180</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>兔</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>鼠牛虎兔龙蛇</td>
+    	    			<td>红</td>
+    	    		</tr>
+    	    		<tr>
+    	    			<td>120</td>
+    	    			<td>四</td>
+    	    			<td>2010-10-05</td>
+    	    			<td>
+    	    				<div class="red ball">11</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">11</div>
+    	    				<div class="blue ball">31</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">22</div>
+    	    				<div class="blue ball">44</div>
+						</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>中</td>
+    	    			<td>180</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>兔</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>鼠牛虎兔龙蛇</td>
+    	    			<td>红</td>
+    	    		</tr>
+    	    		<tr>
+    	    			<td>120</td>
+    	    			<td>四</td>
+    	    			<td>2010-10-05</td>
+    	    			<td>
+    	    				<div class="red ball">11</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">11</div>
+    	    				<div class="blue ball">31</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">22</div>
+    	    				<div class="blue ball">44</div>
+						</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>中</td>
+    	    			<td>180</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>兔</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>鼠牛虎兔龙蛇</td>
+    	    			<td>红</td>
+    	    		</tr>
+    	    		<tr>
+    	    			<td>120</td>
+    	    			<td>四</td>
+    	    			<td>2010-10-05</td>
+    	    			<td>
+    	    				<div class="red ball">11</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">11</div>
+    	    				<div class="blue ball">31</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">22</div>
+    	    				<div class="blue ball">44</div>
+						</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>中</td>
+    	    			<td>180</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>兔</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>鼠牛虎兔龙蛇</td>
+    	    			<td>红</td>
+    	    		</tr>
+    	    		<tr>
+    	    			<td>120</td>
+    	    			<td>四</td>
+    	    			<td>2010-10-05</td>
+    	    			<td>
+    	    				<div class="red ball">11</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">11</div>
+    	    				<div class="blue ball">31</div>
+    	    				<div class="red ball">32</div>
+    	    				<div class="green ball">22</div>
+    	    				<div class="blue ball">44</div>
+						</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>中</td>
+    	    			<td>180</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>兔</td>
+    	    			<td>单</td>
+    	    			<td>大</td>
+    	    			<td>鼠牛虎兔龙蛇</td>
+    	    			<td>红</td>
+    	    		</tr>
+    	    	</table>
+    	    </div>
+    	</div>
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/history.js"></script>
+    </body>
+</html>
