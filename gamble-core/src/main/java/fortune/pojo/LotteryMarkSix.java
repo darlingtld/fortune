@@ -1,4 +1,4 @@
-package lottery.pojo;
+package fortune.pojo;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "lottery_mark_six")
-public class LotteryMarkSix {
+public class LotteryMarkSix extends Lottery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

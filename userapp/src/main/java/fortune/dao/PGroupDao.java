@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by tangl9 on 2015-10-13.
  */
@@ -20,5 +22,9 @@ public class PGroupDao {
 
     public void createGroup(PGroup PGroup) {
         sessionFactory.getCurrentSession().save(PGroup);
+    }
+
+    public List<PGroup> getGroupAll() {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from PGroup")).list();
     }
 }

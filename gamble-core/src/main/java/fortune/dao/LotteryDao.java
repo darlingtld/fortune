@@ -1,6 +1,6 @@
-package lottery.dao;
+package fortune.dao;
 
-import lottery.pojo.LotteryMarkSix;
+import fortune.pojo.LotteryMarkSix;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

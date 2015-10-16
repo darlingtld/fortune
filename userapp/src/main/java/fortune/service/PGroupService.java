@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by tangl9 on 2015-10-13.
  */
@@ -26,5 +28,11 @@ public class PGroupService {
     public void createGroup(PGroup PGroup) {
         Utils.logger.info("create PGroup {}", PGroup);
         PGroupDao.createGroup(PGroup);
+    }
+
+    @Transactional
+    public List<PGroup> getGroupAll() {
+        Utils.logger.info("get PGroup all");
+        return PGroupDao.getGroupAll();
     }
 }

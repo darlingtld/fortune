@@ -1,7 +1,7 @@
-package lottery.controller;
+package fortune.controller;
 
-import lottery.pojo.LotteryMarkSix;
-import lottery.service.LotteryService;
+import fortune.pojo.LotteryMarkSix;
+import fortune.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Scope("prototype")
 @Controller
-@RequestMapping("/lottery")
+@RequestMapping("/fortune")
 public class LotteryController {
 
     @Autowired

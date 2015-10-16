@@ -1,8 +1,8 @@
-package lottery.service;
+package fortune.service;
 
 import common.Utils;
-import lottery.dao.LotteryDao;
-import lottery.pojo.LotteryMarkSix;
+import fortune.dao.LotteryDao;
+import fortune.pojo.LotteryMarkSix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +20,13 @@ public class LotteryService {
 
     @Transactional
     public List<LotteryMarkSix> getLotteryMarkSixAll() {
-        Utils.logger.info("get all lottery mark six");
+        Utils.logger.info("get all fortune mark six");
         return lotteryDao.getLotteryMarkSixAll();
     }
 
     @Transactional
     public void saveLotteryMarkSix(LotteryMarkSix lotteryMarkSix) {
-        Utils.logger.info("save lottery mark six");
+        Utils.logger.info("save fortune mark six");
         lotteryDao.saveLotteryMarkSix(lotteryMarkSix);
     }
 }
