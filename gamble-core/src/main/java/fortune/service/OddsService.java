@@ -35,4 +35,10 @@ public class OddsService {
         Utils.logger.info("get all lottery odds");
         return oddsDao.getAll();
     }
+
+    @Transactional
+    public List<Odds> getOdds4Lottery(int lotteryId) {
+        Utils.logger.info("get odds for lottery {}", lotteryId);
+        return oddsDao.getOdds4Lottery(lotteryId);
+    }
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2015-10-14 11:35:26
+Date: 2015-10-16 17:31:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,6 +36,25 @@ CREATE TABLE `lottery_mark_six` (
 -- ----------------------------
 INSERT INTO `lottery_mark_six` VALUES ('1', '1', '23', '34', '65', '12', '44', '2015-10-14 11:32:44');
 INSERT INTO `lottery_mark_six` VALUES ('2', '6', '33', '7', '2', '12', '9', '2015-10-14 11:34:50');
+
+-- ----------------------------
+-- Table structure for odds
+-- ----------------------------
+DROP TABLE IF EXISTS `odds`;
+CREATE TABLE `odds` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lottery_id` int(11) DEFAULT NULL,
+  `pgroup_id` int(11) DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of odds
+-- ----------------------------
+INSERT INTO `odds` VALUES ('1', '2', '3', '10', '2015-10-16 17:15:20');
+INSERT INTO `odds` VALUES ('2', '2', '3', '10', '2015-10-16 17:19:21');
 
 -- ----------------------------
 -- Table structure for pgroup

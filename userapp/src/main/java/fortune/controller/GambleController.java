@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Scope("prototype")
 @Controller
 @RequestMapping("/gamble")
@@ -30,5 +32,12 @@ public class GambleController {
     @ResponseBody
     Odds getOddsById(@PathVariable("odds_id") int oddsId) {
         return oddsService.getOddsById(oddsId);
+    }
+
+    @RequestMapping(value = "odds/lottery/{lottery_id}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Odds> getOdds4Lottery(@PathVariable("lottery_id") int lotteryId) {
+        return oddsService.getOdds4Lottery(lotteryId);
     }
 }

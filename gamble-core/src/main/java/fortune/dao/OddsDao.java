@@ -27,4 +27,8 @@ public class OddsDao {
     public List<Odds> getAll() {
         return sessionFactory.getCurrentSession().createQuery(String.format("from Odds")).list();
     }
+
+    public List<Odds> getOdds4Lottery(int lotteryId) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from Odds where lotteryMarkSix.id=%d", lotteryId)).list();
+    }
 }

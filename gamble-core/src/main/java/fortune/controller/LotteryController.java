@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Scope("prototype")
 @Controller
-@RequestMapping("/fortune")
+@RequestMapping("/lottery")
 public class LotteryController {
 
     @Autowired
