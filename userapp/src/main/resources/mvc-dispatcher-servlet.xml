@@ -67,4 +67,6 @@
     <!--<task:scheduled ref="imageCrawler" method="fullfillImages" cron="0 0 */1 * * ?"/>-->
     <!--</task:scheduled-tasks>-->
     <!--<task:scheduler id="myScheduler" pool-size="4"/>-->
+
+    <import resource="spring-memcache.xml"></import>
 </beans>
