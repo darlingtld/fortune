@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : local mysql
-Source Server Version : 50625
+Source Server         : Local MySQL
+Source Server Version : 50622
 Source Host           : localhost:3306
 Source Database       : fortune
 
 Target Server Type    : MYSQL
-Target Server Version : 50625
+Target Server Version : 50622
 File Encoding         : 65001
 
-Date: 2015-10-16 17:31:40
+Date: 2015-10-18 09:28:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,20 +22,30 @@ DROP TABLE IF EXISTS `lottery_mark_six`;
 CREATE TABLE `lottery_mark_six` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `one` int(11) DEFAULT NULL,
+  `one_color` varchar(255) DEFAULT NULL,
   `two` int(11) DEFAULT NULL,
+  `two_color` varchar(255) DEFAULT NULL,
   `three` int(11) DEFAULT NULL,
+  `three_color` varchar(255) DEFAULT NULL,
   `four` int(11) DEFAULT NULL,
+  `four_color` varchar(255) DEFAULT NULL,
   `five` int(11) DEFAULT NULL,
+  `five_color` varchar(255) DEFAULT NULL,
   `six` int(11) DEFAULT NULL,
+  `six_color` varchar(255) DEFAULT NULL,
+  `special` int(11) DEFAULT NULL,
+  `special_color` varchar(255) DEFAULT NULL,
+  `issue` int(11) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_mark_six
 -- ----------------------------
-INSERT INTO `lottery_mark_six` VALUES ('1', '1', '23', '34', '65', '12', '44', '2015-10-14 11:32:44');
-INSERT INTO `lottery_mark_six` VALUES ('2', '6', '33', '7', '2', '12', '9', '2015-10-14 11:34:50');
+INSERT INTO `lottery_mark_six` VALUES ('3', '28', 'GREEN', '45', 'RED', '41', 'RED', '47', 'RED', '35', 'BLUE', '48', 'GREEN', '4', 'BLUE', '1445131', '2015-10-18 09:26:15');
+INSERT INTO `lottery_mark_six` VALUES ('4', '1', 'GREEN', '45', 'GREEN', '37', 'GREEN', '30', 'GREEN', '34', 'RED', '17', 'GREEN', '8', 'BLUE', '1445131', '2015-10-18 09:27:19');
+INSERT INTO `lottery_mark_six` VALUES ('5', '24', 'BLUE', '13', 'BLUE', '5', 'BLUE', '27', 'GREEN', '22', 'GREEN', '23', 'RED', '20', 'RED', '1445131', '2015-10-18 09:27:32');
 
 -- ----------------------------
 -- Table structure for odds

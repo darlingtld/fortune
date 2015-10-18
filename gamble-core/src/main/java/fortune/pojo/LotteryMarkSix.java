@@ -42,12 +42,22 @@ public class LotteryMarkSix extends Lottery {
     @Column(name = "six_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor sixColor;
+
+    public int getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(int special) {
+        this.special = special;
+    }
+
     @Column(name = "special")
-    private int specal;
+    private int special;
     @Column(name = "special_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor specialColor;
-
+    @Column(name="issue")
+    private int issue;
     @Column(name = "timestamp")
     private Date timestamp;
 
@@ -80,10 +90,19 @@ public class LotteryMarkSix extends Lottery {
                 ", fiveColor=" + fiveColor +
                 ", six=" + six +
                 ", sixColor=" + sixColor +
-                ", specal=" + specal +
+                ", special=" + special +
                 ", specialColor=" + specialColor +
+                ", issue=" + issue +
                 ", timestamp=" + timestamp +
                 '}';
+    }
+
+    public int getIssue() {
+        return issue;
+    }
+
+    public void setIssue(int issue) {
+        this.issue = issue;
     }
 
     public MarkSixColor getOneColor() {
@@ -132,14 +151,6 @@ public class LotteryMarkSix extends Lottery {
 
     public void setSixColor(MarkSixColor sixColor) {
         this.sixColor = sixColor;
-    }
-
-    public int getSpecal() {
-        return specal;
-    }
-
-    public void setSpecal(int specal) {
-        this.specal = specal;
     }
 
     public MarkSixColor getSpecialColor() {
