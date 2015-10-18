@@ -14,16 +14,40 @@ public class LotteryMarkSix extends Lottery {
     private int id;
     @Column(name = "one")
     private int one;
+    @Column(name = "one_color")
+    @Enumerated(EnumType.STRING)
+    private MarkSixColor oneColor;
     @Column(name = "two")
     private int two;
+    @Column(name = "two_color")
+    @Enumerated(EnumType.STRING)
+    private MarkSixColor twoColor;
     @Column(name = "three")
     private int three;
+    @Column(name = "three_color")
+    @Enumerated(EnumType.STRING)
+    private MarkSixColor threeColor;
     @Column(name = "four")
     private int four;
+    @Column(name = "four_color")
+    @Enumerated(EnumType.STRING)
+    private MarkSixColor fourColor;
     @Column(name = "five")
     private int five;
+    @Column(name = "five_color")
+    @Enumerated(EnumType.STRING)
+    private MarkSixColor fiveColor;
     @Column(name = "six")
     private int six;
+    @Column(name = "six_color")
+    @Enumerated(EnumType.STRING)
+    private MarkSixColor sixColor;
+    @Column(name = "special")
+    private int specal;
+    @Column(name = "special_color")
+    @Enumerated(EnumType.STRING)
+    private MarkSixColor specialColor;
+
     @Column(name = "timestamp")
     private Date timestamp;
 
@@ -45,13 +69,85 @@ public class LotteryMarkSix extends Lottery {
         return "LotteryMarkSix{" +
                 "id=" + id +
                 ", one=" + one +
+                ", oneColor=" + oneColor +
                 ", two=" + two +
+                ", twoColor=" + twoColor +
                 ", three=" + three +
+                ", threeColor=" + threeColor +
                 ", four=" + four +
+                ", fourColor=" + fourColor +
                 ", five=" + five +
+                ", fiveColor=" + fiveColor +
                 ", six=" + six +
+                ", sixColor=" + sixColor +
+                ", specal=" + specal +
+                ", specialColor=" + specialColor +
                 ", timestamp=" + timestamp +
                 '}';
+    }
+
+    public MarkSixColor getOneColor() {
+        return oneColor;
+    }
+
+    public void setOneColor(MarkSixColor oneColor) {
+        this.oneColor = oneColor;
+    }
+
+    public MarkSixColor getTwoColor() {
+        return twoColor;
+    }
+
+    public void setTwoColor(MarkSixColor twoColor) {
+        this.twoColor = twoColor;
+    }
+
+    public MarkSixColor getThreeColor() {
+        return threeColor;
+    }
+
+    public void setThreeColor(MarkSixColor threeColor) {
+        this.threeColor = threeColor;
+    }
+
+    public MarkSixColor getFourColor() {
+        return fourColor;
+    }
+
+    public void setFourColor(MarkSixColor fourColor) {
+        this.fourColor = fourColor;
+    }
+
+    public MarkSixColor getFiveColor() {
+        return fiveColor;
+    }
+
+    public void setFiveColor(MarkSixColor fiveColor) {
+        this.fiveColor = fiveColor;
+    }
+
+    public MarkSixColor getSixColor() {
+        return sixColor;
+    }
+
+    public void setSixColor(MarkSixColor sixColor) {
+        this.sixColor = sixColor;
+    }
+
+    public int getSpecal() {
+        return specal;
+    }
+
+    public void setSpecal(int specal) {
+        this.specal = specal;
+    }
+
+    public MarkSixColor getSpecialColor() {
+        return specialColor;
+    }
+
+    public void setSpecialColor(MarkSixColor specialColor) {
+        this.specialColor = specialColor;
     }
 
     public int getId() {
