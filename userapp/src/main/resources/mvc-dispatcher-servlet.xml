@@ -65,7 +65,6 @@
 
     <bean id="messageSource"
                 class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basenames" value="message.properties" />
         <property name="defaultEncoding" value="UTF-8" />
     </bean>
     <!--<task:scheduled-tasks scheduler="myScheduler">-->
