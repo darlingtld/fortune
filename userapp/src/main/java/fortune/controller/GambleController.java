@@ -1,15 +1,19 @@
 package fortune.controller;
 
+import common.Utils;
 import fortune.pojo.GambleBetLotteryMarkSix;
 import fortune.pojo.Odds;
 import fortune.service.LotteryService;
 import fortune.service.OddsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @Scope("prototype")
@@ -26,7 +30,12 @@ public class GambleController {
     @RequestMapping(value = "wage", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    void wageLotteryMarkSix(@RequestBody GambleBetLotteryMarkSix gambleBetLotteryMarkSix, HttpServletResponse response) {
+    void wageLotteryMarkSix(@RequestBody @Valid GambleBetLotteryMarkSix gambleBetLotteryMarkSix, BindingResult result, HttpServletResponse response) {
+        if (result.hasErrors()) {
+            response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
+            response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+            return;
+        }
         lotteryService.saveGambleBetLotteryMarkSix(gambleBetLotteryMarkSix);
     }
 
