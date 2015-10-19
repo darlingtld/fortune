@@ -1,19 +1,52 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Local MySQL
-Source Server Version : 50622
+Source Server         : local mysql
+Source Server Version : 50625
 Source Host           : localhost:3306
 Source Database       : fortune
 
 Target Server Type    : MYSQL
-Target Server Version : 50622
+Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2015-10-18 09:28:02
+Date: 2015-10-19 17:45:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for gamble_bet_lottery_mark_six
+-- ----------------------------
+DROP TABLE IF EXISTS `gamble_bet_lottery_mark_six`;
+CREATE TABLE `gamble_bet_lottery_mark_six` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `pgroup_id` int(11) DEFAULT NULL,
+  `timestamp` datetime DEFAULT NULL,
+  `one` int(11) DEFAULT NULL,
+  `one_color` varchar(255) DEFAULT NULL,
+  `two` int(11) DEFAULT NULL,
+  `two_color` varchar(255) DEFAULT NULL,
+  `three` int(11) DEFAULT NULL,
+  `three_color` varchar(255) DEFAULT NULL,
+  `four` int(11) DEFAULT NULL,
+  `four_color` varchar(255) DEFAULT NULL,
+  `five` int(11) DEFAULT NULL,
+  `five_color` varchar(255) DEFAULT NULL,
+  `six` int(11) DEFAULT NULL,
+  `six_color` varchar(255) DEFAULT NULL,
+  `special` int(11) DEFAULT NULL,
+  `special_color` varchar(255) DEFAULT NULL,
+  `stakes` double DEFAULT NULL,
+  `issue` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of gamble_bet_lottery_mark_six
+-- ----------------------------
+INSERT INTO `gamble_bet_lottery_mark_six` VALUES ('1', '1', '4', '2015-10-19 10:08:53', '30', 'GREEN', '1', 'BLUE', '33', 'BLUE', '17', 'GREEN', '36', 'RED', '21', 'RED', '27', 'BLUE', '63270.90531424412', '1445220');
 
 -- ----------------------------
 -- Table structure for lottery_mark_six
@@ -91,7 +124,7 @@ CREATE TABLE `t_user_pgroup` (
   `userid` int(11) DEFAULT NULL,
   `pgroupid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of t_user_pgroup
@@ -99,6 +132,9 @@ CREATE TABLE `t_user_pgroup` (
 INSERT INTO `t_user_pgroup` VALUES ('4', '1', '4');
 INSERT INTO `t_user_pgroup` VALUES ('5', '3', '4');
 INSERT INTO `t_user_pgroup` VALUES ('6', '2', '4');
+INSERT INTO `t_user_pgroup` VALUES ('7', '1', '3');
+INSERT INTO `t_user_pgroup` VALUES ('8', '3', '3');
+INSERT INTO `t_user_pgroup` VALUES ('9', '5', '3');
 
 -- ----------------------------
 -- Table structure for user
@@ -117,7 +153,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'lingda', '$2a$10$miuPjytd/BpclHpiY/jKbO31qcg6JVr6GYd2IbzEp6M2u6./oN.na', 'NORMAL_USER', '2015-10-13 17:10:51', '10');
+INSERT INTO `user` VALUES ('1', 'lingda', '$2a$10$miuPjytd/BpclHpiY/jKbO31qcg6JVr6GYd2IbzEp6M2u6./oN.na', 'NORMAL_USER', '2015-10-19 17:08:38', '10');
 INSERT INTO `user` VALUES ('2', 'darling', '$2a$10$tivdgootjezOVMvzf5Dgc.IIhIBAnCmyO1YQzb7wlb.nw7xOM8Sdy', 'NORMAL_USER', '2015-10-13 16:46:26', '0');
 INSERT INTO `user` VALUES ('3', 'darling1', '$2a$10$tivdgootjezOVMvzf5Dgc.IIhIBAnCmyO1YQzb7wlb.nw7xOM8Sdy', 'NORMAL_USER', '2015-10-13 16:48:40', '0');
 INSERT INTO `user` VALUES ('4', 'darling tang', '$2a$10$2e598txs8FLEpoYyCU9QW.0KB7EfN8/2ueVrFVME/KAL0LmfVXfuS', 'NORMAL_USER', '2015-10-13 17:05:13', '0');
