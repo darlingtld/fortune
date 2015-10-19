@@ -1,6 +1,7 @@
 package fortune.dao;
 
 import fortune.pojo.PGroup;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,5 +27,11 @@ public class PGroupDao {
 
     public List<PGroup> getGroupAll() {
         return sessionFactory.getCurrentSession().createQuery(String.format("from PGroup")).list();
+    }
+
+    public void updatePGroup(PGroup pGroup) {
+        Session session = sessionFactory.getCurrentSession();
+        session.clear();
+        session.update(pGroup);
     }
 }

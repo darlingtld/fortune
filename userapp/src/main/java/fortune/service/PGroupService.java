@@ -3,6 +3,7 @@ package fortune.service;
 import common.Utils;
 import fortune.dao.PGroupDao;
 import fortune.pojo.PGroup;
+import fortune.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,23 +17,31 @@ import java.util.List;
 public class PGroupService {
 
     @Autowired
-    private PGroupDao PGroupDao;
+    private PGroupDao pGroupDao;
 
     @Transactional
     public PGroup getGroupById(int id) {
         Utils.logger.info("get PGroup by id {}", id);
-        return PGroupDao.getGroupById(id);
+        return pGroupDao.getGroupById(id);
     }
 
     @Transactional
     public void createGroup(PGroup PGroup) {
         Utils.logger.info("create PGroup {}", PGroup);
-        PGroupDao.createGroup(PGroup);
+        pGroupDao.createGroup(PGroup);
     }
 
     @Transactional
     public List<PGroup> getGroupAll() {
         Utils.logger.info("get PGroup all");
-        return PGroupDao.getGroupAll();
+        return pGroupDao.getGroupAll();
+    }
+
+    @Transactional
+    public void addUser(int pGroupId, User user) {
+        Utils.logger.info("pgroup {} add user {}", pGroupId, user);
+        PGroup pGroup = pGroupDao.getGroupById(pGroupId);
+        pGroup.getUsers().add(user);
+        pGroupDao.updatePGroup(pGroup);
     }
 }

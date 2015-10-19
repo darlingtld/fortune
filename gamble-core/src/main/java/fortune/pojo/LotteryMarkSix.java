@@ -1,6 +1,7 @@
 package fortune.pojo;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -12,43 +13,59 @@ public class LotteryMarkSix extends Lottery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
     @Column(name = "one")
     private int one;
+    @NotNull
     @Column(name = "one_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor oneColor;
+    @NotNull
     @Column(name = "two")
     private int two;
+    @NotNull
     @Column(name = "two_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor twoColor;
+    @NotNull
     @Column(name = "three")
     private int three;
+    @NotNull
     @Column(name = "three_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor threeColor;
+    @NotNull
     @Column(name = "four")
     private int four;
+    @NotNull
     @Column(name = "four_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor fourColor;
+    @NotNull
     @Column(name = "five")
     private int five;
+    @NotNull
     @Column(name = "five_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor fiveColor;
+    @NotNull
     @Column(name = "six")
     private int six;
+    @NotNull
     @Column(name = "six_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor sixColor;
+    @NotNull
     @Column(name = "special")
     private int special;
+    @NotNull
     @Column(name = "special_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor specialColor;
-    @Column(name="issue")
+    @NotNull
+    @Column(name = "issue")
     private int issue;
+    @NotNull
     @Column(name = "timestamp")
     private Date timestamp;
 

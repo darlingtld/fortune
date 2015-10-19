@@ -52,7 +52,14 @@ public class UserServiceTest {
     @Test
     public void loginUser() {
         User user = userService.login("lingda", "123");
-        System.out.println(user+"==>"+user.getPGroups().size());
+        System.out.println(user + "==>" + user.getPGroups().size());
 
+    }
+
+    @Test
+    public void pGroupAddUser() {
+        User user = userService.getUserById(5);
+//        PGroup pGroup = pGroupService.getGroupById(3);
+        pGroupService.addUser(3, user);
     }
 }

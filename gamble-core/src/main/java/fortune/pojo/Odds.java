@@ -1,6 +1,7 @@
 package fortune.pojo;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -13,14 +14,18 @@ public class Odds {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "lottery_id")
     private LotteryMarkSix lotteryMarkSix;
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pgroup_id")
     private PGroup pGroup;
+    @NotNull
     @Column(name = "value")
     private double value;
+    @NotNull
     @Column(name = "update_time")
     private Date updateTime;
 
