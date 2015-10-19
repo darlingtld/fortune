@@ -50,4 +50,11 @@ public class OddsController {
     Odds getOddsById(@PathVariable("id") int oddsId) {
         return oddsService.getOddsById(oddsId);
     }
+
+    @RequestMapping(value = "odds/lottery/{lottery_id}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Odds> getOdds4Lottery(@PathVariable("lottery_id") int lotteryId) {
+        return oddsService.getOdds4Lottery(lotteryId);
+    }
 }

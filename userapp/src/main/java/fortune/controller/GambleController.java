@@ -53,17 +53,4 @@ public class GambleController {
         return lotteryService.getGambleBetLotteryMarkSixList(userId);
     }
 
-    @RequestMapping(value = "odds/{odds_id}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Odds getOddsById(@PathVariable("odds_id") int oddsId) {
-        return oddsService.getOddsById(oddsId);
-    }
-
-    @RequestMapping(value = "odds/lottery/{lottery_id}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Odds> getOdds4Lottery(@PathVariable("lottery_id") int lotteryId) {
-        return oddsService.getOdds4Lottery(lotteryId);
-    }
 }
