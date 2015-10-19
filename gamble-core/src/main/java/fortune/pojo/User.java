@@ -1,6 +1,7 @@
 package fortune.pojo;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -32,9 +33,9 @@ public class User {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
-    @JsonManagedReference  
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
-    private Set<PGroup> PGroups;
+    private List<PGroup> PGroups;
     @Column(name = "account")
     private double account;
     @Column(name = "last_login_time")
@@ -52,11 +53,11 @@ public class User {
                 '}';
     }
 
-    public Set<PGroup> getPGroups() {
+    public List<PGroup> getPGroups() {
         return PGroups;
     }
 
-    public void setPGroups(Set<PGroup> PGroups) {
+    public void setPGroups(List<PGroup> PGroups) {
         this.PGroups = PGroups;
     }
 

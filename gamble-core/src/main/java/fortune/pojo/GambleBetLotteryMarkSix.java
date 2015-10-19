@@ -4,14 +4,21 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by tangl9 on 2015-10-14.
+ * Created by tangl9 on 2015-10-19.
  */
 @Entity
-@Table(name = "lottery_mark_six")
-public class LotteryMarkSix extends Lottery {
+@Table(name = "gamble_bet_lottery_mark_six")
+public class GambleBetLotteryMarkSix {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "user_id")
+    private int userId;
+    @Column(name = "pgroup_id")
+    private int pgroupId;
+    @Column(name = "timestamp")
+    private Date timestamp;
     @Column(name = "one")
     private int one;
     @Column(name = "one_color")
@@ -47,26 +54,18 @@ public class LotteryMarkSix extends Lottery {
     @Column(name = "special_color")
     @Enumerated(EnumType.STRING)
     private MarkSixColor specialColor;
-    @Column(name="issue")
+    @Column(name = "stakes")
+    private double stakes;
+    @Column(name = "issue")
     private int issue;
-    @Column(name = "timestamp")
-    private Date timestamp;
-
-    public LotteryMarkSix() {
-    }
-
-    public int getSpecial() {
-        return special;
-    }
-
-    public void setSpecial(int special) {
-        this.special = special;
-    }
 
     @Override
     public String toString() {
-        return "LotteryMarkSix{" +
+        return "GambleBetLotteryMarkSix{" +
                 "id=" + id +
+                ", userId=" + userId +
+                ", pgroupId=" + pgroupId +
+                ", timestamp=" + timestamp +
                 ", one=" + one +
                 ", oneColor=" + oneColor +
                 ", two=" + two +
@@ -81,73 +80,9 @@ public class LotteryMarkSix extends Lottery {
                 ", sixColor=" + sixColor +
                 ", special=" + special +
                 ", specialColor=" + specialColor +
+                ", stakes=" + stakes +
                 ", issue=" + issue +
-                ", timestamp=" + timestamp +
                 '}';
-    }
-
-    public int getIssue() {
-        return issue;
-    }
-
-    public void setIssue(int issue) {
-        this.issue = issue;
-    }
-
-    public MarkSixColor getOneColor() {
-        return oneColor;
-    }
-
-    public void setOneColor(MarkSixColor oneColor) {
-        this.oneColor = oneColor;
-    }
-
-    public MarkSixColor getTwoColor() {
-        return twoColor;
-    }
-
-    public void setTwoColor(MarkSixColor twoColor) {
-        this.twoColor = twoColor;
-    }
-
-    public MarkSixColor getThreeColor() {
-        return threeColor;
-    }
-
-    public void setThreeColor(MarkSixColor threeColor) {
-        this.threeColor = threeColor;
-    }
-
-    public MarkSixColor getFourColor() {
-        return fourColor;
-    }
-
-    public void setFourColor(MarkSixColor fourColor) {
-        this.fourColor = fourColor;
-    }
-
-    public MarkSixColor getFiveColor() {
-        return fiveColor;
-    }
-
-    public void setFiveColor(MarkSixColor fiveColor) {
-        this.fiveColor = fiveColor;
-    }
-
-    public MarkSixColor getSixColor() {
-        return sixColor;
-    }
-
-    public void setSixColor(MarkSixColor sixColor) {
-        this.sixColor = sixColor;
-    }
-
-    public MarkSixColor getSpecialColor() {
-        return specialColor;
-    }
-
-    public void setSpecialColor(MarkSixColor specialColor) {
-        this.specialColor = specialColor;
     }
 
     public int getId() {
@@ -158,12 +93,44 @@ public class LotteryMarkSix extends Lottery {
         this.id = id;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getPgroupId() {
+        return pgroupId;
+    }
+
+    public void setPgroupId(int pgroupId) {
+        this.pgroupId = pgroupId;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
     public int getOne() {
         return one;
     }
 
     public void setOne(int one) {
         this.one = one;
+    }
+
+    public MarkSixColor getOneColor() {
+        return oneColor;
+    }
+
+    public void setOneColor(MarkSixColor oneColor) {
+        this.oneColor = oneColor;
     }
 
     public int getTwo() {
@@ -174,12 +141,28 @@ public class LotteryMarkSix extends Lottery {
         this.two = two;
     }
 
+    public MarkSixColor getTwoColor() {
+        return twoColor;
+    }
+
+    public void setTwoColor(MarkSixColor twoColor) {
+        this.twoColor = twoColor;
+    }
+
     public int getThree() {
         return three;
     }
 
     public void setThree(int three) {
         this.three = three;
+    }
+
+    public MarkSixColor getThreeColor() {
+        return threeColor;
+    }
+
+    public void setThreeColor(MarkSixColor threeColor) {
+        this.threeColor = threeColor;
     }
 
     public int getFour() {
@@ -190,12 +173,28 @@ public class LotteryMarkSix extends Lottery {
         this.four = four;
     }
 
+    public MarkSixColor getFourColor() {
+        return fourColor;
+    }
+
+    public void setFourColor(MarkSixColor fourColor) {
+        this.fourColor = fourColor;
+    }
+
     public int getFive() {
         return five;
     }
 
     public void setFive(int five) {
         this.five = five;
+    }
+
+    public MarkSixColor getFiveColor() {
+        return fiveColor;
+    }
+
+    public void setFiveColor(MarkSixColor fiveColor) {
+        this.fiveColor = fiveColor;
     }
 
     public int getSix() {
@@ -206,11 +205,43 @@ public class LotteryMarkSix extends Lottery {
         this.six = six;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public MarkSixColor getSixColor() {
+        return sixColor;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setSixColor(MarkSixColor sixColor) {
+        this.sixColor = sixColor;
+    }
+
+    public int getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(int special) {
+        this.special = special;
+    }
+
+    public MarkSixColor getSpecialColor() {
+        return specialColor;
+    }
+
+    public void setSpecialColor(MarkSixColor specialColor) {
+        this.specialColor = specialColor;
+    }
+
+    public double getStakes() {
+        return stakes;
+    }
+
+    public void setStakes(double stakes) {
+        this.stakes = stakes;
+    }
+
+    public int getIssue() {
+        return issue;
+    }
+
+    public void setIssue(int issue) {
+        this.issue = issue;
     }
 }

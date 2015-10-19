@@ -25,7 +25,7 @@ public class LotteryController {
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryMarkSix> getUserById() {
+    List<LotteryMarkSix> getLotteryMarkSixAll() {
         return lotteryService.getLotteryMarkSixAll();
     }
 }

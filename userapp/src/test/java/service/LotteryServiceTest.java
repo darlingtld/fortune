@@ -1,12 +1,11 @@
 package service;
 
-import fortune.pojo.LotteryMarkSix;
-import fortune.pojo.MarkSixColor;
-import fortune.pojo.Odds;
+import fortune.pojo.*;
 import fortune.service.LotteryService;
 import fortune.service.OddsService;
 import fortune.service.PGroupService;
 import fortune.service.UserService;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,12 @@ public class LotteryServiceTest {
 
     @Autowired
     private LotteryService lotteryService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PGroupService pGroupService;
 
     @Test
     public void saveLottery() {
@@ -55,5 +60,38 @@ public class LotteryServiceTest {
 
         System.out.println(lotteryMarkSix);
         lotteryService.saveLotteryMarkSix(lotteryMarkSix);
+    }
+
+    @Test
+    public void wageLottery() {
+        User user = userService.getAll().get(0);
+        List<MarkSixColor> markSixColorList = Arrays.asList(MarkSixColor.RED, MarkSixColor.BLUE, MarkSixColor.GREEN);
+        GambleBetLotteryMarkSix gambleBetLotteryMarkSix = new GambleBetLotteryMarkSix();
+        gambleBetLotteryMarkSix.setOne(new Random().nextInt(49) + 1);
+        gambleBetLotteryMarkSix.setOneColor(markSixColorList.get(new Random().nextInt(3)));
+        gambleBetLotteryMarkSix.setTwo(new Random().nextInt(49) + 1);
+        gambleBetLotteryMarkSix.setTwoColor(markSixColorList.get(new Random().nextInt(3)));
+        gambleBetLotteryMarkSix.setThree(new Random().nextInt(49) + 1);
+        gambleBetLotteryMarkSix.setThreeColor(markSixColorList.get(new Random().nextInt(3)));
+        gambleBetLotteryMarkSix.setFour(new Random().nextInt(49) + 1);
+        gambleBetLotteryMarkSix.setFourColor(markSixColorList.get(new Random().nextInt(3)));
+        gambleBetLotteryMarkSix.setFive(new Random().nextInt(49) + 1);
+        gambleBetLotteryMarkSix.setFiveColor(markSixColorList.get(new Random().nextInt(3)));
+        gambleBetLotteryMarkSix.setSix(new Random().nextInt(49) + 1);
+        gambleBetLotteryMarkSix.setSixColor(markSixColorList.get(new Random().nextInt(3)));
+        gambleBetLotteryMarkSix.setSpecial(new Random().nextInt(49) + 1);
+        gambleBetLotteryMarkSix.setSpecialColor(markSixColorList.get(new Random().nextInt(3)));
+
+        gambleBetLotteryMarkSix.setIssue(new DateTime().getDayOfYear());
+
+        gambleBetLotteryMarkSix.setTimestamp(new Date());
+
+        gambleBetLotteryMarkSix.setUserId(user.getId());
+        gambleBetLotteryMarkSix.setPgroupId(user.getPGroups().get(0).getId());
+
+        gambleBetLotteryMarkSix.setStakes(new Random().nextDouble() * 100000);
+        System.out.println(gambleBetLotteryMarkSix);
+
+        lotteryService.saveGambleBetLotteryMarkSix(gambleBetLotteryMarkSix);
     }
 }

@@ -11,6 +11,10 @@
     default port is 11211
     configuration file is located at fortune.properties
 
+    for windows, refer to https://commaster.net/content/installing-memcached-windows
+    start memcache via running 'memcached.exe'
+
+
 
 
 Mark Six rules
