@@ -32,4 +32,8 @@ public class UserDao {
     public User getUserByUsername(String username) {
         return (User) sessionFactory.getCurrentSession().createQuery(String.format("from User where username='%s'", username)).uniqueResult();
     }
+
+    public void updateUser(User user) {
+        sessionFactory.getCurrentSession().update(user);
+    }
 }

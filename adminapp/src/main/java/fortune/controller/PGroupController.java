@@ -1,10 +1,11 @@
 package fortune.controller;
 
 import common.Utils;
+import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.PGroup;
 import fortune.pojo.User;
+import fortune.service.LotteryService;
 import fortune.service.PGroupService;
-import fortune.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by tangl9 on 2015-10-19.
+ * Created by tangl9 on 2015-10-14.
  */
 @Scope("prototype")
 @Controller
@@ -26,20 +27,6 @@ public class PGroupController {
 
     @Autowired
     private PGroupService pGroupService;
-
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    PGroup getPGroupById(@PathVariable("id") int id) {
-        return pGroupService.getGroupById(id);
-    }
-
-    @RequestMapping(value = "all", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<PGroup> getPGroupAll() {
-        return pGroupService.getGroupAll();
-    }
 
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "content-type=application/json")
     public
@@ -66,4 +53,5 @@ public class PGroupController {
 
         pGroupService.addUser(pGroupId, user);
     }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import password.PasswordEncryptUtil;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,6 +57,8 @@ public class UserService {
                 Utils.logger.info("password does not match");
                 return null;
             } else {
+                user.setLastLoginTime(new Date());
+                userDao.updateUser(user);
                 return user;
             }
         }
