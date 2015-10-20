@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2015-10-19 17:45:41
+Date: 2015-10-20 17:47:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,13 +40,15 @@ CREATE TABLE `gamble_bet_lottery_mark_six` (
   `special_color` varchar(255) DEFAULT NULL,
   `stakes` double DEFAULT NULL,
   `issue` int(11) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of gamble_bet_lottery_mark_six
 -- ----------------------------
-INSERT INTO `gamble_bet_lottery_mark_six` VALUES ('1', '1', '4', '2015-10-19 10:08:53', '30', 'GREEN', '1', 'BLUE', '33', 'BLUE', '17', 'GREEN', '36', 'RED', '21', 'RED', '27', 'BLUE', '63270.90531424412', '1445220');
+INSERT INTO `gamble_bet_lottery_mark_six` VALUES ('1', '1', '4', '2015-10-19 10:08:53', '30', 'GREEN', '1', 'BLUE', '33', 'BLUE', '17', 'GREEN', '36', 'RED', '21', 'RED', '27', 'BLUE', '63270.90531424412', '1445220', 'HEWEIDA');
+INSERT INTO `gamble_bet_lottery_mark_six` VALUES ('2', '1', '4', '2015-10-20 17:45:39', '24', 'BLUE', '42', 'GREEN', '26', 'GREEN', '39', 'RED', '14', 'GREEN', '28', 'GREEN', '25', 'BLUE', '98261.36224764088', '293', 'HEWEIDA');
 
 -- ----------------------------
 -- Table structure for lottery_mark_six
@@ -153,7 +155,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'lingda', '$2a$10$miuPjytd/BpclHpiY/jKbO31qcg6JVr6GYd2IbzEp6M2u6./oN.na', 'NORMAL_USER', '2015-10-19 17:08:38', '10');
+INSERT INTO `user` VALUES ('1', 'lingda', '$2a$10$miuPjytd/BpclHpiY/jKbO31qcg6JVr6GYd2IbzEp6M2u6./oN.na', 'NORMAL_USER', '2015-10-19 17:50:14', '10');
 INSERT INTO `user` VALUES ('2', 'darling', '$2a$10$tivdgootjezOVMvzf5Dgc.IIhIBAnCmyO1YQzb7wlb.nw7xOM8Sdy', 'NORMAL_USER', '2015-10-13 16:46:26', '0');
 INSERT INTO `user` VALUES ('3', 'darling1', '$2a$10$tivdgootjezOVMvzf5Dgc.IIhIBAnCmyO1YQzb7wlb.nw7xOM8Sdy', 'NORMAL_USER', '2015-10-13 16:48:40', '0');
 INSERT INTO `user` VALUES ('4', 'darling tang', '$2a$10$2e598txs8FLEpoYyCU9QW.0KB7EfN8/2ueVrFVME/KAL0LmfVXfuS', 'NORMAL_USER', '2015-10-13 17:05:13', '0');
