@@ -1,5 +1,6 @@
 package fortune.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import common.Utils;
 import fortune.pojo.GambleBetLotteryMarkSix;
 import fortune.pojo.LotteryMarkSix;
@@ -47,6 +48,13 @@ public class LotteryController {
             return;
         }
         lotteryService.saveLotteryMarkSix(lotteryMarkSix);
+    }
+
+    @RequestMapping(value = "type", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONArray getLotteryMarkSixType() {
+        return lotteryService.getLotteryMarkSixType();
     }
 
 }

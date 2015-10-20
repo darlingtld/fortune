@@ -1,5 +1,7 @@
 package service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import fortune.pojo.*;
 import fortune.service.LotteryService;
 import fortune.service.OddsService;
@@ -13,10 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by tangl9 on 2015-10-16.
@@ -90,8 +89,22 @@ public class LotteryServiceTest {
         gambleBetLotteryMarkSix.setPgroupId(user.getPGroups().get(0).getId());
 
         gambleBetLotteryMarkSix.setStakes(new Random().nextDouble() * 100000);
+        gambleBetLotteryMarkSix.setType(LotteryMarkSixType.HEWEIDA);
         System.out.println(gambleBetLotteryMarkSix);
 
         lotteryService.saveGambleBetLotteryMarkSix(gambleBetLotteryMarkSix);
+    }
+
+    @Test
+    public void getLotteryMarkSixType() {
+        JSONArray jsonArray = new JSONArray();
+        EnumSet<LotteryMarkSixType> currEnumSet = EnumSet.allOf(LotteryMarkSixType.class);
+        for (LotteryMarkSixType type : currEnumSet) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", type.toString());
+            jsonObject.put("value", type.getType());
+            jsonArray.add(jsonObject);
+        }
+        System.out.println(jsonArray);
     }
 }
