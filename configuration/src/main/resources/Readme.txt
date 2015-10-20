@@ -17,6 +17,28 @@
 4. configure kafka
     refer to http://kafka.apache.org/documentation.html#quickstart
 
+    bin/zookeeper-server-start.sh config/zookeeper.properties
+
+    cp config/server.properties config/server-1.properties
+    cp config/server.properties config/server-2.properties
+    config/server-1.properties:
+        broker.id=1
+        port=9093
+        log.dir=/tmp/kafka-logs-1
+
+    config/server-2.properties:
+        broker.id=2
+        port=9094
+        log.dir=/tmp/kafka-logs-2
+
+    bin/kafka-server-start.sh config/server-1.properties &
+
+    bin/kafka-server-start.sh config/server-2.properties &
+
+    bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 5 --topic lingda-test
+
+    bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic lingda-test
+
 
 
 
