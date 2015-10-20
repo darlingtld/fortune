@@ -31,17 +31,17 @@ public class MemcacheTest {
             // set, get
             memcachedClient.set("foo", 36000, "lingda");
             assertEquals("lingda", memcachedClient.get("foo"));
-            System.out.println(memcachedClient.get("foo"));
+            System.out.println(String.valueOf(memcachedClient.get("foo")));
 
             // replace
             memcachedClient.replace("foo", 36000, "tang");
             assertEquals("tang", memcachedClient.get("foo"));
-            System.out.println(memcachedClient.get("foo"));
+            System.out.println(String.valueOf(memcachedClient.get("foo")));
 
             // remove
             memcachedClient.delete("foo");
             assertNull(memcachedClient.get("foo"));
-            System.out.println(memcachedClient.get("foo"));
+            System.out.println(String.valueOf(memcachedClient.get("foo")));
         } catch (TimeoutException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
