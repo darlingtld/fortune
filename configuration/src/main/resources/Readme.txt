@@ -14,6 +14,10 @@
     for windows, refer to https://commaster.net/content/installing-memcached-windows
     start memcache via running 'memcached.exe'
 
+4. configure kafka
+    refer to http://kafka.apache.org/documentation.html#quickstart
+
+
 
 
 
