@@ -19,6 +19,10 @@
 
     create a database named 'fortune'
 
+    mongodump -h dbhost -d dbname -o dbdirectory
+
+    mongorestore -h dbhost -d dbname --directoryperdb dbdirectory
+
 5. configure kafka
     refer to http://kafka.apache.org/documentation.html#quickstart
 
