@@ -1,6 +1,5 @@
 package fortune.dao;
 
-import fortune.pojo.GambleBetLotteryMarkSix;
 import fortune.pojo.LotteryMarkSix;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +24,4 @@ public class LotteryDao {
         sessionFactory.getCurrentSession().save(lotteryMarkSix);
     }
 
-    public void saveGambleBetLotteryMarkSix(GambleBetLotteryMarkSix gambleBetLotteryMarkSix) {
-        sessionFactory.getCurrentSession().save(gambleBetLotteryMarkSix);
-    }
-
-    public List<GambleBetLotteryMarkSix> getGambleBetLotteryMarkSixList(int userId) {
-        return sessionFactory.getCurrentSession().createQuery(String.format("from GambleBetLotteryMarkSix where userId=%d order by timestamp desc", userId)).list();
-    }
-
-    public void deleteGambleBetLotteryMarkSix(int gambleBetLotteryMarkSixId) {
-        sessionFactory.getCurrentSession().createQuery(String.format("delete GambleBetLotteryMarkSix where id=%d", gambleBetLotteryMarkSixId)).executeUpdate();
-    }
 }

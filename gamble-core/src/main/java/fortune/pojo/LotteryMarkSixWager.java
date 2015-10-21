@@ -3,6 +3,7 @@ package fortune.pojo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,26 +15,95 @@ public class LotteryMarkSixWager {
     @Id
     private String id;
 
-    private List<WagerStub> wagerStubList;
+    private int userId;
 
-    class WagerStub {
-        private int number;
-        private double stakes;
+    private Date timestamp;
 
-        public int getNumber() {
-            return number;
-        }
+    private int lotteryIssue;
 
-        public void setNumber(int number) {
-            this.number = number;
-        }
+    private List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList;
 
-        public double getStakes() {
-            return stakes;
-        }
+    private double totalMoney;
 
-        public void setStakes(double stakes) {
-            this.stakes = stakes;
-        }
+    private double totalStakes;
+
+    public LotteryMarkSixWager() {
+    }
+
+    public LotteryMarkSixWager(int userId, int lotteryIssue, double totalMoney, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList) {
+        this.userId = userId;
+        this.lotteryIssue = lotteryIssue;
+        this.totalMoney = totalMoney;
+        this.totalStakes = totalStakes;
+        this.lotteryMarkSixWagerStubList = lotteryMarkSixWagerStubList;
+    }
+
+    public double getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(double totalMoney) {
+        this.totalMoney = totalMoney;
+    }
+
+    public double getTotalStakes() {
+        return totalStakes;
+    }
+
+    public void setTotalStakes(double totalStakes) {
+        this.totalStakes = totalStakes;
+    }
+
+    @Override
+    public String toString() {
+        return "LotteryMarkSixWager{" +
+                "id='" + id + '\'' +
+                ", userId=" + userId +
+                ", timestamp=" + timestamp +
+                ", lotteryIssue=" + lotteryIssue +
+                ", lotteryMarkSixWagerStubList=" + lotteryMarkSixWagerStubList +
+                ", totalMoney=" + totalMoney +
+                ", totalStakes=" + totalStakes +
+                '}';
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getLotteryIssue() {
+        return lotteryIssue;
+    }
+
+    public void setLotteryIssue(int lotteryIssue) {
+        this.lotteryIssue = lotteryIssue;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<LotteryMarkSixWagerStub> getLotteryMarkSixWagerStubList() {
+        return lotteryMarkSixWagerStubList;
+    }
+
+    public void setLotteryMarkSixWagerStubList(List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList) {
+        this.lotteryMarkSixWagerStubList = lotteryMarkSixWagerStubList;
     }
 }

@@ -1,13 +1,10 @@
 package fortune.controller;
 
-import common.Utils;
-import fortune.pojo.GambleBetLotteryMarkSix;
-import fortune.pojo.Odds;
+import fortune.pojo.LotteryMarkSixWager;
 import fortune.service.LotteryService;
-import fortune.service.OddsService;
+import fortune.service.WagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +19,7 @@ import java.util.List;
 public class GambleController {
 
     @Autowired
-    private OddsService oddsService;
+    private WagerService wagerService;
 
     @Autowired
     private LotteryService lotteryService;
@@ -30,27 +27,29 @@ public class GambleController {
     @RequestMapping(value = "wage", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    void wageLotteryMarkSix(@RequestBody @Valid GambleBetLotteryMarkSix gambleBetLotteryMarkSix, BindingResult result, HttpServletResponse response) {
-        if (result.hasErrors()) {
-            response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
-            response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
-            return;
-        }
-        lotteryService.saveGambleBetLotteryMarkSix(gambleBetLotteryMarkSix);
+    void wageLotteryMarkSix(@RequestBody @Valid LotteryMarkSixWager lotteryMarkSixWager, BindingResult result, HttpServletResponse response) {
+        wagerService.saveLotteryMarkSixWager(lotteryMarkSixWager);
     }
 
-    @RequestMapping(value = "wage/delete/{gamble_bet_lottery_mark_six_id}", method = RequestMethod.POST, headers = "content-type=application/json")
+    @RequestMapping(value = "wage/delete/{lottery_mark_six_wager_id}", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    void deleteGambleBetLotteryMarkSix(@PathVariable("gamble_bet_lottery_mark_six_id") int gambleBetLotteryMarkSixId, HttpServletResponse response) {
-        lotteryService.deleteGambleBetLotteryMarkSix(gambleBetLotteryMarkSixId);
+    void deleteLotteryMarkSixWager(@PathVariable("lottery_mark_six_wager_id") String lotteryMarkSixWagerId, HttpServletResponse response) {
+        wagerService.deleteLotteryMarkSixWager(lotteryMarkSixWagerId);
     }
 
     @RequestMapping(value = "wage_record/{user_id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<GambleBetLotteryMarkSix> getWageRecord4LotteryMarkSix(@PathVariable("user_id") int userId, HttpServletResponse response) {
-        return lotteryService.getGambleBetLotteryMarkSixList(userId);
+    List<LotteryMarkSixWager> getWageRecord4LotteryMarkSix(@PathVariable("user_id") int userId, HttpServletResponse response) {
+        return wagerService.getLotteryMarkSixWagerList(userId);
+    }
+
+    @RequestMapping(value = "wage_record/{user_id}/{lottery_issue}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<LotteryMarkSixWager> getWageRecord4LotteryMarkSix(@PathVariable("user_id") int userId, @PathVariable("lottery_issue") int lotteryIssue, HttpServletResponse response) {
+        return wagerService.getLotteryMarkSixWagerList(userId, lotteryIssue);
     }
 
 }

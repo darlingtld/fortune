@@ -9,7 +9,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "lottery_mark_six")
-public class LotteryMarkSix extends Lottery {
+public class LotteryMarkSix {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -17,51 +17,23 @@ public class LotteryMarkSix extends Lottery {
     @Column(name = "one")
     private int one;
     @NotNull
-    @Column(name = "one_color")
-    @Enumerated(EnumType.STRING)
-    private MarkSixColor oneColor;
-    @NotNull
     @Column(name = "two")
     private int two;
-    @NotNull
-    @Column(name = "two_color")
-    @Enumerated(EnumType.STRING)
-    private MarkSixColor twoColor;
     @NotNull
     @Column(name = "three")
     private int three;
     @NotNull
-    @Column(name = "three_color")
-    @Enumerated(EnumType.STRING)
-    private MarkSixColor threeColor;
-    @NotNull
     @Column(name = "four")
     private int four;
-    @NotNull
-    @Column(name = "four_color")
-    @Enumerated(EnumType.STRING)
-    private MarkSixColor fourColor;
     @NotNull
     @Column(name = "five")
     private int five;
     @NotNull
-    @Column(name = "five_color")
-    @Enumerated(EnumType.STRING)
-    private MarkSixColor fiveColor;
-    @NotNull
     @Column(name = "six")
     private int six;
     @NotNull
-    @Column(name = "six_color")
-    @Enumerated(EnumType.STRING)
-    private MarkSixColor sixColor;
-    @NotNull
     @Column(name = "special")
     private int special;
-    @NotNull
-    @Column(name = "special_color")
-    @Enumerated(EnumType.STRING)
-    private MarkSixColor specialColor;
     @NotNull
     @Column(name = "issue")
     private int issue;
@@ -85,19 +57,12 @@ public class LotteryMarkSix extends Lottery {
         return "LotteryMarkSix{" +
                 "id=" + id +
                 ", one=" + one +
-                ", oneColor=" + oneColor +
                 ", two=" + two +
-                ", twoColor=" + twoColor +
                 ", three=" + three +
-                ", threeColor=" + threeColor +
                 ", four=" + four +
-                ", fourColor=" + fourColor +
                 ", five=" + five +
-                ", fiveColor=" + fiveColor +
                 ", six=" + six +
-                ", sixColor=" + sixColor +
                 ", special=" + special +
-                ", specialColor=" + specialColor +
                 ", issue=" + issue +
                 ", timestamp=" + timestamp +
                 '}';
@@ -109,62 +74,6 @@ public class LotteryMarkSix extends Lottery {
 
     public void setIssue(int issue) {
         this.issue = issue;
-    }
-
-    public MarkSixColor getOneColor() {
-        return oneColor;
-    }
-
-    public void setOneColor(MarkSixColor oneColor) {
-        this.oneColor = oneColor;
-    }
-
-    public MarkSixColor getTwoColor() {
-        return twoColor;
-    }
-
-    public void setTwoColor(MarkSixColor twoColor) {
-        this.twoColor = twoColor;
-    }
-
-    public MarkSixColor getThreeColor() {
-        return threeColor;
-    }
-
-    public void setThreeColor(MarkSixColor threeColor) {
-        this.threeColor = threeColor;
-    }
-
-    public MarkSixColor getFourColor() {
-        return fourColor;
-    }
-
-    public void setFourColor(MarkSixColor fourColor) {
-        this.fourColor = fourColor;
-    }
-
-    public MarkSixColor getFiveColor() {
-        return fiveColor;
-    }
-
-    public void setFiveColor(MarkSixColor fiveColor) {
-        this.fiveColor = fiveColor;
-    }
-
-    public MarkSixColor getSixColor() {
-        return sixColor;
-    }
-
-    public void setSixColor(MarkSixColor sixColor) {
-        this.sixColor = sixColor;
-    }
-
-    public MarkSixColor getSpecialColor() {
-        return specialColor;
-    }
-
-    public void setSpecialColor(MarkSixColor specialColor) {
-        this.specialColor = specialColor;
     }
 
     public int getId() {

@@ -2,9 +2,7 @@ package fortune.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import common.Utils;
-import fortune.pojo.GambleBetLotteryMarkSix;
 import fortune.pojo.LotteryMarkSix;
-import fortune.pojo.Odds;
 import fortune.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

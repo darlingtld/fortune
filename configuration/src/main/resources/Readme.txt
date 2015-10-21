@@ -14,7 +14,12 @@
     for windows, refer to https://commaster.net/content/installing-memcached-windows
     start memcache via running 'memcached.exe'
 
-4. configure kafka
+4. install mongodb
+    refer to http://www.mongoing.com/downloads
+
+    create a database named 'fortune'
+
+5. configure kafka
     refer to http://kafka.apache.org/documentation.html#quickstart
 
     bin/zookeeper-server-start.sh config/zookeeper.properties
