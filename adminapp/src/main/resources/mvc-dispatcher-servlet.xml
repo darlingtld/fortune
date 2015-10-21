@@ -43,7 +43,6 @@
                 <value>fortune.pojo.User</value>
                 <value>fortune.pojo.PGroup</value>
                 <value>fortune.pojo.LotteryMarkSix</value>
-                <value>fortune.pojo.Odds</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -73,5 +72,5 @@
     <!--<task:scheduler id="myScheduler" pool-size="4"/>-->
 
     <!--<import resource="spring-memcache.xml"></import>-->
-    <import resource="spring-mongodb.xml"></import>
+    <import resource="spring-mongodb.xml"/>
 </beans>

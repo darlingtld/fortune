@@ -2,7 +2,7 @@ package fortune.service;
 
 import common.Utils;
 import fortune.dao.OddsDao;
-import fortune.pojo.Odds;
+import fortune.pojo.LotteryOdds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,26 +19,32 @@ public class OddsService {
     private OddsDao oddsDao;
 
     @Transactional
-    public Odds getOddsById(int oddsId) {
+    public LotteryOdds getOddsById(int oddsId) {
         Utils.logger.info("get odds by id {}", oddsId);
         return oddsDao.getOddsById(oddsId);
     }
 
     @Transactional
-    public void saveOdds(Odds odds) {
+    public void saveOdds(LotteryOdds odds) {
         Utils.logger.info("save odds");
         oddsDao.saveOdds(odds);
     }
 
     @Transactional
-    public List<Odds> getAll() {
+    public List<LotteryOdds> getAll() {
         Utils.logger.info("get all lottery odds");
         return oddsDao.getAll();
     }
 
     @Transactional
-    public List<Odds> getOdds4Lottery(int lotteryId) {
-        Utils.logger.info("get odds for lottery {}", lotteryId);
-        return oddsDao.getOdds4Lottery(lotteryId);
+    public List<LotteryOdds> getOdds4LotteryIssue(int lotteryIssue, int groupId) {
+        Utils.logger.info("get odds for lottery issue {} of group id {}", lotteryIssue, groupId);
+        return oddsDao.getOdds4LotteryIssue(lotteryIssue, groupId);
+    }
+
+    @Transactional
+    public LotteryOdds getOdds4LotteryIssue(int lotteryIssue, int groupId, int number) {
+        Utils.logger.info("get odds for lottery issue {} of group id {} of ball {}", lotteryIssue, groupId, number);
+        return oddsDao.getOdds4LotteryIssue(lotteryIssue, groupId, number);
     }
 }

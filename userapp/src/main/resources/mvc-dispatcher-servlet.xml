@@ -43,7 +43,6 @@
                 <value>fortune.pojo.User</value>
                 <value>fortune.pojo.PGroup</value>
                 <value>fortune.pojo.LotteryMarkSix</value>
-                <value>fortune.pojo.Odds</value>
             </list>
         </property>
         <property name="hibernateProperties">

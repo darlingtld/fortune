@@ -1,7 +1,7 @@
 package fortune.controller;
 
 import common.Utils;
-import fortune.pojo.Odds;
+import fortune.pojo.LotteryOdds;
 import fortune.service.OddsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -28,7 +28,7 @@ public class OddsController {
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    void saveOdds4LotteryMarkSix(@RequestBody @Valid Odds odds, BindingResult result, HttpServletResponse response) {
+    void saveOdds4LotteryMarkSix(@RequestBody @Valid LotteryOdds odds, BindingResult result, HttpServletResponse response) {
         if (result.hasErrors()) {
             response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
@@ -40,21 +40,29 @@ public class OddsController {
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<Odds> getOddsAll(HttpServletResponse response) {
+    List<LotteryOdds> getOddsAll(HttpServletResponse response) {
         return oddsService.getAll();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    Odds getOddsById(@PathVariable("id") int oddsId) {
+    LotteryOdds getOddsById(@PathVariable("id") int oddsId) {
         return oddsService.getOddsById(oddsId);
     }
 
-    @RequestMapping(value = "odds/lottery/{lottery_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<Odds> getOdds4Lottery(@PathVariable("lottery_id") int lotteryId) {
-        return oddsService.getOdds4Lottery(lotteryId);
+    List<LotteryOdds> getOdds4LotteryIssue(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") int groupId) {
+        return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId);
     }
+
+    @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}/ball_number/{number}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    LotteryOdds getOdds4LotteryIssueAndNumber(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") int groupId, @PathVariable("number") int number) {
+        return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId, number);
+    }
+
 }
