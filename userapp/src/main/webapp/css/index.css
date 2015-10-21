@@ -38,9 +38,47 @@
 	color:red;
 	padding-top:30px;
 	padding-bottom:30px;
+	display:none;
 }
 
 .content{
 	background:white;
 	border: 1px solid #dedede;
+}
+
+.content table{
+	width:90%;
+	border-collapse: collapse;
+	background:white;
+	margin-top:15px;
+	margin-left:auto;
+	margin-right:auto;
+	border:1px solid #1FADFB;
+}
+
+.zodiac_table{
+	width:420px !important;
+	float:left !important;
+	margin-left:10px !important;
+}
+
+.content table td{
+	padding:10px;
+	text-align:left;
+}
+
+.content table th{
+	color:white;
+	background:#1FADFB;
+	padding:10px;
+	border-right:1px solid #fff;
+	text-align:left;
+}
+
+.content table th:last-child{
+	border-right:1px solid #1FADFB;
+}
+
+.content table tr:nth-child(odd) {
+	background: #FDFDCE;
 }

@@ -27,6 +27,52 @@ var Zodiac = {
 		return balls;
 	},
 
+	getNameByBall : function(ball) {
+		var ballNum = parseInt(ball), date = new Date(), year = date.getFullYear(), currentIndex = (year - 2008) % 12;
+		for (var start = 1, i = currentIndex; i >= 0; i--, start++) {
+			var value = start, name = this.names[i];
+			for (;;) {
+				if(value==ballNum){
+					return name;
+				}
+				value += 12;
+				if (value > 49) {
+					break;
+				}
+			}
+		}
+		if (currentIndex < 11) {
+			for (var start = 12, i = currentIndex + 1; i < 11; i++, start--) {
+				var value = start, name = this.names[i];
+				for (;;) {
+					if(value==ballNum){
+						return name;
+					}
+					value += 12;
+					if (value > 49) {
+						break;
+					}
+				}
+			}
+		}
+		return null;
+	},
+
+	getAnimalTypeByBall : function(ball) {
+		if (parseInt(ball) == 49) {
+			return null;
+		}
+		var name = this.getNameByBall(), beasts=["鼠","虎","龙","蛇","兔","猴"];
+		if(name){
+			for(var i=0;i<beasts.length;i++){
+				if(beasts[i]==name){
+					return "beast";
+				}
+			}
+		}
+		return "poultry";
+	},
+
 	getNameToBalls : function() {
 		var date = new Date(), year = date.getFullYear(), currentIndex = (year - 2008) % 12, balls = {};
 		for (var start = 1, i = currentIndex; i >= 0; i--, start++) {

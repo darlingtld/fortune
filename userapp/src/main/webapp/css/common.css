@@ -144,3 +144,38 @@ body {
 .clear{
 	clear:both;
 }
+
+.ball{
+	color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 13px;
+    float: left;
+    line-height: 25px;
+    margin-left:2px;
+    text-align: center;
+}
+
+.red{
+	background:red;
+}
+
+.blue{
+	background:blue;
+}
+
+.green{
+	background:green;
+}
+
+#live_video{
+	width:300px;
+	height:300px;
+	overflow:hidden;
+    position: relative;
+}
+
+#live_video>iframe{
+	position:relative;
+	left:-11px;
+}

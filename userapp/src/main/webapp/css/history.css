@@ -36,29 +36,6 @@
 	font-weight:normal;
 }
 
-.ball{
-	color: white;
-    width: 25px;
-    height: 25px;
-    border-radius: 13px;
-    float: left;
-    line-height: 25px;
-    margin-left:2px;
-    text-align: center;
-}
-
-.red{
-	background:red;
-}
-
-.blue{
-	background:blue;
-}
-
-.green{
-	background:green;
-}
-
 .color_td{
 	color:white;
 }
