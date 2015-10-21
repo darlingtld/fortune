@@ -1,7 +1,6 @@
 package fortune.controller;
 
 import fortune.pojo.LotteryMarkSixWager;
-import fortune.service.LotteryService;
 import fortune.service.WagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,13 +20,10 @@ public class GambleController {
     @Autowired
     private WagerService wagerService;
 
-    @Autowired
-    private LotteryService lotteryService;
-
     @RequestMapping(value = "wage", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    void wageLotteryMarkSix(@RequestBody @Valid LotteryMarkSixWager lotteryMarkSixWager, BindingResult result, HttpServletResponse response) {
+    void wageLotteryMarkSix(@RequestBody @Valid LotteryMarkSixWager lotteryMarkSixWager, HttpServletResponse response) {
         wagerService.saveLotteryMarkSixWager(lotteryMarkSixWager);
     }
 

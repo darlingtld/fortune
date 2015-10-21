@@ -1,7 +1,10 @@
 package fortune.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import common.Utils;
+import fortune.pojo.LotteryBall;
 import fortune.pojo.LotteryMarkSix;
 import fortune.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -53,6 +53,17 @@ public class LotteryController {
     @ResponseBody
     JSONArray getLotteryMarkSixType() {
         return lotteryService.getLotteryMarkSixType();
+    }
+
+    @RequestMapping(value = "ball_number/{number}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONObject getBall(@PathVariable("number") int number) {
+        LotteryBall lotteryBall = LotteryBall.valueOf("NUM_" + number);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("number", lotteryBall.getNumber());
+        jsonObject.put("color", lotteryBall.getColor());
+        return jsonObject;
     }
 
 }

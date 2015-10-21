@@ -8,6 +8,13 @@ public enum MarkSixColor {
 
     private String color;
 
+    @Override
+    public String toString() {
+        return "MarkSixColor{" +
+                "color='" + color + '\'' +
+                '}';
+    }
+
     MarkSixColor(String color) {
         this.color = color;
     }
