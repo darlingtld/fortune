@@ -28,25 +28,48 @@ public class LotteryServiceTest {
     @Autowired
     private LotteryService lotteryService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private PGroupService pGroupService;
-
     @Test
     public void saveLottery() {
-        List<MarkSixColor> markSixColorList = Arrays.asList(MarkSixColor.RED, MarkSixColor.BLUE, MarkSixColor.GREEN);
         LotteryMarkSix lotteryMarkSix = new LotteryMarkSix();
-        lotteryMarkSix.setOne(new Random().nextInt(49) + 1);
-        lotteryMarkSix.setTwo(new Random().nextInt(49) + 1);
-        lotteryMarkSix.setThree(new Random().nextInt(49) + 1);
-        lotteryMarkSix.setFour(new Random().nextInt(49) + 1);
-        lotteryMarkSix.setFive(new Random().nextInt(49) + 1);
-        lotteryMarkSix.setSix(new Random().nextInt(49) + 1);
-        lotteryMarkSix.setSpecial(new Random().nextInt(49) + 1);
+        Set<Integer> integerSet = new HashSet<Integer>();
+        int num = new Random().nextInt(49) + 1;
+        lotteryMarkSix.setOne(num);
+        integerSet.add(num);
+        while (integerSet.contains(num)) {
+            num = new Random().nextInt(49) + 1;
+        }
+        lotteryMarkSix.setTwo(num);
+        integerSet.add(num);
+        while (integerSet.contains(num)) {
+            num = new Random().nextInt(49) + 1;
+        }
+        lotteryMarkSix.setThree(num);
+        integerSet.add(num);
+        while (integerSet.contains(num)) {
+            num = new Random().nextInt(49) + 1;
+        }
+        lotteryMarkSix.setFour(num);
+        integerSet.add(num);
+        while (integerSet.contains(num)) {
+            num = new Random().nextInt(49) + 1;
+        }
+        lotteryMarkSix.setFive(num);
+        integerSet.add(num);
+        while (integerSet.contains(num)) {
+            num = new Random().nextInt(49) + 1;
+        }
+        lotteryMarkSix.setSix(num);
+        integerSet.add(num);
+        while (integerSet.contains(num)) {
+            num = new Random().nextInt(49) + 1;
+        }
+        lotteryMarkSix.setSpecial(num);
+        integerSet.add(num);
+        while (integerSet.contains(num)) {
+            num = new Random().nextInt(49) + 1;
+        }
 
-        lotteryMarkSix.setIssue((int) (System.currentTimeMillis() / 1000000));
+        lotteryMarkSix.setIssue(new DateTime().getDayOfYear());
 
         lotteryMarkSix.setTimestamp(new Date());
 
