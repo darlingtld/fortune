@@ -4,7 +4,41 @@
        xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
-    <mongo:mongo host="${mongo.host}" port="${mongo.port}"/>
+    <bean id="sysProps"
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="java.lang.System" />
+        <property name="targetMethod" value="getProperties" />
+    </bean>
+    <bean id="sysMongo"
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="sysProps"/>
+        <property name="targetMethod" value="setProperty"/>
+        <property name="arguments">
+            <list>
+                <value>DEBUG.MONGO</value>
+                <value>true</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="sysDbTrace"
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="sysProps"/>
+        <property name="targetMethod" value="setProperty"/>
+        <property name="arguments">
+            <list>
+                <value>DB.TRACE</value>
+                <value>true</value>
+            </list>
+        </property>
+    </bean>
+
+    <mongo:mongo host="${mongo.host}" port="${mongo.port}">
+        <mongo:options connections-per-host="8"
+                       threads-allowed-to-block-for-connection-multiplier="4"
+                       connect-timeout="1000" max-wait-time="1500" auto-connect-retry="true"
+                       socket-keep-alive="true" socket-timeout="1500" slave-ok="true"
+                       write-number="1" write-timeout="0" write-fsync="false"/>
+    </mongo:mongo>
     <mongo:db-factory dbname="${mongo.dbname}"/>
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
