@@ -16,6 +16,7 @@ body {
 	text-align: center;
 	text-decoration: none;
 	border-radius: 5px;
+	cursor:pointer;
 }
 
 .btn:hover {

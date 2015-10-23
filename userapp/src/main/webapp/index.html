@@ -19,49 +19,11 @@
 			</div>
 			<div ng-show="selectedIndex==0">
 				<div class="error_content">目前没有可以下注的期数</div>
+				<div ng-include="'includes/tailball.html'"></div>
 			</div>
 			<div ng-show="selectedIndex==1">
 				<div class="error_content">目前没有可以下注的期数</div>
-				<div>
-					<table class="zodiac_table">
-	    	    		<tr>
-	    	    			<th>生肖</th>
-	    	    			<th>号码</th>
-	    	    			<th>赔率</th>
-	    	    			<th>操作</th>
-	    	    		</tr>
-	    	    		<tr ng-repeat="zodiacItem in zodiacItems">
-	    	    			<td>{{zodiacItem.name}}</td>
-	    	    			<td>
-	    	    				<div ng-repeat="ball in zodiacItem.balls" class="ball {{colorMap[ball]}}">{{ball}}</div>
-	    	    			</td>
-	    	    			<td>{{zodiacItem.odds}}</td>
-	    	    			<td><a href="javascript:;" class="bet btn" data-zodiac={{zodiacItem.name}}>下注</a></td>
-	    	    		</tr>
-    	    		</table>
-    	    		<table class="zodiac_table">
-	    	    		<tr>
-	    	    			<th>色波</th>
-	    	    			<th>赔率</th>
-	    	    			<th>操作</th>
-	    	    		</tr>
-	    	    		<tr>
-	    	    			<td style="color:red;">红波</td>
-	    	    			<td>{{colorItems.red}}</td>
-	    	    			<td><a href="javascript:;" class="bet btn" data-zodiac="red">下注</a></td>
-	    	    		</tr>
-	    	    		<tr>
-	    	    			<td style="color:blue;">蓝波</td>
-	    	    			<td>{{colorItems.blue}}</td>
-	    	    			<td><a href="javascript:;" class="bet btn" data-zodiac="blue">下注</a></td>
-	    	    		</tr>
-	    	    		<tr>
-	    	    			<td style="color:green;">绿波</td>
-	    	    			<td>{{colorItems.green}}</td>
-	    	    			<td><a href="javascript:;" class="bet btn" data-zodiac="green">下注</a></td>
-	    	    		</tr>
-    	    		</table>
-				</div>
+				<div ng-include="'includes/zodiac.html'"></div>
 			</div>
 			<div ng-show="selectedIndex==2">
 				<div class="error_content">目前没有可以下注的期数</div>
