@@ -94,3 +94,7 @@
 input[type=radio]{
 	cursor:pointer;
 }
+
+.color_td{
+	color:white;
+}
