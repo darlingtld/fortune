@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2015-10-21 15:03:01
+Date: 2015-10-23 16:41:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,33 +31,15 @@ CREATE TABLE `lottery_mark_six` (
   `issue` int(11) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_mark_six
 -- ----------------------------
-INSERT INTO `lottery_mark_six` VALUES ('3', '28', '45', '41', '47', '35', '48', '4', '1445131', '2015-10-18 09:26:15');
-INSERT INTO `lottery_mark_six` VALUES ('4', '1', '45', '37', '30', '34', '17', '8', '1445131', '2015-10-18 09:27:19');
-INSERT INTO `lottery_mark_six` VALUES ('5', '24', '13', '5', '27', '22', '23', '20', '1445131', '2015-10-18 09:27:32');
-
--- ----------------------------
--- Table structure for odds
--- ----------------------------
-DROP TABLE IF EXISTS `odds`;
-CREATE TABLE `odds` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `lottery_id` int(11) DEFAULT NULL,
-  `pgroup_id` int(11) DEFAULT NULL,
-  `value` double DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of odds
--- ----------------------------
-INSERT INTO `odds` VALUES ('1', '2', '3', '10', '2015-10-16 17:15:20');
-INSERT INTO `odds` VALUES ('2', '2', '3', '10', '2015-10-16 17:19:21');
+INSERT INTO `lottery_mark_six` VALUES ('3', '28', '45', '41', '47', '35', '48', '4', '102', '2015-10-18 09:26:15');
+INSERT INTO `lottery_mark_six` VALUES ('4', '1', '45', '37', '30', '34', '17', '8', '120', '2015-10-18 09:27:19');
+INSERT INTO `lottery_mark_six` VALUES ('5', '24', '13', '5', '27', '22', '23', '20', '200', '2015-10-18 09:27:32');
+INSERT INTO `lottery_mark_six` VALUES ('6', '40', '29', '7', '38', '30', '35', '19', '294', '2015-10-21 16:31:17');
 
 -- ----------------------------
 -- Table structure for pgroup
