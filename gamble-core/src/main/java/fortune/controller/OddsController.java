@@ -25,6 +25,12 @@ public class OddsController {
     @Autowired
     private OddsService oddsService;
 
+    /**
+     * 设置赔率
+     * @param odds
+     * @param result
+     * @param response
+     */
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
@@ -37,6 +43,11 @@ public class OddsController {
         oddsService.saveOdds(odds);
     }
 
+    /**
+     * 获取所有赔率
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -44,6 +55,11 @@ public class OddsController {
         return oddsService.getAll();
     }
 
+    /**
+     * 根据id获取赔率
+     * @param oddsId
+     * @return
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -51,6 +67,12 @@ public class OddsController {
         return oddsService.getOddsById(oddsId);
     }
 
+    /**
+     * 获取某个代理商对于某一期的博彩的赔率
+     * @param lotteryIssue 博彩的期数
+     * @param groupId 代理商的id
+     * @return
+     */
     @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -58,6 +80,13 @@ public class OddsController {
         return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId);
     }
 
+    /**
+     * 获取某个代理商对于某一期的博彩的某一个数字的赔率
+     * @param lotteryIssue 博彩的期数
+     * @param groupId 代理商的id
+     * @param number 球的数字
+     * @return
+     */
     @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}/ball_number/{number}", method = RequestMethod.GET)
     public
     @ResponseBody

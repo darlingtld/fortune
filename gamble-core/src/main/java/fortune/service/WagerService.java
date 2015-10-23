@@ -19,6 +19,12 @@ public class WagerService {
     private WagerDao wagerDao;
 
     @Transactional
+    public LotteryMarkSixWager getLotteryMarkSixWager(String lotteryMarkSixWagerId) {
+        Utils.logger.info("get lottery mark six wager id {}", lotteryMarkSixWagerId);
+        return wagerDao.getLotteryMarkSixWager(lotteryMarkSixWagerId);
+    }
+
+    @Transactional
     public void saveLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
         Utils.logger.info("save lottery mark six wager {}", lotteryMarkSixWager);
         wagerDao.saveLotteryMarkSixWager(lotteryMarkSixWager);
@@ -40,5 +46,17 @@ public class WagerService {
     public void deleteLotteryMarkSixWager(String lotteryMarkSixWagerId) {
         Utils.logger.info("delete lottery mark six wager id {}", lotteryMarkSixWagerId);
         wagerDao.deleteLotteryMarkSixWager(lotteryMarkSixWagerId);
+    }
+
+    @Transactional
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(int userId, int pgroupId, int lotteryIssue) {
+        Utils.logger.info("get lottery mark six wager list of user {}, pgroupid {}, issue {}", userId, pgroupId, lotteryIssue);
+        return wagerDao.getLotteryMarkSixWagerList(userId, pgroupId, lotteryIssue);
+    }
+
+    @Transactional
+    public LotteryMarkSixWager updateLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
+        Utils.logger.info("update lottery mark six wager {}", lotteryMarkSixWager);
+        return wagerDao.updateLotteryMarkSixWager(lotteryMarkSixWager);
     }
 }

@@ -3,6 +3,7 @@ package fortune.pojo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -15,27 +16,55 @@ public class LotteryMarkSixWager {
     @Id
     private String id;
 
+    @NotNull
     private int userId;
 
+    @NotNull
     private Date timestamp;
 
+    @NotNull
     private int lotteryIssue;
 
+    @NotNull
+    private int pgroupId;
+
+    @NotNull
     private List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList;
 
     private double totalMoney;
 
     private double totalStakes;
 
+    @NotNull
+    private LotteryMarkSixType lotteryMarkSixType;
+
     public LotteryMarkSixWager() {
     }
 
-    public LotteryMarkSixWager(int userId, int lotteryIssue, double totalMoney, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList) {
+    public LotteryMarkSixWager(int userId, int pgroupId, int lotteryIssue, double totalMoney, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type) {
         this.userId = userId;
+        this.pgroupId = pgroupId;
         this.lotteryIssue = lotteryIssue;
         this.totalMoney = totalMoney;
         this.totalStakes = totalStakes;
         this.lotteryMarkSixWagerStubList = lotteryMarkSixWagerStubList;
+        this.lotteryMarkSixType = type;
+    }
+
+    public LotteryMarkSixType getLotteryMarkSixType() {
+        return lotteryMarkSixType;
+    }
+
+    public void setLotteryMarkSixType(LotteryMarkSixType lotteryMarkSixType) {
+        this.lotteryMarkSixType = lotteryMarkSixType;
+    }
+
+    public int getPgroupId() {
+        return pgroupId;
+    }
+
+    public void setPgroupId(int pgroupId) {
+        this.pgroupId = pgroupId;
     }
 
     public double getTotalMoney() {

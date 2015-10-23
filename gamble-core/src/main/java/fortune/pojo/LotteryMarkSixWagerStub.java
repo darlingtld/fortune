@@ -8,8 +8,20 @@ public class LotteryMarkSixWagerStub {
     private int number;
     private double stakes;
 
+    public LotteryMarkSixWagerStub() {
+    }
+
+    public LotteryMarkSixWagerStub(int number, double stakes) {
+        this.number = number;
+        this.stakes = stakes;
+    }
+
     public int getNumber() {
         return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     @Override
@@ -18,10 +30,6 @@ public class LotteryMarkSixWagerStub {
                 "number=" + number +
                 ", stakes=" + stakes +
                 '}';
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     public double getStakes() {

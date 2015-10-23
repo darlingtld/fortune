@@ -5,6 +5,8 @@ package fortune.pojo;
  */
 public enum LotteryMarkSixType {
 
+    NUMBER("数字"),
+
     ZODIAC_SHU("鼠"),
     ZODIAC_NIU("牛"),
     ZODIAC_HU("虎"),

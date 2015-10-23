@@ -48,6 +48,10 @@ public class LotteryController {
         lotteryService.saveLotteryMarkSix(lotteryMarkSix);
     }
 
+    /**
+     * 获取所有的博彩类型
+     * @return
+     */
     @RequestMapping(value = "type", method = RequestMethod.GET)
     public
     @ResponseBody
