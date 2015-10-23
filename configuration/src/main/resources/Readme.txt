@@ -48,7 +48,10 @@
 
     bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic lingda-test
 
-
+6. install redis
+    refer to http://redis.io/
+    for windows, https://github.com/MSOpenTech/redis/releases
+    run with 'redis-server'
 
 
 
