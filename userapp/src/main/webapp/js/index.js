@@ -17,7 +17,7 @@ indexApp.service("zodiacService", function($q, $http) {
 	this.getColorItems = function() {
 		var deferred = $q.defer();
 		var items = {};
-		items.red = 11;
+		items.red = 11; // TODO 赔率
 		items.blue = 12;
 		items.green = 13;
 		return items;
@@ -34,7 +34,10 @@ indexApp.service("tailBallService", function($q, $http) {
 				if (ball > 49) {
 					break;
 				}
-				itemRow.push(ball);
+				var item={};
+				item.ball=ball;
+				item.odds=11; // TODO 赔率
+				itemRow.push(item);
 			}
 			tailItems.push(itemRow);
 		}

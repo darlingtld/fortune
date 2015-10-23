@@ -27,6 +27,7 @@
 			</div>
 			<div ng-show="selectedIndex==2">
 				<div class="error_content">目前没有可以下注的期数</div>
+				<div ng-include="'includes/halfwave.html'"></div>
 			</div>
 			<div ng-show="selectedIndex==3">
 				<div class="error_content">目前没有可以下注的期数</div>
@@ -59,8 +60,7 @@
 		</div>
 	</div>
 	<script src="js/lib/angular.min.js"></script>
-	<script src="js/common/color.js"></script>
-	<script src="js/common/zodiac.js"></script>
+	<script src="js/common/lottery_algorithms.js"></script>
 	<script src="js/index.js"></script>
 </body>
 </html>
