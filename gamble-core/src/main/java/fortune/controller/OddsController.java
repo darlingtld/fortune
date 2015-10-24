@@ -27,6 +27,7 @@ public class OddsController {
 
     /**
      * 设置赔率
+     *
      * @param odds
      * @param result
      * @param response
@@ -45,6 +46,7 @@ public class OddsController {
 
     /**
      * 获取所有赔率
+     *
      * @param response
      * @return
      */
@@ -57,6 +59,7 @@ public class OddsController {
 
     /**
      * 根据id获取赔率
+     *
      * @param oddsId
      * @return
      */
@@ -69,8 +72,9 @@ public class OddsController {
 
     /**
      * 获取某个代理商对于某一期的博彩的赔率
+     *
      * @param lotteryIssue 博彩的期数
-     * @param groupId 代理商的id
+     * @param groupId      代理商的id
      * @return
      */
     @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}", method = RequestMethod.GET)
@@ -82,9 +86,10 @@ public class OddsController {
 
     /**
      * 获取某个代理商对于某一期的博彩的某一个数字的赔率
+     *
      * @param lotteryIssue 博彩的期数
-     * @param groupId 代理商的id
-     * @param number 球的数字
+     * @param groupId      代理商的id
+     * @param number       球的数字
      * @return
      */
     @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}/ball_number/{number}", method = RequestMethod.GET)
@@ -92,6 +97,21 @@ public class OddsController {
     @ResponseBody
     LotteryOdds getOdds4LotteryIssueAndNumber(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") int groupId, @PathVariable("number") int number) {
         return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId, number);
+    }
+
+    /**
+     * 获取某个代理商对于某一期的博彩的某一种类型的赔率
+     * @param lotteryIssue
+     * @param groupId
+     * @param number
+     * @param lotteryMarkSixType
+     * @return
+     */
+    @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}/lottery_mark_six_type/{lottery_mark_six_type}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    LotteryOdds getOdds4LotteryIssueAndType(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") int groupId, @PathVariable("number") int number, @PathVariable("lottery_mark_six_type") String lotteryMarkSixType) {
+        return oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType);
     }
 
 }

@@ -40,4 +40,9 @@ public class OddsDao {
         Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number)));
         return mongoTemplate.findOne(query, LotteryOdds.class);
     }
+
+    public LotteryOdds getOdds4LotteryIssueByType(int lotteryIssue, int groupId, String lotteryMarkSixType) {
+        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType)));
+        return mongoTemplate.findOne(query, LotteryOdds.class);
+    }
 }

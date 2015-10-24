@@ -24,13 +24,7 @@ public class LotteryOdds {
 
     private Date timestamp;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private LotteryMarkSixType lotteryMarkSixType;
 
     @Override
     public String toString() {
@@ -41,7 +35,24 @@ public class LotteryOdds {
                 ", groupId=" + groupId +
                 ", lotteryIssue=" + lotteryIssue +
                 ", timestamp=" + timestamp +
+                ", lotteryMarkSixType='" + lotteryMarkSixType + '\'' +
                 '}';
+    }
+
+    public LotteryMarkSixType getLotteryMarkSixType() {
+        return lotteryMarkSixType;
+    }
+
+    public void setLotteryMarkSixType(LotteryMarkSixType lotteryMarkSixType) {
+        this.lotteryMarkSixType = lotteryMarkSixType;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getLotteryBallNumber() {
