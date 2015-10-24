@@ -27,6 +27,7 @@ public class OddsController {
 
     /**
      * 设置赔率
+     * 如果设置了type类型，在中奖判断时，会忽略number的情况
      *
      * @param odds
      * @param result

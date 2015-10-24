@@ -3,6 +3,7 @@ package fortune.pojo;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -16,12 +17,16 @@ public class LotteryOdds {
 
     private int lotteryBallNumber;
 
+    @NotNull
     private double odds;
 
+    @NotNull
     private int groupId;
 
+    @NotNull
     private int lotteryIssue;
 
+    @NotNull
     private Date timestamp;
 
     private LotteryMarkSixType lotteryMarkSixType;
