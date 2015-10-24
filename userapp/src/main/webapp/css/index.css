@@ -106,3 +106,8 @@ input[type=radio], input[type=checkbox]{
 	margin-left:auto;
 	margin-right:auto;
 }
+
+.second_head_row>th{
+	border-top:1px solid #eee;
+	font-weight:normal;
+}
