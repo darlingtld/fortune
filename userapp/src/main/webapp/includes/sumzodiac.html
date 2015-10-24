@@ -1,0 +1,37 @@
+<table class="zodiac_table">
+	<tr>
+		<th>生肖</th>
+		<th>号码</th>
+		<th>选择(最多11个)</th>
+	</tr>
+	<tr ng-repeat="zodiacItem in zodiacItems">
+		<td>{{zodiacItem.name}}</td>
+		<td>
+			<div ng-repeat="ball in zodiacItem.balls"
+				class="ball {{colorMap[ball]}}">{{ball}}</div>
+		</td>
+		<td>
+			<input type="checkbox"/>
+		</td>
+	</tr>
+</table>
+<table class="zodiac_table">
+	<tr>
+		<th>类别</th>
+		<th>赔率</th>
+		<th>选择</th>
+	</tr>
+	<tr ng-repeat="sumZodiacItem in sumZodiacItems">
+		<td>{{sumZodiacItem.name}}</td>
+		<td>{{sumZodiacItem.odds}}</td>
+		<td>
+			<input type="radio" name="sumZodiac"/>中
+			<input type="radio" name="sumZodiac"/>不中
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<a href="javascript:;" class="btn" style="float:right;margin-right:45px;">下注</a>
+		</td>
+	</tr>
+</table>

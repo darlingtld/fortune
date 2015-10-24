@@ -62,7 +62,7 @@
 
 .content table td{
 	padding:10px;
-	text-align:left;
+	text-align:center;
 }
 
 .content table th{
@@ -70,7 +70,7 @@
 	background:#1FADFB;
 	padding:10px;
 	border-right:1px solid #fff;
-	text-align:left;
+	text-align:center;
 }
 
 .content table th:last-child{
@@ -91,10 +91,18 @@
 	margin-left: 38px;
 }
 
-input[type=radio]{
+input[type=radio], input[type=checkbox]{
 	cursor:pointer;
+	width:20px;
+	height:20px;
+	margin:0px;
 }
 
 .color_td{
 	color:white;
+}
+
+.bet{
+	margin-left:auto;
+	margin-right:auto;
 }

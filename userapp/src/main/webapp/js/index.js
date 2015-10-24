@@ -45,8 +45,22 @@ indexApp.service("tailBallService", function($q, $http) {
 	};
 });
 
+indexApp.service("sumZodiacService", function($q, $http){
+	this.getSumZodiacItems=function(){
+		// TODO 赔率
+		var sumZodiacItems=[];
+		for(var i=1;i<=11;i++){
+			var item={};
+			item.name=i+"肖";
+			item.odds=11;
+			sumZodiacItems.push(item);
+		}
+		return sumZodiacItems;
+	};
+});
+
 indexApp.controller("IndexController", function($scope, zodiacService,
-		tailBallService) {
+		tailBallService, sumZodiacService) {
 	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "连码", "自选不中",
 			"过关", "一肖尾数", "连肖", "连尾", "正码特" ];
 	$scope.selectedIndex = 0;
@@ -61,4 +75,9 @@ indexApp.controller("IndexController", function($scope, zodiacService,
 	$scope.colorItems = zodiacService.getColorItems();
 	// 特码
 	$scope.tailItems = tailBallService.getTailItems();
+	// 半波
+	// TODO
+	// 合肖
+	$scope.sumZodiacItems = sumZodiacService.getSumZodiacItems();
+	
 });
