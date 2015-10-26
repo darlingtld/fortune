@@ -44,6 +44,7 @@ body {
 	width: 870px;
 	margin-top:15px;
 	margin-left:15px;
+	margin-bottom:40px;
 }
 
 .menu_logo {
@@ -179,4 +180,15 @@ body {
 #live_video>iframe{
 	position:relative;
 	left:-11px;
+}
+
+.footer_area{
+	text-align:center;
+	line-height:60px;
+	width:1190px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:40px;
+	border-top:1px solid #888;
+	clear:left;
 }
