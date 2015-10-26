@@ -80,8 +80,29 @@ indexApp.service("jointBallService", function($q, $http) {
 	};
 });
 
+indexApp.service("notBallService", function($q, $http) {
+	this.getNotItems = function() {
+		var row = 10, col = 5, notItems = [];
+		for (var i = 0; i < row; i++) {
+			var itemRow = [];
+			for (var j = 0; j < col; j++) {
+				var ball = i * col + j + 1;
+				if (ball > 49) {
+					break;
+				}
+				var item={};
+				item.ball=ball;
+				item.odds=11; // TODO 赔率
+				itemRow.push(item);
+			}
+			notItems.push(itemRow);
+		}
+		return notItems;
+	};
+});
+
 indexApp.controller("IndexController", function($scope, zodiacService,
-		tailBallService, sumZodiacService, jointBallService) {
+		tailBallService, sumZodiacService, jointBallService, notBallService) {
 	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "连码", "自选不中",
 			"过关", "一肖尾数", "连肖", "连尾", "正码特" ];
 	$scope.selectedIndex = 0;
@@ -102,5 +123,6 @@ indexApp.controller("IndexController", function($scope, zodiacService,
 	$scope.sumZodiacItems = sumZodiacService.getSumZodiacItems();
 	// 连码
 	$scope.jointItems = jointBallService.getJointItems();
-	
+	// 自选不中
+	$scope.notItems = notBallService.getNotItems();
 });
