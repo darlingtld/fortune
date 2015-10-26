@@ -22,6 +22,8 @@
     mongodump -h dbhost -d dbname -o dbdirectory
 
     mongorestore -host localhost:27017 -d fortune /dir dbdirectory
+    
+    (just for frank):mongod --dbpath /Users/frank/software/mongodb/dbs/
 
 5. configure kafka
     refer to http://kafka.apache.org/documentation.html#quickstart
