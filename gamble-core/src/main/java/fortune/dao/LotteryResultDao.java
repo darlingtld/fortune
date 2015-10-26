@@ -1,7 +1,6 @@
 package fortune.dao;
 
 import fortune.pojo.LotteryResult;
-import fortune.pojo.LotteryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -19,13 +18,13 @@ public class LotteryResultDao {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public LotteryResult getLotteryResultById(int LotteryResultId) {
-        Query query = new Query(Criteria.where("id").is(LotteryResultId));
+    public LotteryResult getLotteryResultById(int lotteryResultId) {
+        Query query = new Query(Criteria.where("id").is(lotteryResultId));
         return mongoTemplate.findOne(query, LotteryResult.class);
     }
 
-    public void saveLotteryResult(LotteryResult LotteryResult) {
-        mongoTemplate.save(LotteryResult);
+    public void saveLotteryResult(LotteryResult lotteryResult) {
+        mongoTemplate.save(lotteryResult);
     }
 
     public List<LotteryResult> getAll() {
