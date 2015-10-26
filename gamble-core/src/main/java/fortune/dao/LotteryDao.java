@@ -24,4 +24,7 @@ public class LotteryDao {
         sessionFactory.getCurrentSession().save(lotteryMarkSix);
     }
 
+    public LotteryMarkSix getLotteryMarkSix(int lotteryIssue) {
+        return (LotteryMarkSix) sessionFactory.getCurrentSession().createQuery(String.format("from LotteryMarkSix where issue = %d", lotteryIssue)).uniqueResult();
+    }
 }

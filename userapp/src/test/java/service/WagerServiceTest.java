@@ -1,9 +1,9 @@
 package service;
 
-import fortune.pojo.LotteryMarkSixType;
-import fortune.pojo.LotteryMarkSixWager;
-import fortune.pojo.LotteryMarkSixWagerStub;
-import fortune.pojo.User;
+import fortune.pojo.*;
+import fortune.rule.RuleSPECIALDAN;
+import fortune.service.LotteryService;
+import fortune.service.OddsService;
 import fortune.service.UserService;
 import fortune.service.WagerService;
 import org.junit.Test;
@@ -28,6 +28,15 @@ public class WagerServiceTest {
 
     @Autowired
     private WagerService wagerService;
+
+    @Autowired
+    private OddsService oddsService;
+
+    @Autowired
+    private LotteryService lotteryService;
+
+    @Autowired
+    private RuleSPECIALDAN ruleSPECIALDAN;
 
     @Test
     public void saveLotteryMarkSixWager() {
@@ -70,6 +79,47 @@ public class WagerServiceTest {
         wager.setLotteryMarkSixWagerStubList(lotteryMarkSixWagerStubList);
         wager = wagerService.updateLotteryMarkSixWager(wager);
         System.out.println(wager);
+    }
+
+    @Test
+    public void mimicWageAndDraw() {
+        int lotteryIssue=162;
+//        user wages
+        LotteryMarkSixWager wager = new LotteryMarkSixWager();
+        wager.setUserId(1);
+        wager.setPgroupId(3);
+        wager.setLotteryIssue(lotteryIssue);
+        wager.setTotalMoney(300);
+        wager.setTotalStakes(10);
+        wager.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL_DAN);
+        wagerService.saveLotteryMarkSixWager(wager);
+//        group admin set odds
+        LotteryOdds odds = new LotteryOdds();
+        odds.setLotteryIssue(lotteryIssue);
+        odds.setGroupId(3);
+        odds.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL_DAN);
+        odds.setOdds(42);
+        oddsService.saveOdds(odds);
+//        lottery mark six draws
+        LotteryMarkSix lotteryMarkSix = new LotteryMarkSix();
+        lotteryMarkSix.setOne(33);
+        lotteryMarkSix.setTwo(12);
+        lotteryMarkSix.setThree(8);
+        lotteryMarkSix.setFour(28);
+        lotteryMarkSix.setFive(19);
+        lotteryMarkSix.setSix(45);
+        lotteryMarkSix.setSpecial(9);
+        lotteryMarkSix.setIssue(lotteryIssue);
+        lotteryService.saveLotteryMarkSix(lotteryMarkSix);
+
+        ruleSPECIALDAN.setLotteryIssue(lotteryIssue);
+        ruleSPECIALDAN.run();
+    }
+
+    @Test
+    public void runRules(){
+        ruleSPECIALDAN.setLotteryIssue(160);
+        ruleSPECIALDAN.run();
     }
 
 }

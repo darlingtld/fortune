@@ -29,6 +29,12 @@ public class LotteryService {
     }
 
     @Transactional
+    public LotteryMarkSix getLotteryMarkSix(int lotteryIssue){
+        Utils.logger.info("get lottery mark six of issue {}", lotteryIssue);
+        return lotteryDao.getLotteryMarkSix(lotteryIssue);
+    }
+
+    @Transactional
     public void saveLotteryMarkSix(LotteryMarkSix lotteryMarkSix) {
         Utils.logger.info("save lottery mark six");
         lotteryDao.saveLotteryMarkSix(lotteryMarkSix);

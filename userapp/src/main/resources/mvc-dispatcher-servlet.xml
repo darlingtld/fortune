@@ -59,12 +59,9 @@
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
-    <!--<task:scheduled-tasks scheduler="myScheduler">-->
-    <!--<task:scheduled ref="productCrawler" method="crawl" cron="0 0 1 * * ?"/>-->
-    <!--<task:scheduled ref="imageCrawler" method="fullfillImages" cron="0 0 */1 * * ?"/>-->
-    <!--</task:scheduled-tasks>-->
-    <!--<task:scheduler id="myScheduler" pool-size="4"/>-->
+
 
     <import resource="spring-mongodb.xml"/>
-    <import resource="spring-redis.xml"/>
+    <!--<import resource="spring-redis.xml"/>-->
+    <import resource="spring-quartz.xml"/>
 </beans>

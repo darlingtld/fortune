@@ -2,6 +2,7 @@ package fortune.service;
 
 import common.Utils;
 import fortune.dao.WagerDao;
+import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryMarkSixWager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,5 +59,17 @@ public class WagerService {
     public LotteryMarkSixWager updateLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
         Utils.logger.info("update lottery mark six wager {}", lotteryMarkSixWager);
         return wagerDao.updateLotteryMarkSixWager(lotteryMarkSixWager);
+    }
+
+    @Transactional
+    public List<LotteryMarkSixWager> getAll(int lotteryIssue) {
+        Utils.logger.info("get all lottery mark six wager of lottery issue {}", lotteryIssue);
+        return wagerDao.getAll(lotteryIssue);
+    }
+
+    @Transactional
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListByType(int lotteryIssue, LotteryMarkSixType lotteryMarkSixType) {
+        Utils.logger.info("get all lottetry mark six wager of lottery issue {}, type {}", lotteryIssue, lotteryMarkSixType);
+        return wagerDao.getLotteryMarkSixWagerListByType(lotteryIssue, lotteryMarkSixType);
     }
 }

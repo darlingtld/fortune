@@ -12,12 +12,12 @@ import java.util.List;
 public class LotteryResult {
 
     @Id
-    private int id;
+    private String id;
     private int userId;
     private int groupId;
     private int lotteryIssue;
     private double winningMoney;
-    private List<String> lotteryMarkSixWagerList;
+    private String lotteryMarkSixWagerId;
 
     @Override
     public String toString() {
@@ -27,15 +27,15 @@ public class LotteryResult {
                 ", groupId=" + groupId +
                 ", lotteryIssue=" + lotteryIssue +
                 ", winningMoney=" + winningMoney +
-                ", lotteryMarkSixWagerList=" + lotteryMarkSixWagerList +
+                ", lotteryMarkSixWagerId=" + lotteryMarkSixWagerId +
                 '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -71,11 +71,11 @@ public class LotteryResult {
         this.winningMoney = winningMoney;
     }
 
-    public List<String> getLotteryMarkSixWagerList() {
-        return lotteryMarkSixWagerList;
+    public String getLotteryMarkSixWagerId() {
+        return lotteryMarkSixWagerId;
     }
 
-    public void setLotteryMarkSixWagerList(List<String> lotteryMarkSixWagerList) {
-        this.lotteryMarkSixWagerList = lotteryMarkSixWagerList;
+    public void setLotteryMarkSixWagerId(String lotteryMarkSixWagerId) {
+        this.lotteryMarkSixWagerId = lotteryMarkSixWagerId;
     }
 }

@@ -64,4 +64,14 @@ public class WagerDao {
         Query searchWagerQuery = new Query(Criteria.where("id").is(lotteryMarkSixWagerId));
         return mongoTemplate.findOne(searchWagerQuery, LotteryMarkSixWager.class);
     }
+
+    public List<LotteryMarkSixWager> getAll(int lotteryIssue) {
+        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(lotteryIssue));
+        return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
+    }
+
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListByType(int lotteryIssue, LotteryMarkSixType lotteryMarkSixType) {
+        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType)));
+        return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
+    }
 }

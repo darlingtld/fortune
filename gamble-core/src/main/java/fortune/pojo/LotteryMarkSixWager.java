@@ -20,7 +20,7 @@ public class LotteryMarkSixWager {
     private int userId;
 
     @NotNull
-    private Date timestamp;
+    private Date timestamp = new Date();
 
     @NotNull
     private int lotteryIssue;

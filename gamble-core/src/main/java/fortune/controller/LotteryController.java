@@ -29,6 +29,11 @@ public class LotteryController {
     @Autowired
     private LotteryService lotteryService;
 
+    /**
+     * 获取素有的开奖结果
+     *
+     * @return
+     */
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -36,6 +41,13 @@ public class LotteryController {
         return lotteryService.getLotteryMarkSixAll();
     }
 
+    /**
+     * 保存开奖结果
+     *
+     * @param lotteryMarkSix
+     * @param result
+     * @param response
+     */
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
@@ -50,6 +62,7 @@ public class LotteryController {
 
     /**
      * 获取所有的博彩类型
+     *
      * @return
      */
     @RequestMapping(value = "type", method = RequestMethod.GET)
@@ -59,6 +72,12 @@ public class LotteryController {
         return lotteryService.getLotteryMarkSixType();
     }
 
+    /**
+     * 根据球的数字获取球的颜色
+     *
+     * @param number
+     * @return
+     */
     @RequestMapping(value = "ball_number/{number}", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -68,6 +87,13 @@ public class LotteryController {
         jsonObject.put("number", lotteryBall.getNumber());
         jsonObject.put("color", lotteryBall.getColor());
         return jsonObject;
+    }
+
+    @RequestMapping(value = "lottery_issue/{lottery_issue}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    LotteryMarkSix getLotteryMarkSix(@PathVariable("lottery_issue") int lotteryIssue) {
+        return lotteryService.getLotteryMarkSix(lotteryIssue);
     }
 
 }

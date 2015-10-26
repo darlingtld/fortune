@@ -27,7 +27,7 @@ public class LotteryOdds {
     private int lotteryIssue;
 
     @NotNull
-    private Date timestamp;
+    private Date timestamp = new Date();
 
     private LotteryMarkSixType lotteryMarkSixType;
 

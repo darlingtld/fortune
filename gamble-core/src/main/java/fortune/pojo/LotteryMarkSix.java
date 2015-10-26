@@ -39,7 +39,7 @@ public class LotteryMarkSix {
     private int issue;
     @NotNull
     @Column(name = "timestamp")
-    private Date timestamp;
+    private Date timestamp = new Date();
 
     public LotteryMarkSix() {
     }
