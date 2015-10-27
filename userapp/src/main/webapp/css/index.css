@@ -74,6 +74,10 @@
 	text-align:center;
 }
 
+.vertical_th{
+	border-top:1px solid #fff;
+}
+
 .content table th:last-child{
 	border-right:1px solid #1FADFB;
 }
@@ -96,7 +100,6 @@ input[type=radio], input[type=checkbox]{
 	cursor:pointer;
 	width:20px;
 	height:20px;
-	margin:0px;
 	vertical-align: middle;
 }
 
