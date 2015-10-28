@@ -83,7 +83,7 @@ public class WagerServiceTest {
 
     @Test
     public void mimicWageAndDraw() {
-        int lotteryIssue=162;
+        int lotteryIssue=163;
 //        user wages
         LotteryMarkSixWager wager = new LotteryMarkSixWager();
         wager.setUserId(1);
@@ -112,13 +112,11 @@ public class WagerServiceTest {
         lotteryMarkSix.setIssue(lotteryIssue);
         lotteryService.saveLotteryMarkSix(lotteryMarkSix);
 
-        ruleSPECIALDAN.setLotteryIssue(lotteryIssue);
         ruleSPECIALDAN.run();
     }
 
     @Test
     public void runRules(){
-        ruleSPECIALDAN.setLotteryIssue(160);
         ruleSPECIALDAN.run();
     }
 

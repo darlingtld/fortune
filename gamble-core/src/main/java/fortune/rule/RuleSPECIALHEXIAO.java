@@ -9,20 +9,20 @@ import org.springframework.stereotype.Component;
 /**
  * Created by tangl9 on 2015-10-26.
  */
-//正码特单，特单,特码单
+//特码合小
 @Scope("prototype")
 @Component
-public class RuleSPECIALDAN extends Rule {
+public class RuleSPECIALHEXIAO extends Rule {
 
-    public RuleSPECIALDAN() {
-        super(LotteryMarkSixType.SPECIAL_DAN);
+    public RuleSPECIALHEXIAO() {
+        super(LotteryMarkSixType.SPECIAL_HEXIAO);
     }
 
     @Override
     public RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix) {
         if (lotteryMarkSix.getSpecial() == 49) {
             return RuleResult.DRAW;
-        } else if (lotteryMarkSix.getSpecial() % 2 == 1) {
+        } else if ((lotteryMarkSix.getSpecial() / 10 + lotteryMarkSix.getSpecial() % 10) < 25) {
             return RuleResult.WIN;
         } else {
             return RuleResult.LOSE;

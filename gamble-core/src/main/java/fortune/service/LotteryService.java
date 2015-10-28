@@ -52,4 +52,10 @@ public class LotteryService {
         }
         return jsonArray;
     }
+
+    @Transactional
+    public int getLatestLotteryIssue() {
+        Utils.logger.info("get latest lottery issue");
+        return lotteryDao.getLatestLotteryIssue();
+    }
 }

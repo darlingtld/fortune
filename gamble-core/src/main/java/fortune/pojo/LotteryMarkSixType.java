@@ -102,6 +102,8 @@ public enum LotteryMarkSixType {
     SPECIAL_LVBO("正码特绿波"),
     SPECIAL_HEDAN("正码特合单"),
     SPECIAL_HESHUANG("正码特合双"),
+    SPECIAL_HEDA("正码特合大"),
+    SPECIAL_HEXIAO("正码特合小"),
 
     RED_SHUANG("红双"),
     RED_DAN("红单"),

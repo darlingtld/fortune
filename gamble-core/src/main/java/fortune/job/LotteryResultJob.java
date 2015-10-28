@@ -20,7 +20,6 @@ public class LotteryResultJob {
     private RuleSPECIALDAN ruleSPECIALDAN;
     public void calculateLotteryResult() {
         Utils.logger.info("start to calculate lottery result at {}", Utils.yyyyMMddHHmmss2Format(new Date()));
-        ruleSPECIALDAN.setLotteryIssue(160);
         threadPoolExecutor.submit(ruleSPECIALDAN);
     }
 }
