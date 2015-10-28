@@ -3,7 +3,8 @@
   		彩票直播
   	</div>
   	<div class="side_body">
-  		<div id="live_video">
+  		<div class="video_container">
+  			<iframe src="http://hsbc168.us/mark6/" width="296" height="280" scrolling="no" id="live_video"></iframe>
   		</div>
   	</div>
 </div>
@@ -41,3 +42,12 @@
   		</table>
   	</div>
 </div>
+<script>
+	window.onload=function(){
+		var iframe=document.getElementById("live_video");
+		var body=iframe.contentWindow.document.body;
+		console.log(body);
+		body.style.marginTop=-276;
+		body.style.marginLeft=-643;
+	};
+</script>
