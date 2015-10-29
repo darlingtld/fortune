@@ -5,6 +5,7 @@
 	border: 1px solid #dedede;
 	padding:20px;
 	height:35px;
+	border-radius:15px;
 }
 
 .date_area>input{

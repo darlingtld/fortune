@@ -44,7 +44,7 @@
 .content{
 	background:white;
 	border: 1px solid #dedede;
-	border-bottom-width: 3px;
+	border-radius:15px;
 }
 
 .content table{
