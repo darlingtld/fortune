@@ -170,16 +170,8 @@ body {
 	background:green;
 }
 
-#live_video{
-	width:300px;
-	height:300px;
-	overflow:hidden;
-    position: relative;
-}
-
-#live_video>iframe{
-	position:relative;
-	left:-11px;
+.video_container{
+	height:280px;
 }
 
 .footer_area{

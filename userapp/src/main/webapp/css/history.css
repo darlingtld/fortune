@@ -1,19 +1,19 @@
 @import url("common.css");
 
-.content>table{
+.section>table{
 	width:100%;
 	border-collapse: collapse;
 	background:white;
 }
 
-.content>table td{
+.section>table td{
 	padding-top:10px;
 	padding-bottom:10px;
 	text-align:center;
 	border-right:1px solid #eee;
 }
 
-.content>table th{
+.section>table th{
 	color:white;
 	background:#1FADFB;
 	padding-top:10px;
@@ -22,11 +22,11 @@
 	text-align:center;
 }
 
-.content>table th:last-child, .content>table td:last-child{
+.section>table th:last-child, .section>table td:last-child{
 	border-right:none;
 }
 
-.content>table tr:nth-child(odd) {
+.section>table tr:nth-child(odd) {
 	background: #FDFDCE;
 }
 
@@ -37,4 +37,9 @@
 
 .color_td{
 	color:white;
+}
+
+.section{
+	margin-top:15px;
+	margin-bottom:40px;
 }
