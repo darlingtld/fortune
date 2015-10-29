@@ -1,0 +1,45 @@
+@import url("common.css");
+
+.section>table{
+	width:100%;
+	border-collapse: collapse;
+	background:white;
+}
+
+.section>table td{
+	padding-top:10px;
+	padding-bottom:10px;
+	text-align:center;
+	border-right:1px solid #eee;
+}
+
+.section>table th{
+	color:white;
+	background:#1FADFB;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-right:1px solid #eee;
+	text-align:center;
+}
+
+.section>table th:last-child, .section>table td:last-child{
+	border-right:none;
+}
+
+.section>table tr:nth-child(odd) {
+	background: #FDFDCE;
+}
+
+.th_two>th{
+	border-top:1px solid #eee;
+	font-weight:normal;
+}
+
+.color_td{
+	color:white;
+}
+
+.section{
+	margin-top:15px;
+	margin-bottom:40px;
+}

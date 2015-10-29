@@ -1,0 +1,31 @@
+@import url("common.css");
+
+.agreement_area{
+	margin:30px auto auto auto;
+	width:800px;
+	border:2px solid #dedede;
+	background:white;
+}
+
+.agreement_header{
+	font-size:1.4em;
+	font-weight:bold;
+	color:white;
+	background:#1FADFB;
+	padding:10px 20px 10px 20px;
+}
+
+.agreement_body{
+	padding:20px;
+}
+
+.agreement_footer{
+	background:#dedede;
+	height:40px;
+}
+
+.btn{
+	margin-right:20px;
+	margin-top:5px;
+	float:right;
+}

@@ -20,10 +20,10 @@
 		<td colspan="3" ng-repeat="ball in row" style="border-right: 1px solid #1FADFB;">
 			<div class="ball {{colorMap[ball.ball]}}">{{ball.ball}}</div>
 			<div class="odds">{{ball.odds}}</div>
-			<input type="radio" name="tailBall" class="tailBallRadio" value="{{ball.ball}}" ng-model="$parent.$parent.selectedBalls"/>
+			<input type="radio" name="tailBall" class="tailBallRadio"/>
 		</td>
 		<td colspan="3" ng-if="$last">
 		</td>
 	</tr>
 </table>
-<a href="javascript:;" class="btn" style="float:right;margin-right:45px;margin-bottom:15px;" ng-click="wage('tailball',selectedBalls);">下注</a>
+<a href="javascript:;" class="btn" style="float:right;margin-right:45px;margin-bottom:15px;">下注</a>

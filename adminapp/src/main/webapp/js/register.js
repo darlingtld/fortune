@@ -23,7 +23,7 @@ registerApp.controller("RegisterController", function ($scope, $http) {
             }).error(function (data, status, headers) {
                 $scope.isError = true;
                 $scope.errorMessage = headers('message');
-            });
+            })
         }
 
     };

@@ -1,0 +1,44 @@
+@import url("common.css");
+
+.login_area{
+	margin:100px auto auto auto;
+	width:400px;
+	border:2px solid #dedede;
+	background:white;
+}
+
+.login_header{
+	font-size:1.4em;
+	font-weight:bold;
+	color:white;
+	background:#1FADFB;
+	padding:10px 20px 10px 20px;
+}
+
+.login_body{
+	padding:20px;
+}
+
+.login_body>input{
+	width:286px;
+	padding:5px;
+	border:1px solid #ccc;
+}
+
+.login_footer{
+	background:#dedede;
+	height:30px;
+	padding:5px 100px;
+}
+
+.btn{
+	margin-left:20px;
+	float:left;
+}
+
+.error_message{
+	color:red;
+	font-weight:bold;
+	margin-top: 10px;
+	margin-bottom: 0px;
+}

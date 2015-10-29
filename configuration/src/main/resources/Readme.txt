@@ -21,7 +21,7 @@
 
     mongodump -h dbhost -d dbname -o dbdirectory
 
-    mongorestore -host localhost:27017 -d fortune /dir dbdirectory
+    mongorestore --host localhost -d fortune --dir '/Users/frank/workspace/fortune/configuration/src/main/database/mongo_db_init/fortune'
     
     (just for frank):mongod --dbpath /Users/frank/software/mongodb/dbs/
 

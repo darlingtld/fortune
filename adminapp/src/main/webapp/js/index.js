@@ -34,34 +34,25 @@ indexApp.service("tailBallService", function($q, $http) {
 				if (ball > 49) {
 					break;
 				}
-				var item = {};
-				item.ball = ball;
-				item.odds = 11; // TODO 赔率
+				var item={};
+				item.ball=ball;
+				item.odds=11; // TODO 赔率
 				itemRow.push(item);
 			}
 			tailItems.push(itemRow);
 		}
 		return tailItems;
 	};
-	this.wage = function(ball) {
-		$http.post("gamble/wage", {
-            
-        }).success(function () {
-            
-        }).error(function (data, status, headers) {
-            
-        });
-	};
 });
 
-indexApp.service("sumZodiacService", function($q, $http) {
-	this.getSumZodiacItems = function() {
+indexApp.service("sumZodiacService", function($q, $http){
+	this.getSumZodiacItems=function(){
 		// TODO 赔率
-		var sumZodiacItems = [];
-		for (var i = 1; i <= 11; i++) {
-			var item = {};
-			item.name = i + "肖";
-			item.odds = 11;
+		var sumZodiacItems=[];
+		for(var i=1;i<=11;i++){
+			var item={};
+			item.name=i+"肖";
+			item.odds=11;
 			sumZodiacItems.push(item);
 		}
 		return sumZodiacItems;
@@ -78,9 +69,9 @@ indexApp.service("jointBallService", function($q, $http) {
 				if (ball > 49) {
 					break;
 				}
-				var item = {};
-				item.ball = ball;
-				item.odds = 11; // TODO 赔率
+				var item={};
+				item.ball=ball;
+				item.odds=11; // TODO 赔率
 				itemRow.push(item);
 			}
 			jointItems.push(itemRow);
@@ -99,9 +90,9 @@ indexApp.service("notBallService", function($q, $http) {
 				if (ball > 49) {
 					break;
 				}
-				var item = {};
-				item.ball = ball;
-				item.odds = 11; // TODO 赔率
+				var item={};
+				item.ball=ball;
+				item.odds=11; // TODO 赔率
 				itemRow.push(item);
 			}
 			notItems.push(itemRow);
@@ -134,14 +125,4 @@ indexApp.controller("IndexController", function($scope, zodiacService,
 	$scope.jointItems = jointBallService.getJointItems();
 	// 自选不中
 	$scope.notItems = notBallService.getNotItems();
-
-	// 当前选择的球
-	$scope.selectedBalls = "";
-
-	// 下注
-	$scope.wage = function(type, balls) {
-		if (type == "tailball") {
-			tailBallService.wage(balls);
-		}
-	}
 });
