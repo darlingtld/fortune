@@ -68,7 +68,7 @@ body {
 }
 
 .menu_bar {
-	background: #333;
+	background: #1272BF;
 	height: 40px;
 }
 
@@ -106,7 +106,7 @@ body {
 }
 
 .menu_item>a:hover, .menu_item.current {
-	background: #898989;
+	background: #1FADFB;
 }
 
 .side_area {
