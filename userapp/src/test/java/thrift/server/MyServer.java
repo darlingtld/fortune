@@ -30,7 +30,7 @@ public class MyServer {
     }
 
     public static void main(String[] args) {
-        StartsimpleServer(new AdditionService.Processor<AdditionServiceHandler>(new AdditionServiceHandler()));
+        StartsimpleServer(new AdditionService.Processor<>(new AdditionServiceHandler()));
     }
 
 }

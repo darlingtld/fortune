@@ -21,6 +21,8 @@ public class BeanHolder {
     @Autowired
     private ResultService resultService;
 
+    @Autowired
+    private UserService userService;
 
     private static BeanHolder beanHolder;
 
@@ -42,5 +44,9 @@ public class BeanHolder {
 
     public static ResultService getResultService() {
         return beanHolder.resultService;
+    }
+
+    public static UserService getUserService() {
+        return beanHolder.userService;
     }
 }

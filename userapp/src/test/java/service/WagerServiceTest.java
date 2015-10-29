@@ -63,9 +63,7 @@ public class WagerServiceTest {
         List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(2, 4, 102);
         for (LotteryMarkSixWager lotteryMarkSixWager : wagerList) {
             System.out.println(lotteryMarkSixWager);
-            for (LotteryMarkSixWagerStub stub : lotteryMarkSixWager.getLotteryMarkSixWagerStubList()) {
-                System.out.println(stub);
-            }
+            lotteryMarkSixWager.getLotteryMarkSixWagerStubList().forEach(System.out::println);
         }
     }
 
@@ -79,6 +77,21 @@ public class WagerServiceTest {
         wager.setLotteryMarkSixWagerStubList(lotteryMarkSixWagerStubList);
         wager = wagerService.updateLotteryMarkSixWager(wager);
         System.out.println(wager);
+    }
+
+
+    @Test
+    public void mimicWage() {
+        int lotteryIssue=163;
+//        user wages
+        LotteryMarkSixWager wager = new LotteryMarkSixWager();
+        wager.setUserId(1);
+        wager.setPgroupId(3);
+        wager.setLotteryIssue(lotteryIssue);
+        wager.setTotalMoney(300);
+        wager.setTotalStakes(10);
+        wager.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL_SHUANG);
+        wagerService.saveLotteryMarkSixWager(wager);
     }
 
     @Test

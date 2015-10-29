@@ -28,6 +28,12 @@ public class PGroupController {
     @Autowired
     private PGroupService pGroupService;
 
+    /**
+     * 新增一个代理商
+     * @param pGroup
+     * @param result
+     * @param response
+     */
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
@@ -41,6 +47,13 @@ public class PGroupController {
         pGroupService.createGroup(pGroup);
     }
 
+    /**
+     * 代理商添加用户
+     * @param pGroupId
+     * @param user
+     * @param result
+     * @param response
+     */
     @RequestMapping(value = "{pgroup_id}/add_user", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
