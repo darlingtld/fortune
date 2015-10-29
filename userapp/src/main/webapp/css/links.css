@@ -1,1 +1,43 @@
 @import url("common.css");
+
+.section{
+	margin-top:15px;
+	margin-bottom:40px;
+}
+
+.link_area{
+	background:white;
+	padding:20px;
+	margin-bottom:30px;
+	border: 1px solid #dedede;
+}
+
+.link_title{
+	border-bottom: 1px solid #666;
+	font-size:18px;
+	font-weight:bold;
+	line-height:30px;
+}
+
+.link_item{
+	float:left;
+	height:90px;
+	padding:10px;
+	margin-right:20px;
+}
+
+.link_info, .link_icon{
+	float:left;
+	margin-right:8px;
+}
+
+.link_name{
+	color:red;
+	font-weight:bold;
+}
+
+.btn{
+	margin-top:10px;
+	width:70px;
+	font-size: 0.9em;
+}
