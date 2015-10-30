@@ -45,7 +45,9 @@ indexApp.service("tailBallService", function($q, $http) {
 	};
 	this.wage = function(ball) {
 		$http.post("gamble/wage", {
-            
+			userId: localStorage["userid"],
+			pgroupId: -1, //TODO
+			lotteryMarkSixWagerStubList: [{"number":ball, "stakes":1}]
         }).success(function () {
             
         }).error(function (data, status, headers) {

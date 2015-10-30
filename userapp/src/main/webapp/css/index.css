@@ -120,3 +120,7 @@ input[type=radio], input[type=checkbox]{
 label{
 	margin-right:10px;
 }
+
+.group_area{
+	margin:15px;
+}
