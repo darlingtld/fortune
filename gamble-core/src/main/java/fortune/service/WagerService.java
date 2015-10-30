@@ -1,6 +1,7 @@
 package fortune.service;
 
 import common.Utils;
+import fortune.dao.LotteryDao;
 import fortune.dao.WagerDao;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryMarkSixWager;
@@ -19,6 +20,9 @@ public class WagerService {
     @Autowired
     private WagerDao wagerDao;
 
+    @Autowired
+    private LotteryDao lotteryDao;
+
     @Transactional
     public LotteryMarkSixWager getLotteryMarkSixWager(String lotteryMarkSixWagerId) {
         Utils.logger.info("get lottery mark six wager id {}", lotteryMarkSixWagerId);
@@ -28,6 +32,7 @@ public class WagerService {
     @Transactional
     public void saveLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
         Utils.logger.info("save lottery mark six wager {}", lotteryMarkSixWager);
+        lotteryMarkSixWager.setLotteryIssue(lotteryDao.getLatestLotteryIssue());
         wagerDao.saveLotteryMarkSixWager(lotteryMarkSixWager);
     }
 
@@ -58,6 +63,7 @@ public class WagerService {
     @Transactional
     public LotteryMarkSixWager updateLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
         Utils.logger.info("update lottery mark six wager {}", lotteryMarkSixWager);
+        lotteryMarkSixWager.setLotteryIssue(lotteryDao.getLatestLotteryIssue());
         return wagerDao.updateLotteryMarkSixWager(lotteryMarkSixWager);
     }
 

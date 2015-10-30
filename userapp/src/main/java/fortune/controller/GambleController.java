@@ -29,6 +29,12 @@ public class GambleController {
      * 如果按类型下注， LotteryMarkSixType必选
      * 如果按数字下注，LotteryMarkSixType设为LotteryMarkSixType.NUMBER
      *
+     * 例如：
+     * 1.按特码下注，类型为特码单，LotteryMarkSixType设为LotteryMarkSixType.SPECIAL_DAN
+     * 此时，lotteryMarkSixWagerStubList可以不写，其他的要给我填上
+     * 2.如果玩家下注按数字下注，比如买1号球10注，7号球15注
+     * 那么lotteryMarkSixWagerStubList=[{number:1,stakes:10},{number:7,stakes15}],LotteryMarkSixType设为LotteryMarkSixType.NUMBER
+     * 3.如果有些规则需要对lotteryMarkSixWagerStubList和LotteryMarkSixType都有设置的话，我会先根据type判断，如有需要，再去拿stublist里东西和开奖结果做对比
      * @param lotteryMarkSixWager
      * @param response
      */

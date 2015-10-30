@@ -26,7 +26,7 @@ public class UserAppServer {
 
     public void startServer() {
         try {
-            Utils.logger.info("Userapp thrift server start .... listening on port {}", SERVER_PORT);
+            Utils.logger.info("userapp thrift server start .... listening on port {}", SERVER_PORT);
             TProcessor tprocessor = new DepositService.Processor<DepositService.Iface>(new DepositServiceImpl());
 
             TNonblockingServerSocket tnbSocketTransport = new TNonblockingServerSocket(SERVER_PORT);
@@ -40,14 +40,9 @@ public class UserAppServer {
             server.serve();
 
         } catch (Exception e) {
-            Utils.logger.error("Server start error!!!");
+            Utils.logger.error("userapp thrift server start error!!!");
             e.printStackTrace();
         }
     }
-
-//    public static void main(String[] args) {
-//        UserAppServer server = new UserAppServer();
-//        server.startServer();
-//    }
 
 }

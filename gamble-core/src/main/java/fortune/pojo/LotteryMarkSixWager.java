@@ -22,7 +22,6 @@ public class LotteryMarkSixWager {
     @NotNull
     private Date timestamp = new Date();
 
-    @NotNull
     private int lotteryIssue;
 
     @NotNull
