@@ -33,8 +33,8 @@ public class UserServiceTest {
     @Test
     public void createUser() {
         User user = new User();
-        user.setUsername("lingda tang");
-        user.setPassword("12345");
+        user.setUsername("lingda");
+        user.setPassword("123");
         user.setRoleList(Arrays.asList(Role.NORMAL_USER));
         user.setLastLoginTime(new Date());
         userService.createUser(user);
@@ -43,9 +43,8 @@ public class UserServiceTest {
     @Test
     public void createGroup() {
         PGroup PGroup = new PGroup();
-        PGroup.setName("hongkong");
-        List<User> userList = userService.getAll();
-        PGroup.setUserList(userList);
+        PGroup.setName("taipei");
+        PGroup.setAdmin(userService.getAll().get(0));
         pGroupService.createGroup(PGroup);
     }
 
@@ -58,7 +57,7 @@ public class UserServiceTest {
 
     @Test
     public void pGroupAddUser() {
-        User user = userService.getUserById("5632fb46e708fd4777345b7a");
-        pGroupService.addUser("563326b4e708dced68510126", user);
+        User user = userService.getAll().get(0);
+        pGroupService.addUser("563338f6e708fad8259ea83f", user);
     }
 }

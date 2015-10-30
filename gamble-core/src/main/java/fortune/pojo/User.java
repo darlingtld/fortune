@@ -1,5 +1,6 @@
 package fortune.pojo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class User {
     private String id;
     private String username;
     private String password;
-    private List<Role> roleList;
-    private List<PGroup> pGroupList;
+    private List<Role> roleList = new ArrayList<>();
+    private List<PGroup> pGroupList = new ArrayList<>();
     private double account;
     private Date lastLoginTime;
 

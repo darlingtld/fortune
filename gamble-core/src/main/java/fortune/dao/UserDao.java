@@ -44,6 +44,13 @@ public class UserDao {
         Update update = new Update();
         update.set("roleList", user.getRoleList());
         update.set("pGroupList", user.getpGroupList());
+        return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
+
+    }
+
+    public User updateLastLoginTime(User user) {
+        Query query = new Query(Criteria.where("id").is(user.getId()));
+        Update update = new Update();
         update.set("lastLoginTime", new Date());
         return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
 

@@ -1,5 +1,6 @@
 package fortune.pojo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,9 +30,28 @@ public class PGroup {
     @NotNull
     private String name;
 
-    private List<PGroup> subPGroupList;
+    private User admin;
+    private List<PGroup> subPGroupList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
 
-    private List<User> userList;
+    @Override
+    public String toString() {
+        return "PGroup{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", admin=" + admin +
+                ", subPGroupList=" + subPGroupList +
+                ", userList=" + userList +
+                '}';
+    }
+
+    public User getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
 
     public String getId() {
         return id;
@@ -47,16 +67,6 @@ public class PGroup {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "PGroup{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", subPGroupList=" + subPGroupList +
-                ", userList=" + userList +
-                '}';
     }
 
     public List<PGroup> getSubPGroupList() {
