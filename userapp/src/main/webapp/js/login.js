@@ -7,6 +7,7 @@ loginApp.controller("LoginController", function($scope, $http) {
 			"password" : $scope.password
 		}).success(function(response) {
 			if (response) {
+				localStorage["userid"]=response.id;
 				document.location.href = "index.html";
 			} else {
 				$scope.isError = true;
