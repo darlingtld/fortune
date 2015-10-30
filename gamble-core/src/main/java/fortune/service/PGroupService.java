@@ -20,7 +20,7 @@ public class PGroupService {
     private PGroupDao pGroupDao;
 
     @Transactional
-    public PGroup getGroupById(int id) {
+    public PGroup getGroupById(String id) {
         Utils.logger.info("get PGroup by id {}", id);
         return pGroupDao.getGroupById(id);
     }
@@ -38,10 +38,10 @@ public class PGroupService {
     }
 
     @Transactional
-    public void addUser(int pGroupId, User user) {
+    public void addUser(String pGroupId, User user) {
         Utils.logger.info("pgroup {} add user {}", pGroupId, user);
         PGroup pGroup = pGroupDao.getGroupById(pGroupId);
-        pGroup.getUsers().add(user);
+        pGroup.getUserList().add(user);
         pGroupDao.updatePGroup(pGroup);
     }
 }

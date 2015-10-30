@@ -14,7 +14,7 @@ public class ThriftService {
     @Autowired
     private AdminAppClient adminAppClient;
 
-    public boolean deposit(int userId, double account) {
+    public boolean deposit(String userId, double account) {
         return adminAppClient.deposit(userId, account);
     }
 }

@@ -1,8 +1,8 @@
 package fortune.thrift.server;
 
 import common.Utils;
-import fortune.thrift.DepositService;
-import fortune.thrift.DepositServiceImpl;
+import fortune.thrift.UserService;
+import fortune.thrift.UserServiceImpl;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.server.TNonblockingServer;
@@ -27,7 +27,7 @@ public class UserAppServer {
     public void startServer() {
         try {
             Utils.logger.info("userapp thrift server start .... listening on port {}", SERVER_PORT);
-            TProcessor tprocessor = new DepositService.Processor<DepositService.Iface>(new DepositServiceImpl());
+            TProcessor tprocessor = new UserService.Processor<UserService.Iface>(new UserServiceImpl());
 
             TNonblockingServerSocket tnbSocketTransport = new TNonblockingServerSocket(SERVER_PORT);
             TNonblockingServer.Args tnbArgs = new TNonblockingServer.Args(tnbSocketTransport);

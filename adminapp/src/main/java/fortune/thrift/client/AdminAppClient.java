@@ -1,7 +1,7 @@
 package fortune.thrift.client;
 
 import common.Utils;
-import fortune.thrift.DepositService;
+import fortune.thrift.UserService;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -18,14 +18,14 @@ public class AdminAppClient {
     public static final int SERVER_PORT = PropertyHolder.THRIFT_USERAPP_PORT;
     public static final int TIMEOUT = PropertyHolder.THRIFT_TIMEOUT;
 
-    public boolean deposit(int userId, double account) {
+    public boolean deposit(String userId, double account) {
         Utils.logger.info("[thrift call] deposit user id {}, account {}", userId, account);
         TTransport transport = null;
         boolean result = false;
         try {
             transport = new TFramedTransport(new TSocket(SERVER_IP, SERVER_PORT, TIMEOUT));
             TProtocol protocol = new TCompactProtocol(transport);
-            DepositService.Client client = new DepositService.Client(protocol);
+            UserService.Client client = new UserService.Client(protocol);
             transport.open();
             result = client.deposit(userId, account);
             Utils.logger.debug("Thrift client result = {} ", result);
@@ -38,12 +38,5 @@ public class AdminAppClient {
         }
         return result;
     }
-
-
-//    public static void main(String[] args) {
-//        AdminAppClient client = new AdminAppClient();
-//        client.deposit(2, 100);
-//
-//    }
 
 }

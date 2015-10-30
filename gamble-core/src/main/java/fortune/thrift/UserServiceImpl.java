@@ -6,11 +6,11 @@ import org.apache.thrift.TException;
 /**
  * Created by tangl9 on 2015-10-29.
  */
-public class DepositServiceImpl implements DepositService.Iface {
+public class UserServiceImpl implements UserService.Iface {
 
 
     @Override
-    public boolean deposit(int userid, double account) throws TException {
+    public boolean deposit(String userid, double account) throws TException {
         return BeanHolder.getUserService().depositAccount(userid, account);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import password.PasswordEncryptUtil;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class UserService {
     private UserDao userDao;
 
     @Transactional
-    public User getUserById(int id) {
+    public User getUserById(String id) {
         Utils.logger.info("get user by id {}", id);
         return userDao.getUserById(id);
     }
@@ -83,13 +84,13 @@ public class UserService {
             User user = new User();
             user.setUsername(name);
             user.setPassword(PasswordEncryptUtil.encrypt(password));
-            user.setRole(Role.NORMAL_USER);
+            user.setRoleList(Arrays.asList(Role.NORMAL_USER));
             userDao.createUser(user);
         }
     }
 
     @Transactional
-    public boolean depositAccount(int userid, double account) {
+    public boolean depositAccount(String userid, double account) {
         Utils.logger.info("deposit account {} for user id {}", account, userid);
         return userDao.depositAccount(userid, account);
     }

@@ -32,8 +32,8 @@ public class PropertyHolder {
     public static final Integer AUTO_COMMIT_INTERVAL_MS = Integer.parseInt(prop.getProperty("auto.commit.interval.ms"));
     public static final String THRIFT_USERAPP_HOST = prop.getProperty("thrift.userapp.host");
     public static final Integer THRIFT_USERAPP_PORT = Integer.parseInt(prop.getProperty("thrift.userapp.port"));
-    public static final String THRIFT_ADMIN_HOST = prop.getProperty("thrift.admin.host");
-    public static final Integer THRIFT_ADMIN_PORT = Integer.parseInt(prop.getProperty("thrift.admin.port"));
+    public static final String THRIFT_ADMIN_HOST = prop.getProperty("thrift.adminapp.host");
+    public static final Integer THRIFT_ADMIN_PORT = Integer.parseInt(prop.getProperty("thrift.adminapp.port"));
     public static final Integer THRIFT_TIMEOUT = Integer.parseInt(prop.getProperty("thrift.timeout"));
 
 }
