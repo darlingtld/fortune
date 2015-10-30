@@ -30,7 +30,7 @@ Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month 
     <bean id="lotteryResultJob" class="fortune.job.LotteryResultJob"/>
 
     <task:scheduled-tasks scheduler="lotteryResultScheduler">
-        <task:scheduled ref="lotteryResultJob" method="calculateLotteryResult" cron="0 * * * * ?"/>
+        <task:scheduled ref="lotteryResultJob" method="calculateLotteryResult" cron="0 0 * * * ?"/>
     </task:scheduled-tasks>
 
 

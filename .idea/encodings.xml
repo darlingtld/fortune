@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/gamble-core/src/main/java/fortune/pojo/PGroup.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gamble-core/src/main/java/fortune/thrift/thrift-0.9.3.exe" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/userapp/src/test/java/thrift/add.thrift" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/userapp/src/test/java/thrift/server/AdditionClient.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/userapp/src/test/java/thrift/server/AdditionService.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/userapp/src/test/java/thrift/server/AdditionServiceHandler.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/userapp/src/test/java/thrift/server/MyServer.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/userapp/src/test/java/thrift/thrift-0.9.3.exe" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

@@ -89,6 +89,11 @@ public class LotteryController {
         return jsonObject;
     }
 
+    /**
+     * 获取最新的一期开奖期数
+     * @param lotteryIssue
+     * @return
+     */
     @RequestMapping(value = "lottery_issue/{lottery_issue}", method = RequestMethod.GET)
     public
     @ResponseBody

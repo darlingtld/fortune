@@ -39,7 +39,7 @@ public class UserDao {
 
     public boolean depositAccount(int userid, double account) {
         try {
-            sessionFactory.getCurrentSession().createQuery(String.format("update User set account+=account where id = %d", account, userid)).executeUpdate();
+            sessionFactory.getCurrentSession().createSQLQuery(String.format("update User set account = account+%s where id = %d", account, userid)).executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
