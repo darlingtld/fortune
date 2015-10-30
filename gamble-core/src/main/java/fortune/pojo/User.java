@@ -2,43 +2,23 @@ package fortune.pojo;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by darlingtld on 2015/10/6 0006.
  */
-@Entity
-@Table(name = "user")
+@Document(collection = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "username")
+    private String id;
     private String username;
-    @Column(name = "password")
     private String password;
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    @JsonManagedReference
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
-    private List<PGroup> PGroups;
-    @Column(name = "account")
+    private List<Role> roleList;
+    private List<PGroup> pGroupList;
     private double account;
-    @Column(name = "last_login_time")
     private Date lastLoginTime;
 
     @Override
@@ -47,18 +27,18 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
+                ", roleList=" + roleList +
                 ", account=" + account +
                 ", lastLoginTime=" + lastLoginTime +
                 '}';
     }
 
-    public List<PGroup> getPGroups() {
-        return PGroups;
+    public List<PGroup> getpGroupList() {
+        return pGroupList;
     }
 
-    public void setPGroups(List<PGroup> PGroups) {
-        this.PGroups = PGroups;
+    public void setpGroupList(List<PGroup> pGroupList) {
+        this.pGroupList = pGroupList;
     }
 
     public Date getLastLoginTime() {
@@ -69,19 +49,19 @@ public class User {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoleList() {
+        return roleList;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

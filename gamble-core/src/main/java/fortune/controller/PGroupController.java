@@ -26,7 +26,7 @@ public class PGroupController {
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    PGroup getPGroupById(@PathVariable("id") int id) {
+    PGroup getPGroupById(@PathVariable("id") String id) {
         return pGroupService.getGroupById(id);
     }
 

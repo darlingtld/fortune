@@ -23,7 +23,7 @@ public class UserController {
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    User getUserById(@PathVariable("id") int id) {
+    User getUserById(@PathVariable("id") String id) {
         return userService.getUserById(id);
     }
 

@@ -1,10 +1,15 @@
 package fortune.dao;
 
 import fortune.pojo.User;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,36 +19,48 @@ import java.util.List;
 public class UserDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private MongoTemplate mongoTemplate;
 
-    public User getUserById(int id) {
-        return (User) sessionFactory.getCurrentSession().get(User.class, id);
+    public User getUserById(String id) {
+        Query query = new Query(Criteria.where("id").is(id));
+        return mongoTemplate.findOne(query, User.class);
     }
 
     public void createUser(User user) {
-        sessionFactory.getCurrentSession().save(user);
+        mongoTemplate.save(user);
     }
 
-    @SuppressWarnings("JpaQlInspection")
     public List<User> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("from User").list();
+        return mongoTemplate.findAll(User.class);
     }
 
     public User getUserByUsername(String username) {
-        return (User) sessionFactory.getCurrentSession().createQuery(String.format("from User where username='%s'", username)).uniqueResult();
+        Query query = new Query(Criteria.where("username").is(username));
+        return mongoTemplate.findOne(query, User.class);
     }
 
-    public void updateUser(User user) {
-        sessionFactory.getCurrentSession().update(user);
+    public User updateUser(User user) {
+        Query query = new Query(Criteria.where("id").is(user.getId()));
+        Update update = new Update();
+        update.set("roleList", user.getRoleList());
+        update.set("pGroupList", user.getpGroupList());
+        update.set("lastLoginTime", new Date());
+        return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
+
     }
 
-    public boolean depositAccount(int userid, double account) {
+    public boolean depositAccount(String userid, double account) {
         try {
-            sessionFactory.getCurrentSession().createQuery(String.format("update User set account+=account where id = %d", account, userid)).executeUpdate();
+            User user = getUserById(userid);
+            Query query = new Query(Criteria.where("id").is(userid));
+            Update update = new Update();
+            update.set("account", user.getAccount() + account);
+            mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+
         return true;
     }
 }

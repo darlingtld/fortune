@@ -1,11 +1,17 @@
 package fortune.dao;
 
 import fortune.pojo.PGroup;
+import fortune.pojo.User;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,23 +21,27 @@ import java.util.List;
 public class PGroupDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private MongoTemplate mongoTemplate;
 
-    public PGroup getGroupById(int id) {
-        return (PGroup) sessionFactory.getCurrentSession().get(PGroup.class, id);
+    public PGroup getGroupById(String id) {
+        Query query = new Query(Criteria.where("id").is(id));
+        return mongoTemplate.findOne(query, PGroup.class);
     }
 
-    public void createGroup(PGroup PGroup) {
-        sessionFactory.getCurrentSession().save(PGroup);
+    public void createGroup(PGroup pGroup) {
+        mongoTemplate.save(pGroup);
     }
 
     public List<PGroup> getGroupAll() {
-        return sessionFactory.getCurrentSession().createQuery(String.format("from PGroup")).list();
+        return mongoTemplate.findAll(PGroup.class);
     }
 
-    public void updatePGroup(PGroup pGroup) {
-        Session session = sessionFactory.getCurrentSession();
-        session.clear();
-        session.update(pGroup);
+    public PGroup updatePGroup(PGroup pGroup) {
+        Query query = new Query(Criteria.where("id").is(pGroup.getId()));
+        Update update = new Update();
+        update.set("name", pGroup.getName());
+        update.set("subPGroupList", pGroup.getSubPGroupList());
+        update.set("userList", pGroup.getUserList());
+        return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), PGroup.class);
     }
 }

@@ -57,7 +57,7 @@ public class PGroupController {
     @RequestMapping(value = "{pgroup_id}/add_user", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    void addUser(@PathVariable("pgroup_id") int pGroupId, @RequestBody @Valid User user, BindingResult result, HttpServletResponse response) {
+    void addUser(@PathVariable("pgroup_id") String pGroupId, @RequestBody @Valid User user, BindingResult result, HttpServletResponse response) {
         if (result.hasErrors()) {
             response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());

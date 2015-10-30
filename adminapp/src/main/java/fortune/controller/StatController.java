@@ -1,6 +1,5 @@
 package fortune.controller;
 
-import fortune.pojo.User;
 import fortune.service.ThriftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -15,24 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Scope("prototype")
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/stat")
+public class StatController {
 
     @Autowired
     private ThriftService thriftService;
 
-    /**
-     * 管理员或者代理商给用户充值
-     *
-     * @param userId
-     * @param account
-     * @return
-     */
-    @RequestMapping(value = "deposit/{user_id}/account/{account}", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    boolean deposit(@PathVariable("user_id") String userId, @PathVariable("account") double account) {
-        return thriftService.deposit(userId, account);
-    }
 
 }
