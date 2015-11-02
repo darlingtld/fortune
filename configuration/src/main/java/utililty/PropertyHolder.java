@@ -27,9 +27,9 @@ public class PropertyHolder {
     public static final String KAFKA_TOPIC = prop.getProperty("kafka.topic");
     public static final String KAFKA_GROUP = prop.getProperty("kafka.group");
     public static final Integer KAFKA_CONSUMER_THREAD_NUMBER = Integer.parseInt(prop.getProperty("kafka.consumer.thread.number"));
-    public static final Integer ZOOKEEPER_SESSION_TIMEOUT_MS = Integer.parseInt(prop.getProperty("zookeeper.session.timeout.ms"));
-    public static final Integer ZOOKEEPER_SYNC_TIME_MS = Integer.parseInt(prop.getProperty("zookeeper.sync.time.ms"));
-    public static final Integer AUTO_COMMIT_INTERVAL_MS = Integer.parseInt(prop.getProperty("auto.commit.interval.ms"));
+    public static final String ZOOKEEPER_SESSION_TIMEOUT_MS = prop.getProperty("zookeeper.session.timeout.ms");
+    public static final String ZOOKEEPER_SYNC_TIME_MS = prop.getProperty("zookeeper.sync.time.ms");
+    public static final String AUTO_COMMIT_INTERVAL_MS = prop.getProperty("auto.commit.interval.ms");
     public static final String THRIFT_USERAPP_HOST = prop.getProperty("thrift.userapp.host");
     public static final Integer THRIFT_USERAPP_PORT = Integer.parseInt(prop.getProperty("thrift.userapp.port"));
     public static final String THRIFT_ADMIN_HOST = prop.getProperty("thrift.adminapp.host");
