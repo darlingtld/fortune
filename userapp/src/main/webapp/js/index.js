@@ -1,5 +1,15 @@
 var indexApp = angular.module("index", []);
 
+indexApp.service("commonService", function($q, $http){
+	this.getPGroupList = function(){
+		var deferred = $q.defer();
+		$http.get("user/"+sessionStorage["userid"]).success(function(response){
+			deferred.resolve(response.pGroupList);
+		});
+		return deferred.promise;
+	};
+});
+
 indexApp.service("zodiacService", function($q, $http) {
 	this.getZodiacItems = function() {
 		var deferred = $q.defer();
@@ -45,9 +55,10 @@ indexApp.service("tailBallService", function($q, $http) {
 	};
 	this.wage = function(ball) {
 		$http.post("gamble/wage", {
-			userId: localStorage["userid"],
+			userId: sessionStorage["userid"],
 			pgroupId: -1, //TODO
-			lotteryMarkSixWagerStubList: [{"number":ball, "stakes":1}]
+			lotteryMarkSixWagerStubList: [{"number":ball, "stakes":1}],
+			lotteryMarkSixType: null //TODO
         }).success(function () {
             
         }).error(function (data, status, headers) {
@@ -112,7 +123,7 @@ indexApp.service("notBallService", function($q, $http) {
 	};
 });
 
-indexApp.controller("IndexController", function($scope, zodiacService,
+indexApp.controller("IndexController", function($scope, commonService, zodiacService,
 		tailBallService, sumZodiacService, jointBallService, notBallService) {
 	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "连码", "自选不中",
 			"过关", "一肖尾数", "连肖", "连尾", "正码特" ];
@@ -139,7 +150,11 @@ indexApp.controller("IndexController", function($scope, zodiacService,
 
 	// 当前选择的球
 	$scope.selectedBalls = "";
-
+	// 当前所有的代理商
+	commonService.getPGroupList().then(function(data){
+		$scope.pgroups=data;
+	});
+	
 	// 下注
 	$scope.wage = function(type, balls) {
 		if (type == "tailball") {

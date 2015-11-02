@@ -20,8 +20,7 @@
 			<div class="group_area">
 				请选择您的代理商：
 				<select>
-					<option>vender1</option>
-					<option>vender2</option>
+					<option ng-repeat="pg in pgroups" value="{{pg.id}}">{{pg.name}}</option>
 				</select>
 			</div>
 			<div ng-show="selectedIndex==0">
