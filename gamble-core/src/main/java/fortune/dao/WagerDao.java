@@ -54,7 +54,6 @@ public class WagerDao {
         Update update = new Update();
         update.set("timestamp", new Date());
         update.set("lotteryMarkSixWagerStubList", lotteryMarkSixWager.getLotteryMarkSixWagerStubList());
-        update.set("totalMoney", lotteryMarkSixWager.getTotalMoney());
         update.set("totalStakes", lotteryMarkSixWager.getTotalStakes());
         update.set("lotteryMarkSixType", lotteryMarkSixWager.getLotteryMarkSixType());
         return mongoTemplate.findAndModify(searchWagerQuery, update, new FindAndModifyOptions().returnNew(true), LotteryMarkSixWager.class);

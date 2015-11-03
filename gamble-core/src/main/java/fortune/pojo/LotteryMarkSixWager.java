@@ -30,21 +30,32 @@ public class LotteryMarkSixWager {
     @NotNull
     private List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList;
 
-    private double totalMoney;
-
     private double totalStakes;
 
     @NotNull
     private LotteryMarkSixType lotteryMarkSixType;
 
+    @Override
+    public String toString() {
+        return "LotteryMarkSixWager{" +
+                "id='" + id + '\'' +
+                ", userId=" + userId +
+                ", timestamp=" + timestamp +
+                ", lotteryIssue=" + lotteryIssue +
+                ", pgroupId=" + pgroupId +
+                ", lotteryMarkSixWagerStubList=" + lotteryMarkSixWagerStubList +
+                ", totalStakes=" + totalStakes +
+                ", lotteryMarkSixType=" + lotteryMarkSixType +
+                '}';
+    }
+
     public LotteryMarkSixWager() {
     }
 
-    public LotteryMarkSixWager(int userId, int pgroupId, int lotteryIssue, double totalMoney, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type) {
+    public LotteryMarkSixWager(int userId, int pgroupId, int lotteryIssue, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type) {
         this.userId = userId;
         this.pgroupId = pgroupId;
         this.lotteryIssue = lotteryIssue;
-        this.totalMoney = totalMoney;
         this.totalStakes = totalStakes;
         this.lotteryMarkSixWagerStubList = lotteryMarkSixWagerStubList;
         this.lotteryMarkSixType = type;
@@ -66,33 +77,12 @@ public class LotteryMarkSixWager {
         this.pgroupId = pgroupId;
     }
 
-    public double getTotalMoney() {
-        return totalMoney;
-    }
-
-    public void setTotalMoney(double totalMoney) {
-        this.totalMoney = totalMoney;
-    }
-
     public double getTotalStakes() {
         return totalStakes;
     }
 
     public void setTotalStakes(double totalStakes) {
         this.totalStakes = totalStakes;
-    }
-
-    @Override
-    public String toString() {
-        return "LotteryMarkSixWager{" +
-                "id='" + id + '\'' +
-                ", userId=" + userId +
-                ", timestamp=" + timestamp +
-                ", lotteryIssue=" + lotteryIssue +
-                ", lotteryMarkSixWagerStubList=" + lotteryMarkSixWagerStubList +
-                ", totalMoney=" + totalMoney +
-                ", totalStakes=" + totalStakes +
-                '}';
     }
 
     public int getUserId() {

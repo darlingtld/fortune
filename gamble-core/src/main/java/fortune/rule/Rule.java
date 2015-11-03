@@ -49,11 +49,11 @@ public abstract class Rule implements Runnable {
                         odds = BeanHolder.getOddsService().getOdds4LotteryIssueByType(lotteryIssue, wager.getPgroupId(), lotteryMarkSixType.name()).getOdds();
                         oddsCache.put(oddsCacheKey, odds);
                     }
-                    double winningMoney = wager.getTotalMoney() * odds;
+                    double winningMoney = wager.getTotalStakes() * odds;
                     lotteryResult.setWinningMoney(winningMoney);
                     break;
                 case DRAW:
-                    lotteryResult.setWinningMoney(wager.getTotalMoney());
+                    lotteryResult.setWinningMoney(wager.getTotalStakes());
                     break;
                 case LOSE:
                     lotteryResult.setWinningMoney(0);

@@ -44,7 +44,7 @@ public class WagerServiceTest {
         wager.setUserId(2);
         wager.setPgroupId(4);
         wager.setLotteryIssue(102);
-        wager.setTotalMoney(100000);
+        wager.setTotalStakes(100000);
         wager.setTotalStakes(200);
         wager.setTimestamp(new Date());
         LotteryMarkSixWagerStub stub = new LotteryMarkSixWagerStub();
@@ -71,7 +71,7 @@ public class WagerServiceTest {
     public void updateLotteryMarkSixWager() {
         LotteryMarkSixWager wager = wagerService.getLotteryMarkSixWager("5629e5e5e708c84fd0ad85cd");
         System.out.println(wager);
-        wager.setTotalMoney(5555);
+        wager.setTotalStakes(5555);
         List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList = wager.getLotteryMarkSixWagerStubList();
         lotteryMarkSixWagerStubList.add(new LotteryMarkSixWagerStub(17, 400));
         wager.setLotteryMarkSixWagerStubList(lotteryMarkSixWagerStubList);
@@ -88,7 +88,7 @@ public class WagerServiceTest {
         wager.setUserId(1);
         wager.setPgroupId(3);
         wager.setLotteryIssue(lotteryIssue);
-        wager.setTotalMoney(300);
+        wager.setTotalStakes(300);
         wager.setTotalStakes(10);
         wager.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL_SHUANG);
         wagerService.saveLotteryMarkSixWager(wager);
@@ -102,8 +102,7 @@ public class WagerServiceTest {
         wager.setUserId(1);
         wager.setPgroupId(3);
         wager.setLotteryIssue(lotteryIssue);
-        wager.setTotalMoney(300);
-        wager.setTotalStakes(10);
+        wager.setTotalStakes(300);
         wager.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL_DAN);
         wagerService.saveLotteryMarkSixWager(wager);
 //        group admin set odds
