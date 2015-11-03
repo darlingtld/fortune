@@ -19,6 +19,7 @@ public class PropertyHolder {
     }
 
     public static final String KAFKA_ZOOKEEPER = prop.getProperty("kafka.zookeeper");
+    public static final String KAFKA_SERVER0 = prop.getProperty("kafka.server0");
     public static final String KAFKA_SERVER1 = prop.getProperty("kafka.server1");
     public static final String KAFKA_SERVER2 = prop.getProperty("kafka.server2");
     public static final String KAFKA_METADATA_BROKER_LIST = prop.getProperty("kafka.metadata.broker.list");

@@ -29,7 +29,7 @@ public class LotteryService {
     }
 
     @Transactional
-    public LotteryMarkSix getLotteryMarkSix(int lotteryIssue){
+    public LotteryMarkSix getLotteryMarkSix(int lotteryIssue) {
         Utils.logger.info("get lottery mark six of issue {}", lotteryIssue);
         return lotteryDao.getLotteryMarkSix(lotteryIssue);
     }
@@ -57,5 +57,11 @@ public class LotteryService {
     public int getLatestLotteryIssue() {
         Utils.logger.info("get latest lottery issue");
         return lotteryDao.getLatestLotteryIssue();
+    }
+
+    @Transactional
+    public List<LotteryMarkSix> getLotteryMarkSixByPagination(int from, int count) {
+        Utils.logger.info("get paginated lottery mark six from {} count {}", from, count);
+        return lotteryDao.getLotteryMarkSixByPagination(from, count);
     }
 }

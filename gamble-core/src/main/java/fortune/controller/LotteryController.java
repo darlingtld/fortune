@@ -30,7 +30,7 @@ public class LotteryController {
     private LotteryService lotteryService;
 
     /**
-     * 获取素有的开奖结果
+     * 获取所有的开奖结果
      *
      * @return
      */
@@ -39,6 +39,20 @@ public class LotteryController {
     @ResponseBody
     List<LotteryMarkSix> getLotteryMarkSixAll() {
         return lotteryService.getLotteryMarkSixAll();
+    }
+
+    /**
+     * 获取分页的开奖结果
+     *
+     * @param from
+     * @param count
+     * @return
+     */
+    @RequestMapping(value = "pagination/from/{from}/count/{count}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<LotteryMarkSix> getLotteryMarkSixPagination(@PathVariable("from") int from, @PathVariable("count") int count) {
+        return lotteryService.getLotteryMarkSixByPagination(from, count);
     }
 
     /**
@@ -90,7 +104,8 @@ public class LotteryController {
     }
 
     /**
-     * 获取最新的一期开奖期数
+     * 获取某一期开奖结果
+     *
      * @param lotteryIssue
      * @return
      */
@@ -99,6 +114,19 @@ public class LotteryController {
     @ResponseBody
     LotteryMarkSix getLotteryMarkSix(@PathVariable("lottery_issue") int lotteryIssue) {
         return lotteryService.getLotteryMarkSix(lotteryIssue);
+    }
+
+    /**
+     * 获取最新一期的开奖期数
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "latest_lottery_issue", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    int getLatestLotteryIssue() {
+        return lotteryService.getLatestLotteryIssue();
     }
 
 }

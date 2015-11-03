@@ -10,98 +10,30 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2015-10-26 17:54:05
+Date: 2015-11-03 14:53:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for lottery_mark_six
+-- Table structure for lottery_mark_six_stat
 -- ----------------------------
-DROP TABLE IF EXISTS `lottery_mark_six`;
-CREATE TABLE `lottery_mark_six` (
+DROP TABLE IF EXISTS `lottery_mark_six_stat`;
+CREATE TABLE `lottery_mark_six_stat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `one` int(11) DEFAULT NULL,
-  `two` int(11) DEFAULT NULL,
-  `three` int(11) DEFAULT NULL,
-  `four` int(11) DEFAULT NULL,
-  `five` int(11) DEFAULT NULL,
-  `six` int(11) DEFAULT NULL,
-  `special` int(11) DEFAULT NULL,
-  `issue` int(11) DEFAULT NULL,
-  `timestamp` datetime DEFAULT NULL,
+  `lottery_mark_six_id` int(11) DEFAULT NULL,
+  `total_stakes` double DEFAULT NULL,
+  `user_result` double DEFAULT NULL,
+  `pgroup_result` double DEFAULT NULL,
+  `zoufei_stakes` double DEFAULT NULL,
+  `zoufei_result` double DEFAULT NULL,
+  `pgroup_total_result` double DEFAULT NULL,
+  `remark` text,
+  `pgroup_id` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of lottery_mark_six
+-- Records of lottery_mark_six_stat
 -- ----------------------------
-INSERT INTO `lottery_mark_six` VALUES ('4', '1', '45', '37', '30', '34', '17', '8', '120', '2015-10-18 09:27:19');
-INSERT INTO `lottery_mark_six` VALUES ('5', '24', '13', '5', '27', '22', '23', '20', '200', '2015-10-18 09:27:32');
-INSERT INTO `lottery_mark_six` VALUES ('6', '40', '29', '7', '38', '30', '35', '19', '294', '2015-10-21 16:31:17');
-INSERT INTO `lottery_mark_six` VALUES ('7', '33', '12', '8', '28', '19', '45', '10', '102', '2015-10-26 17:31:02');
-INSERT INTO `lottery_mark_six` VALUES ('8', '33', '12', '8', '28', '19', '45', '10', '160', '2015-10-26 17:39:35');
-INSERT INTO `lottery_mark_six` VALUES ('9', '33', '12', '8', '28', '19', '45', '9', '161', '2015-10-26 17:41:47');
-INSERT INTO `lottery_mark_six` VALUES ('10', '33', '12', '8', '28', '19', '45', '9', '162', '2015-10-26 17:43:36');
-
--- ----------------------------
--- Table structure for pgroup
--- ----------------------------
-DROP TABLE IF EXISTS `pgroup`;
-CREATE TABLE `pgroup` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
--- ----------------------------
--- Records of pgroup
--- ----------------------------
-INSERT INTO `pgroup` VALUES ('3', 'hongkong');
-INSERT INTO `pgroup` VALUES ('4', 'hongkong');
-
--- ----------------------------
--- Table structure for t_user_pgroup
--- ----------------------------
-DROP TABLE IF EXISTS `t_user_pgroup`;
-CREATE TABLE `t_user_pgroup` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) DEFAULT NULL,
-  `pgroupid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
--- ----------------------------
--- Records of t_user_pgroup
--- ----------------------------
-INSERT INTO `t_user_pgroup` VALUES ('4', '1', '4');
-INSERT INTO `t_user_pgroup` VALUES ('5', '3', '4');
-INSERT INTO `t_user_pgroup` VALUES ('6', '2', '4');
-INSERT INTO `t_user_pgroup` VALUES ('7', '1', '3');
-INSERT INTO `t_user_pgroup` VALUES ('8', '3', '3');
-INSERT INTO `t_user_pgroup` VALUES ('9', '5', '3');
-
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` varchar(255) DEFAULT NULL,
-  `last_login_time` datetime DEFAULT NULL,
-  `account` double(11,0) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('1', 'lingda', '$2a$10$miuPjytd/BpclHpiY/jKbO31qcg6JVr6GYd2IbzEp6M2u6./oN.na', 'NORMAL_USER', '2015-10-19 17:50:14', '10');
-INSERT INTO `user` VALUES ('2', 'darling', '$2a$10$tivdgootjezOVMvzf5Dgc.IIhIBAnCmyO1YQzb7wlb.nw7xOM8Sdy', 'NORMAL_USER', '2015-10-13 16:46:26', '0');
-INSERT INTO `user` VALUES ('3', 'darling1', '$2a$10$tivdgootjezOVMvzf5Dgc.IIhIBAnCmyO1YQzb7wlb.nw7xOM8Sdy', 'NORMAL_USER', '2015-10-13 16:48:40', '0');
-INSERT INTO `user` VALUES ('4', 'darling tang', '$2a$10$2e598txs8FLEpoYyCU9QW.0KB7EfN8/2ueVrFVME/KAL0LmfVXfuS', 'NORMAL_USER', '2015-10-13 17:05:13', '0');
-INSERT INTO `user` VALUES ('5', 'darling tang1', '$2a$10$7sTrLvT2sTtiXZhWUCcsQuj7YIOe5vsAWINmzuiwaurKotGJg0EzO', 'NORMAL_USER', '2015-10-13 17:07:15', '0');
-INSERT INTO `user` VALUES ('6', 'lingda tang', '$2a$10$XWHkwpDL.wYEcDI7kHC4..cl2k8QKUani5vR0S8TXEUWBu5PWVxRy', 'NORMAL_USER', '2015-10-13 17:31:35', '0');
-INSERT INTO `user` VALUES ('7', 'haha', '$2a$10$yOsy/zkTcOwHDJdjP87xI.jStl649aNeEnJbumW6ru3eb.YRxw/ZO', 'NORMAL_USER', null, '0');
+INSERT INTO `lottery_mark_six_stat` VALUES ('1', '4', '1000', '20000', '299', '123', '345', '199', null, '563338f6e708fad8259ea83f');

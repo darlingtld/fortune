@@ -33,9 +33,9 @@ public class UserServiceTest {
     @Test
     public void createUser() {
         User user = new User();
-        user.setUsername("lingda");
+        user.setUsername("darling");
         user.setPassword("123");
-        user.setRoleList(Arrays.asList(Role.NORMAL_USER));
+        user.setRoleList(Arrays.asList(Role.GROUP_ADMIN));
         user.setLastLoginTime(new Date());
         userService.createUser(user);
     }
@@ -52,6 +52,13 @@ public class UserServiceTest {
     public void loginUser() {
         User user = userService.login("lingda", "123");
         System.out.println(user + "==>" + user.getpGroupList().size());
+
+    }
+
+    @Test
+    public void loginAdmin() {
+        User user = userService.adminLogin("darling", "123");
+        System.out.println(user);
 
     }
 

@@ -1,5 +1,6 @@
 package fortune.dao;
 
+import fortune.pojo.Role;
 import fortune.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
@@ -70,4 +71,5 @@ public class UserDao {
 
         return true;
     }
+
 }

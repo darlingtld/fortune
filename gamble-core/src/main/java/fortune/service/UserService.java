@@ -94,4 +94,28 @@ public class UserService {
         Utils.logger.info("deposit account {} for user id {}", account, userid);
         return userDao.depositAccount(userid, account);
     }
+
+    @Transactional
+    public User adminLogin(String username, String password) {
+        Utils.logger.info("admin user login [name:{}, password:{}]", username, password);
+        User user = userDao.getUserByUsername(username);
+        if (user == null) {
+            Utils.logger.info("user name not existed");
+            return null;
+        } else {
+            if (!PasswordEncryptUtil.matches(password, user.getPassword())) {
+                Utils.logger.info("password does not match");
+                return null;
+            } else {
+                if (!user.getRoleList().contains(Role.GROUP_ADMIN)) {
+                    Utils.logger.info("roles does not match");
+                    return null;
+                } else {
+                    user.setLastLoginTime(new Date());
+                    userDao.updateUser(user);
+                    return user;
+                }
+            }
+        }
+    }
 }
