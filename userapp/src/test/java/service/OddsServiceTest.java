@@ -1,5 +1,6 @@
 package service;
 
+import fortune.pojo.LotteryBall;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryOdds;
 import fortune.service.LotteryService;
@@ -37,14 +38,16 @@ public class OddsServiceTest {
 
     @Test
     public void saveOdds() {
-        LotteryOdds odds = new LotteryOdds();
-//        odds.setLotteryBallNumber(LotteryBall.NUM_25.getNumber());
-        odds.setGroupId(3);
-        odds.setOdds(11);
-        odds.setLotteryIssue(102);
-        odds.setLotteryMarkSixType(LotteryMarkSixType.RED_DAN);
-        odds.setTimestamp(new Date());
-        oddsService.saveOdds(odds);
+        int issue = lotteryService.getNextLotteryMarkSixInfo().getInteger("issue");
+        for(LotteryBall ball : LotteryBall.values()){
+            LotteryOdds odds = new LotteryOdds();
+            odds.setLotteryBallNumber(ball.getNumber());
+            odds.setGroupId("563338f6e708fad8259ea83f");
+            odds.setOdds(42.5);
+            odds.setLotteryIssue(issue);
+            odds.setTimestamp(new Date());
+            oddsService.saveOdds(odds);
+        }
     }
 
     @Test
@@ -56,7 +59,7 @@ public class OddsServiceTest {
 
     @Test
     public void getOdds4Number() {
-        LotteryOdds odds = oddsService.getOdds4LotteryIssue(102, 3, 15);
+        LotteryOdds odds = oddsService.getOdds4LotteryIssue(102, "", 15);
         System.out.println(odds);
     }
 }

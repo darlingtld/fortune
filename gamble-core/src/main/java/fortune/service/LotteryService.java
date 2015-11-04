@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -63,5 +64,14 @@ public class LotteryService {
     public List<LotteryMarkSix> getLotteryMarkSixByPagination(int from, int count) {
         Utils.logger.info("get paginated lottery mark six from {} count {}", from, count);
         return lotteryDao.getLotteryMarkSixByPagination(from, count);
+    }
+
+    @Transactional
+    public JSONObject getNextLotteryMarkSixInfo() {
+        Utils.logger.info("get next lottery mark six info");
+        JSONObject info = new JSONObject();
+        info.put("issue", getLatestLotteryIssue() + 1);
+        info.put("date", new Date());
+        return info;
     }
 }

@@ -25,7 +25,7 @@ public class LotteryMarkSixWager {
     private int lotteryIssue;
 
     @NotNull
-    private int pgroupId;
+    private String pgroupId;
 
     @NotNull
     private List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList;
@@ -52,7 +52,7 @@ public class LotteryMarkSixWager {
     public LotteryMarkSixWager() {
     }
 
-    public LotteryMarkSixWager(int userId, int pgroupId, int lotteryIssue, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type) {
+    public LotteryMarkSixWager(int userId, String pgroupId, int lotteryIssue, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type) {
         this.userId = userId;
         this.pgroupId = pgroupId;
         this.lotteryIssue = lotteryIssue;
@@ -69,11 +69,11 @@ public class LotteryMarkSixWager {
         this.lotteryMarkSixType = lotteryMarkSixType;
     }
 
-    public int getPgroupId() {
+    public String getPgroupId() {
         return pgroupId;
     }
 
-    public void setPgroupId(int pgroupId) {
+    public void setPgroupId(String pgroupId) {
         this.pgroupId = pgroupId;
     }
 

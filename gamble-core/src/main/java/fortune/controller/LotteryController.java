@@ -1,6 +1,5 @@
 package fortune.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import common.Utils;
@@ -127,6 +126,19 @@ public class LotteryController {
     @ResponseBody
     int getLatestLotteryIssue() {
         return lotteryService.getLatestLotteryIssue();
+    }
+
+    /**
+     * 获取下一期的开奖六合彩信息
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "next_lottery_mark_six_info", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONObject getNextLotteryMarkSixInfo() {
+        return lotteryService.getNextLotteryMarkSixInfo();
     }
 
 }

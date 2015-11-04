@@ -21,7 +21,7 @@ public class LotteryOdds {
     private double odds;
 
     @NotNull
-    private int groupId;
+    private String groupId;
 
     @NotNull
     private int lotteryIssue;
@@ -42,14 +42,6 @@ public class LotteryOdds {
                 ", timestamp=" + timestamp +
                 ", lotteryMarkSixType='" + lotteryMarkSixType + '\'' +
                 '}';
-    }
-
-    public LotteryMarkSixType getLotteryMarkSixType() {
-        return lotteryMarkSixType;
-    }
-
-    public void setLotteryMarkSixType(LotteryMarkSixType lotteryMarkSixType) {
-        this.lotteryMarkSixType = lotteryMarkSixType;
     }
 
     public String getId() {
@@ -76,11 +68,11 @@ public class LotteryOdds {
         this.odds = odds;
     }
 
-    public int getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
@@ -98,5 +90,13 @@ public class LotteryOdds {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public LotteryMarkSixType getLotteryMarkSixType() {
+        return lotteryMarkSixType;
+    }
+
+    public void setLotteryMarkSixType(LotteryMarkSixType lotteryMarkSixType) {
+        this.lotteryMarkSixType = lotteryMarkSixType;
     }
 }

@@ -42,7 +42,7 @@ public class WagerServiceTest {
     public void saveLotteryMarkSixWager() {
         LotteryMarkSixWager wager = new LotteryMarkSixWager();
         wager.setUserId(2);
-        wager.setPgroupId(4);
+        wager.setPgroupId("");
         wager.setLotteryIssue(102);
         wager.setTotalStakes(100000);
         wager.setTotalStakes(200);
@@ -86,7 +86,7 @@ public class WagerServiceTest {
 //        user wages
         LotteryMarkSixWager wager = new LotteryMarkSixWager();
         wager.setUserId(1);
-        wager.setPgroupId(3);
+        wager.setPgroupId("");
         wager.setLotteryIssue(lotteryIssue);
         wager.setTotalStakes(300);
         wager.setTotalStakes(10);
@@ -100,7 +100,7 @@ public class WagerServiceTest {
 //        user wages
         LotteryMarkSixWager wager = new LotteryMarkSixWager();
         wager.setUserId(1);
-        wager.setPgroupId(3);
+        wager.setPgroupId("");
         wager.setLotteryIssue(lotteryIssue);
         wager.setTotalStakes(300);
         wager.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL_DAN);
@@ -108,7 +108,7 @@ public class WagerServiceTest {
 //        group admin set odds
         LotteryOdds odds = new LotteryOdds();
         odds.setLotteryIssue(lotteryIssue);
-        odds.setGroupId(3);
+        odds.setGroupId("563338f6e708fad8259ea83f");
         odds.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL_DAN);
         odds.setOdds(42);
         oddsService.saveOdds(odds);

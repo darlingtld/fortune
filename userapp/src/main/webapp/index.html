@@ -1,80 +1,81 @@
 <!doctype html>
 <html>
 <head>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<meta charset="utf-8">
-<link rel="stylesheet" href="css/index.css">
-<title>博彩大厅</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/index.css">
+    <title>博彩大厅</title>
 </head>
 <body ng-app="index" ng-controller="IndexController">
-	<div class="nav" ng-include="'includes/nav.html'"></div>
-	<div class="section">
-		<div class="sidebar" ng-include="'includes/sidebar.html'"></div>
-		<div class="content">
-			<div class="tab_bar">
-				<div ng-repeat="item in items"
-					ng-class="{true: 'tab_item selected', false: 'tab_item'}[$index==selectedIndex]"
-					ng-click="goTab($index)">{{item}}</div>
-			</div>
-			<div class="group_area">
-				请选择您的代理商：
-				<select>
-					<option ng-repeat="pg in pgroups" value="{{pg.id}}">{{pg.name}}</option>
-				</select>
-			</div>
-			<div ng-show="selectedIndex==0">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/tailball.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==1">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/zodiac.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==2">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/halfwave.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==3">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/sumzodiac.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==4">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/ball.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==5">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/ball1_6.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==6">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/jointball.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==7">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/notball.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==8">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/passball.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==9">
-				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/zodiactail.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==10">10</div>
-			<div ng-show="selectedIndex==11">
-				<div class="error_content">目前没有可以下注的期数</div>
-			</div>
-			<div ng-show="selectedIndex==12">
-				<div class="error_content">目前没有可以下注的期数</div>
-			</div>
-		</div>
-	</div>
-	<div ng-include="'includes/foot.html'"></div>
-	<script src="js/lib/angular.min.js"></script>
-	<script src="js/common/lottery_algorithms.js"></script>
-	<script src="js/index.js"></script>
+<div class="nav" ng-include="'includes/nav.html'"></div>
+<div class="section">
+    <div class="sidebar" ng-include="'includes/sidebar.html'"></div>
+    <div class="content">
+        <div class="tab_bar">
+            <div ng-repeat="item in items"
+                 ng-class="{true: 'tab_item selected', false: 'tab_item'}[$index==selectedIndex]"
+                 ng-click="goTab($index)">{{item}}
+            </div>
+        </div>
+        <div class="group_area">
+            请选择您的代理商：
+            <select ng-model="selectedPGroup" ng-options="pg.name for pg in user.pGroupList track by pg.id"
+                    ng-change="changePGroup()">
+            </select>
+        </div>
+        <div ng-show="selectedIndex==0">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/tailball.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==1">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/zodiac.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==2">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/halfwave.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==3">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/sumzodiac.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==4">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/ball.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==5">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/ball1_6.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==6">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/jointball.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==7">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/notball.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==8">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/passball.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==9">
+            <div class="error_content">目前没有可以下注的期数</div>
+            <div ng-include="'includes/zodiactail.html'"></div>
+        </div>
+        <div ng-show="selectedIndex==10">10</div>
+        <div ng-show="selectedIndex==11">
+            <div class="error_content">目前没有可以下注的期数</div>
+        </div>
+        <div ng-show="selectedIndex==12">
+            <div class="error_content">目前没有可以下注的期数</div>
+        </div>
+    </div>
+</div>
+<div ng-include="'includes/foot.html'"></div>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/common/lottery_algorithms.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>

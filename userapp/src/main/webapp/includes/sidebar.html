@@ -1,43 +1,43 @@
 <div class="side_area">
-	<div class="side_header">
-  		彩票直播
-  	</div>
-  	<div class="side_body">
-  		<div class="video_container">
-  		</div>
-  	</div>
+    <div class="side_header">
+        彩票直播
+    </div>
+    <div class="side_body">
+        <div class="video_container">
+        </div>
+    </div>
 </div>
 
 <div class="side_area">
-	<div class="side_header">
-  		账户信息
-  	</div>
-  	<div class="side_body">
-  		<table>
-  			<tr>
-  				<td>会员账号：</td>
-  				<td>lingda</td>
-  			</tr>
-  			<tr>
-  				<td>盘类：</td>
-  				<td>A+B+C+D盘</td>
-  			</tr>
-  			<tr>
-  				<td>信用额度：</td>
-  				<td>1000</td>
-  			</tr>
-  			<tr>
-  				<td>已用额度：</td>
-  				<td>500</td>
-  			</tr>
-  			<tr>
-  				<td>下注期数：</td>
-  				<td>119</td>
-  			</tr>
-  			<tr>
-  				<td>开奖日期：</td>
-  				<td>2015-11-11</td>
-  			</tr>
-  		</table>
-  	</div>
+    <div class="side_header">
+        账户信息
+    </div>
+    <div class="side_body">
+        <table>
+            <tr>
+                <td>会员账号：</td>
+                <td><span ng-bind="username"></span></td>
+            </tr>
+            <tr>
+                <td>盘类：</td>
+                <td>A+B+C+D盘</td>
+            </tr>
+            <tr>
+                <td>信用额度：</td>
+                <td><span ng-bind="user.account"></span></td>
+            </tr>
+            <tr>
+                <td>已用额度：</td>
+                <td><span ng-bind="user.account"></span></td>
+            </tr>
+            <tr>
+                <td>下注期数：</td>
+                <td><span ng-bind="nextLotteryMarkSixInfo.issue"></span></td>
+            </tr>
+            <tr>
+                <td>开奖日期：</td>
+                <td><span ng-bind="nextLotteryMarkSixInfo.date | date : 'yyyy-MM-dd HH:mm:ss'"></span></td>
+            </tr>
+        </table>
+    </div>
 </div>

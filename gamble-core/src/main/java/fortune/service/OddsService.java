@@ -19,7 +19,7 @@ public class OddsService {
     private OddsDao oddsDao;
 
     @Transactional
-    public LotteryOdds getOddsById(int oddsId) {
+    public LotteryOdds getOddsById(String oddsId) {
         Utils.logger.info("get odds by id {}", oddsId);
         return oddsDao.getOddsById(oddsId);
     }
@@ -37,19 +37,19 @@ public class OddsService {
     }
 
     @Transactional
-    public List<LotteryOdds> getOdds4LotteryIssue(int lotteryIssue, int groupId) {
+    public List<LotteryOdds> getOdds4LotteryIssue(int lotteryIssue, String groupId) {
         Utils.logger.info("get odds for lottery issue {} of group id {}", lotteryIssue, groupId);
         return oddsDao.getOdds4LotteryIssue(lotteryIssue, groupId);
     }
 
     @Transactional
-    public LotteryOdds getOdds4LotteryIssue(int lotteryIssue, int groupId, int number) {
+    public LotteryOdds getOdds4LotteryIssue(int lotteryIssue, String groupId, int number) {
         Utils.logger.info("get odds for lottery issue {} of group id {} of ball {}", lotteryIssue, groupId, number);
         return oddsDao.getOdds4LotteryIssue(lotteryIssue, groupId, number);
     }
 
     @Transactional
-    public LotteryOdds getOdds4LotteryIssueByType(int lotteryIssue, int groupId, String lotteryMarkSixType) {
+    public LotteryOdds getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType) {
         Utils.logger.info("get odds for lottery issue {} of group id {} of type {}", lotteryIssue, groupId, lotteryMarkSixType);
         return oddsDao.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType);
     }

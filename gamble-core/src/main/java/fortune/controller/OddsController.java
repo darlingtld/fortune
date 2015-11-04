@@ -67,12 +67,13 @@ public class OddsController {
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    LotteryOdds getOddsById(@PathVariable("id") int oddsId) {
+    LotteryOdds getOddsById(@PathVariable("id") String oddsId) {
         return oddsService.getOddsById(oddsId);
     }
 
     /**
      * 获取某个代理商对于某一期的博彩的赔率
+     * 后台有守护进程在每期开奖之后，自动复制代理商的上一期赔率
      *
      * @param lotteryIssue 博彩的期数
      * @param groupId      代理商的id
@@ -81,12 +82,13 @@ public class OddsController {
     @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryOdds> getOdds4LotteryIssue(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") int groupId) {
+    List<LotteryOdds> getOdds4LotteryIssue(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId) {
         return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId);
     }
 
     /**
      * 获取某个代理商对于某一期的博彩的某一个数字的赔率
+     * 后台有守护进程在每期开奖之后，自动复制代理商的上一期赔率
      *
      * @param lotteryIssue 博彩的期数
      * @param groupId      代理商的id
@@ -96,7 +98,7 @@ public class OddsController {
     @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}/ball_number/{number}", method = RequestMethod.GET)
     public
     @ResponseBody
-    LotteryOdds getOdds4LotteryIssueAndNumber(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") int groupId, @PathVariable("number") int number) {
+    LotteryOdds getOdds4LotteryIssueAndNumber(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("number") int number) {
         return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId, number);
     }
 
@@ -111,7 +113,7 @@ public class OddsController {
     @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}/lottery_mark_six_type/{lottery_mark_six_type}", method = RequestMethod.GET)
     public
     @ResponseBody
-    LotteryOdds getOdds4LotteryIssueAndType(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") int groupId, @PathVariable("number") int number, @PathVariable("lottery_mark_six_type") String lotteryMarkSixType) {
+    LotteryOdds getOdds4LotteryIssueAndType(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("number") int number, @PathVariable("lottery_mark_six_type") String lotteryMarkSixType) {
         return oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType);
     }
 

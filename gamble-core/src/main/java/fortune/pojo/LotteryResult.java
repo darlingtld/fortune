@@ -14,7 +14,7 @@ public class LotteryResult {
     @Id
     private String id;
     private int userId;
-    private int groupId;
+    private String groupId;
     private int lotteryIssue;
     private double winningMoney;
     private String lotteryMarkSixWagerId;
@@ -47,11 +47,11 @@ public class LotteryResult {
         this.userId = userId;
     }
 
-    public int getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
