@@ -21,8 +21,14 @@
             <td><span ng-bind="stat.lotteryMarkSix.timestamp | date : 'yyyy-MM-dd'"></span></td>
             <td><span ng-bind="stat.lotteryMarkSix.timestamp | chineseWeek"></span></td>
             <td><span ng-bind="stat.lotteryMarkSix.issue"></span></td>
-            <td><span ng-bind="stat.lotteryMarkSix | concatBall"></span></td>
-            <td><span ng-bind="stat.lotteryMarkSix.special"></span></td>
+            <td><span class="ball{{stat.lotteryMarkSix.one}}" ng-bind="stat.lotteryMarkSix.one"></span>&nbsp;
+                <span class="ball{{stat.lotteryMarkSix.two}}" ng-bind="stat.lotteryMarkSix.two"></span>&nbsp;
+                <span class="ball{{stat.lotteryMarkSix.three}}" ng-bind="stat.lotteryMarkSix.three"></span>&nbsp;
+                <span class="ball{{stat.lotteryMarkSix.four}}" ng-bind="stat.lotteryMarkSix.four"></span>&nbsp;
+                <span class="ball{{stat.lotteryMarkSix.five}}" ng-bind="stat.lotteryMarkSix.five"></span>&nbsp;
+                <span class="ball{{stat.lotteryMarkSix.six}}" ng-bind="stat.lotteryMarkSix.six"></span>
+            </td>
+            <td><span class="ball{{stat.lotteryMarkSix.special}}" ng-bind="stat.lotteryMarkSix.special"></span></td>
             <td><span ng-bind="stat.totalStakes | currency: '$'"></span></td>
             <td><span ng-bind="stat.userResult | currency: '$'"></span></td>
             <td><span ng-bind="stat.pgroupResult | currency: '$'"></span></td>

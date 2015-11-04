@@ -30,51 +30,62 @@ public class LotteryServiceTest {
 
     @Test
     public void saveLottery() {
-        LotteryMarkSix lotteryMarkSix = new LotteryMarkSix();
-        Set<Integer> integerSet = new HashSet<Integer>();
-        int num = new Random().nextInt(49) + 1;
-        lotteryMarkSix.setOne(num);
-        integerSet.add(num);
-        while (integerSet.contains(num)) {
-            num = new Random().nextInt(49) + 1;
-        }
-        lotteryMarkSix.setTwo(num);
-        integerSet.add(num);
-        while (integerSet.contains(num)) {
-            num = new Random().nextInt(49) + 1;
-        }
-        lotteryMarkSix.setThree(num);
-        integerSet.add(num);
-        while (integerSet.contains(num)) {
-            num = new Random().nextInt(49) + 1;
-        }
-        lotteryMarkSix.setFour(num);
-        integerSet.add(num);
-        while (integerSet.contains(num)) {
-            num = new Random().nextInt(49) + 1;
-        }
-        lotteryMarkSix.setFive(num);
-        integerSet.add(num);
-        while (integerSet.contains(num)) {
-            num = new Random().nextInt(49) + 1;
-        }
-        lotteryMarkSix.setSix(num);
-        integerSet.add(num);
-        while (integerSet.contains(num)) {
-            num = new Random().nextInt(49) + 1;
-        }
-        lotteryMarkSix.setSpecial(num);
-        integerSet.add(num);
-        while (integerSet.contains(num)) {
-            num = new Random().nextInt(49) + 1;
-        }
+        DateTime dateTime = new DateTime();
+        dateTime = dateTime.minusDays(300);
+        for (int i = 1; i < 300; i++) {
+            LotteryMarkSix tmp = lotteryService.getLotteryMarkSix(i);
+            if (tmp != null) {
+                System.out.println(i + " bingo");
+                continue;
+            }
+            LotteryMarkSix lotteryMarkSix = new LotteryMarkSix();
+            Set<Integer> integerSet = new HashSet<Integer>();
+            int num = new Random().nextInt(49) + 1;
+            lotteryMarkSix.setOne(num);
+            integerSet.add(num);
+            while (integerSet.contains(num)) {
+                num = new Random().nextInt(49) + 1;
+            }
+            lotteryMarkSix.setTwo(num);
+            integerSet.add(num);
+            while (integerSet.contains(num)) {
+                num = new Random().nextInt(49) + 1;
+            }
+            lotteryMarkSix.setThree(num);
+            integerSet.add(num);
+            while (integerSet.contains(num)) {
+                num = new Random().nextInt(49) + 1;
+            }
+            lotteryMarkSix.setFour(num);
+            integerSet.add(num);
+            while (integerSet.contains(num)) {
+                num = new Random().nextInt(49) + 1;
+            }
+            lotteryMarkSix.setFive(num);
+            integerSet.add(num);
+            while (integerSet.contains(num)) {
+                num = new Random().nextInt(49) + 1;
+            }
+            lotteryMarkSix.setSix(num);
+            integerSet.add(num);
+            while (integerSet.contains(num)) {
+                num = new Random().nextInt(49) + 1;
+            }
+            lotteryMarkSix.setSpecial(num);
+            integerSet.add(num);
+            while (integerSet.contains(num)) {
+                num = new Random().nextInt(49) + 1;
+            }
 
-        lotteryMarkSix.setIssue(new DateTime().getDayOfYear());
+            lotteryMarkSix.setIssue(i);
 
-        lotteryMarkSix.setTimestamp(new Date());
 
-        System.out.println(lotteryMarkSix);
-        lotteryService.saveLotteryMarkSix(lotteryMarkSix);
+            lotteryMarkSix.setTimestamp(dateTime.toDate());
+            dateTime = dateTime.plusDays(1);
+
+            System.out.println(lotteryMarkSix);
+            lotteryService.saveLotteryMarkSix(lotteryMarkSix);
+        }
     }
 
     @Test

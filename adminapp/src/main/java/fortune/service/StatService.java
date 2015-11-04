@@ -1,5 +1,6 @@
 package fortune.service;
 
+import common.Utils;
 import fortune.dao.StatDao;
 import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.LotteryMarkSixStat;
@@ -19,6 +20,13 @@ public class StatService {
 
     @Transactional
     public List<LotteryMarkSixStat> getLotteryMarkSixStat(String groupid, int from, int count) {
+        Utils.logger.info("get lottery mark six stat for group id {} from {}, count {}", groupid, from, count);
         return statDao.getLotteryMarkSixStat(groupid, from, count);
+    }
+
+    @Transactional
+    public void saveLotteryMarkSixStat(LotteryMarkSixStat stat) {
+        Utils.logger.info("save lottery mark six", stat);
+        statDao.saveLotteryMarkSixStat(stat);
     }
 }

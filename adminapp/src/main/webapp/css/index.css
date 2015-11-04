@@ -1,5 +1,6 @@
 @import url("lib/bootstrap.min.css");
 @import url("common.css");
+@import url("ball.css");
 
 .tab_bar {
     overflow: hidden;

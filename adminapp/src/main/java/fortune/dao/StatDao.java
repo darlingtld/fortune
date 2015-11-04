@@ -25,4 +25,9 @@ public class StatDao {
         query.setMaxResults(count);
         return query.list();
     }
+
+
+    public void saveLotteryMarkSixStat(LotteryMarkSixStat stat) {
+        sessionFactory.getCurrentSession().save(stat);
+    }
 }

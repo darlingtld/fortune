@@ -1,44 +1,61 @@
 @import url("common.css");
 
-.login_area{
-	margin:100px auto auto auto;
-	width:400px;
-	border:2px solid #dedede;
-	background:white;
+.login_area {
+    margin: 100px auto auto auto;
+    width: 400px;
+    border: 2px solid #dedede;
+    background: white;
 }
 
-.login_header{
-	font-size:1.4em;
-	font-weight:bold;
-	color:white;
-	background:#1FADFB;
-	padding:10px 20px 10px 20px;
+.login_header {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: white;
+    background: #1FADFB;
+    padding: 10px 20px 10px 20px;
 }
 
-.login_body{
-	padding:20px;
+.login_body {
+    padding: 20px;
 }
 
-.login_body>input{
-	width:286px;
-	padding:5px;
-	border:1px solid #ccc;
+.login_body > input {
+    width: 286px;
+    padding: 5px;
+    border: 1px solid #ccc;
 }
 
-.login_footer{
-	background:#dedede;
-	height:30px;
-	padding:5px 100px;
+.login_footer {
+    background: #dedede;
+    height: 30px;
+    padding: 5px 100px;
 }
 
-.btn{
-	margin-left:20px;
-	float:left;
+.btn {
+    border: 1px solid #04A21F;
+    background: #24C578;
+    color: white;
+    font-size: 1.1em;
+    display: block;
+    width: 50px;
+    line-height: 28px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.error_message{
-	color:red;
-	font-weight:bold;
-	margin-top: 10px;
-	margin-bottom: 0px;
+.error_message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.login {
+    float: left;
+}
+
+.register {
+    float: right;
 }

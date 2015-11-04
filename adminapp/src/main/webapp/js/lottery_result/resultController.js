@@ -14,6 +14,6 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     };
 }).filter('concatBall', function () {
     return function (input) {
-        return input.one + " " + input.two + " " + input.three + " " + input.four + " " + input.five + " " + input.six;
+        return '<span class="ball' + input.one + '">' + input.one + '</span>'
     }
 });
