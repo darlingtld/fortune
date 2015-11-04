@@ -2,7 +2,9 @@ package fortune.service;
 
 import com.google.common.base.Strings;
 import common.Utils;
+import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
+import fortune.pojo.PGroup;
 import fortune.pojo.Role;
 import fortune.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private PGroupDao pGroupDao;
 
     @Transactional
     public User getUserById(String id) {
@@ -115,6 +120,23 @@ public class UserService {
                     userDao.updateUser(user);
                     return user;
                 }
+            }
+        }
+    }
+
+    @Transactional
+    public PGroup adminLogin2(String username, String password) {
+        Utils.logger.info("admin user login [name:{}, password:{}]", username, password);
+        PGroup pGroup = pGroupDao.getGroupByAdminUserName(username);
+        if (pGroup == null) {
+            Utils.logger.info("user name not existed");
+            return null;
+        } else {
+            if (!PasswordEncryptUtil.matches(password, pGroup.getAdmin().getPassword())) {
+                Utils.logger.info("password does not match");
+                return null;
+            } else {
+                return pGroup;
             }
         }
     }

@@ -1,6 +1,7 @@
 package fortune.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import fortune.pojo.PGroup;
 import fortune.pojo.User;
 import fortune.service.ThriftService;
 import fortune.service.UserService;
@@ -39,16 +40,17 @@ public class AdminController {
 
     /**
      * 管理员的登录
+     *
      * @param loginStub
      * @return
      */
     @RequestMapping(value = "login", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    User login(@RequestBody JSONObject loginStub) {
-        String username=loginStub.getString("username");
-        String password=loginStub.getString("password");
-        return userService.adminLogin(username, password);
+    PGroup login(@RequestBody JSONObject loginStub) {
+        String username = loginStub.getString("username");
+        String password = loginStub.getString("password");
+        return userService.adminLogin2(username, password);
     }
 
 }

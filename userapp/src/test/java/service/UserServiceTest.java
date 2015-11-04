@@ -43,8 +43,8 @@ public class UserServiceTest {
     @Test
     public void createGroup() {
         PGroup PGroup = new PGroup();
-        PGroup.setName("taipei");
-        PGroup.setAdmin(userService.getAll().get(0));
+        PGroup.setName("shanghai");
+        PGroup.setAdmin(userService.getUserByUsername("darling"));
         pGroupService.createGroup(PGroup);
     }
 

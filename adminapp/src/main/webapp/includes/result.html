@@ -1,3 +1,36 @@
-<div id="result">
-    开奖结果
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>日期</th>
+            <th>星期</th>
+            <th>期数</th>
+            <th>搅珠结果</th>
+            <th>特别号</th>
+            <th>下注金额</th>
+            <th>会员结果</th>
+            <th>公司结果</th>
+            <th>走飞金额</th>
+            <th>走飞结果</th>
+            <th>公司总计</th>
+            <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="stat in lotteryMarkSixStatList">
+            <td><span ng-bind="stat.lotteryMarkSix.timestamp | date : 'yyyy-MM-dd'"></span></td>
+            <td><span ng-bind="stat.lotteryMarkSix.timestamp | chineseWeek"></span></td>
+            <td><span ng-bind="stat.lotteryMarkSix.issue"></span></td>
+            <td><span ng-bind="stat.lotteryMarkSix | concatBall"></span></td>
+            <td><span ng-bind="stat.lotteryMarkSix.special"></span></td>
+            <td><span ng-bind="stat.totalStakes | currency: '$'"></span></td>
+            <td><span ng-bind="stat.userResult | currency: '$'"></span></td>
+            <td><span ng-bind="stat.pgroupResult | currency: '$'"></span></td>
+            <td><span ng-bind="stat.zoufeiStakes | currency: '$'"></span></td>
+            <td><span ng-bind="stat.zoufeiResult | currency: '$'"></span></td>
+            <td><span ng-bind="stat.pgroupTotalResult | currency: '$'"></span></td>
+            <td><span ng-bind="stat.remark"></span></td>
+        </tr>
+        </tbody>
+    </table>
 </div>

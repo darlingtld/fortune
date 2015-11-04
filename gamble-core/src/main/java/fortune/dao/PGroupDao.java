@@ -44,4 +44,9 @@ public class PGroupDao {
         update.set("userList", pGroup.getUserList());
         return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), PGroup.class);
     }
+
+    public PGroup getGroupByAdminUserName(String username) {
+        Query query = new Query(Criteria.where("admin.username").is(username));
+        return mongoTemplate.findOne(query, PGroup.class);
+    }
 }

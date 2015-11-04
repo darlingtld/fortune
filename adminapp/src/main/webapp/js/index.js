@@ -1,24 +1,24 @@
 angular.module("AdminApp", ['ngRoute']).
-    controller('indexController', function ($scope) {
-        $scope.userid = sessionStorage['userid'];
-    }).config(['$routeProvider', function ($routeProvider) {
-        $routeProvider
-            .when('/result', {
-                controller: 'resultController',
-                templateUrl: 'includes/result.html'
-            }).
-            when('/rules', {
-                templateUrl: 'includes/rules.html'
-            }).
-            when('/links', {
-                templateUrl: 'includes/links.html'
-            }).
-            when('/withdraw', {
-                templateUrl: 'includes/withdraw.html'
-            })
-            .otherwise({
-                redirectTo: '/result'
-            });
-    }]);
+controller('indexController', function ($scope) {
+    $scope.userid = sessionStorage['userid'];
+    $scope.username = sessionStorage['username'];
+    $scope.menu;
+}).config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/result', {
+        controller: 'resultController',
+        templateUrl: 'includes/result.html'
+    }).when('/rules', {
+        controller: 'rulesController',
+        templateUrl: 'includes/rules.html'
+    }).when('/links', {
+        controller: 'linksController',
+        templateUrl: 'includes/links.html'
+    }).when('/withdraw', {
+        controller: 'withdrawController',
+        templateUrl: 'includes/withdraw.html'
+    }).otherwise({
+        redirectTo: '/result'
+    });
+}]);
 
 

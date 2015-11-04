@@ -1,122 +1,123 @@
+@import url("lib/bootstrap.min.css");
 @import url("common.css");
 
-.tab_bar{
-	overflow: hidden;
+.tab_bar {
+    overflow: hidden;
 }
 
-.tab_item{
-	border-bottom:1px solid #dedede;
-	border-right:1px solid #dedede;
-	width:66px;
-	float:left;
-	text-align:center;
-	padding-top:9px;
-	padding-bottom:9px;
-	background:#1FADFB;
-	color:white;
-	cursor:pointer;
+.tab_item {
+    border-bottom: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+    width: 66px;
+    float: left;
+    text-align: center;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    background: #1FADFB;
+    color: white;
+    cursor: pointer;
 }
 
-.tab_item:hover{
-	background:#1FC1FB;
+.tab_item:hover {
+    background: #1FC1FB;
 }
 
-.tab_item.selected{
-	border-bottom:none;
-	background:white;
-	color:#666;
+.tab_item.selected {
+    border-bottom: none;
+    background: white;
+    color: #666;
 }
 
-.tab_item:last-child{
-	border-right:none;
+.tab_item:last-child {
+    border-right: none;
 }
 
-.error_content{
-	font-weight:bold;
-	text-align:center;
-	font-size:1.5em;
-	color:red;
-	padding-top:30px;
-	padding-bottom:30px;
-	display:none;
+.error_content {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5em;
+    color: red;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: none;
 }
 
-.content{
-	background:white;
-	border: 1px solid #dedede;
-	border-radius:15px;
+.content {
+    background: white;
+    border: 1px solid #dedede;
+    border-radius: 15px;
 }
 
-.content table{
-	width:90%;
-	border-collapse: collapse;
-	background:white;
-	margin:15px auto;
-	border:1px solid #1FADFB;
+.content table {
+    width: 90%;
+    border-collapse: collapse;
+    background: white;
+    margin: 15px auto;
+    border: 1px solid #1FADFB;
 }
 
-.zodiac_table{
-	width:420px !important;
-	float:left !important;
-	margin-left:10px !important;
+.zodiac_table {
+    width: 420px !important;
+    float: left !important;
+    margin-left: 10px !important;
 }
 
-.content table td{
-	padding:10px;
-	text-align:center;
+.content table td {
+    padding: 10px;
+    text-align: center;
 }
 
-.content table th{
-	color:white;
-	background:#1FADFB;
-	padding:10px;
-	border-right:1px solid #fff;
-	text-align:center;
+.content table th {
+    color: white;
+    background: #1FADFB;
+    padding: 10px;
+    border-right: 1px solid #fff;
+    text-align: center;
 }
 
-.vertical_th{
-	border-top:1px solid #fff;
+.vertical_th {
+    border-top: 1px solid #fff;
 }
 
-.content table th:last-child{
-	border-right:1px solid #1FADFB;
+.content table th:last-child {
+    border-right: 1px solid #1FADFB;
 }
 
 .content table tr:nth-child(odd) {
-	background: #FDFDCE;
+    background: #FDFDCE;
 }
 
-.odds{
-	float: left;
+.odds {
+    float: left;
     line-height: 25px;
     margin-left: 30px;
 }
 
-.tailBallRadio, .jointBallRadio, .notBallRadio{
-	margin-left: 34px !important;
+.tailBallRadio, .jointBallRadio, .notBallRadio {
+    margin-left: 34px !important;
 }
 
-input[type=radio], input[type=checkbox]{
-	cursor:pointer;
-	width:20px;
-	height:20px;
-	vertical-align: middle;
+input[type=radio], input[type=checkbox] {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
 }
 
-.color_td{
-	color:white;
+.color_td {
+    color: white;
 }
 
-.bet{
-	margin-left:auto;
-	margin-right:auto;
+.bet {
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.second_head_row>th{
-	border-top:1px solid #eee;
-	font-weight:normal;
+.second_head_row > th {
+    border-top: 1px solid #eee;
+    font-weight: normal;
 }
 
-label{
-	margin-right:10px;
+label {
+    margin-right: 10px;
 }
