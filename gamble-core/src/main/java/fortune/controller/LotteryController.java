@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import common.Utils;
 import fortune.pojo.LotteryBall;
 import fortune.pojo.LotteryMarkSix;
+import fortune.pojo.NextLotteryMarkSixInfo;
 import fortune.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -137,7 +138,7 @@ public class LotteryController {
     @RequestMapping(value = "next_lottery_mark_six_info", method = RequestMethod.GET)
     public
     @ResponseBody
-    JSONObject getNextLotteryMarkSixInfo() {
+    NextLotteryMarkSixInfo getNextLotteryMarkSixInfo() {
         return lotteryService.getNextLotteryMarkSixInfo();
     }
 

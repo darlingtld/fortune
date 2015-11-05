@@ -17,7 +17,7 @@ public class LotteryMarkSixWager {
     private String id;
 
     @NotNull
-    private int userId;
+    private String userId;
 
     @NotNull
     private Date timestamp = new Date();
@@ -52,7 +52,7 @@ public class LotteryMarkSixWager {
     public LotteryMarkSixWager() {
     }
 
-    public LotteryMarkSixWager(int userId, String pgroupId, int lotteryIssue, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type) {
+    public LotteryMarkSixWager(String userId, String pgroupId, int lotteryIssue, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type) {
         this.userId = userId;
         this.pgroupId = pgroupId;
         this.lotteryIssue = lotteryIssue;
@@ -85,11 +85,11 @@ public class LotteryMarkSixWager {
         this.totalStakes = totalStakes;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -95,7 +95,7 @@
 }
 
 .tailBallRadio, .jointBallRadio, .notBallRadio {
-    margin-left: 34px !important;
+    margin-left: 24px !important;
 }
 
 input[type=radio], input[type=checkbox] {

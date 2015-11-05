@@ -41,7 +41,7 @@ public class WagerServiceTest {
     @Test
     public void saveLotteryMarkSixWager() {
         LotteryMarkSixWager wager = new LotteryMarkSixWager();
-        wager.setUserId(2);
+        wager.setUserId("");
         wager.setPgroupId("");
         wager.setLotteryIssue(102);
         wager.setTotalStakes(100000);
@@ -85,7 +85,7 @@ public class WagerServiceTest {
         int lotteryIssue=163;
 //        user wages
         LotteryMarkSixWager wager = new LotteryMarkSixWager();
-        wager.setUserId(1);
+        wager.setUserId("");
         wager.setPgroupId("");
         wager.setLotteryIssue(lotteryIssue);
         wager.setTotalStakes(300);
@@ -99,7 +99,7 @@ public class WagerServiceTest {
         int lotteryIssue=163;
 //        user wages
         LotteryMarkSixWager wager = new LotteryMarkSixWager();
-        wager.setUserId(1);
+        wager.setUserId("");
         wager.setPgroupId("");
         wager.setLotteryIssue(lotteryIssue);
         wager.setTotalStakes(300);

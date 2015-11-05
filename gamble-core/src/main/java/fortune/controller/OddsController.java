@@ -79,7 +79,7 @@ public class OddsController {
      * @param groupId      代理商的id
      * @return
      */
-    @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}", method = RequestMethod.GET)
     public
     @ResponseBody
     List<LotteryOdds> getOdds4LotteryIssue(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId) {
@@ -95,7 +95,7 @@ public class OddsController {
      * @param number       球的数字
      * @return
      */
-    @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}/ball_number/{number}", method = RequestMethod.GET)
+    @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}/ball_number/{number}", method = RequestMethod.GET)
     public
     @ResponseBody
     LotteryOdds getOdds4LotteryIssueAndNumber(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("number") int number) {
@@ -110,7 +110,7 @@ public class OddsController {
      * @param lotteryMarkSixType
      * @return
      */
-    @RequestMapping(value = "odds/lottery_issue/{lottery_issue}/group/{group_id}/lottery_mark_six_type/{lottery_mark_six_type}", method = RequestMethod.GET)
+    @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}/lottery_mark_six_type/{lottery_mark_six_type}", method = RequestMethod.GET)
     public
     @ResponseBody
     LotteryOdds getOdds4LotteryIssueAndType(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("number") int number, @PathVariable("lottery_mark_six_type") String lotteryMarkSixType) {

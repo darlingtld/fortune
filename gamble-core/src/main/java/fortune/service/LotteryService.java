@@ -6,6 +6,7 @@ import common.Utils;
 import fortune.dao.LotteryDao;
 import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.LotteryMarkSixType;
+import fortune.pojo.NextLotteryMarkSixInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,11 +68,12 @@ public class LotteryService {
     }
 
     @Transactional
-    public JSONObject getNextLotteryMarkSixInfo() {
+    public NextLotteryMarkSixInfo getNextLotteryMarkSixInfo() {
+//        TODO
         Utils.logger.info("get next lottery mark six info");
-        JSONObject info = new JSONObject();
-        info.put("issue", getLatestLotteryIssue() + 1);
-        info.put("date", new Date());
-        return info;
+        NextLotteryMarkSixInfo nextLotteryMarkSixInfo = new NextLotteryMarkSixInfo();
+        nextLotteryMarkSixInfo.setIssue(getLatestLotteryIssue() + 1);
+        nextLotteryMarkSixInfo.setDate(new Date());
+        return nextLotteryMarkSixInfo;
     }
 }

@@ -38,7 +38,7 @@ public class OddsServiceTest {
 
     @Test
     public void saveOdds() {
-        int issue = lotteryService.getNextLotteryMarkSixInfo().getInteger("issue");
+        int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
         for(LotteryBall ball : LotteryBall.values()){
             LotteryOdds odds = new LotteryOdds();
             odds.setLotteryBallNumber(ball.getNumber());

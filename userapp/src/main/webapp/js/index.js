@@ -30,7 +30,7 @@ service("commonService", function ($q, $http) {
         return items;
     };
 }).service("tailBallService", function ($q, $http) {
-    this.getTailItems = function () {
+    this.getTailItems = function (oddsList) {
         var row = 10, col = 5, tailItems = [];
         for (var i = 0; i < row; i++) {
             var itemRow = [];
@@ -41,23 +41,18 @@ service("commonService", function ($q, $http) {
                 }
                 var item = {};
                 item.ball = ball;
-                item.odds = 11; // TODO 赔率
+                item.odds = oddsList[ball - 1].odds;
                 itemRow.push(item);
             }
             tailItems.push(itemRow);
         }
         return tailItems;
     };
-    this.wage = function (ball) {
-        $http.post("gamble/wage", {
-            userId: sessionStorage["userid"],
-            pgroupId: -1, //TODO
-            lotteryMarkSixWagerStubList: [{"number": ball, "stakes": 1}],
-            lotteryMarkSixType: null //TODO
-        }).success(function () {
-
+    this.wage = function (wager) {
+        $http.post("gamble/wage", wager).success(function () {
+            alert('下注成功');
         }).error(function (data, status, headers) {
-
+            alert('下注失败');
         });
     };
 }).service("sumZodiacService", function ($q, $http) {
@@ -140,8 +135,7 @@ service("commonService", function ($q, $http) {
     $scope.zodiacItems = zodiacService.getZodiacItems();
     // 色波
     $scope.colorItems = zodiacService.getColorItems();
-    // 特码
-    $scope.tailItems = tailBallService.getTailItems();
+
     // 半波
     // TODO
     // 合肖
@@ -154,24 +148,35 @@ service("commonService", function ($q, $http) {
     // 当前选择的球
     $scope.selectedBalls = "";
 
+    $scope.wage = {};
 
     commonService.getUser().then(function (data) {
         $scope.user = data;
         $scope.selectedPGroup = $scope.user.pGroupList[0];
-    });
-
-
-    lotteryService.getNextLotteryMarkSixInfo().then(function (data) {
+        $scope.lotteryMarkSixWager = {
+            userId: $scope.user.id,
+            pgroupId: $scope.selectedPGroup.id,
+            lotteryMarkSixWagerStubList: [],
+            lotteryMarkSixWagerType: ''
+        }
+        return lotteryService.getNextLotteryMarkSixInfo();
+    }).then(function (data) {
         $scope.nextLotteryMarkSixInfo = data;
-        lotteryService.getOddsList($scope.nextLotteryMarkSixInfo.issue, $scope.selectedPGroup.id).then(function (data) {
-            $scope.oddsList = data;
-        })
-    })
+        return lotteryService.getOddsList($scope.nextLotteryMarkSixInfo.issue, $scope.selectedPGroup.id);
+    }).then(function (data) {
+        $scope.oddsList = data;
+        return tailBallService.getTailItems($scope.oddsList);
+    }).then(function (data) {
+        // 特码
+        $scope.tailItems = data;
+    });
 
     // 下注
     $scope.wage = function (type, balls) {
         if (type == "tailball") {
-            tailBallService.wage(balls);
+            $scope.lotteryMarkSixWager.lotteryMarkSixWagerStubList.push({number: balls, stakes: $scope.wage.stakes});
+            $scope.lotteryMarkSixWager.lotteryMarkSixType = 'SPECIAL';
+            tailBallService.wage($scope.lotteryMarkSixWager);
         }
     }
 });

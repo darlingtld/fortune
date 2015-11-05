@@ -5,6 +5,7 @@ import fortune.dao.LotteryDao;
 import fortune.dao.WagerDao;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryMarkSixWager;
+import fortune.pojo.LotteryMarkSixWagerStub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,9 @@ import java.util.List;
  */
 @Service
 public class WagerService {
+
+    @Autowired
+    private LotteryService lotteryService;
 
     @Autowired
     private WagerDao wagerDao;
@@ -32,7 +36,12 @@ public class WagerService {
     @Transactional
     public void saveLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
         Utils.logger.info("save lottery mark six wager {}", lotteryMarkSixWager);
-        lotteryMarkSixWager.setLotteryIssue(lotteryDao.getLatestLotteryIssue());
+        lotteryMarkSixWager.setLotteryIssue(lotteryService.getNextLotteryMarkSixInfo().getIssue());
+        double totalStakes = 0;
+        for (LotteryMarkSixWagerStub stub : lotteryMarkSixWager.getLotteryMarkSixWagerStubList()) {
+            totalStakes += stub.getStakes();
+        }
+        lotteryMarkSixWager.setTotalStakes(totalStakes);
         wagerDao.saveLotteryMarkSixWager(lotteryMarkSixWager);
     }
 

@@ -13,7 +13,7 @@ public class LotteryResult {
 
     @Id
     private String id;
-    private int userId;
+    private String userId;
     private String groupId;
     private int lotteryIssue;
     private double winningMoney;
@@ -39,11 +39,11 @@ public class LotteryResult {
         this.id = id;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
