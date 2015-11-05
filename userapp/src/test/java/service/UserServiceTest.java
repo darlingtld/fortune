@@ -32,22 +32,27 @@ public class UserServiceTest {
 
     @Test
     public void createUser() {
-        User user = new User();
-        user.setUsername("darlingtld2");
-        user.setPassword("123456");
-        user.setRoleList(Arrays.asList(Role.GROUP_ADMIN, Role.NORMAL_USER));
-        user.setCreditAccount(120000);
-        user.setUsedCreditAccount(2000);
-        user.setLastLoginTime(new Date());
-        userService.createUser(user);
+        for (int i = 0; i < 10; i++) {
+            User user = new User();
+            user.setUsername("user" + i);
+            user.setPassword("123456");
+            user.setRoleList(Arrays.asList(Role.GROUP_ADMIN, Role.NORMAL_USER));
+            user.setCreditAccount(120000);
+            user.setUsedCreditAccount(2000);
+            user.setLastLoginTime(new Date());
+            userService.createUser(user);
+        }
     }
 
     @Test
     public void createGroup() {
-        PGroup PGroup = new PGroup();
-        PGroup.setName("台湾");
-        PGroup.setAdmin(userService.getUserByUsername("darlingtld2"));
-        pGroupService.createGroup(PGroup);
+        List<String> groupNames = Arrays.asList("上海", "北京", "香港", "台湾");
+        for (String groupName : groupNames) {
+            PGroup PGroup = new PGroup();
+            PGroup.setName(groupName);
+            PGroup.setAdmin(userService.getUserByUsername("user1"));
+            pGroupService.createGroup(PGroup);
+        }
     }
 
     @Test
@@ -66,7 +71,12 @@ public class UserServiceTest {
 
     @Test
     public void pGroupAddUser() {
-        User user = userService.getUserByUsername("darlingtld");
-        pGroupService.addUser("563b23ede7087e60c4ced31a", user);
+        User user = userService.getUserByUsername("user2");
+        User user1 = userService.getUserByUsername("user3");
+        List<PGroup> pGroupList = pGroupService.getGroupAll();
+        for (PGroup pGroup : pGroupList) {
+            pGroupService.addUser(pGroup.getId(), user);
+            pGroupService.addUser(pGroup.getId(), user1);
+        }
     }
 }

@@ -179,4 +179,14 @@ service("commonService", function ($q, $http) {
             tailBallService.wage($scope.lotteryMarkSixWager);
         }
     }
+
+    $scope.changePGroup = function () {
+        lotteryService.getOddsList($scope.nextLotteryMarkSixInfo.issue, $scope.selectedPGroup.id)
+            .then(function (data) {
+                $scope.oddsList = data;
+                return tailBallService.getTailItems($scope.oddsList);
+            }).then(function (data) {
+            $scope.tailItems = data;
+        });
+    }
 });

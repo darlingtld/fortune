@@ -3,6 +3,7 @@ package service;
 import fortune.pojo.LotteryBall;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryOdds;
+import fortune.pojo.PGroup;
 import fortune.service.LotteryService;
 import fortune.service.OddsService;
 import fortune.service.PGroupService;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by tangl9 on 2015-10-16.
@@ -38,15 +40,18 @@ public class OddsServiceTest {
 
     @Test
     public void saveOdds() {
-        int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-        for(LotteryBall ball : LotteryBall.values()){
-            LotteryOdds odds = new LotteryOdds();
-            odds.setLotteryBallNumber(ball.getNumber());
-            odds.setGroupId("563b23a5e708a1d8074d50ab");
-            odds.setOdds(25);
-            odds.setLotteryIssue(issue);
-            odds.setTimestamp(new Date());
-            oddsService.saveOdds(odds);
+        List<PGroup> pGroupList = pGroupService.getGroupAll();
+        for (int i = 0; i < pGroupList.size(); i++) {
+            int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
+            for (LotteryBall ball : LotteryBall.values()) {
+                LotteryOdds odds = new LotteryOdds();
+                odds.setLotteryBallNumber(ball.getNumber());
+                odds.setGroupId(pGroupList.get(i).getId());
+                odds.setOdds(20 + i);
+                odds.setLotteryIssue(issue);
+                odds.setTimestamp(new Date());
+                oddsService.saveOdds(odds);
+            }
         }
     }
 
@@ -58,7 +63,7 @@ public class OddsServiceTest {
     }
 
     @Test
-    public void updateOdds(){
+    public void updateOdds() {
 //        oddsService.
     }
 
