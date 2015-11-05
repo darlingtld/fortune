@@ -2,7 +2,9 @@ package service;
 
 import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.LotteryMarkSixStat;
+import fortune.pojo.PGroup;
 import fortune.service.LotteryService;
+import fortune.service.PGroupService;
 import fortune.service.StatService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +30,9 @@ public class StatServiceTest {
     @Autowired
     private LotteryService lotteryService;
 
+    @Autowired
+    private PGroupService pGroupService;
+
     @Test
     public void getLotteryMarkSixStatList() {
         String pgroupId = "56395fa0e7081d3714335213";
@@ -39,19 +44,21 @@ public class StatServiceTest {
 
     @Test
     public void createLotteryMarkSixStatList() {
-        String pgroupId = "56395fa0e7081d3714335213";
-        List<LotteryMarkSix> lotteryMarkSixList = lotteryService.getLotteryMarkSixAll();
-        for(LotteryMarkSix lotteryMarkSix : lotteryMarkSixList){
-            LotteryMarkSixStat  stat = new LotteryMarkSixStat();
-            stat.setLotteryMarkSix(lotteryMarkSix);
-            stat.setPgroupId(pgroupId);
-            stat.setPgroupResult(new Random().nextDouble()*1000000);
-            stat.setPgroupTotalResult(new Random().nextDouble()*1000000);
-            stat.setTotalStakes(new Random().nextDouble()*1000000);
-            stat.setUserResult(new Random().nextDouble()*1000000);
-            stat.setZoufeiResult(new Random().nextDouble()*1000000);
-            stat.setZoufeiStakes(new Random().nextDouble()*1000000);
-            statService.saveLotteryMarkSixStat(stat);
+        for (PGroup pGroup : pGroupService.getGroupAll()) {
+            String pgroupId = pGroup.getId();
+            List<LotteryMarkSix> lotteryMarkSixList = lotteryService.getLotteryMarkSixAll();
+            for (LotteryMarkSix lotteryMarkSix : lotteryMarkSixList) {
+                LotteryMarkSixStat stat = new LotteryMarkSixStat();
+                stat.setLotteryMarkSix(lotteryMarkSix);
+                stat.setPgroupId(pgroupId);
+                stat.setPgroupResult(new Random().nextDouble() * 1000000);
+                stat.setPgroupTotalResult(new Random().nextDouble() * 1000000);
+                stat.setTotalStakes(new Random().nextDouble() * 1000000);
+                stat.setUserResult(new Random().nextDouble() * 1000000);
+                stat.setZoufeiResult(new Random().nextDouble() * 1000000);
+                stat.setZoufeiStakes(new Random().nextDouble() * 1000000);
+                statService.saveLotteryMarkSixStat(stat);
+            }
         }
     }
 }
