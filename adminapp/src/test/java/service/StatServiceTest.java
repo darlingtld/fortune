@@ -1,4 +1,4 @@
-package service;
+package java.service;
 
 import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.LotteryMarkSixStat;
