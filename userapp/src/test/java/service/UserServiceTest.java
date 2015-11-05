@@ -33,9 +33,11 @@ public class UserServiceTest {
     @Test
     public void createUser() {
         User user = new User();
-        user.setUsername("darling");
-        user.setPassword("123");
-        user.setRoleList(Arrays.asList(Role.GROUP_ADMIN));
+        user.setUsername("darlingtld2");
+        user.setPassword("123456");
+        user.setRoleList(Arrays.asList(Role.GROUP_ADMIN, Role.NORMAL_USER));
+        user.setCreditAccount(120000);
+        user.setUsedCreditAccount(2000);
         user.setLastLoginTime(new Date());
         userService.createUser(user);
     }
@@ -43,8 +45,8 @@ public class UserServiceTest {
     @Test
     public void createGroup() {
         PGroup PGroup = new PGroup();
-        PGroup.setName("shanghai");
-        PGroup.setAdmin(userService.getUserByUsername("darling"));
+        PGroup.setName("台湾");
+        PGroup.setAdmin(userService.getUserByUsername("darlingtld2"));
         pGroupService.createGroup(PGroup);
     }
 
@@ -64,7 +66,7 @@ public class UserServiceTest {
 
     @Test
     public void pGroupAddUser() {
-        User user = userService.getAll().get(0);
-        pGroupService.addUser("563338f6e708fad8259ea83f", user);
+        User user = userService.getUserByUsername("darlingtld");
+        pGroupService.addUser("563b23ede7087e60c4ced31a", user);
     }
 }

@@ -62,7 +62,7 @@ public class UserDao {
             User user = getUserById(userid);
             Query query = new Query(Criteria.where("id").is(userid));
             Update update = new Update();
-            update.set("account", user.getAccount() + account);
+            update.set("creditAccount", user.getCreditAccount() + account);
             mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
         } catch (Exception e) {
             e.printStackTrace();

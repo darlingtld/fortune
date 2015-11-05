@@ -42,8 +42,8 @@ public class OddsServiceTest {
         for(LotteryBall ball : LotteryBall.values()){
             LotteryOdds odds = new LotteryOdds();
             odds.setLotteryBallNumber(ball.getNumber());
-            odds.setGroupId("563338f6e708fad8259ea83f");
-            odds.setOdds(42.5);
+            odds.setGroupId("563b23a5e708a1d8074d50ab");
+            odds.setOdds(25);
             odds.setLotteryIssue(issue);
             odds.setTimestamp(new Date());
             oddsService.saveOdds(odds);
@@ -55,6 +55,11 @@ public class OddsServiceTest {
         for (LotteryOdds odds : oddsService.getAll()) {
             System.out.println(odds);
         }
+    }
+
+    @Test
+    public void updateOdds(){
+//        oddsService.
     }
 
     @Test

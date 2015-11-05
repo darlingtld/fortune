@@ -19,19 +19,24 @@ public class User {
     private String password;
     private List<Role> roleList = new ArrayList<>();
     private List<PGroup> pGroupList = new ArrayList<>();
-    private double account;
+    private double creditAccount;
+    private double usedCreditAccount;
     private Date lastLoginTime;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", roleList=" + roleList +
-                ", account=" + account +
-                ", lastLoginTime=" + lastLoginTime +
-                '}';
+    public double getCreditAccount() {
+        return creditAccount;
+    }
+
+    public void setCreditAccount(double creditAccount) {
+        this.creditAccount = creditAccount;
+    }
+
+    public double getUsedCreditAccount() {
+        return usedCreditAccount;
+    }
+
+    public void setUsedCreditAccount(double usedCreditAccount) {
+        this.usedCreditAccount = usedCreditAccount;
     }
 
     public List<PGroup> getpGroupList() {
@@ -82,11 +87,17 @@ public class User {
         this.password = password;
     }
 
-    public double getAccount() {
-        return account;
-    }
-
-    public void setAccount(double account) {
-        this.account = account;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roleList=" + roleList +
+                ", pGroupList=" + pGroupList +
+                ", creditAccount=" + creditAccount +
+                ", usedCreditAccount=" + usedCreditAccount +
+                ", lastLoginTime=" + lastLoginTime +
+                '}';
     }
 }
