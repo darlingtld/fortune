@@ -1,0 +1,25 @@
+@import url("lib/jquery.treeview.css");
+
+.content{
+	background:white;
+	border: 1px solid #dedede;
+	border-radius:15px;
+}
+
+#account_search{
+	padding:10px;
+	line-height:30px;
+}
+
+#account_search .btn, #account_search label, #account_search input{
+	float:left;
+	margin-right:5px;
+}
+
+#account_search input{
+	width:100px;
+}
+
+.content table{
+	width:90%;
+}

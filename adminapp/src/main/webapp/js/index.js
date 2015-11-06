@@ -4,7 +4,9 @@ controller('indexController', function ($scope) {
     $scope.username = sessionStorage['username'];
     $scope.menu;
 }).config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/result', {
+    $routeProvider.when('/accounts', {
+    	templateUrl: 'includes/accounts.html'
+    }).when('/result', {
         controller: 'resultController',
         templateUrl: 'includes/result.html'
     }).when('/rules', {
