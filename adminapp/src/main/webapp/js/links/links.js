@@ -3,5 +3,5 @@
  */
 angular.module('AdminApp').
 controller('linksController', function ($rootScope) {
-    $rootScope.menu = 3;
+    $rootScope.menu = 4;
 })

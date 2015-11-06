@@ -5,6 +5,7 @@ controller('indexController', function ($scope) {
     $scope.menu;
 }).config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/accounts', {
+    	controller: 'accountsController',
     	templateUrl: 'includes/accounts.html'
     }).when('/result', {
         controller: 'resultController',

@@ -3,7 +3,7 @@
  */
 angular.module("AdminApp").
 controller('resultController', function ($scope, $rootScope, resultService) {
-    $rootScope.menu = 1;
+    $rootScope.menu = 2;
     resultService.getLotteryMarkSixStatList().then(function (data) {
         $scope.lotteryMarkSixStatList = data;
         console.log($scope.lotteryMarkSixStatList);
