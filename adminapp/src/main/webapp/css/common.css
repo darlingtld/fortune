@@ -18,7 +18,7 @@ body {
 	text-decoration: none;
 	border-radius: 5px;
 	cursor:pointer;
-} */
+} 
 
 .btn:hover {
 	background: #1CE845;
@@ -32,20 +32,6 @@ body {
 	width: 1190px;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-.sidebar {
-	float: left;
-	width: 300px;
-	margin-bottom:40px;
-}
-
-.content {
-	float: left;
-	width: 870px;
-	margin-top:15px;
-	margin-left:15px;
-	margin-bottom:40px;
 }
 
 .menu_logo {
@@ -110,40 +96,6 @@ body {
 	background: #1FADFB;
 }
 
-.side_area {
-	border: 1px solid #dedede;
-	background: white;
-	margin-top: 15px;
-	border-radius:15px;
-}
-
-.side_header {
-	color: white;
-	background: #1FADFB;
-	text-align: center;
-	padding: 10px;
-}
-
-.side_body table {
-	width: 90%;
-	margin: 5px auto;
-	border-collapse: collapse;
-}
-
-.side_body table th, .side_body table td {
-	padding: 5px;
-	text-align: center;
-}
-
-.side_body table th {
-	font-weight: bold;
-	background: #BAE4FB;
-}
-
-.side_body table tr:nth-child(odd) {
-	background: #FDFDCE;
-}
-
 .clear{
 	clear:both;
 }
@@ -172,10 +124,6 @@ body {
 
 .green{
 	background:green;
-}
-
-.video_container{
-	height:280px;
 }
 
 .footer_area{
