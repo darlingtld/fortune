@@ -6,6 +6,7 @@ import fortune.dao.WagerDao;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryMarkSixWager;
 import fortune.pojo.LotteryMarkSixWagerStub;
+import fortune.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,9 @@ public class WagerService {
 
     @Autowired
     private LotteryService lotteryService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private WagerDao wagerDao;
@@ -42,7 +46,13 @@ public class WagerService {
             totalStakes += stub.getStakes();
         }
         lotteryMarkSixWager.setTotalStakes(totalStakes);
+        // modify used credit account
+        User user = userService.getUserById(lotteryMarkSixWager.getUserId());
+        user.setUsedCreditAccount(user.getUsedCreditAccount() + totalStakes);
+        userService.updateAccount(user);
+
         wagerDao.saveLotteryMarkSixWager(lotteryMarkSixWager);
+
     }
 
     @Transactional

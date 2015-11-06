@@ -72,4 +72,11 @@ public class UserDao {
         return true;
     }
 
+    public User updateAccount(User user) {
+        Query query = new Query(Criteria.where("id").is(user.getId()));
+        Update update = new Update();
+        update.set("creditAccount", user.getCreditAccount());
+        update.set("usedCreditAccount", user.getUsedCreditAccount());
+        return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
+    }
 }

@@ -140,4 +140,10 @@ public class UserService {
             }
         }
     }
+
+    @Transactional
+    public void updateAccount(User user) {
+        Utils.logger.info("update account of user {}, creditAccount {}, usedCreditAccount {}", user.getUsername(), user.getCreditAccount(), user.getUsedCreditAccount());
+        userDao.updateAccount(user);
+    }
 }
