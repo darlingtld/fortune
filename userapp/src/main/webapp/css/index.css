@@ -45,6 +45,7 @@
 	background:white;
 	border: 1px solid #dedede;
 	border-radius:15px;
+	padding-bottom:15px;
 }
 
 .content table{
@@ -126,6 +127,17 @@ label{
 }
 
 .stakes_input{
-	padding: 5px;
-	width: 200px;;
+	padding:5px;
+	line-height:20px;
+	border:1px solid #999;
+}
+
+.wage_area{
+	width:350px;
+	margin-left:50px;
+}
+
+.wage_area input, .wage_area a{
+	float:left;
+	margin-right:5px;
 }

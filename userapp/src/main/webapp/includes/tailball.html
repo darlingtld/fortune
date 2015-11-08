@@ -20,15 +20,9 @@
         <td colspan="3" ng-repeat="ball in row" style="border-right: 1px solid #1FADFB;">
             <div class="ball {{colorMap[ball.ball]}}">{{ball.ball}}</div>
             <div class="odds">{{ball.odds}}</div>
-            <input type="radio" name="tailBall" class="tailBallRadio" value="{{ball.ball}}"
-                   ng-model="$parent.$parent.selectedBalls"/>
+            <input type="checkbox" class="tailBallRadio" value="{{ball.ball}}" ng-click="selectBall($event,ball.ball);"/>
         </td>
         <td colspan="3" ng-if="$last">
         </td>
     </tr>
 </table>
-<div style="width: 350px;float: right;">
-    <input type="text" class="stakes_input" placeholder="请输入下注金额" ng-model="wage.stakes">
-    <a href="javascript:;" class="btn" style="float:right;margin-right:45px;margin-bottom:15px;"
-       ng-click="wage('tailball',selectedBalls);">下注</a>
-</div>

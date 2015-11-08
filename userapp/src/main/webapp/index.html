@@ -71,6 +71,11 @@
         <div ng-show="selectedIndex==12">
             <div class="error_content">目前没有可以下注的期数</div>
         </div>
+        <div class="wage_area">
+		    <input type="text" class="stakes_input" placeholder="请输入注数" ng-model="stakes">
+		    <a href="javascript:;" class="btn" ng-click="wage();">下注</a>
+		</div>
+		<div class="clear"></div>
     </div>
 </div>
 <div ng-include="'includes/foot.html'"></div>

@@ -8,7 +8,6 @@ loginApp.controller("LoginController", function ($scope, $http) {
         }).success(function (response) {
             if (response) {
                 sessionStorage["userid"] = response.id;
-                sessionStorage["username"] = $scope.username;
                 document.location.href = "index.html";
             } else {
                 $scope.isError = true;
