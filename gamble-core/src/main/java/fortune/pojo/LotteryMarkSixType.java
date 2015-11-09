@@ -21,13 +21,7 @@ public enum LotteryMarkSixType {
     BLUE("蓝波"),
     GREEN("绿波"),
     
-    
-    
-    
-    
-    
-    
-    
+    /* 下面的这些类别还没用到 */
     
     NUMBER("数字"),
 
