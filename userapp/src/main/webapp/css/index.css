@@ -52,7 +52,7 @@
 	width:90%;
 	border-collapse: collapse;
 	background:white;
-	margin:15px auto;
+	margin:0px auto;
 	border:1px solid #1FADFB;
 }
 
@@ -91,10 +91,6 @@
 	float: left;
     line-height: 25px;
     margin-left: 30px;
-}
-
-.stakes_input, .jointBallRadio, .notBallRadio{
-	margin-left: 24px !important;
 }
 
 input[type=radio], input[type=checkbox]{

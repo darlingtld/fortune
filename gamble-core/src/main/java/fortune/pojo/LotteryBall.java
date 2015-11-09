@@ -23,7 +23,7 @@ public enum LotteryBall {
     NUM_17(17, MarkSixColor.GREEN),
     NUM_18(18, MarkSixColor.RED),
     NUM_19(19, MarkSixColor.RED),
-    NUM_20(10, MarkSixColor.BLUE),
+    NUM_20(20, MarkSixColor.BLUE),
     NUM_21(21, MarkSixColor.GREEN),
     NUM_22(22, MarkSixColor.GREEN),
     NUM_23(23, MarkSixColor.RED),

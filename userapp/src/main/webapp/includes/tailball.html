@@ -20,7 +20,7 @@
         <td colspan="3" ng-repeat="ball in row" style="border-right: 1px solid #1FADFB;">
             <div class="ball {{colorMap[ball.ball]}}">{{ball.ball}}</div>
             <div class="odds">{{ball.odds}}</div>
-            <input type="text" ng-model="selectedBalls[ball.ball]" class="stakes_input"/>
+            <input type="text" ng-model="selectedBalls[ball.ball]" class="stakes_input" style="margin-left:24px;"/>
         </td>
         <td colspan="3" ng-if="$last">
         </td>
