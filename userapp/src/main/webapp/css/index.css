@@ -127,17 +127,13 @@ label{
 }
 
 .stakes_input{
-	padding:5px;
+	padding:3px;
 	line-height:20px;
 	border:1px solid #999;
+	width:50px;
 }
 
 .wage_area{
 	width:350px;
 	margin-left:50px;
-}
-
-.wage_area input, .wage_area a{
-	float:left;
-	margin-right:5px;
 }

@@ -2,25 +2,25 @@
     <tr>
         <th>号码</th>
         <th>赔率</th>
-        <th>选择</th>
+        <th>注数</th>
         <th>号码</th>
         <th>赔率</th>
-        <th>选择</th>
+        <th>注数</th>
         <th>号码</th>
         <th>赔率</th>
-        <th>选择</th>
+        <th>注数</th>
         <th>号码</th>
         <th>赔率</th>
-        <th>选择</th>
+        <th>注数</th>
         <th>号码</th>
         <th>赔率</th>
-        <th>选择</th>
+        <th>注数</th>
     </tr>
     <tr ng-repeat="row in tailItems">
         <td colspan="3" ng-repeat="ball in row" style="border-right: 1px solid #1FADFB;">
             <div class="ball {{colorMap[ball.ball]}}">{{ball.ball}}</div>
             <div class="odds">{{ball.odds}}</div>
-            <input type="checkbox" class="tailBallRadio" value="{{ball.ball}}" ng-click="selectBall($event,ball.ball);"/>
+            <input type="text" ng-model="selectedBalls[ball.ball]" class="stakes_input"/>
         </td>
         <td colspan="3" ng-if="$last">
         </td>

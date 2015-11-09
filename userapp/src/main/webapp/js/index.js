@@ -196,28 +196,16 @@ app.controller("IndexController", function($scope, commonService,
 	
 	// 选择球
 	$scope.selectedBalls = {};
-	$scope.selectBall = function($event, value){
-		var checkbox = $event.target;
-		// 选中
-		if(checkbox.checked){
-			$scope.selectedBalls[value]=true;
-		}
-		// 取消选中
-		else{
-			$scope.selectedBalls[value]=false;
-		}
-	};
 
 	// 下注
 	$scope.wage = function() {
+		console.log($scope.selectedBalls);
 		var lotteryMarkSixWagerStubList = [];
 		for(var ball in $scope.selectedBalls){
-			if($scope.selectedBalls[ball]){
-				lotteryMarkSixWagerStubList.push({
-					number: parseInt(ball),
-					stakes: parseInt($scope.stakes)
-				});
-			}
+			lotteryMarkSixWagerStubList.push({
+				number: parseInt(ball),
+				stakes: parseInt($scope.selectedBalls[ball])
+			});
 		}
 		var wager={
 			userId : $scope.user.id,
