@@ -129,6 +129,13 @@ label{
 }
 
 .wage_area{
-	width:350px;
-	margin-left:50px;
+	width:100%;
+	margin-top:10px;	
+	border-top: 1px solid #dedede;
+}
+
+.wage_area .btn{
+	margin-left: auto;
+    margin-right: auto;
+    margin-top:5px;
 }

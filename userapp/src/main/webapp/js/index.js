@@ -28,6 +28,14 @@ app.service("commonService", function($q, $http) {
 				});
 		return deferred.promise;
 	};
+	// 下注
+	this.wage = function(wager) {
+		$http.post("gamble/wage", wager).success(function() {
+			alert('下注成功');
+		}).error(function(data, status, headers) {
+			alert('下注失败');
+		});
+	};
 });
 
 // 生肖相关
@@ -37,6 +45,7 @@ app.service("zodiacService", function($q, $http) {
 		var zodiacMap = Zodiac.zodiacMap, items = [];
 		for (var i = 0; i < zodiacMap.length; i++) {
 			var item = {};
+			item.id=zodiacMap[i].id;
 			item.name = zodiacMap[i].name;
 			item.balls = Zodiac.getBallsByName(zodiacMap[i].name);
 			item.odds = oddsMap[zodiacMap[i].id];
@@ -73,13 +82,6 @@ app.service("tailBallService", function($q, $http) {
 			tailItems.push(itemRow);
 		}
 		return tailItems;
-	};
-	this.wage = function(wager) {
-		$http.post("gamble/wage", wager).success(function() {
-			alert('下注成功');
-		}).error(function(data, status, headers) {
-			alert('下注失败');
-		});
 	};
 });
 
@@ -152,6 +154,7 @@ app.controller("IndexController", function($scope, commonService,
 	$scope.goTab = function(index) {
 		$scope.selectedIndex = index;
 		$scope.selectedBalls = {};
+		$scope.selectedBalls2 = {};
 	};
 	$scope.colorMap = colorMap;
 	
@@ -208,26 +211,50 @@ app.controller("IndexController", function($scope, commonService,
 	
 	// 选择球
 	$scope.selectedBalls = {};
+	// 第二个类别的选择球
+	$scope.selectedBalls2 = {};
 
 	// 下注
 	$scope.wage = function() {
-		console.log($scope.selectedBalls);
-		var lotteryMarkSixWagerStubList = [];
-		for(var ball in $scope.selectedBalls){
-			lotteryMarkSixWagerStubList.push({
-				number: parseInt(ball),
-				stakes: parseInt($scope.selectedBalls[ball])
-			});
-		}
-		var wager={
-			userId : $scope.user.id,
-			pgroupId : $scope.selectedPGroup.id,
-			lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList
-		}
 		// 特码下注
 		if ($scope.selectedIndex == 0) {
-			wager.lotteryMarkSixType="SPECIAL";
-			tailBallService.wage(wager);
+			var lotteryMarkSixWagerStubList = [];
+			for(var ball in $scope.selectedBalls){
+				lotteryMarkSixWagerStubList.push({
+					number: parseInt(ball),
+					stakes: parseInt($scope.selectedBalls[ball])
+				});
+			}
+			var wager={
+				userId : $scope.user.id,
+				pgroupId : $scope.selectedPGroup.id,
+				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+				lotteryMarkSixType: "SPECIAL"
+			};
+			commonService.wage(wager);
+		}
+		// 生肖色波下注
+		else if($scope.selectedIndex == 1){
+			for(var zodiac in $scope.selectedBalls){
+				var wager={
+					userId : $scope.user.id,
+					pgroupId : $scope.selectedPGroup.id,
+					lotteryMarkSixWagerStubList: [],
+					lotteryMarkSixType: zodiac,
+					totalStakes: parseInt($scope.selectedBalls[zodiac])
+				};
+				commonService.wage(wager);
+			}
+			for(var color in $scope.selectedBalls2){
+				var wager={
+					userId : $scope.user.id,
+					pgroupId : $scope.selectedPGroup.id,
+					lotteryMarkSixWagerStubList: [],
+					lotteryMarkSixType: color,
+					totalStakes: parseInt($scope.selectedBalls2[color])
+				};
+				commonService.wage(wager);
+			}
 		}
 	}
 });

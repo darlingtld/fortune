@@ -19,88 +19,93 @@ import java.util.List;
 @Service
 public class WagerService {
 
-    @Autowired
-    private LotteryService lotteryService;
+	@Autowired
+	private LotteryService lotteryService;
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @Autowired
-    private WagerDao wagerDao;
+	@Autowired
+	private WagerDao wagerDao;
 
-    @Autowired
-    private LotteryDao lotteryDao;
+	@Autowired
+	private LotteryDao lotteryDao;
 
-    @Transactional
-    public LotteryMarkSixWager getLotteryMarkSixWager(String lotteryMarkSixWagerId) {
-        Utils.logger.info("get lottery mark six wager id {}", lotteryMarkSixWagerId);
-        return wagerDao.getLotteryMarkSixWager(lotteryMarkSixWagerId);
-    }
+	@Transactional
+	public LotteryMarkSixWager getLotteryMarkSixWager(String lotteryMarkSixWagerId) {
+		Utils.logger.info("get lottery mark six wager id {}", lotteryMarkSixWagerId);
+		return wagerDao.getLotteryMarkSixWager(lotteryMarkSixWagerId);
+	}
 
-    @Transactional
-    public void saveLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
-        Utils.logger.info("save lottery mark six wager {}", lotteryMarkSixWager);
-        lotteryMarkSixWager.setLotteryIssue(lotteryService.getNextLotteryMarkSixInfo().getIssue());
-        double totalStakes = 0;
-        for (LotteryMarkSixWagerStub stub : lotteryMarkSixWager.getLotteryMarkSixWagerStubList()) {
-            totalStakes += stub.getStakes();
-        }
-        lotteryMarkSixWager.setTotalStakes(totalStakes);
-        // modify used credit account
-        User user = userService.getUserById(lotteryMarkSixWager.getUserId());
-        user.setUsedCreditAccount(user.getUsedCreditAccount() + totalStakes);
-        userService.updateAccount(user);
+	@Transactional
+	public void saveLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
+		Utils.logger.info("save lottery mark six wager {}", lotteryMarkSixWager);
+		lotteryMarkSixWager.setLotteryIssue(lotteryService.getNextLotteryMarkSixInfo().getIssue());
+		if (lotteryMarkSixWager.getLotteryMarkSixWagerStubList().size() > 0) {
+			double totalStakes = 0;
+			for (LotteryMarkSixWagerStub stub : lotteryMarkSixWager.getLotteryMarkSixWagerStubList()) {
+				totalStakes += stub.getStakes();
+			}
+			lotteryMarkSixWager.setTotalStakes(totalStakes);
+		}
+		// modify used credit account
+		User user = userService.getUserById(lotteryMarkSixWager.getUserId());
+		user.setUsedCreditAccount(user.getUsedCreditAccount() + lotteryMarkSixWager.getTotalStakes());
+		userService.updateAccount(user);
 
-        wagerDao.saveLotteryMarkSixWager(lotteryMarkSixWager);
+		wagerDao.saveLotteryMarkSixWager(lotteryMarkSixWager);
 
-    }
+	}
 
-    @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int lotteryIssue) {
-        Utils.logger.info("get lottery mark six wager list of user {}, issue{}", userId, lotteryIssue);
-        return wagerDao.getLotteryMarkSixWagerList(userId, lotteryIssue);
-    }
+	@Transactional
+	public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int lotteryIssue) {
+		Utils.logger.info("get lottery mark six wager list of user {}, issue{}", userId, lotteryIssue);
+		return wagerDao.getLotteryMarkSixWagerList(userId, lotteryIssue);
+	}
 
-    @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId) {
-        Utils.logger.info("get all lottery mark six wager list of user {}", userId);
-        return wagerDao.getLotteryMarkSixWagerList(userId);
-    }
+	@Transactional
+	public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId) {
+		Utils.logger.info("get all lottery mark six wager list of user {}", userId);
+		return wagerDao.getLotteryMarkSixWagerList(userId);
+	}
 
-    @Transactional
-    public void deleteLotteryMarkSixWager(String lotteryMarkSixWagerId) {
-        Utils.logger.info("delete lottery mark six wager id {}", lotteryMarkSixWagerId);
-        wagerDao.deleteLotteryMarkSixWager(lotteryMarkSixWagerId);
-    }
+	@Transactional
+	public void deleteLotteryMarkSixWager(String lotteryMarkSixWagerId) {
+		Utils.logger.info("delete lottery mark six wager id {}", lotteryMarkSixWagerId);
+		wagerDao.deleteLotteryMarkSixWager(lotteryMarkSixWagerId);
+	}
 
-    @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int pgroupId, int lotteryIssue) {
-        Utils.logger.info("get lottery mark six wager list of user {}, pgroupid {}, issue {}", userId, pgroupId, lotteryIssue);
-        return wagerDao.getLotteryMarkSixWagerList(userId, pgroupId, lotteryIssue);
-    }
+	@Transactional
+	public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int pgroupId, int lotteryIssue) {
+		Utils.logger.info("get lottery mark six wager list of user {}, pgroupid {}, issue {}", userId, pgroupId,
+				lotteryIssue);
+		return wagerDao.getLotteryMarkSixWagerList(userId, pgroupId, lotteryIssue);
+	}
 
-    @Transactional
-    public LotteryMarkSixWager updateLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
-        Utils.logger.info("update lottery mark six wager {}", lotteryMarkSixWager);
-        lotteryMarkSixWager.setLotteryIssue(lotteryDao.getLatestLotteryIssue());
-        return wagerDao.updateLotteryMarkSixWager(lotteryMarkSixWager);
-    }
+	@Transactional
+	public LotteryMarkSixWager updateLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
+		Utils.logger.info("update lottery mark six wager {}", lotteryMarkSixWager);
+		lotteryMarkSixWager.setLotteryIssue(lotteryDao.getLatestLotteryIssue());
+		return wagerDao.updateLotteryMarkSixWager(lotteryMarkSixWager);
+	}
 
-    @Transactional
-    public List<LotteryMarkSixWager> getAll(int lotteryIssue) {
-        Utils.logger.info("get all lottery mark six wager of lottery issue {}", lotteryIssue);
-        return wagerDao.getAll(lotteryIssue);
-    }
+	@Transactional
+	public List<LotteryMarkSixWager> getAll(int lotteryIssue) {
+		Utils.logger.info("get all lottery mark six wager of lottery issue {}", lotteryIssue);
+		return wagerDao.getAll(lotteryIssue);
+	}
 
-    @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListByType(int lotteryIssue, LotteryMarkSixType lotteryMarkSixType) {
-        Utils.logger.info("get all lottery mark six wager of lottery issue {}, type {}", lotteryIssue, lotteryMarkSixType);
-        return wagerDao.getLotteryMarkSixWagerListByType(lotteryIssue, lotteryMarkSixType);
-    }
+	@Transactional
+	public List<LotteryMarkSixWager> getLotteryMarkSixWagerListByType(int lotteryIssue,
+			LotteryMarkSixType lotteryMarkSixType) {
+		Utils.logger.info("get all lottery mark six wager of lottery issue {}, type {}", lotteryIssue,
+				lotteryMarkSixType);
+		return wagerDao.getLotteryMarkSixWagerListByType(lotteryIssue, lotteryMarkSixType);
+	}
 
-    @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfGroup(String groupid, int lotteryIssue) {
-        Utils.logger.info("get all lottery mark six wager of lottery issue {}, group id {}", lotteryIssue, groupid);
-        return wagerDao.getLotteryMarkSixWagerListOfGroup(groupid, lotteryIssue);
-    }
+	@Transactional
+	public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfGroup(String groupid, int lotteryIssue) {
+		Utils.logger.info("get all lottery mark six wager of lottery issue {}, group id {}", lotteryIssue, groupid);
+		return wagerDao.getLotteryMarkSixWagerListOfGroup(groupid, lotteryIssue);
+	}
 }
