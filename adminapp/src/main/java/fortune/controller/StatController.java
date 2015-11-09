@@ -32,5 +32,13 @@ public class StatController {
         return statService.getLotteryMarkSixStat(groupid, from, count);
     }
 
+    @RequestMapping(value = "realtime/transaction_result", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<LotteryMarkSixStat> getRealTimeTransactionResult() {
+        return null;
+//        return statService.getRealTimeTransactionResult();
+    }
+
 
 }

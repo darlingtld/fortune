@@ -19,6 +19,9 @@ controller('indexController', function ($scope) {
     }).when('/withdraw', {
         controller: 'withdrawController',
         templateUrl: 'includes/withdraw.html'
+    }).when('/realtime', {
+        controller: 'realtimeController',
+        templateUrl: 'includes/realtime.html'
     }).otherwise({
         redirectTo: '/result'
     });

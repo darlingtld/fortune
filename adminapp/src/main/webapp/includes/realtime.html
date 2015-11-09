@@ -1,0 +1,60 @@
+<div class="real-time-info-area">
+    <div class="real-time-header"><span><a href="#">上一期</a></span>开奖期数：<span ng-bind="lotteryMarkSixInfo.issue"></span>开奖日：<span
+            ng-bind="lotteryMarkSixInfo.date | date : 'yyyy-MM-dd'"></span>
+
+        <div style="float: right;">
+            <span>特码 即时注单</span>
+            <span>成数：</span>
+            <select>
+                <option>全部</option>
+                <option>成数</option>
+            </select>
+            <span>盘类：</span>
+            <select>
+                <option>全部</option>
+                <option>A盘</option>
+                <option>B盘</option>
+                <option>C盘</option>
+                <option>D盘</option>
+            </select>
+        </div>
+    </div>
+    <div class="real-time-tabs">
+        <a href="#">特码（<span>10000</span>）</a>
+        <a href="#">特码（<span>10000</span>）</a>
+        <a href="#">特码（<span>10000</span>）</a>
+        <a href="#">特码（<span>10000</span>）</a>
+        <a href="#">特码（<span>10000</span>）</a>
+        <a href="#">特码（<span>10000</span>）</a>
+        <a href="#">特码（<span>10000</span>）</a>
+        <a href="#">特码（<span>10000</span>）</a>
+        <a href="#">特码（<span>10000</span>）</a>
+        <a href="#">特码（<span>10000</span>）</a>
+
+    </div>
+</div>
+
+<div class="real-time-dashboard">
+    <div ng-repeat="a in list">
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>11</td>
+                <td>11</td>
+                <td>11</td>
+                <td>11</td>
+                <td>11</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
