@@ -29,12 +29,12 @@ public class WagerDao {
         mongoTemplate.save(lotteryMarkSixWager);
     }
 
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(int userId, int lotteryIssue) {
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int lotteryIssue) {
         Query searchWagerQuery = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("lotteryIssue").is(lotteryIssue)));
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
     }
 
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(int userId) {
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId) {
         Query searchWagerQuery = new Query(Criteria.where("userId").is(userId));
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
     }
@@ -44,7 +44,7 @@ public class WagerDao {
         mongoTemplate.remove(deleteQuery, LotteryMarkSixWager.class);
     }
 
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(int userId, int pgroupId, int lotteryIssue) {
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int pgroupId, int lotteryIssue) {
         Query searchWagerQuery = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("lotteryIssue").is(lotteryIssue), Criteria.where("pgroupId").is(pgroupId)));
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
     }
@@ -71,6 +71,11 @@ public class WagerDao {
 
     public List<LotteryMarkSixWager> getLotteryMarkSixWagerListByType(int lotteryIssue, LotteryMarkSixType lotteryMarkSixType) {
         Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType)));
+        return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
+    }
+
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfGroup(String groupid, int lotteryIssue) {
+        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("pgroupId").is(groupid)));
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
     }
 }

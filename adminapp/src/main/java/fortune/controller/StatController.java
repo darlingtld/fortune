@@ -2,6 +2,7 @@ package fortune.controller;
 
 import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.LotteryMarkSixStat;
+import fortune.pojo.RealtimeStat;
 import fortune.service.StatService;
 import fortune.service.ThriftService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,14 @@ public class StatController {
     @Autowired
     private StatService statService;
 
+    /**
+     * 分页获取某个代理商的历史开奖结果，输赢
+     *
+     * @param groupid
+     * @param from
+     * @param count
+     * @return
+     */
     @RequestMapping(value = "lottery_mark_six/groupid/{groupid}/from/{from}/count/{count}", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -32,12 +41,17 @@ public class StatController {
         return statService.getLotteryMarkSixStat(groupid, from, count);
     }
 
-    @RequestMapping(value = "realtime/transaction_result", method = RequestMethod.GET)
+
+    /**
+     * 获取代理商实时统计信息
+     * @param groupId
+     * @return
+     */
+    @RequestMapping(value = "realtime/transaction_result/groupid/{groupid}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryMarkSixStat> getRealTimeTransactionResult() {
-        return null;
-//        return statService.getRealTimeTransactionResult();
+    List<RealtimeStat> getRealTimeTransactionResult(@PathVariable("groupid") String groupId) {
+        return statService.getRealTimeTransactionResult(groupId);
     }
 
 

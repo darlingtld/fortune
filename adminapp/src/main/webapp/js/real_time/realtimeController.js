@@ -9,4 +9,8 @@ angular.module('AdminApp')
         });
 
         $scope.list = [1, 2, 3, 4, 5]
+        realtimeService.getRealTimeTransaction(sessionStorage['pgroupid']).then(function (data) {
+            $scope.realTimeTranscations = data;
+            console.log($scope.realTimeTranscations);
+        })
     })

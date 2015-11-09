@@ -56,13 +56,13 @@ public class WagerService {
     }
 
     @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(int userId, int lotteryIssue) {
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int lotteryIssue) {
         Utils.logger.info("get lottery mark six wager list of user {}, issue{}", userId, lotteryIssue);
         return wagerDao.getLotteryMarkSixWagerList(userId, lotteryIssue);
     }
 
     @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(int userId) {
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId) {
         Utils.logger.info("get all lottery mark six wager list of user {}", userId);
         return wagerDao.getLotteryMarkSixWagerList(userId);
     }
@@ -74,7 +74,7 @@ public class WagerService {
     }
 
     @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(int userId, int pgroupId, int lotteryIssue) {
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int pgroupId, int lotteryIssue) {
         Utils.logger.info("get lottery mark six wager list of user {}, pgroupid {}, issue {}", userId, pgroupId, lotteryIssue);
         return wagerDao.getLotteryMarkSixWagerList(userId, pgroupId, lotteryIssue);
     }
@@ -94,7 +94,13 @@ public class WagerService {
 
     @Transactional
     public List<LotteryMarkSixWager> getLotteryMarkSixWagerListByType(int lotteryIssue, LotteryMarkSixType lotteryMarkSixType) {
-        Utils.logger.info("get all lottetry mark six wager of lottery issue {}, type {}", lotteryIssue, lotteryMarkSixType);
+        Utils.logger.info("get all lottery mark six wager of lottery issue {}, type {}", lotteryIssue, lotteryMarkSixType);
         return wagerDao.getLotteryMarkSixWagerListByType(lotteryIssue, lotteryMarkSixType);
+    }
+
+    @Transactional
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfGroup(String groupid, int lotteryIssue) {
+        Utils.logger.info("get all lottery mark six wager of lottery issue {}, group id {}", lotteryIssue, groupid);
+        return wagerDao.getLotteryMarkSixWagerListOfGroup(groupid, lotteryIssue);
     }
 }
