@@ -129,12 +129,48 @@ var Compare = {
 };
 
 var Zodiac = {
-	names : [ "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" ],
+	zodiacMap : [ {
+		id : "ZODIAC_SHU",
+		name : "鼠"
+	}, {
+		id : "ZODIAC_NIU",
+		name : "牛"
+	}, {
+		id : "ZODIAC_HU",
+		name : "虎"
+	}, {
+		id : "ZODIAC_TU",
+		name : "兔"
+	}, {
+		id : "ZODIAC_LONG",
+		name : "龙"
+	}, {
+		id : "ZODIAC_SHE",
+		name : "蛇"
+	}, {
+		id : "ZODIAC_MA",
+		name : "马"
+	}, {
+		id : "ZODIAC_YANG",
+		name : "羊"
+	}, {
+		id : "ZODIAC_HOU",
+		name : "猴"
+	}, {
+		id : "ZODIAC_JI",
+		name : "鸡"
+	}, {
+		id : "ZODIAC_GOU",
+		name : "狗"
+	}, {
+		id : "ZODIAC_ZHU",
+		name : "猪"
+	} ],
 
 	getBallsByName : function(name) {
 		var date = new Date(), year = date.getFullYear(), currentIndex = (year - 2008) % 12, index = -1, balls = [];
-		for (var i = 0; i < this.names.length; i++) {
-			if (this.names[i] == name) {
+		for (var i = 0; i < this.zodiacMap.length; i++) {
+			if (this.zodiacMap[i].name == name) {
 				index = i;
 				break;
 			}
@@ -161,7 +197,7 @@ var Zodiac = {
 		var ballNum = parseInt(ball), date = new Date(), year = date
 				.getFullYear(), currentIndex = (year - 2008) % 12;
 		for (var start = 1, i = currentIndex; i >= 0; i--, start++) {
-			var value = start, name = this.names[i];
+			var value = start, name = this.zodiacMap[i].name;
 			for (;;) {
 				if (value == ballNum) {
 					return name;
@@ -174,7 +210,7 @@ var Zodiac = {
 		}
 		if (currentIndex < 11) {
 			for (var start = 12, i = currentIndex + 1; i < 11; i++, start--) {
-				var value = start, name = this.names[i];
+				var value = start, name = this.zodiacMap[i].name;
 				for (;;) {
 					if (value == ballNum) {
 						return name;
@@ -193,8 +229,8 @@ var Zodiac = {
 		if (parseInt(ball) == 49) {
 			return null;
 		}
-		var name = this.getNameByBall(), beasts = [ "鼠", "虎", "龙", "蛇", "兔",
-				"猴" ];
+		var name = this.getNameByBall(ball), beasts = [ "鼠", "虎", "龙", "蛇",
+				"兔", "猴" ];
 		if (name) {
 			for (var i = 0; i < beasts.length; i++) {
 				if (beasts[i] == name) {
@@ -208,7 +244,7 @@ var Zodiac = {
 	getNameToBalls : function() {
 		var date = new Date(), year = date.getFullYear(), currentIndex = (year - 2008) % 12, balls = {};
 		for (var start = 1, i = currentIndex; i >= 0; i--, start++) {
-			var value = start, name = this.names[i];
+			var value = start, name = this.zodiacMap[i].name;
 			for (;;) {
 				if (typeof balls[name] === "undefined") {
 					balls[name] = [];
@@ -222,7 +258,7 @@ var Zodiac = {
 		}
 		if (currentIndex < 11) {
 			for (var start = 12, i = currentIndex + 1; i < 11; i++, start--) {
-				var value = start, name = this.names[i];
+				var value = start, name = this.zodiacMap[i].name;
 				for (;;) {
 					if (typeof balls[name] === "undefined") {
 						balls[name] = [];
@@ -241,7 +277,7 @@ var Zodiac = {
 	getBallToNames : function() {
 		var date = new Date(), year = date.getFullYear(), currentIndex = (year - 2008) % 12, balls = {};
 		for (var start = 1, i = currentIndex; i >= 0; i--, start++) {
-			var value = start, name = this.names[i];
+			var value = start, name = this.zodiacMap[i].name;
 			for (;;) {
 				balls[value] = name;
 				value += 12;
@@ -252,7 +288,7 @@ var Zodiac = {
 		}
 		if (currentIndex < 11) {
 			for (var start = 12, i = currentIndex + 1; i < 11; i++, start--) {
-				var value = start, name = this.names[i];
+				var value = start, name = this.zodiacMap[i].name;
 				for (;;) {
 					balls[value] = name;
 					value += 12;

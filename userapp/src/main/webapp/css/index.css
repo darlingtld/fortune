@@ -63,7 +63,7 @@
 }
 
 .content table td{
-	padding:10px;
+	padding:5px;
 	text-align:center;
 }
 
@@ -129,7 +129,7 @@ label{
 .stakes_input{
 	line-height:20px;
 	border:1px solid #999;
-	width: 27px;
+	width: 35px;
 }
 
 .wage_area{

@@ -12,8 +12,7 @@
 				class="ball {{colorMap[ball]}}">{{ball}}</div>
 		</td>
 		<td>{{zodiacItem.odds}}</td>
-		<td><a href="javascript:;" class="bet btn"
-			data-zodiac={{zodiacItem.name}}>下注</a></td>
+		<td><input type="text" class="stakes_input" ng-model="selectedBalls[zodiacItem.id]"/></td>
 	</tr>
 </table>
 <table class="zodiac_table">

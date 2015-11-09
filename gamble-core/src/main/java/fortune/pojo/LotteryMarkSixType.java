@@ -4,10 +4,7 @@ package fortune.pojo;
  * Created by tangl9 on 2015-10-20.
  */
 public enum LotteryMarkSixType {
-
-    NUMBER("数字"),
     SPECIAL("特码"),
-
     ZODIAC_SHU("鼠"),
     ZODIAC_NIU("牛"),
     ZODIAC_HU("虎"),
@@ -20,6 +17,19 @@ public enum LotteryMarkSixType {
     ZODIAC_JI("鸡"),
     ZODIAC_GOU("狗"),
     ZODIAC_ZHU("猪"),
+    RED("红波"),
+    BLUE("蓝波"),
+    GREEN("绿波"),
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    NUMBER("数字"),
 
     DAN("单"),
     SHUANG("双"),
@@ -33,9 +43,6 @@ public enum LotteryMarkSixType {
     SPCIAL_WEIXIAO("特尾小"),
     HEWEIDA("合尾大"),
     HEWEIXIAO("合尾小"),
-    RED("红"),
-    BLUE("蓝"),
-    GREEN("绿"),
     JIAQIN("家禽"),
     YESHOU("野兽"),
     WEIDA("尾大"),

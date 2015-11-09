@@ -32,32 +32,31 @@ app.service("commonService", function($q, $http) {
 
 // 生肖相关
 app.service("zodiacService", function($q, $http) {
-	this.getZodiacItems = function() {
+	this.getZodiacItems = function(oddsMap) {
 		var deferred = $q.defer();
-		// TODO
-		var names = Zodiac.names, items = [];
-		for (var i = 0; i < names.length; i++) {
+		var zodiacMap = Zodiac.zodiacMap, items = [];
+		for (var i = 0; i < zodiacMap.length; i++) {
 			var item = {};
-			item.name = names[i];
-			item.balls = Zodiac.getBallsByName(names[i]);
-			item.odds = 11; // TODO 赔率
+			item.name = zodiacMap[i].name;
+			item.balls = Zodiac.getBallsByName(zodiacMap[i].name);
+			item.odds = oddsMap[zodiacMap[i].id];
 			items.push(item);
 		}
 		return items;
 	};
-	this.getColorItems = function() {
+	this.getColorItems = function(oddsMap) {
 		var deferred = $q.defer();
 		var items = {};
-		items.red = 11; // TODO 赔率
-		items.blue = 12;
-		items.green = 13;
+		items.red = oddsMap["RED"]; 
+		items.blue = oddsMap["BLUE"];
+		items.green = oddsMap["GREEN"];
 		return items;
 	};
 });
 
 // 特码相关
 app.service("tailBallService", function($q, $http) {
-	this.getTailItems = function(oddsList) {
+	this.getTailItems = function(oddsMap) {
 		var row = 10, col = 5, tailItems = [];
 		for (var i = 0; i < row; i++) {
 			var itemRow = [];
@@ -68,7 +67,7 @@ app.service("tailBallService", function($q, $http) {
 				}
 				var item = {};
 				item.ball = ball;
-				item.odds = oddsList[ball - 1].odds;
+				item.odds = oddsMap[ball];
 				itemRow.push(item);
 			}
 			tailItems.push(itemRow);
@@ -155,10 +154,7 @@ app.controller("IndexController", function($scope, commonService,
 		$scope.selectedBalls = {};
 	};
 	$scope.colorMap = colorMap;
-	// 生肖
-	$scope.zodiacItems = zodiacService.getZodiacItems();
-	// 色波
-	$scope.colorItems = zodiacService.getColorItems();
+	
 	// 半波
 	// TODO
 	// 合肖
@@ -173,9 +169,25 @@ app.controller("IndexController", function($scope, commonService,
 		// 获取赔率
 		commonService.getOddsList($scope.nextLottery.issue,
 				$scope.selectedPGroup.id).then(function(oddsList) {
+			var oddsMap={};
+			for(var i=0;i<oddsList.length;i++){
+				var odds=oddsList[i];
+				if(odds.lotteryMarkSixType=="SPECIAL"){
+					oddsMap[odds.lotteryBallNumber+""]=odds.odds;
+				}
+				else if(odds.lotteryMarkSixType=="BLUE" || odds.lotteryMarkSixType=="RED" || odds.lotteryMarkSixType=="GREEN"){
+					oddsMap[odds.lotteryMarkSixType]=odds.odds;
+				}
+				else if(odds.lotteryMarkSixType.indexOf("ZODIAC_")==0){
+					oddsMap[odds.lotteryMarkSixType]=odds.odds;
+				}
+			}
 			// 获取特码数据
-			$scope.tailItems = tailBallService.getTailItems(oddsList);
-			// TODO
+			$scope.tailItems = tailBallService.getTailItems(oddsMap);
+			// 获取生肖数据
+			$scope.zodiacItems = zodiacService.getZodiacItems(oddsMap);
+			// 色波
+			$scope.colorItems = zodiacService.getColorItems(oddsMap);
 		});
 	};
 	
