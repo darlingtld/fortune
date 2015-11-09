@@ -214,7 +214,7 @@ app.controller("IndexController", function($scope, commonService,
 		}
 		// 特码下注
 		if ($scope.selectedIndex == 0) {
-			wager.lotteryMarkSixWagerType="SPECIAL";
+			wager.lotteryMarkSixType="SPECIAL";
 			tailBallService.wage(wager);
 		}
 	}

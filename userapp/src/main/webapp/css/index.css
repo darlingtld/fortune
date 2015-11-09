@@ -93,7 +93,7 @@
     margin-left: 30px;
 }
 
-.tailBallRadio, .jointBallRadio, .notBallRadio{
+.stakes_input, .jointBallRadio, .notBallRadio{
 	margin-left: 24px !important;
 }
 
@@ -127,10 +127,9 @@ label{
 }
 
 .stakes_input{
-	padding:3px;
 	line-height:20px;
 	border:1px solid #999;
-	width:50px;
+	width: 27px;
 }
 
 .wage_area{
