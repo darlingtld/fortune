@@ -178,8 +178,7 @@ app.controller("IndexController", function($scope, commonService,
 	$scope.menu = 1;
 	$scope.goTab = function(index) {
 		$scope.selectedIndex = index;
-		$scope.selectedBalls = {};
-		$scope.selectedBalls2 = {};
+		$scope.reset();
 	};
 	$scope.colorMap = colorMap;
 
@@ -388,5 +387,69 @@ app.controller("IndexController", function($scope, commonService,
 		$scope.selectedBalls = {};
 		$scope.selectedBalls2 = {};
 		$scope.sumZodiacList = [];
+		$scope.quickChooses = {};
+	};
+	
+	// 快选
+	$scope.quickChooses = {};
+	$scope.quickChoose = function($event,type){
+		var checkbox = $event.target;
+		if(checkbox.checked){
+			$scope.quickChooses[type]=true;
+		}
+		else{
+			$scope.quickChooses[type]=false;
+		}
+	};
+	$scope.isQuickChoose = function(type){
+		return $scope.quickChooses[type];
+	}
+	var methodTable={
+		"DAN":{
+			method:"getSingleOrDouble",
+			result:"single"
+		},
+		"SHUANG":{
+			method:"getSingleOrDouble",
+			result:"double"
+		},
+		"DA":{
+			method:"getBigOrSmall",
+			result:"big"
+		},
+		"XIAO":{
+			method:"getBigOrSmall",
+			result:"small"
+		},
+		"HEDAN":{
+			method:"getSumSingleOrDouble",
+			result:"single"
+		},
+		"HESHUANG":{
+			method:"getSumSingleOrDouble",
+			result:"double"
+		},
+		"HEDA":{
+			method:"getSumBigOrSmall",
+			result:"big"
+		},
+		"HEXIAO":{
+			method:"getSumBigOrSmall",
+			result:"small"
+		}
+	};
+	// 特码快选
+	$scope.quickChooseTail = function($event,type){
+		$scope.selectedBalls={};
+		$scope.quickChoose($event,type);
+		for(var type in $scope.quickChooses){
+			if($scope.quickChooses[type]){
+				for(var i=1;i<=49;i++){
+					if(Compare[methodTable[type].method](i)==methodTable[type].result){
+						$scope.selectedBalls[i]=1;
+					}
+				}
+			}
+		}
 	};
 });

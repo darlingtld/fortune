@@ -138,3 +138,12 @@ label{
     margin-top:5px;
     float:left;
 }
+
+.quick_choose{
+	float:left;
+	margin-left:20px;
+}
+
+.quick_choose input[type=checkbox]{
+	margin-top:10px;
+}
