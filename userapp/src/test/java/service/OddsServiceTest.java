@@ -204,6 +204,24 @@ public class OddsServiceTest {
 			}
 		}
 	}
+	
+	// 生成合肖赔率
+	@Test
+	public void generateSumZodiacLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			for (int j=1;j<=11;j++) {
+				LotteryOdds odds = new LotteryOdds();
+				odds.setGroupId(pGroupList.get(i).getId());
+				odds.setOdds(10 + i);
+				odds.setLotteryIssue(300);
+				odds.setTimestamp(new Date());
+				odds.setLotteryBallNumber(j);
+				odds.setLotteryMarkSixType(LotteryMarkSixType.SUM_ZODIAC);
+				oddsService.saveOdds(odds);
+			}
+		}
+	}
 
 	@Test
 	public void getOdds() {

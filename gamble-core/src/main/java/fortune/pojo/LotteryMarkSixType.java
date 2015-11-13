@@ -38,6 +38,8 @@ public enum LotteryMarkSixType {
     WAVE_GREEN_DA("绿大"),
     WAVE_GREEN_XIAO("绿小"),
     
+    SUM_ZODIAC("合肖"), // ballNumber表示是几肖
+    
     /* 下面的这些类别还没用到 */
     
     NUMBER("数字"),

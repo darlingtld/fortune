@@ -100,13 +100,12 @@ app.service("halfWaveService", function($q, $http) {
 
 // 合肖相关
 app.service("sumZodiacService", function($q, $http) {
-	this.getSumZodiacItems = function() {
-		// TODO 赔率
+	this.getSumZodiacItems = function(oddsMap) {
 		var sumZodiacItems = [];
 		for (var i = 1; i <= 11; i++) {
 			var item = {};
 			item.name = i + "肖";
-			item.odds = 11;
+			item.odds = oddsMap["SUM_ZODIAC#"+i];
 			sumZodiacItems.push(item);
 		}
 		return sumZodiacItems;
@@ -170,11 +169,7 @@ app.controller("IndexController", function($scope, commonService,
 		$scope.selectedBalls2 = {};
 	};
 	$scope.colorMap = colorMap;
-	
-	// 半波
-	// TODO
-	// 合肖
-	$scope.sumZodiacItems = sumZodiacService.getSumZodiacItems();
+
 	// 连码
 	$scope.jointItems = jointBallService.getJointItems();
 	// 自选不中
@@ -200,6 +195,9 @@ app.controller("IndexController", function($scope, commonService,
 				else if(odds.lotteryMarkSixType.indexOf("WAVE_")==0){
 					oddsMap[odds.lotteryMarkSixType]=odds.odds;
 				}
+				else if(odds.lotteryMarkSixType=="SUM_ZODIAC"){
+					oddsMap[odds.lotteryMarkSixType+"#"+odds.lotteryBallNumber]=odds.odds;
+				}
 			}
 			// 获取特码数据
 			$scope.tailItems = tailBallService.getTailItems(oddsMap);
@@ -209,6 +207,8 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.colorItems = zodiacService.getColorItems(oddsMap);
 			// 半波
 			$scope.halfWaveItems = halfWaveService.getHalfWaveItems(oddsMap);
+			// 合肖
+			$scope.sumZodiacItems = sumZodiacService.getSumZodiacItems(oddsMap);
 		});
 	};
 	
@@ -273,6 +273,36 @@ app.controller("IndexController", function($scope, commonService,
 				};
 				commonService.wage(wager);
 			}
+		}
+		// 半波下注
+		else if($scope.selectedIndex == 2){
+			for(var type in $scope.selectedBalls){
+				var wager={
+					userId : $scope.user.id,
+					pgroupId : $scope.selectedPGroup.id,
+					lotteryMarkSixWagerStubList: [],
+					lotteryMarkSixType: type,
+					totalStakes: parseInt($scope.selectedBalls[type])
+				};
+				commonService.wage(wager);
+			}
+		}
+		// 合肖下注
+		else if($scope.selectedIndex == 3){
+			var lotteryMarkSixWagerStubList = [];
+			for(var ball in $scope.selectedBalls){
+				lotteryMarkSixWagerStubList.push({
+					number: parseInt(ball),
+					stakes: parseInt($scope.selectedBalls[ball])
+				});
+			}
+			var wager={
+				userId : $scope.user.id,
+				pgroupId : $scope.selectedPGroup.id,
+				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+				lotteryMarkSixType: "SUM_ZODIAC"
+			};
+			commonService.wage(wager);
 		}
 	}
 });
