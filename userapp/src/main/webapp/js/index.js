@@ -231,6 +231,14 @@ app.controller("IndexController", function($scope, commonService,
 	$scope.selectedBalls = {};
 	// 第二个类别的选择球
 	$scope.selectedBalls2 = {};
+	
+	// 合肖的选择生肖函数
+	$scope.chooseSumZodiac = function(zodiac){
+		if(typeof $scope.sumZodiacList==="undefined"){
+			$scope.sumZodiacList = [];
+		}
+		$scope.sumZodiacList.push(zodiac);
+	};
 
 	// 下注
 	$scope.wage = function() {
@@ -292,7 +300,7 @@ app.controller("IndexController", function($scope, commonService,
 			var lotteryMarkSixWagerStubList = [];
 			for(var ball in $scope.selectedBalls){
 				lotteryMarkSixWagerStubList.push({
-					number: parseInt(ball),
+					number: parseInt(ball)*10+parseInt($scope.selectedBalls2[ball]), // 101表示10肖中，20表示2肖不中。个位表示中不中，前面几位表示几肖,
 					stakes: parseInt($scope.selectedBalls[ball])
 				});
 			}
@@ -300,6 +308,7 @@ app.controller("IndexController", function($scope, commonService,
 				userId : $scope.user.id,
 				pgroupId : $scope.selectedPGroup.id,
 				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+				subLotteryMarkSixTypes: $scope.sumZodiacList,
 				lotteryMarkSixType: "SUM_ZODIAC"
 			};
 			commonService.wage(wager);

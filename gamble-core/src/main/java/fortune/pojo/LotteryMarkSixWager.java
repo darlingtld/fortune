@@ -34,6 +34,9 @@ public class LotteryMarkSixWager {
 
     @NotNull
     private LotteryMarkSixType lotteryMarkSixType;
+    
+    // 目前合肖要用，列出选择的生肖
+    private List<LotteryMarkSixType> subLotteryMarkSixTypes;
 
     @Override
     public String toString() {
@@ -52,13 +55,14 @@ public class LotteryMarkSixWager {
     public LotteryMarkSixWager() {
     }
 
-    public LotteryMarkSixWager(String userId, String pgroupId, int lotteryIssue, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type) {
+    public LotteryMarkSixWager(String userId, String pgroupId, int lotteryIssue, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type, List<LotteryMarkSixType> subLotteryMarkSixTypes) {
         this.userId = userId;
         this.pgroupId = pgroupId;
         this.lotteryIssue = lotteryIssue;
         this.totalStakes = totalStakes;
         this.lotteryMarkSixWagerStubList = lotteryMarkSixWagerStubList;
         this.lotteryMarkSixType = type;
+        this.subLotteryMarkSixTypes=subLotteryMarkSixTypes;
     }
 
     public LotteryMarkSixType getLotteryMarkSixType() {
@@ -124,4 +128,12 @@ public class LotteryMarkSixWager {
     public void setLotteryMarkSixWagerStubList(List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList) {
         this.lotteryMarkSixWagerStubList = lotteryMarkSixWagerStubList;
     }
+
+	public List<LotteryMarkSixType> getSubLotteryMarkSixTypes() {
+		return subLotteryMarkSixTypes;
+	}
+
+	public void setSubLotteryMarkSixTypes(List<LotteryMarkSixType> subLotteryMarkSixTypes) {
+		this.subLotteryMarkSixTypes = subLotteryMarkSixTypes;
+	}
 }
