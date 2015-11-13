@@ -1,4 +1,4 @@
-<table>
+<table style="width:95% !important;">
 	<tr>
 		<th colspan="2">正码1</th>
 		<th colspan="2">正码2</th>
@@ -21,131 +21,48 @@
 		<th>类别</th>
 		<th>选择</th>
 	</tr>
-	<tr>
-		<td>单</td>
-		<td><input type="radio" name="ball1"></td>
-		<td>单</td>
-		<td><input type="radio" name="ball2"></td>
-		<td>单</td>
-		<td><input type="radio" name="ball3"></td>
-		<td>单</td>
-		<td><input type="radio" name="ball4"></td>
-		<td>单</td>
-		<td><input type="radio" name="ball5"></td>
-		<td>单</td>
-		<td><input type="radio" name="ball6"></td>
+	<tr ng-repeat="item in [{label:'单',name:'DAN'}, {label:'双',name:'SHUANG'}, {label:'大',name:'DA'}, {label:'小',name:'XIAO'}, {label:'合单',name:'HEDAN'}, {label:'合双',name:'HESHUANG'}]">
+		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball1" ng-click="chooseZheng16(1,item.name)"></td>
+		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball2" ng-click="chooseZheng16(2,item.name)"></td>
+		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball3" ng-click="chooseZheng16(3,item.name)"></td>
+		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball4" ng-click="chooseZheng16(4,item.name)"></td>
+		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball5" ng-click="chooseZheng16(5,item.name)"></td>
+		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td><input type="radio" name="ball6" ng-click="chooseZheng16(6,item.name)"></td>
+	</tr>
+	<tr ng-repeat="item in [{label:'红波',name:'RED',style:'red'}, {label:'蓝波',name:'BLUE',style:'blue'}, {label:'绿波',name:'GREEN',style:'green'}]">
+		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball1" ng-click="chooseZheng16(1,item.name)"></td>
+		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball2" ng-click="chooseZheng16(2,item.name)"></td>
+		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball3" ng-click="chooseZheng16(3,item.name)"></td>
+		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball4" ng-click="chooseZheng16(4,item.name)"></td>
+		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball5" ng-click="chooseZheng16(5,item.name)"></td>
+		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
+		<td><input type="radio" name="ball6" ng-click="chooseZheng16(6,item.name)"></td>
 	</tr>
 	<tr>
-		<td>双</td>
-		<td><input type="radio" name="ball1"></td>
-		<td>双</td>
-		<td><input type="radio" name="ball2"></td>
-		<td>双</td>
-		<td><input type="radio" name="ball3"></td>
-		<td>双</td>
-		<td><input type="radio" name="ball4"></td>
-		<td>双</td>
-		<td><input type="radio" name="ball5"></td>
-		<td>双</td>
-		<td><input type="radio" name="ball6"></td>
-	</tr>
-	<tr>
-		<td>大</td>
-		<td><input type="radio" name="ball1"></td>
-		<td>大</td>
-		<td><input type="radio" name="ball2"></td>
-		<td>大</td>
-		<td><input type="radio" name="ball3"></td>
-		<td>大</td>
-		<td><input type="radio" name="ball4"></td>
-		<td>大</td>
-		<td><input type="radio" name="ball5"></td>
-		<td>大</td>
-		<td><input type="radio" name="ball6"></td>
-	</tr>
-	<tr>
-		<td>小</td>
-		<td><input type="radio" name="ball1"></td>
-		<td>小</td>
-		<td><input type="radio" name="ball2"></td>
-		<td>小</td>
-		<td><input type="radio" name="ball3"></td>
-		<td>小</td>
-		<td><input type="radio" name="ball4"></td>
-		<td>小</td>
-		<td><input type="radio" name="ball5"></td>
-		<td>小</td>
-		<td><input type="radio" name="ball6"></td>
-	</tr>
-	<tr>
-		<td class="red color_td">红波</td>
-		<td><input type="radio" name="ball1"></td>
-		<td class="red color_td">红波</td>
-		<td><input type="radio" name="ball2"></td>
-		<td class="red color_td">红波</td>
-		<td><input type="radio" name="ball3"></td>
-		<td class="red color_td">红波</td>
-		<td><input type="radio" name="ball4"></td>
-		<td class="red color_td">红波</td>
-		<td><input type="radio" name="ball5"></td>
-		<td class="red color_td">红波</td>
-		<td><input type="radio" name="ball6"></td>
-	</tr>
-	<tr>
-		<td class="blue color_td">蓝波</td>
-		<td><input type="radio" name="ball1"></td>
-		<td class="blue color_td">蓝波</td>
-		<td><input type="radio" name="ball2"></td>
-		<td class="blue color_td">蓝波</td>
-		<td><input type="radio" name="ball3"></td>
-		<td class="blue color_td">蓝波</td>
-		<td><input type="radio" name="ball4"></td>
-		<td class="blue color_td">蓝波</td>
-		<td><input type="radio" name="ball5"></td>
-		<td class="blue color_td">蓝波</td>
-		<td><input type="radio" name="ball6"></td>
-	</tr>
-	<tr>
-		<td class="green color_td">绿波</td>
-		<td><input type="radio" name="ball1"></td>
-		<td class="green color_td">绿波</td>
-		<td><input type="radio" name="ball2"></td>
-		<td class="green color_td">绿波</td>
-		<td><input type="radio" name="ball3"></td>
-		<td class="green color_td">绿波</td>
-		<td><input type="radio" name="ball4"></td>
-		<td class="green color_td">绿波</td>
-		<td><input type="radio" name="ball5"></td>
-		<td class="green color_td">绿波</td>
-		<td><input type="radio" name="ball6"></td>
-	</tr>
-	<tr>
-		<td>合单</td>
-		<td><input type="radio" name="ball1"></td>
-		<td>合单</td>
-		<td><input type="radio" name="ball2"></td>
-		<td>合单</td>
-		<td><input type="radio" name="ball3"></td>
-		<td>合单</td>
-		<td><input type="radio" name="ball4"></td>
-		<td>合单</td>
-		<td><input type="radio" name="ball5"></td>
-		<td>合单</td>
-		<td><input type="radio" name="ball6"></td>
-	</tr>
-	<tr>
-		<td>合双</td>
-		<td><input type="radio" name="ball1"></td>
-		<td>合双</td>
-		<td><input type="radio" name="ball2"></td>
-		<td>合双</td>
-		<td><input type="radio" name="ball3"></td>
-		<td>合双</td>
-		<td><input type="radio" name="ball4"></td>
-		<td>合双</td>
-		<td><input type="radio" name="ball5"></td>
-		<td>合双</td>
-		<td><input type="radio" name="ball6"></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[1]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[2]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[3]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[4]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[5]"/></td>
+		<td colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[6]"/></td>
 	</tr>
 </table>
-<a href="javascript:;" class="btn" style="float:right;margin-right:45px;margin-bottom:15px;">下注</a>
+
+
+
+
+
+
+
+

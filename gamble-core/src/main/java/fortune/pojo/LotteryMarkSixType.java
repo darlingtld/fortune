@@ -40,16 +40,20 @@ public enum LotteryMarkSixType {
     
     SUM_ZODIAC("合肖"), // ballNumber表示是几肖
     
-    /* 下面的这些类别还没用到 */
-    
-    NUMBER("数字"),
-
+    ZHENG_1_6("正码1到6"),
     DAN("单"),
     SHUANG("双"),
     DA("大"),
     XIAO("小"),
     HEDAN("合单"),
     HESHUANG("合双"),
+    
+    /* 下面的这些类别还没用到 */
+    
+    NUMBER("数字"),
+
+    
+    
     HEDA("合大"),
     HEXIAO("合小"),
     SPECIAL_WEIDA("特尾大"),

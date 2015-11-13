@@ -222,6 +222,24 @@ public class OddsServiceTest {
 			}
 		}
 	}
+	
+	// 生成正码1到6赔率
+	@Test
+	public void generateZheng16LotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			for (LotteryMarkSixType type:Arrays.asList(LotteryMarkSixType.DA,LotteryMarkSixType.XIAO,LotteryMarkSixType.DAN,LotteryMarkSixType.SHUANG,LotteryMarkSixType.RED,LotteryMarkSixType.BLUE,LotteryMarkSixType.GREEN,LotteryMarkSixType.HEDAN, LotteryMarkSixType.HESHUANG)) {
+				LotteryOdds odds = new LotteryOdds();
+				odds.setGroupId(pGroupList.get(i).getId());
+				odds.setOdds(9 + i);
+				odds.setLotteryIssue(300);
+				odds.setTimestamp(new Date());
+				odds.setLotteryBallType(type);
+				odds.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_1_6);
+				oddsService.saveOdds(odds);
+			}
+		}
+	}
 
 	@Test
 	public void getOdds() {

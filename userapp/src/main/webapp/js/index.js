@@ -112,6 +112,19 @@ app.service("sumZodiacService", function($q, $http) {
 	};
 });
 
+// 正码相关
+app.service("zhengBallService", function($q, $http) {
+	this.getZheng16Items = function(oddsMap) {
+		var items={};
+		for(var type in oddsMap){
+			if(type.indexOf("ZHENG_1_6")==0){
+				items[type]=oddsMap[type];
+			}
+		}
+		return items;
+	};
+});
+
 // 连码相关
 app.service("jointBallService", function($q, $http) {
 	this.getJointItems = function() {
@@ -157,8 +170,8 @@ app.service("notBallService", function($q, $http) {
 });
 
 app.controller("IndexController", function($scope, commonService,
-		zodiacService, tailBallService, halfWaveService, sumZodiacService, jointBallService,
-		notBallService) {
+		zodiacService, tailBallService, halfWaveService, sumZodiacService, zhengBallService, 
+		jointBallService, notBallService) {
 	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "连码", "自选不中",
 			"过关", "一肖尾数", "连肖", "连尾", "正码特" ];
 	$scope.selectedIndex = 0;
@@ -198,6 +211,9 @@ app.controller("IndexController", function($scope, commonService,
 				else if(odds.lotteryMarkSixType=="SUM_ZODIAC"){
 					oddsMap[odds.lotteryMarkSixType+"#"+odds.lotteryBallNumber]=odds.odds;
 				}
+				else if(odds.lotteryMarkSixType=="ZHENG_1_6"){
+					oddsMap[odds.lotteryMarkSixType+"#"+odds.lotteryBallType]=odds.odds;
+				}
 			}
 			// 获取特码数据
 			$scope.tailItems = tailBallService.getTailItems(oddsMap);
@@ -209,6 +225,8 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.halfWaveItems = halfWaveService.getHalfWaveItems(oddsMap);
 			// 合肖
 			$scope.sumZodiacItems = sumZodiacService.getSumZodiacItems(oddsMap);
+			// 正码1-6
+			$scope.zheng16Items = zhengBallService.getZheng16Items(oddsMap);
 		});
 	};
 	
@@ -238,6 +256,11 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.sumZodiacList = [];
 		}
 		$scope.sumZodiacList.push(zodiac);
+	};
+	
+	// 正码1-6的选择类型函数
+	$scope.chooseZheng16 = function(ballNum, type){
+		$scope.selectedBalls[ballNum]=type;
 	};
 
 	// 下注
@@ -313,5 +336,29 @@ app.controller("IndexController", function($scope, commonService,
 			};
 			commonService.wage(wager);
 		}
-	}
+		// 正码1-6下注
+		else if($scope.selectedIndex == 5){
+			var lotteryMarkSixWagerStubList = [];
+			for(var ballNum in $scope.selectedBalls){
+				lotteryMarkSixWagerStubList.push({
+					number: ballNum, // 表示第几个正码
+					lotteryMarkSixType: $scope.selectedBalls[ballNum], // 表示该正码x的类型
+					stakes: $scope.selectedBalls2[ballNum]
+				});
+			}
+			var wager={
+				userId : $scope.user.id,
+				pgroupId : $scope.selectedPGroup.id,
+				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+				lotteryMarkSixType: "ZHENG_1_6"
+			};
+			commonService.wage(wager);
+		}
+	};
+	
+	// 重置
+	$scope.reset = function(){
+		$scope.selectedBalls = {};
+		$scope.selectedBalls2 = {};
+	};
 });

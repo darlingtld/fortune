@@ -16,6 +16,7 @@ public class LotteryOdds {
     private String id;
 
     private int lotteryBallNumber;
+    private LotteryMarkSixType lotteryBallType;
 
     @NotNull
     private double odds;
@@ -99,4 +100,12 @@ public class LotteryOdds {
     public void setLotteryMarkSixType(LotteryMarkSixType lotteryMarkSixType) {
         this.lotteryMarkSixType = lotteryMarkSixType;
     }
+
+	public LotteryMarkSixType getLotteryBallType() {
+		return lotteryBallType;
+	}
+
+	public void setLotteryBallType(LotteryMarkSixType lotteryBallType) {
+		this.lotteryBallType = lotteryBallType;
+	}
 }
