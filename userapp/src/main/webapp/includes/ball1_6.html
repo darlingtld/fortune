@@ -23,39 +23,39 @@
 	</tr>
 	<tr ng-repeat="item in [{label:'单',name:'DAN'}, {label:'双',name:'SHUANG'}, {label:'大',name:'DA'}, {label:'小',name:'XIAO'}, {label:'合单',name:'HEDAN'}, {label:'合双',name:'HESHUANG'}]">
 		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball1" ng-click="chooseZheng16(1,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball1" ng-click="chooseZheng16($event,1,item.name)" ng-checked="selectedBalls[1]==item.name"></td>
 		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball2" ng-click="chooseZheng16(2,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball2" ng-click="chooseZheng16($event,2,item.name)" ng-checked="selectedBalls[2]==item.name"></td>
 		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball3" ng-click="chooseZheng16(3,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball3" ng-click="chooseZheng16($event,3,item.name)" ng-checked="selectedBalls[3]==item.name"></td>
 		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball4" ng-click="chooseZheng16(4,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball4" ng-click="chooseZheng16($event,4,item.name)" ng-checked="selectedBalls[4]==item.name"></td>
 		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball5" ng-click="chooseZheng16(5,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball5" ng-click="chooseZheng16($event,5,item.name)" ng-checked="selectedBalls[5]==item.name"></td>
 		<td>{{item.label}}<span style="color:red">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td><input type="radio" name="ball6" ng-click="chooseZheng16(6,item.name)"></td>
+		<td><input type="checkbox" name="ball6" ng-click="chooseZheng16($event,6,item.name)" ng-checked="selectedBalls[6]==item.name"></td>
 	</tr>
 	<tr ng-repeat="item in [{label:'红波',name:'RED',style:'red'}, {label:'蓝波',name:'BLUE',style:'blue'}, {label:'绿波',name:'GREEN',style:'green'}]">
 		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball1" ng-click="chooseZheng16(1,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball1" ng-click="chooseZheng16($event,1,item.name)" ng-checked="selectedBalls[1]==item.name"></td>
 		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball2" ng-click="chooseZheng16(2,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball2" ng-click="chooseZheng16($event,2,item.name)" ng-checked="selectedBalls[2]==item.name"></td>
 		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball3" ng-click="chooseZheng16(3,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball3" ng-click="chooseZheng16($event,3,item.name)" ng-checked="selectedBalls[3]==item.name"></td>
 		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball4" ng-click="chooseZheng16(4,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball4" ng-click="chooseZheng16($event,4,item.name)" ng-checked="selectedBalls[4]==item.name"></td>
 		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td style="border-right:1px solid #1FADFB;"><input type="radio" name="ball5" ng-click="chooseZheng16(5,item.name)"></td>
+		<td style="border-right:1px solid #1FADFB;"><input type="checkbox" name="ball5" ng-click="chooseZheng16($event,5,item.name)" ng-checked="selectedBalls[5]==item.name"></td>
 		<td class="{{item.style+' color_td'}}">{{item.label}}<span style="color:white">({{zheng16Items["ZHENG_1_6#"+item.name]}})</span></td>
-		<td><input type="radio" name="ball6" ng-click="chooseZheng16(6,item.name)"></td>
+		<td><input type="checkbox" name="ball6" ng-click="chooseZheng16($event,6,item.name)" ng-checked="selectedBalls[6]==item.name"></td>
 	</tr>
 	<tr>
-		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[1]"/></td>
-		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[2]"/></td>
-		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[3]"/></td>
-		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[4]"/></td>
-		<td style="border-right:1px solid #1FADFB;" colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[5]"/></td>
-		<td colspan="2"><input type="text" class="stakes_input" ng-model="selectedBalls2[6]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[1]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[2]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[3]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[4]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[5]"/></td>
+		<td colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[6]"/></td>
 	</tr>
 </table>
 

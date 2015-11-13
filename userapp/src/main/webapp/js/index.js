@@ -251,16 +251,40 @@ app.controller("IndexController", function($scope, commonService,
 	$scope.selectedBalls2 = {};
 	
 	// 合肖的选择生肖函数
-	$scope.chooseSumZodiac = function(zodiac){
-		if(typeof $scope.sumZodiacList==="undefined"){
-			$scope.sumZodiacList = [];
+	$scope.sumZodiacList = [];
+	$scope.chooseSumZodiac = function($event, zodiac){
+		var checkbox = $event.target;
+		if(checkbox.checked){
+			$scope.sumZodiacList.push(zodiac);
 		}
-		$scope.sumZodiacList.push(zodiac);
+		else{
+			var copy=[];
+			for(var i=0;i<$scope.sumZodiacList.length;i++){
+				if($scope.sumZodiacList[i]!=zodiac){
+					copy.push($scope.sumZodiacList[i]);
+				}
+			}
+			$scope.sumZodiacList=copy;
+		}
+	};
+	$scope.isCheckedSumZodiac = function(zodiac){
+		for(var i=0;i<$scope.sumZodiacList.length;i++){
+			if($scope.sumZodiacList[i]==zodiac){
+				return true;
+			}
+		}
+		return false;
 	};
 	
 	// 正码1-6的选择类型函数
-	$scope.chooseZheng16 = function(ballNum, type){
-		$scope.selectedBalls[ballNum]=type;
+	$scope.chooseZheng16 = function($event, ballNum, type){
+		var checkbox = $event.target;
+		if(checkbox.checked){
+			$scope.selectedBalls[ballNum]=type;
+		}
+		else{
+			$scope.selectedBalls[ballNum]=undefined;
+		}
 	};
 
 	// 下注
@@ -340,6 +364,9 @@ app.controller("IndexController", function($scope, commonService,
 		else if($scope.selectedIndex == 5){
 			var lotteryMarkSixWagerStubList = [];
 			for(var ballNum in $scope.selectedBalls){
+				if(typeof $scope.selectedBalls[ballNum]=="undefined"){
+					continue;
+				}
 				lotteryMarkSixWagerStubList.push({
 					number: ballNum, // 表示第几个正码
 					lotteryMarkSixType: $scope.selectedBalls[ballNum], // 表示该正码x的类型
@@ -360,5 +387,6 @@ app.controller("IndexController", function($scope, commonService,
 	$scope.reset = function(){
 		$scope.selectedBalls = {};
 		$scope.selectedBalls2 = {};
+		$scope.sumZodiacList = [];
 	};
 });

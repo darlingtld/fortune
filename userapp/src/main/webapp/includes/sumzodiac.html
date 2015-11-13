@@ -11,7 +11,7 @@
 				class="ball {{colorMap[ball]}}">{{ball}}</div>
 		</td>
 		<td>
-			<input type="checkbox" ng-click="chooseSumZodiac(zodiacItem.id);"/>
+			<input type="checkbox" ng-click="chooseSumZodiac($event, zodiacItem.id);" ng-checked="isCheckedSumZodiac(zodiacItem.id);"/>
 		</td>
 	</tr>
 </table>
