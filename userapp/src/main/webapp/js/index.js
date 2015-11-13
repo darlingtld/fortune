@@ -85,6 +85,19 @@ app.service("tailBallService", function($q, $http) {
 	};
 });
 
+//半波相关
+app.service("halfWaveService", function($q, $http) {
+	this.getHalfWaveItems = function(oddsMap) {
+		var items={};
+		for(var type in oddsMap){
+			if(type.indexOf("WAVE_")==0){
+				items[type]=oddsMap[type];
+			}
+		}
+		return items;
+	};
+});
+
 // 合肖相关
 app.service("sumZodiacService", function($q, $http) {
 	this.getSumZodiacItems = function() {
@@ -145,7 +158,7 @@ app.service("notBallService", function($q, $http) {
 });
 
 app.controller("IndexController", function($scope, commonService,
-		zodiacService, tailBallService, sumZodiacService, jointBallService,
+		zodiacService, tailBallService, halfWaveService, sumZodiacService, jointBallService,
 		notBallService) {
 	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "连码", "自选不中",
 			"过关", "一肖尾数", "连肖", "连尾", "正码特" ];
@@ -184,6 +197,9 @@ app.controller("IndexController", function($scope, commonService,
 				else if(odds.lotteryMarkSixType.indexOf("ZODIAC_")==0){
 					oddsMap[odds.lotteryMarkSixType]=odds.odds;
 				}
+				else if(odds.lotteryMarkSixType.indexOf("WAVE_")==0){
+					oddsMap[odds.lotteryMarkSixType]=odds.odds;
+				}
 			}
 			// 获取特码数据
 			$scope.tailItems = tailBallService.getTailItems(oddsMap);
@@ -191,6 +207,8 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.zodiacItems = zodiacService.getZodiacItems(oddsMap);
 			// 色波
 			$scope.colorItems = zodiacService.getColorItems(oddsMap);
+			// 半波
+			$scope.halfWaveItems = halfWaveService.getHalfWaveItems(oddsMap);
 		});
 	};
 	

@@ -5,6 +5,7 @@ package fortune.pojo;
  */
 public enum LotteryMarkSixType {
     SPECIAL("特码"),
+    
     ZODIAC_SHU("鼠"),
     ZODIAC_NIU("牛"),
     ZODIAC_HU("虎"),
@@ -17,9 +18,25 @@ public enum LotteryMarkSixType {
     ZODIAC_JI("鸡"),
     ZODIAC_GOU("狗"),
     ZODIAC_ZHU("猪"),
+    
     RED("红波"),
     BLUE("蓝波"),
     GREEN("绿波"),
+    
+    WAVE_RED_SHUANG("红双"),
+    WAVE_RED_DAN("红单"),
+    WAVE_RED_DA("红大"),
+    WAVE_RED_XIAO("红小"),
+
+    WAVE_BLUE_SHUANG("蓝双"),
+    WAVE_BLUE_DAN("蓝单"),
+    WAVE_BLUE_DA("蓝大"),
+    WAVE_BLUE_XIAO("蓝小"),
+
+    WAVE_GREEN_SHUANG("绿双"),
+    WAVE_GREEN_DAN("绿单"),
+    WAVE_GREEN_DA("绿大"),
+    WAVE_GREEN_XIAO("绿小"),
     
     /* 下面的这些类别还没用到 */
     
@@ -105,22 +122,7 @@ public enum LotteryMarkSixType {
     SPECIAL_HEDAN("正码特合单"),
     SPECIAL_HESHUANG("正码特合双"),
     SPECIAL_HEDA("正码特合大"),
-    SPECIAL_HEXIAO("正码特合小"),
-
-    RED_SHUANG("红双"),
-    RED_DAN("红单"),
-    RED_DA("红大"),
-    RED_XIAO("红小"),
-
-    BLUE_SHUANG("蓝双"),
-    BLUE_DAN("蓝单"),
-    BLUE_DA("蓝大"),
-    BLUE_XIAO("蓝小"),
-
-    GREEN_SHUANG("绿双"),
-    GREEN_DAN("绿单"),
-    GREEN_DA("绿大"),
-    GREEN_XIAO("绿小");
+    SPECIAL_HEXIAO("正码特合小");
 
 
     private String type;

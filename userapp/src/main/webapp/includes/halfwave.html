@@ -7,7 +7,7 @@
 	</tr>
 	<tr>
 		<td class="color_td red">红单</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_RED_DAN}}</td>
 		<td>
 			<div class="ball red">1</div>
 			<div class="ball red">7</div>
@@ -19,12 +19,12 @@
 			<div class="ball red">45</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_RED_DAN" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td red">红双</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_RED_SHUANG}}</td>
 		<td>
 			<div class="ball red">2</div>
 			<div class="ball red">8</div>
@@ -37,12 +37,12 @@
 			<div class="ball red">46</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_RED_SHUANG" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td red">红大</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_RED_DA}}</td>
 		<td>
 			<div class="ball red">29</div>
 			<div class="ball red">30</div>
@@ -53,12 +53,12 @@
 			<div class="ball red">46</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_RED_DA" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td red">红小</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_RED_XIAO}}</td>
 		<td>
 			<div class="ball red">1</div>
 			<div class="ball red">2</div>
@@ -72,12 +72,12 @@
 			<div class="ball red">24</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_RED_XIAO" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td blue">蓝单</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_BLUE_DAN}}</td>
 		<td>
 			<div class="ball blue">3</div>
 			<div class="ball blue">9</div>
@@ -89,12 +89,12 @@
 			<div class="ball blue">47</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_BLUE_DAN" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td blue">蓝双</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_BLUE_SHUANG}}</td>
 		<td>
 			<div class="ball blue">4</div>
 			<div class="ball blue">10</div>
@@ -106,12 +106,12 @@
 			<div class="ball blue">48</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_BLUE_SHUANG" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td blue">蓝大</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_BLUE_DA}}</td>
 		<td>
 			<div class="ball blue">25</div>
 			<div class="ball blue">26</div>
@@ -124,12 +124,12 @@
 			<div class="ball blue">48</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_BLUE_DA" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td blue">蓝小</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_BLUE_XIAO}}</td>
 		<td>
 			<div class="ball blue">3</div>
 			<div class="ball blue">4</div>
@@ -140,12 +140,12 @@
 			<div class="ball blue">20</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_BLUE_XIAO" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td green">绿单</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_GREEN_DAN}}</td>
 		<td>
 			<div class="ball green">5</div>
 			<div class="ball green">11</div>
@@ -157,12 +157,12 @@
 			<div class="ball green">43</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_GREEN_DAN" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td green">绿双</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_GREEN_SHUANG}}</td>
 		<td>
 			<div class="ball green">6</div>
 			<div class="ball green">16</div>
@@ -173,12 +173,12 @@
 			<div class="ball green">44</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_GREEN_SHUANG" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td green">绿大</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_GREEN_DA}}</td>
 		<td>
 			<div class="ball green">27</div>
 			<div class="ball green">28</div>
@@ -190,12 +190,12 @@
 			<div class="ball green">44</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_GREEN_DA" class="stakes_input"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="color_td green">绿小</td>
-		<td>4</td>
+		<td>{{halfWaveItems.WAVE_GREEN_XIAO}}</td>
 		<td>
 			<div class="ball green">5</div>
 			<div class="ball green">6</div>
@@ -206,8 +206,7 @@
 			<div class="ball green">22</div>
 		</td>
 		<td>
-			<input type="radio" name="halfWaveRadio"/>
+			<input type="text" ng-model="selectedBalls.WAVE_GREEN_XIAO" class="stakes_input"/>
 		</td>
 	</tr>
 </table>
-<a href="javascript:;" class="btn" style="float:right;margin-right:45px;margin-bottom:15px;">下注</a>
