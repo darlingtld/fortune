@@ -64,7 +64,7 @@ app.service("zodiacService", function($q, $http) {
 });
 
 // 特码相关
-app.service("tailBallService", function($q, $http) {
+app.service("tailBallService", function($q, $http, $sce) {
 	this.getTailItems = function(oddsMap) {
 		var row = 10, col = 5, tailItems = [];
 		for (var i = 0; i < row; i++) {
@@ -82,6 +82,14 @@ app.service("tailBallService", function($q, $http) {
 			tailItems.push(itemRow);
 		}
 		return tailItems;
+	};
+	this.renderWageConfirmHTML = function(wager){
+		var wagerList=wager.lotteryMarkSixWagerStubList, html="";
+		for(var i=0;i<wagerList.length;i++){
+			var item=wagerList[i], number=item.number, stakes=item.stakes;
+			html+="<div style='height:40px;width:300px;margin:10px auto;'><div class='ball "+colorMap[number]+"'>"+number+"</div><span style='color:red;margin-left:10px;line-height:25px;float:left;'>赔率："+stakes+"</span></div>";
+		}
+		return	$sce.trustAsHtml(html);
 	};
 });
 
@@ -180,12 +188,29 @@ app.controller("IndexController", function($scope, commonService,
 		$scope.selectedIndex = index;
 		$scope.reset();
 	};
+	// 重置
+	$scope.reset = function(){
+		$scope.selectedBalls = {};
+		$scope.selectedBalls2 = {};
+		$scope.sumZodiacList = [];
+		$scope.quickChooses = {};
+		$scope.isConfirmDialogVisible=false;
+		$scope.closeConfirmDialog = function(){
+			$scope.isConfirmDialogVisible=false;
+		};
+		$scope.confirmDialog = function(){
+			$scope.isConfirmDialogVisible=false;
+		};
+	};
+	// 秋色
 	$scope.colorMap = colorMap;
-
 	// 连码
 	$scope.jointItems = jointBallService.getJointItems();
 	// 自选不中
 	$scope.notItems = notBallService.getNotItems();
+	
+	// 初始化数据
+	$scope.reset();
 
 	// 根据期数和代理商重新获取彩票
 	var generateLotteryList = function() {
@@ -244,13 +269,6 @@ app.controller("IndexController", function($scope, commonService,
 		generateLotteryList();
 	});
 	
-	// 选择球
-	$scope.selectedBalls = {};
-	// 第二个类别的选择球
-	$scope.selectedBalls2 = {};
-	
-	// 合肖的选择生肖函数
-	$scope.sumZodiacList = [];
 	$scope.chooseSumZodiac = function($event, zodiac){
 		var checkbox = $event.target;
 		if(checkbox.checked){
@@ -285,11 +303,15 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.selectedBalls[ballNum]=undefined;
 		}
 	};
-
+	
 	// 下注
 	$scope.wage = function() {
 		// 特码下注
 		if ($scope.selectedIndex == 0) {
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为特码，请确认：";
+			// 组装下注对象
 			var lotteryMarkSixWagerStubList = [];
 			for(var ball in $scope.selectedBalls){
 				lotteryMarkSixWagerStubList.push({
@@ -303,7 +325,12 @@ app.controller("IndexController", function($scope, commonService,
 				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
 				lotteryMarkSixType: "SPECIAL"
 			};
-			commonService.wage(wager);
+			var html=tailBallService.renderWageConfirmHTML(wager);
+			$scope.confirmDialogHTML=html;
+			$scope.confirmDialog=function(){
+				$scope.isConfirmDialogVisible=false;
+				commonService.wage(wager);
+			}
 		}
 		// 生肖色波下注
 		else if($scope.selectedIndex == 1){
@@ -382,16 +409,7 @@ app.controller("IndexController", function($scope, commonService,
 		}
 	};
 	
-	// 重置
-	$scope.reset = function(){
-		$scope.selectedBalls = {};
-		$scope.selectedBalls2 = {};
-		$scope.sumZodiacList = [];
-		$scope.quickChooses = {};
-	};
-	
 	// 快选
-	$scope.quickChooses = {};
 	$scope.quickChoose = function($event,type){
 		var checkbox = $event.target;
 		if(checkbox.checked){

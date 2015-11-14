@@ -147,3 +147,38 @@ label{
 .quick_choose input[type=checkbox]{
 	margin-top:10px;
 }
+
+.dialog{
+	position:fixed;
+	top:50px;
+	left:50%;
+	margin-left:-200px;
+	width:400px;
+	top:50%;
+	height:400px;
+	margin-top:-200px;
+	z-index:999;
+	background:white;
+	border:2px solid #dedede;
+	border-radius:10px;
+	padding:10px;
+}
+
+.dialog_title{
+	font-size:1.1em;
+	font-weight:bold;
+	line-height:25px;
+	border-bottom:2px solid #dedede;
+}
+
+.dialog_body{
+	border-bottom:2px solid #dedede;
+	height:300px;
+	padding-top:10px;
+	padding-bottom:10px;
+	overflow:auto;
+}
+
+.dialog_bottom{
+	padding:10px;
+}
