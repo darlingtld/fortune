@@ -38,3 +38,9 @@
 	</tr>
 </table>
 <div class="clear"></div>
+<div>
+	<div ng-repeat="item in [{label:'家禽',id:'POULTRY'},{label:'野兽',id:'BEAST'}]" class="quick_choose">
+		<input type="checkbox" ng-click="quickChooseZodiac($event,item.id)" ng-checked="isQuickChoose(item.id)"/>{{item.label}}
+	</div>
+	<div class="clear"></div>
+</div>

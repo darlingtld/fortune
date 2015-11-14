@@ -404,7 +404,7 @@ app.controller("IndexController", function($scope, commonService,
 	$scope.isQuickChoose = function(type){
 		return $scope.quickChooses[type];
 	}
-	var methodTable={
+	var methodTableForNorm={
 		"DAN":{
 			method:"getSingleOrDouble",
 			result:"single"
@@ -461,8 +461,29 @@ app.controller("IndexController", function($scope, commonService,
 		for(var type in $scope.quickChooses){
 			if($scope.quickChooses[type]){
 				for(var i=1;i<=49;i++){
-					if(Compare[methodTable[type].method](i)==methodTable[type].result){
+					if(Compare[methodTableForNorm[type].method](i)==methodTableForNorm[type].result){
 						$scope.selectedBalls[i]=1;
+					}
+				}
+			}
+		}
+	};
+	// 生肖快选
+	$scope.quickChooseZodiac = function($event,type){
+		$scope.selectedBalls={};
+		$scope.quickChoose($event,type);
+		for(var type in $scope.quickChooses){
+			if($scope.quickChooses[type]){
+				if(type=="POULTRY"){
+					var poultries=["ZODIAC_NIU", "ZODIAC_MA", "ZODIAC_YANG", "ZODIAC_JI", "ZODIAC_GOU", "ZODIAC_ZHU"];
+					for(var i in poultries){
+						$scope.selectedBalls[poultries[i]]=1;						
+					}
+				}
+				else if(type=="BEAST"){
+					var beasts=["ZODIAC_SHU", "ZODIAC_HU", "ZODIAC_LONG", "ZODIAC_SHE", "ZODIAC_TU", "ZODIAC_HOU"];
+					for(var i in beasts){
+						$scope.selectedBalls[beasts[i]]=1;						
 					}
 				}
 			}
