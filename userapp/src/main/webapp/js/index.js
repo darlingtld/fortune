@@ -461,7 +461,10 @@ app.controller("IndexController", function($scope, commonService,
 		for(var type in $scope.quickChooses){
 			if($scope.quickChooses[type]){
 				for(var i=1;i<=49;i++){
-					if(methodTableForNorm[type].method && Compare[methodTableForNorm[type].method](i)==methodTableForNorm[type].result){
+					if(methodTableForNorm[type] && Compare[methodTableForNorm[type].method](i)==methodTableForNorm[type].result){
+						$scope.selectedBalls[i]=1;
+					}
+					else if(colorMap[i]==type){
 						$scope.selectedBalls[i]=1;
 					}
 				}
@@ -489,18 +492,4 @@ app.controller("IndexController", function($scope, commonService,
 			}
 		}
 	};
-	// 颜色快选
-	$scope.quickChooseColor = function($event, type){
-		$scope.selectedBalls={};
-		$scope.quickChoose($event,type);
-		for(var type in $scope.quickChooses){
-			if($scope.quickChooses[type]){
-				for(var i=1;i<=49;i++){
-					if(colorMap[i]==type){
-						$scope.selectedBalls[i]=1;
-					}
-				}
-			}
-		}
-	}
 });

@@ -32,7 +32,7 @@
 	</div>
 	<div class="clear"></div>
 	<div ng-repeat="item in [{label:'红',id:'red'},{label:'蓝',id:'blue'},{label:'绿',id:'green'}]" class="quick_choose">
-		<input type="checkbox" ng-click="quickChooseColor($event,item.id)" ng-checked="isQuickChoose(item.id)"/>{{item.label}}
+		<input type="checkbox" ng-click="quickChooseTail($event,item.id)" ng-checked="isQuickChoose(item.id)"/>{{item.label}}
 	</div>
 	<div class="clear"></div>
 </div>
