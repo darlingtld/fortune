@@ -27,7 +27,7 @@
     </tr>
 </table>
 <div>
-	<div ng-repeat="item in [{label:'单',id:'DAN'},{label:'双',id:'SHUANG'},{label:'大',id:'DA'},{label:'小',id:'XIAO'},{label:'合单',id:'HEDAN'},{label:'合双',id:'HESHUANG'},{label:'合大',id:'HEDA'},{label:'合小',id:'HEXIAO'}]" class="quick_choose">
+	<div ng-repeat="item in [{label:'单',id:'DAN'},{label:'双',id:'SHUANG'},{label:'大',id:'DA'},{label:'小',id:'XIAO'},{label:'合单',id:'HEDAN'},{label:'合双',id:'HESHUANG'},{label:'合大',id:'HEDA'},{label:'合小',id:'HEXIAO'},{label:'特尾大',id:'TAILDA'},{label:'特尾小',id:'TAILXIAO'},{label:'合尾大',id:'SUMTAILDA'},{label:'合尾小',id:'SUMTAILXIAO'}]" class="quick_choose">
 		<input type="checkbox" ng-click="quickChooseTail($event,item.id)" ng-checked="isQuickChoose(item.id)"/>{{item.label}}
 	</div>
 	<div class="clear"></div>

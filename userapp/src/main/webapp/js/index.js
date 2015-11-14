@@ -436,6 +436,22 @@ app.controller("IndexController", function($scope, commonService,
 		"HEXIAO":{
 			method:"getSumBigOrSmall",
 			result:"small"
+		},
+		"TAILDA":{
+			method:"getTailBigOrSmall",
+			result:"big"
+		},
+		"TAILXIAO":{
+			method:"getTailBigOrSmall",
+			result:"small"
+		},
+		"SUMTAILDA":{
+			method:"getTailSumBigOrSmall",
+			result:"big"
+		},
+		"SUMTAILXIAO":{
+			method:"getTailSumBigOrSmall",
+			result:"small"
 		}
 	};
 	// 特码快选
