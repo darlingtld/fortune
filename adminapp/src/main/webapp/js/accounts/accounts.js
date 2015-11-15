@@ -1,4 +1,4 @@
 angular.module('AdminApp').
 controller('accountsController', function ($rootScope) {
-    $rootScope.menu = 1;
+    $rootScope.menu = 2;
 })

@@ -73,7 +73,7 @@ public class WagerServiceTest {
         System.out.println(wager);
         wager.setTotalStakes(5555);
         List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList = wager.getLotteryMarkSixWagerStubList();
-        lotteryMarkSixWagerStubList.add(new LotteryMarkSixWagerStub(17, 400));
+        lotteryMarkSixWagerStubList.add(new LotteryMarkSixWagerStub(17, 400, LotteryMarkSixType.SPECIAL));
         wager.setLotteryMarkSixWagerStubList(lotteryMarkSixWagerStubList);
         wager = wagerService.updateLotteryMarkSixWager(wager);
         System.out.println(wager);

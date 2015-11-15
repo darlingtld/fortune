@@ -16,7 +16,7 @@
         <table>
             <tr>
                 <td>会员账号：</td>
-                <td><span ng-bind="username"></span></td>
+                <td><span ng-bind="user.username"></span></td>
             </tr>
             <tr>
                 <td>盘类：</td>
@@ -32,11 +32,11 @@
             </tr>
             <tr>
                 <td>下注期数：</td>
-                <td><span ng-bind="nextLotteryMarkSixInfo.issue"></span></td>
+                <td><span ng-bind="nextLottery.issue"></span></td>
             </tr>
             <tr>
                 <td>开奖日期：</td>
-                <td><span ng-bind="nextLotteryMarkSixInfo.date | date : 'yyyy-MM-dd HH:mm:ss'"></span></td>
+                <td><span ng-bind="nextLottery.date | date : 'yyyy-MM-dd HH:mm:ss'"></span></td>
             </tr>
         </table>
     </div>

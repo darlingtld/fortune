@@ -35,7 +35,7 @@
 </div>
 
 <div class="real-time-dashboard">
-    <div ng-repeat="a in list">
+    <div ng-repeat="subs in list">
         <table>
             <thead>
             <tr>
@@ -47,12 +47,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>11</td>
-                <td>11</td>
-                <td>11</td>
-                <td>11</td>
-                <td>11</td>
+            <tr ng-repeat="rt in subs">
+                <td><span ng-bind="rt.number" class="ball ball{{rt.number}}"></span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td ng-bind="rt.stakes"></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
             </tr>
             </tbody>
         </table>

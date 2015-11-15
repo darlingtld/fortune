@@ -3,5 +3,5 @@
  */
 angular.module('AdminApp').
 controller('rulesController', function ($rootScope) {
-    $rootScope.menu = 3;
+    $rootScope.menu = 4;
 })

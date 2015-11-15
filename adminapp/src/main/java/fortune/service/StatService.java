@@ -46,7 +46,7 @@ public class StatService {
     public List<RealtimeStat> getRealTimeTransactionResult(String groupid) {
         Utils.logger.info("get real time transaction result of group id {}", groupid);
         HashMap<Integer, RealtimeStat> realtimeStatHashMap = new HashMap<>(49);
-        int lotteryIssue = lotteryService.getLatestLotteryIssue();
+        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
 
         List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue, groupid);
         HashMap<Integer, Double> oddsMap = new HashMap<>(49);
@@ -74,6 +74,18 @@ public class StatService {
                         realtimeStatHashMap.put(stub.getNumber(), realtimeStat);
                     }
                 }
+            }
+        }
+        for (int number = 1; number <= 49; number++) {
+            if (!realtimeStatHashMap.containsKey(number)) {
+                RealtimeStat realtimeStat = new RealtimeStat();
+                realtimeStat.setGroupId(groupid);
+                realtimeStat.setNumber(number);
+                realtimeStat.setBalance(0);
+                realtimeStat.setStakes(0);
+                realtimeStat.setOdds(oddsMap.get(number));
+                realtimeStat.setTransactions(0);
+                realtimeStatHashMap.put(number, realtimeStat);
             }
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realtimeStatHashMap.values().iterator());

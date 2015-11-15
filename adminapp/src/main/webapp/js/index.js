@@ -24,7 +24,7 @@ controller('indexController', function ($scope) {
         controller: 'realtimeController',
         templateUrl: 'includes/realtime.html'
     }).otherwise({
-        redirectTo: '/result'
+        redirectTo: '/realtime'
     });
 }]);
 
