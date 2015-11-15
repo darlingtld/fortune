@@ -151,7 +151,7 @@ public class GambleController {
     @RequestMapping(value = "wage_record/{user_id}/pgroup/{pgroup_id}/lottery_issue/{lottery_issue}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryMarkSixWager> getWageRecord4LotteryMarkSix(@PathVariable("user_id") String userId, @PathVariable("pgroup_id") int pgroupId, @PathVariable("lottery_issue") int lotteryIssue, HttpServletResponse response) {
+    List<LotteryMarkSixWager> getWageRecord4LotteryMarkSix(@PathVariable("user_id") String userId, @PathVariable("pgroup_id") String pgroupId, @PathVariable("lottery_issue") int lotteryIssue, HttpServletResponse response) {
         return wagerService.getLotteryMarkSixWagerList(userId, pgroupId, lotteryIssue);
     }
 

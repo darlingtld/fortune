@@ -49,9 +49,12 @@ public class StatService {
         int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
 
         List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue, groupid);
-        HashMap<Integer, Double> oddsMap = new HashMap<>(49);
+        //特码
+        HashMap<Integer, Double> oddsMap4Special = new HashMap<>(49);
         for (LotteryOdds odds : oddsList) {
-            oddsMap.put(odds.getLotteryBallNumber(), odds.getOdds());
+            if (odds.getLotteryMarkSixType().equals(LotteryMarkSixType.SPECIAL)) {
+                oddsMap4Special.put(odds.getLotteryBallNumber(), odds.getOdds());
+            }
         }
 
         List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, lotteryIssue);
@@ -69,7 +72,7 @@ public class StatService {
                         realtimeStat.setNumber(stub.getNumber());
                         realtimeStat.setBalance(0);
                         realtimeStat.setStakes(stub.getStakes());
-                        realtimeStat.setOdds(oddsMap.get(stub.getNumber()));
+                        realtimeStat.setOdds(oddsMap4Special.get(stub.getNumber()));
                         realtimeStat.setTransactions(1);
                         realtimeStatHashMap.put(stub.getNumber(), realtimeStat);
                     }
@@ -83,7 +86,7 @@ public class StatService {
                 realtimeStat.setNumber(number);
                 realtimeStat.setBalance(0);
                 realtimeStat.setStakes(0);
-                realtimeStat.setOdds(oddsMap.get(number));
+                realtimeStat.setOdds(oddsMap4Special.get(number));
                 realtimeStat.setTransactions(0);
                 realtimeStatHashMap.put(number, realtimeStat);
             }

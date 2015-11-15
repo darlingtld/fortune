@@ -60,7 +60,7 @@ public class WagerServiceTest {
 
     @Test
     public void getLotteryMarkSixWagerList() {
-        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList("123", 4, 102);
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList("123", "", 102);
         for (LotteryMarkSixWager lotteryMarkSixWager : wagerList) {
             System.out.println(lotteryMarkSixWager);
             lotteryMarkSixWager.getLotteryMarkSixWagerStubList().forEach(System.out::println);

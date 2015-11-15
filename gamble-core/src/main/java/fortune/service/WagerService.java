@@ -76,7 +76,7 @@ public class WagerService {
 	}
 
 	@Transactional
-	public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int pgroupId, int lotteryIssue) {
+	public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, String pgroupId, int lotteryIssue) {
 		Utils.logger.info("get lottery mark six wager list of user {}, pgroupid {}, issue {}", userId, pgroupId,
 				lotteryIssue);
 		return wagerDao.getLotteryMarkSixWagerList(userId, pgroupId, lotteryIssue);

@@ -44,7 +44,7 @@ public class WagerDao {
         mongoTemplate.remove(deleteQuery, LotteryMarkSixWager.class);
     }
 
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int pgroupId, int lotteryIssue) {
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, String pgroupId, int lotteryIssue) {
         Query searchWagerQuery = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("lotteryIssue").is(lotteryIssue), Criteria.where("pgroupId").is(pgroupId)));
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
     }

@@ -80,7 +80,7 @@ app.service("zodiacService", function($q, $http, $sce) {
 			if(type.indexOf("ZODIAC_")==0){
 				html+="<div style='height:40px;width:300px;margin:10px auto;'><span style='line-height:25px;float:left;'>";
 				html+=zodiacs[type];
-				html+="</span><span style='color:red;margin-left:10px;line-height:25px;float:left;'>赔率："+wager.totalStakes+"</span></div>";
+				html+="</span><span style='color:red;margin-left:10px;line-height:25px;float:left;'>下注金额："+wager.totalStakes+"</span></div>";
 			}
 			// 色波
 			else if(type=="RED" || type=="BLUE" || type=="GREEN"){
@@ -93,7 +93,7 @@ app.service("zodiacService", function($q, $http, $sce) {
 					color="绿波";
 				}
 				html+=color;
-				html+="</span><span style='color:red;margin-left:10px;line-height:25px;float:left;'>赔率："+wager.totalStakes+"</span></div>";
+				html+="</span><span style='color:red;margin-left:10px;line-height:25px;float:left;'>下注金额："+wager.totalStakes+"</span></div>";
 			}
 		}
 		return $sce.trustAsHtml(html);
@@ -124,7 +124,7 @@ app.service("tailBallService", function($q, $http, $sce) {
 		var wagerList=wager.lotteryMarkSixWagerStubList, html="";
 		for(var i=0;i<wagerList.length;i++){
 			var item=wagerList[i], number=item.number, stakes=item.stakes;
-			html+="<div style='height:40px;width:300px;margin:10px auto;'><div class='ball "+colorMap[number]+"'>"+number+"</div><span style='color:red;margin-left:10px;line-height:25px;float:left;'>赔率："+stakes+"</span></div>";
+			html+="<div style='height:40px;width:300px;margin:10px auto;'><div class='ball "+colorMap[number]+"'>"+number+"</div><span style='color:red;margin-left:10px;line-height:25px;float:left;'>下注金额："+stakes+"</span></div>";
 		}
 		return	$sce.trustAsHtml(html);
 	};
