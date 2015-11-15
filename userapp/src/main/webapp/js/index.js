@@ -36,10 +36,18 @@ app.service("commonService", function($q, $http) {
 			alert('下注失败');
 		});
 	};
+	// 多个下注
+	this.wages = function(wagers) {
+		$http.post("gamble/wages", wagers).success(function() {
+			alert('下注成功');
+		}).error(function(data, status, headers) {
+			alert('下注失败');
+		});
+	};
 });
 
 // 生肖相关
-app.service("zodiacService", function($q, $http) {
+app.service("zodiacService", function($q, $http, $sce) {
 	this.getZodiacItems = function(oddsMap) {
 		var deferred = $q.defer();
 		var zodiacMap = Zodiac.zodiacMap, items = [];
@@ -61,6 +69,35 @@ app.service("zodiacService", function($q, $http) {
 		items.green = oddsMap["GREEN"];
 		return items;
 	};
+	this.renderWageConfirmHTML = function(wagerList){
+		var html="", zodiacs={};
+		for (var i = 0; i < Zodiac.zodiacMap.length; i++) {
+			zodiacs[Zodiac.zodiacMap[i].id]=Zodiac.zodiacMap[i].name;
+		}
+		for(var i=0;i<wagerList.length;i++){
+			var wager=wagerList[i], type=wager.lotteryMarkSixType;
+			// 生肖
+			if(type.indexOf("ZODIAC_")==0){
+				html+="<div style='height:40px;width:300px;margin:10px auto;'><span style='line-height:25px;float:left;'>";
+				html+=zodiacs[type];
+				html+="</span><span style='color:red;margin-left:10px;line-height:25px;float:left;'>赔率："+wager.totalStakes+"</span></div>";
+			}
+			// 色波
+			else if(type=="RED" || type=="BLUE" || type=="GREEN"){
+				html+="<div style='height:40px;width:300px;margin:10px auto;'><span style='line-height:25px;float:left;'>";
+				var color="红波";
+				if(type=="BLUE"){
+					color="蓝波";
+				}
+				else if(type=="GREEN"){
+					color="绿波";
+				}
+				html+=color;
+				html+="</span><span style='color:red;margin-left:10px;line-height:25px;float:left;'>赔率："+wager.totalStakes+"</span></div>";
+			}
+		}
+		return $sce.trustAsHtml(html);
+	}
 });
 
 // 特码相关
@@ -308,9 +345,6 @@ app.controller("IndexController", function($scope, commonService,
 	$scope.wage = function() {
 		// 特码下注
 		if ($scope.selectedIndex == 0) {
-			// 对话框确认
-			$scope.isConfirmDialogVisible=true;
-			$scope.confirmDialogTitle="下注类型为特码，请确认：";
 			// 组装下注对象
 			var lotteryMarkSixWagerStubList = [];
 			for(var ball in $scope.selectedBalls){
@@ -327,6 +361,10 @@ app.controller("IndexController", function($scope, commonService,
 			};
 			var html=tailBallService.renderWageConfirmHTML(wager);
 			$scope.confirmDialogHTML=html;
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为特码，请确认：";
+			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
 				commonService.wage(wager);
@@ -334,6 +372,8 @@ app.controller("IndexController", function($scope, commonService,
 		}
 		// 生肖色波下注
 		else if($scope.selectedIndex == 1){
+			// 组装下注对象
+			var wagerList=[];
 			for(var zodiac in $scope.selectedBalls){
 				var wager={
 					userId : $scope.user.id,
@@ -342,7 +382,7 @@ app.controller("IndexController", function($scope, commonService,
 					lotteryMarkSixType: zodiac,
 					totalStakes: parseInt($scope.selectedBalls[zodiac])
 				};
-				commonService.wage(wager);
+				wagerList.push(wager);
 			}
 			for(var color in $scope.selectedBalls2){
 				var wager={
@@ -352,7 +392,17 @@ app.controller("IndexController", function($scope, commonService,
 					lotteryMarkSixType: color,
 					totalStakes: parseInt($scope.selectedBalls2[color])
 				};
-				commonService.wage(wager);
+				wagerList.push(wager);
+			}
+			var html=zodiacService.renderWageConfirmHTML(wagerList);
+			$scope.confirmDialogHTML=html;
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为生肖色波，请确认：";
+			// 确认下注
+			$scope.confirmDialog=function(){
+				$scope.isConfirmDialogVisible=false;
+				commonService.wages(wagerList);
 			}
 		}
 		// 半波下注

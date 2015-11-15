@@ -49,6 +49,20 @@ public class GambleController {
         }
         wagerService.saveLotteryMarkSixWager(lotteryMarkSixWager);
     }
+    
+    @RequestMapping(value = "wages", method = RequestMethod.POST, headers = "content-type=application/json")
+    public
+    @ResponseBody
+    void wageMultipleLotteryMarkSix(@RequestBody @Valid LotteryMarkSixWager[] lotteryMarkSixWagers, BindingResult result, HttpServletResponse response) {
+        if (result.hasErrors()) {
+            response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
+            response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+            return;
+        }
+        for(LotteryMarkSixWager wager: lotteryMarkSixWagers){
+            wagerService.saveLotteryMarkSixWager(wager);        	
+        }
+    }
 
     /**
      * 根据id查询某笔下注
