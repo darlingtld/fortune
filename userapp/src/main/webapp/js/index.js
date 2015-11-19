@@ -131,7 +131,7 @@ app.service("tailBallService", function($q, $http, $sce) {
 });
 
 //半波相关
-app.service("halfWaveService", function($q, $http) {
+app.service("halfWaveService", function($q, $http, $sce) {
 	this.getHalfWaveItems = function(oddsMap) {
 		var items={};
 		for(var type in oddsMap){
@@ -141,10 +141,35 @@ app.service("halfWaveService", function($q, $http) {
 		}
 		return items;
 	};
+	this.renderWageConfirmHTML = function(wagerList){
+		var html="";
+		for(var i=0;i<wagerList.length;i++){
+			var item=wagerList[i], type=item.lotteryMarkSixType, stakes=item.totalStakes, arr=type.split("_");
+			var color="红";
+			if(arr[1]=="BLUE"){
+				color="蓝";
+			}
+			else if(arr[1]=="GREEN"){
+				color="绿";
+			}
+			var type="单";
+			if(arr[2]=="SHUANG"){
+				type="双";
+			}
+			else if(arr[2]=="DA"){
+				type="大";
+			}
+			else if(arr[2]=="XIAO"){
+				type="小";
+			}
+			html+="<div style='height:40px;width:300px;margin:10px auto;'>"+color+type+"<span style='color:red;margin-left:10px;'>下注金额："+stakes+"</span></div>";
+		}
+		return $sce.trustAsHtml(html);
+	}
 });
 
 // 合肖相关
-app.service("sumZodiacService", function($q, $http) {
+app.service("sumZodiacService", function($q, $http, $sce) {
 	this.getSumZodiacItems = function(oddsMap) {
 		var sumZodiacItems = [];
 		for (var i = 1; i <= 11; i++) {
@@ -155,10 +180,31 @@ app.service("sumZodiacService", function($q, $http) {
 		}
 		return sumZodiacItems;
 	};
+	this.renderWageConfirmHTML = function(wager){
+		var html="<div style='height:40px;width:300px;margin:10px auto;'>选择的生肖为：";
+		var zodiacs=wager.subLotteryMarkSixTypes;
+		for(var i=0;i<zodiacs.length;i++){
+			var zodiac=zodiacs[i];
+			for(var j=0;j<Zodiac.zodiacMap.length;j++){
+				if(Zodiac.zodiacMap[j].id==zodiac){
+					html+=Zodiac.zodiacMap[j].name;
+					break;
+				}
+			}
+		}
+		html+="</div>";
+		var wagers=wager.lotteryMarkSixWagerStubList;
+		for(var i=0;i<wagers.length;i++){
+			var item=wagers[i], number=item.number, stakes=item.stakes;
+			var zodiacNum=parseInt(number/10), isHit=number%10==1;
+			html+="<div style='height:40px;width:300px;margin:10px auto;'>"+zodiacNum+"肖"+(isHit?"中":"不中")+"<span style='color:red;margin-left:10px;'>下注金额："+stakes+"</span></div>";
+		}
+		return $sce.trustAsHtml(html);
+	}
 });
 
 // 正码相关
-app.service("zhengBallService", function($q, $http) {
+app.service("zhengBallService", function($q, $http, $sce) {
 	this.getZheng16Items = function(oddsMap) {
 		var items={};
 		for(var type in oddsMap){
@@ -168,6 +214,39 @@ app.service("zhengBallService", function($q, $http) {
 		}
 		return items;
 	};
+	this.renderWageConfirmHTML = function(wager){
+		var html="", wagers=wager.lotteryMarkSixWagerStubList;
+		for(var i=0;i<wagers.length;i++){
+			var item=wagers[i], number=item.number, stakes=item.stakes, lotteryType=item.lotteryMarkSixType;
+			var type="单";
+			if(lotteryType=="SHUANG"){
+				type="双";
+			}
+			else if(lotteryType=="DA"){
+				type="大";
+			}
+			else if(lotteryType=="XIAO"){
+				type="小";
+			}
+			else if(lotteryType=="HEDAN"){
+				type="合单";
+			}
+			else if(lotteryType=="HESHUANG"){
+				type="合双";
+			}
+			else if(lotteryType=="RED"){
+				type="红波";
+			}
+			else if(lotteryType=="GREEN"){
+				type="绿波";
+			}
+			else if(lotteryType=="BLUE"){
+				type="蓝波";
+			}
+			html+="<div style='height:40px;width:300px;margin:10px auto;'>正码"+number+"："+type+"<span style='color:red;margin-left:10px;'>下注金额："+stakes+"</span></div>";
+		}
+		return $sce.trustAsHtml(html);
+	}
 });
 
 // 连码相关
@@ -217,8 +296,7 @@ app.service("notBallService", function($q, $http) {
 app.controller("IndexController", function($scope, commonService,
 		zodiacService, tailBallService, halfWaveService, sumZodiacService, zhengBallService, 
 		jointBallService, notBallService) {
-	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "连码", "自选不中",
-			"过关", "一肖尾数", "连肖", "连尾", "正码特" ];
+	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "连码", "自选不中", "过关", "一肖尾数", "连肖", "连尾", "正码特" ];
 	$scope.selectedIndex = 0;
 	$scope.menu = 1;
 	$scope.goTab = function(index) {
@@ -407,6 +485,8 @@ app.controller("IndexController", function($scope, commonService,
 		}
 		// 半波下注
 		else if($scope.selectedIndex == 2){
+			// 组装下注对象
+			var wagerList=[];
 			for(var type in $scope.selectedBalls){
 				var wager={
 					userId : $scope.user.id,
@@ -415,11 +495,22 @@ app.controller("IndexController", function($scope, commonService,
 					lotteryMarkSixType: type,
 					totalStakes: parseInt($scope.selectedBalls[type])
 				};
-				commonService.wage(wager);
+				wagerList.push(wager);
+			}
+			var html=halfWaveService.renderWageConfirmHTML(wagerList);
+			$scope.confirmDialogHTML=html;
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为半波，请确认：";
+			// 确认下注
+			$scope.confirmDialog=function(){
+				$scope.isConfirmDialogVisible=false;
+				commonService.wages(wagerList);
 			}
 		}
 		// 合肖下注
 		else if($scope.selectedIndex == 3){
+			// 组装下注对象
 			var lotteryMarkSixWagerStubList = [];
 			for(var ball in $scope.selectedBalls){
 				lotteryMarkSixWagerStubList.push({
@@ -434,10 +525,20 @@ app.controller("IndexController", function($scope, commonService,
 				subLotteryMarkSixTypes: $scope.sumZodiacList,
 				lotteryMarkSixType: "SUM_ZODIAC"
 			};
-			commonService.wage(wager);
+			var html=sumZodiacService.renderWageConfirmHTML(wager);
+			$scope.confirmDialogHTML=html;
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为合肖，请确认：";
+			// 确认下注
+			$scope.confirmDialog=function(){
+				$scope.isConfirmDialogVisible=false;
+				commonService.wage(wager);
+			}
 		}
 		// 正码1-6下注
 		else if($scope.selectedIndex == 5){
+			// 组装下注对象
 			var lotteryMarkSixWagerStubList = [];
 			for(var ballNum in $scope.selectedBalls){
 				if(typeof $scope.selectedBalls[ballNum]=="undefined"){
@@ -455,7 +556,16 @@ app.controller("IndexController", function($scope, commonService,
 				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
 				lotteryMarkSixType: "ZHENG_1_6"
 			};
-			commonService.wage(wager);
+			var html=zhengBallService.renderWageConfirmHTML(wager);
+			$scope.confirmDialogHTML=html;
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为正码1~6，请确认：";
+			// 确认下注
+			$scope.confirmDialog=function(){
+				$scope.isConfirmDialogVisible=false;
+				commonService.wage(wager);
+			}
 		}
 	};
 	
