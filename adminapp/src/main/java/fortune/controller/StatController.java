@@ -43,7 +43,7 @@ public class StatController {
 
 
     /**
-     * 获取代理商实时统计信息
+     * 获取代理商实时统计信息(实时注单)
      * @param groupId
      * @return
      */

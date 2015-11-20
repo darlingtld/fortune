@@ -3,6 +3,7 @@ controller('indexController', function ($scope) {
     $scope.userid = sessionStorage['userid'];
     $scope.username = sessionStorage['username'];
     $scope.groupid = sessionStorage["pgroupid"];
+    $scope.groupname =sessionStorage["pgroupname"]
     $scope.menu;
 }).config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/accounts', {
