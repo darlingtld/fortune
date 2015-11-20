@@ -1,14 +1,21 @@
 angular.module("AdminApp", ['ngRoute']).
-controller('indexController', function ($scope) {
+controller('indexController', function ($scope, $interval) {
     $scope.userid = sessionStorage['userid'];
     $scope.username = sessionStorage['username'];
     $scope.groupid = sessionStorage["pgroupid"];
-    $scope.groupname =sessionStorage["pgroupname"]
+    $scope.groupname = sessionStorage["pgroupname"];
     $scope.menu;
+
+    //setTime();
+    $interval(function() {
+        var currentTime = new Date();
+        $scope.nowTime = currentTime;
+        console.log($scope.nowTime)
+    }, 1000);
 }).config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/accounts', {
-    	controller: 'accountsController',
-    	templateUrl: 'includes/accounts.html'
+        controller: 'accountsController',
+        templateUrl: 'includes/accounts.html'
     }).when('/result', {
         controller: 'resultController',
         templateUrl: 'includes/result.html'

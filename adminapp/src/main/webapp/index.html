@@ -1,33 +1,36 @@
 <!doctype html>
 <html ng-app="AdminApp">
 <head>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<meta charset="utf-8">
-<link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/accounts.css">
-<link rel="stylesheet" href="css/links.css">
-<link rel="stylesheet" href="css/rules.css">
-<title>博彩管理</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/accounts.css">
+    <link rel="stylesheet" href="css/links.css">
+    <link rel="stylesheet" href="css/rules.css">
+    <title>博彩管理</title>
 </head>
 <body ng-controller="indexController">
-	<div class="nav" ng-include="'includes/nav.html'"></div>
-	<div class="section">
-		<ng-view></ng-view>
-	</div>
-	<div ng-include="'includes/foot.html'"></div>
-	<script src="js/lib/angular.min.js"></script>
-	<script src="js/lib/angular-route.min.js"></script>
-	<script src="js/lib/jquery.min.js"></script>
-	<script src="js/lib/jquery.treeview.js"></script>
-	<script src="js/index.js"></script>
-	<script src="js/accounts/accounts.js"></script>
-	<script src="js/lottery_result/resultController.js"></script>
-	<script src="js/lottery_result/resultService.js"></script>
-	<script src="js/rules/rules.js"></script>
-	<script src="js/links/links.js"></script>
-	<script src="js/withdraw/withdrawController.js"></script>
-	<script src="js/real_time/realtimeService.js"></script>
-	<script src="js/real_time/realtimeController.js"></script>
+<div class="nav" ng-include="'includes/nav.html'"></div>
+<div class="clock">
+    香港时间：<span ng-bind="nowTime | date : 'yyyy年MM月dd日 HH:mm:ss'"></span>
+</div>
+<div class="section">
+    <ng-view></ng-view>
+</div>
+<div ng-include="'includes/foot.html'"></div>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/angular-route.min.js"></script>
+<script src="js/lib/jquery.min.js"></script>
+<script src="js/lib/jquery.treeview.js"></script>
+<script src="js/index.js"></script>
+<script src="js/accounts/accounts.js"></script>
+<script src="js/lottery_result/resultController.js"></script>
+<script src="js/lottery_result/resultService.js"></script>
+<script src="js/rules/rules.js"></script>
+<script src="js/links/links.js"></script>
+<script src="js/withdraw/withdrawController.js"></script>
+<script src="js/real_time/realtimeService.js"></script>
+<script src="js/real_time/realtimeController.js"></script>
 </body>
 </html>

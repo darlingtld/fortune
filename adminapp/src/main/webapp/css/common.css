@@ -231,3 +231,9 @@ input[type=text] {
 .section table tr:nth-child(odd) {
     background: #FDFDCE;
 }
+
+.clock {
+    width: 1190px;
+    margin-left: auto;
+    margin-right: auto;
+}
