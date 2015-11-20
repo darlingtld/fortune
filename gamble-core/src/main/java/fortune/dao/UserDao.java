@@ -1,5 +1,6 @@
 package fortune.dao;
 
+import fortune.pojo.PGroup;
 import fortune.pojo.Role;
 import fortune.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,4 +80,5 @@ public class UserDao {
         update.set("usedCreditAccount", user.getUsedCreditAccount());
         return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
     }
+
 }

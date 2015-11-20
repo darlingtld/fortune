@@ -1,6 +1,7 @@
 package fortune.service;
 
 import com.google.common.base.Strings;
+import com.google.common.util.concurrent.Runnables;
 import common.Utils;
 import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
@@ -145,5 +146,11 @@ public class UserService {
     public void updateAccount(User user) {
         Utils.logger.info("update account of user {}, creditAccount {}, usedCreditAccount {}", user.getUsername(), user.getCreditAccount(), user.getUsedCreditAccount());
         userDao.updateAccount(user);
+    }
+
+
+
+    public void sanitize(User user) {
+        user.setpGroupList(null);
     }
 }
