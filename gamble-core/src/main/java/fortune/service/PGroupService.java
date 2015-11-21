@@ -50,12 +50,20 @@ public class PGroupService {
 		Utils.logger.info("pgroup {} add user {}", pGroupId, user);
 		PGroup pGroup = pGroupDao.getGroupById(pGroupId);
 		List<User> userList = pGroup.getUserList();
-		// 如果存在该用户就不用插入了
-
 		pGroup.setUserList(null);
-		user.setpGroupList(Arrays.asList(pGroup));
-		user.setPassword(PasswordEncryptUtil.encrypt(user.getPassword()));
-		userDao.createUser(user);
+		// 如果存在该用户就不用插入了
+		User existedUser=userDao.getUserByUsername(user.getUsername());
+		if(existedUser==null){
+			user.setpGroupList(Arrays.asList(pGroup));
+			user.setPassword(PasswordEncryptUtil.encrypt(user.getPassword()));
+			userDao.createUser(user);
+		}
+		// 更新用户的pgroup列表
+		else{
+			List<PGroup> pgroupList=existedUser.getpGroupList();
+			pgroupList.add(pGroup);
+			userDao.updateUser(existedUser);
+		}
 		// 更新pgroup的userList
 		user = userDao.getUserByUsername(user.getUsername());
 		boolean isUpdate = false;

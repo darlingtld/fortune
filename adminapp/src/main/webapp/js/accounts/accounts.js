@@ -23,7 +23,7 @@ controller('accountsController', function ($rootScope) {
 						var html="";
 						for(var i=0;i<data.length;i++){
 							var user=data[i];
-							html+='<li><p class="user" data-id="'+user.id+'">'+user.username+'</p></li>';
+							html+='<li><p class="user '+user.status.toLowerCase()+'" data-id="'+user.id+'">'+user.username+'</p></li>';
 						}
 						$(html).appendTo($(selector));
 						$(selector).show();
@@ -35,14 +35,14 @@ controller('accountsController', function ($rootScope) {
 		showPGroupLevel(ROOT, ".first_level");
 		
 		$("body").on("click", "#account_tree .pgroup", function(){
-			$("#delete_user").show();
-			$("#add_user").show();
 			if(!$(this).hasClass("clicked")){
 				var node=$("<ul></ul>").insertAfter($(this));
 				showPGroupLevel($(this).attr("data-id"), node);
 				$(this).addClass("clicked"); //用于标记已经取过远程数据的pgroup
 				$("#account_tree p").removeClass("selected");
 				$(this).addClass("selected"); //用于标记选中的pgroup
+				$("#delete_user").show(); // 有selected才能有这两个按钮
+				$("#add_user").show();
 			}
 			else{
 				if($(this).hasClass("selected")){
@@ -53,6 +53,8 @@ controller('accountsController', function ($rootScope) {
 					$(this).next("ul").show();
 					$("#account_tree p").removeClass("selected");
 					$(this).addClass("selected"); //用于标记选中的pgroup
+					$("#delete_user").show();// 有selected才能有这两个按钮
+					$("#add_user").show();
 				}
 			}
 		});
@@ -95,19 +97,19 @@ controller('accountsController', function ($rootScope) {
 					admin={}, // TODO: admin怎么赛？
 					userList=[];
 				$.ajax({  
-		            'type' : 'POST',  
-		            'url' : 'pgroup/add_pgroup',  
-		            'contentType' : 'application/json',  
-		            'data' : JSON.stringify({
+		            type: "POST",  
+		            url: "pgroup/add_pgroup",  
+		            contentType: "application/json",  
+		            data: JSON.stringify({
 						name: name,
 						parentPGroupID: parentPGroupID,
 						admin: admin,
 						userList: userList
 					}),  
-		            'dataType' : 'json',  
-		            'success' : function(){
-						alert("插入成功");
+		            success: function(){
 						$(".dialog").hide();
+						$(".first_level").empty();
+						showPGroupLevel(ROOT, ".first_level");
 					}
 				});
 			}
@@ -117,17 +119,17 @@ controller('accountsController', function ($rootScope) {
 					username=$("#user_name_input").val(),
 					password=$("#user_pwd_input").val();
 				$.ajax({  
-		            'type' : 'POST',  
-		            'url' : 'pgroup/'+pgroup_id+'/add_user',  
-		            'contentType' : 'application/json',  
-		            'data' : JSON.stringify({
+		            type: "POST",  
+		            url: "pgroup/"+pgroup_id+"/add_user",  
+		            contentType: "application/json",  
+		            data: JSON.stringify({
 						username: username,
 						password: password
 					}),  
-		            'dataType' : 'json',  
-		            'success' : function(){
-						alert("插入成功");
+		            success: function(){
 						$(".dialog").hide();
+						$(".first_level").empty();
+						showPGroupLevel(ROOT, ".first_level");
 					}
 				});
 			}
