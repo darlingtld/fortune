@@ -5,6 +5,7 @@ controller('accountsController', function ($rootScope) {
 
 (function($){
 	$(function(){
+		var ROOT="-1";
 		// 展开某层pgroup
 		var showPGroupLevel=function(pgroupId, selector){
 			$.get("pgroup/pgroups/"+pgroupId, function(data){
@@ -13,21 +14,47 @@ controller('accountsController', function ($rootScope) {
 					var pgroup=data[i];
 					html+='<li><p class="pgroup" data-id="'+pgroup.id+'">'+pgroup.name+'</p></li>';
 				}
-				$(selector).append(html);
+				$(html).appendTo($(selector));
+				$(selector).show();
 			});
+			if(pgroupId!=ROOT){
+				$.get("pgroup/users/"+pgroupId, function(data){
+					if(data && data.length>0){
+						var html="";
+						for(var i=0;i<data.length;i++){
+							var user=data[i];
+							html+='<li><p class="user" data-id="'+user.id+'">'+user.username+'</p></li>';
+						}
+						$(html).appendTo($(selector));
+						$(selector).show();
+					}
+				});
+			}
 		};
 		// 初始时候显示第一层
-		showPGroupLevel("-1", ".first_level");
+		showPGroupLevel(ROOT, ".first_level");
 		
 		$("body").on("click", "#account_tree .pgroup", function(){
 			$("#delete_user").show();
 			$("#add_user").show();
-			$(".first_level ul").hide();
-			$(this).next("ul").show();
-			$("#account_tree p").removeClass("selected");
-			$(this).addClass("clicked"); //用于标记已经取过远程数据的pgroup
-			$(this).addClass("selected"); //用于标记选中的pgroup
-			//TODO获取下面的pgroup
+			if(!$(this).hasClass("clicked")){
+				var node=$("<ul></ul>").insertAfter($(this));
+				showPGroupLevel($(this).attr("data-id"), node);
+				$(this).addClass("clicked"); //用于标记已经取过远程数据的pgroup
+				$("#account_tree p").removeClass("selected");
+				$(this).addClass("selected"); //用于标记选中的pgroup
+			}
+			else{
+				if($(this).hasClass("selected")){
+					$(this).next("ul").hide();
+					$(this).removeClass("selected");
+				}
+				else{
+					$(this).next("ul").show();
+					$("#account_tree p").removeClass("selected");
+					$(this).addClass("selected"); //用于标记选中的pgroup
+				}
+			}
 		});
 		
 		$("body").on("click", "#account_tree .user", function(){
@@ -47,7 +74,7 @@ controller('accountsController', function ($rootScope) {
 		$("body").on("click", "#add_user", function(){
 			if($("#account_tree .pgroup.selected").length>0){
 				$(".dialog_title").html("增加新的用户");
-				// TODO 不用table，validate null
+				// TODO validate null，可以选择已有用户
 				$(".dialog_body").html("<label for='user_name_input'>用户名称：</label><input type='text' id='user_name_input'/><br/><br/><label for='user_pwd_input'>密码：</label><input type='password' id='user_pwd_input'/>");
 				$(".dialog").show();
 			}
@@ -57,7 +84,7 @@ controller('accountsController', function ($rootScope) {
 		});
 		
 		$("body").on("click", "#dialog_confirm", function(){
-			var parentId="-1";
+			var parentId=ROOT;
 			if($("#account_tree .pgroup.selected").length>0){
 				parentId=$("#account_tree .pgroup.selected").attr("data-id");
 			}

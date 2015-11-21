@@ -1,15 +1,19 @@
 package fortune.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import common.Utils;
 import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
 import fortune.pojo.PGroup;
 import fortune.pojo.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
+import password.PasswordEncryptUtil;
 
 /**
  * Created by tangl9 on 2015-10-13.
@@ -45,16 +49,26 @@ public class PGroupService {
 	public void addUser(String pGroupId, User user) {
 		Utils.logger.info("pgroup {} add user {}", pGroupId, user);
 		PGroup pGroup = pGroupDao.getGroupById(pGroupId);
-		if (!isUserInUserList(user, pGroup.getUserList())) {
-			List<PGroup> pGroupListTmp = user.getpGroupList();
-			user.setpGroupList(null);
-			pGroup.getAdmin().setpGroupList(null);
-			pGroup.getUserList().add(user);
-			pGroup = pGroupDao.updatePGroup(pGroup);
-			pGroup.setUserList(null);
-			user.setpGroupList(pGroupListTmp);
-			user.getpGroupList().add(pGroup);
-			userDao.updateUser(user);
+		List<User> userList = pGroup.getUserList();
+		// 如果存在该用户就不用插入了
+
+		pGroup.setUserList(null);
+		user.setpGroupList(Arrays.asList(pGroup));
+		user.setPassword(PasswordEncryptUtil.encrypt(user.getPassword()));
+		userDao.createUser(user);
+		// 更新pgroup的userList
+		user = userDao.getUserByUsername(user.getUsername());
+		boolean isUpdate = false;
+		if (userList == null) {
+			userList = new ArrayList<User>();
+			isUpdate = true;
+		} else if (!isUserInUserList(user, userList)) {
+			isUpdate = true;
+		}
+		if (isUpdate) {
+			userList.add(user);
+			pGroup.setUserList(userList);
+			pGroupDao.updatePGroup(pGroup);
 		}
 	}
 
@@ -94,7 +108,7 @@ public class PGroupService {
 	}
 
 	public List<User> getUsersByPGroupID(String pgroupId) {
-		// TODO Auto-generated method stub
-		return null;
+		PGroup pGroup = pGroupDao.getGroupById(pgroupId);
+		return pGroup.getUserList();
 	}
 }

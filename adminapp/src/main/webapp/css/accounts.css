@@ -47,6 +47,11 @@
 	line-height:25px;
 	cursor:pointer;
 	margin:3px;
+	border-left: 1px dashed #666;
+}
+
+.first_level>li>p{
+	border-left:none !important;
 }
 
 #account_tree p:hover, #account_tree p.selected{
@@ -61,7 +66,6 @@
 .user{
 	padding-left:25px;
 	background:url('../img/user.png') no-repeat left center;
-	border-left: 1px dashed #666;
 }
 
 .user.disabled{
