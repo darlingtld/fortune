@@ -61,7 +61,6 @@ body {
 .side_area {
     border: 1px solid #dedede;
     background: white;
-    margin-top: 15px;
     border-radius: 15px;
 }
 
@@ -75,7 +74,6 @@ body {
 .content {
     float: left;
     width: 870px;
-    margin-top: 15px;
     margin-left: 15px;
     margin-bottom: 40px;
 }

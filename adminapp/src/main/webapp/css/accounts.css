@@ -4,17 +4,17 @@
 	border-radius:15px;
 }
 
-#account_search{
+.side_body{
 	padding:10px;
 	line-height:30px;
 }
 
-#account_search .btn, #account_search .red_btn, #account_search label, #account_search input{
+.side_body .btn, .side_body .red_btn, .side_body label, .side_body input{
 	float:left;
 	margin-left:10px;
 }
 
-#account_search input{
+.side_body input{
 	width:100px;
 }
 
