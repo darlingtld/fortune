@@ -5,6 +5,7 @@ controller('accountsController', function ($rootScope) {
     (function($){
     	$(function(){
     		var ROOT="-1";
+    		
     		// 展开某层pgroup
     		var showPGroupLevel=function(pgroupId, selector){
     			$.get("pgroup/pgroups/"+pgroupId, function(data){
@@ -30,6 +31,12 @@ controller('accountsController', function ($rootScope) {
     				});
     			}
     		};
+    		
+    		// 判断是否可删除
+    		var canPGroupDelete = function(pgroupId){
+    			return $("#account_tree p[data-id=\""+pgroupId+"\"]").next("ul").length==0;
+    		};
+    		
     		// 初始时候显示第一层
     		showPGroupLevel(ROOT, ".first_level");
     		
@@ -38,24 +45,27 @@ controller('accountsController', function ($rootScope) {
     				var node=$("<ul></ul>").insertAfter($(this));
     				showPGroupLevel($(this).attr("data-id"), node);
     				$(this).addClass("clicked"); //用于标记已经取过远程数据的pgroup
-    				$("#account_tree p").removeClass("selected");
-    				$(this).addClass("selected"); //用于标记选中的pgroup
-    				$("#delete_user").show(); // 有selected才能有这两个按钮
-    				$("#add_user").show();
     			}
     			else{
     				if($(this).hasClass("selected")){
     					$(this).next("ul").hide();
     					$(this).removeClass("selected");
+    					$("#delete_user, #add_user").hide();
+    					return;
     				}
     				else{
     					$(this).next("ul").show();
-    					$("#account_tree p").removeClass("selected");
-    					$(this).addClass("selected"); //用于标记选中的pgroup
-    					$("#delete_user").show();// 有selected才能有这两个按钮
-    					$("#add_user").show();
     				}
     			}
+    			$("#account_tree p").removeClass("selected");
+				$(this).addClass("selected"); //用于标记选中的pgroup
+				$("#add_user").show(); // 有selected才能有这两个按钮
+				if(canPGroupDelete($(this).attr("data-id"))){
+					$("#delete_user").show();
+				}
+				else{
+					$("#delete_user").hide();
+				}
     		});
     		
     		$("body").on("click", "#account_tree .user", function(){
@@ -90,11 +100,19 @@ controller('accountsController', function ($rootScope) {
     			}
     			// 删除代理商
     			if($("#account_tree p.selected").hasClass("pgroup")){
-    				
+    				$.post("pgroup/delete/pgroup/"+$("#account_tree p.selected").attr("data-id"), function(){
+    					alert("删除成功");
+    					$(".first_level").empty();
+						showPGroupLevel(ROOT, ".first_level");
+    				});
     			}
     			// 删除用户
     			else{
-    				
+    				$.post("pgroup/delete/user/"+$("#account_tree p.selected").attr("data-id"), function(){
+    					alert("删除成功");
+    					$(".first_level").empty();
+						showPGroupLevel(ROOT, ".first_level");
+    				});
     			}
     		});
     		

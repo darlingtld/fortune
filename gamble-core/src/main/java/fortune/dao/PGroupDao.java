@@ -69,4 +69,8 @@ public class PGroupDao {
 		Query query = new Query(Criteria.where("parentPGroupID").is(parentId));
 		return mongoTemplate.find(query, PGroup.class);
 	}
+	
+	public void deletePGroupByID(String pgroupId){
+		mongoTemplate.remove(new Query(Criteria.where("id").is(pgroupId)), PGroup.class);
+	}
 }

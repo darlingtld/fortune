@@ -69,6 +69,16 @@ public class PGroupController {
 		pGroupService.addUser(pGroupId, user);
 	}
 
+	@RequestMapping(value = "delete/pgroup/{pgroupId}", method = RequestMethod.POST)
+	public @ResponseBody void deletePGroup(@PathVariable("pgroupId") String pgroupId) {
+		pGroupService.deletePGroupByID(pgroupId);
+	}
+	
+	@RequestMapping(value = "delete/user/{userId}", method = RequestMethod.POST)
+	public @ResponseBody void deleteUser(@PathVariable("userId") String userId) {
+		pGroupService.deleteUserByID(userId);
+	}
+
 	@RequestMapping(value = "pgroups/{parentId}", method = RequestMethod.GET)
 	public @ResponseBody List<PGroup> getPGroups(@PathVariable("parentId") String parentId) {
 		return pGroupService.getPGroupsByParentID(parentId);
