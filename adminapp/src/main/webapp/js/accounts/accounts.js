@@ -13,7 +13,7 @@ controller('accountsController', function ($rootScope) {
     		};
     		
     		// 展开某层pgroup
-    		var showPGroupLevel=function(pgroupId, selector){
+    		var showPGroupLevel=function(pgroupId, selector){    			
     			$.get("pgroup/pgroups/"+pgroupId, function(data){
     				var html="";
     				for(var i=0;i<data.length;i++){
@@ -23,6 +23,7 @@ controller('accountsController', function ($rootScope) {
     				$(html).appendTo($(selector));
     				$(selector).show();
     			});
+    			
     			if(pgroupId!=ROOT){
     				$.get("pgroup/users/"+pgroupId, function(data){
     					if(data && data.length>0){
@@ -40,6 +41,29 @@ controller('accountsController', function ($rootScope) {
     		
     		// 初始时候显示第一层
     		showPGroupLevel(ROOT, ".first_level");
+    		
+    		// 一开始显示所有用户
+    		$.get("pgroup/users", function(data){
+    			if(data && data.length>0){
+    				console.log(data);
+    				var html="";
+    				for(var i=0;i<data.length;i++){
+						var user=data[i], pgroupList=user.pGroupList, pgroups="";
+						for(var j=0;j<pgroupList.length;j++){
+							pgroups+=pgroupList[j].name+", ";
+						}
+						if(pgroups.length>0){
+							pgroups=pgroups.substring(0, pgroups.length-2);
+						}
+						html+="<tr><td>"+user.username+"</td><td class='pgroups_cell'>"+pgroups+"</td><td class='"+user.status.toLowerCase()+"'>"+
+							(user.status=="ENABLED" ? "已启用":"已禁用")+"</td><td>"+
+							user.creditAccount+"</td><td>"+user.usedCreditAccount+
+							(user.status=="ENABLED" ? "</td><td><a href='javascript:;' class='red_btn'>禁用</a>":"</td><td><a href='javascript:;' class='btn'>启用</a>")+
+							"<a href='javascript:;' class='red_btn'>删除</a></td></tr>";
+    				}
+    				$(".content table tbody").html(html);
+    			}
+    		});
     		
     		$("body").on("click", "#account_tree .pgroup", function(){
     			if(!$(this).hasClass("clicked")){

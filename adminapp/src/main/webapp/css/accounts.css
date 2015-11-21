@@ -9,7 +9,7 @@
 	line-height:30px;
 }
 
-.side_body .btn, .side_body .red_btn, .side_body label, .side_body input{
+.btn, .red_btn, .side_body label, .side_body input{
 	float:left;
 	margin-left:10px;
 }
@@ -119,4 +119,17 @@
 .dialog_body label{
 	width:100px;
 	display: inline-block;
+}
+
+.pgroups_cell{
+	max-width: 200px;
+    word-wrap: break-word;
+}
+
+td.enabled{
+	color:#04A21F;
+}
+
+td.disabled{
+	color:#F73A3A;
 }

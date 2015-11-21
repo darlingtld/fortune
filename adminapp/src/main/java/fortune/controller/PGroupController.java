@@ -20,6 +20,7 @@ import common.Utils;
 import fortune.pojo.PGroup;
 import fortune.pojo.User;
 import fortune.service.PGroupService;
+import fortune.service.UserService;
 
 /**
  * Created by tangl9 on 2015-10-14.
@@ -31,6 +32,9 @@ public class PGroupController {
 
 	@Autowired
 	private PGroupService pGroupService;
+
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * 新增一个代理商
@@ -92,5 +96,10 @@ public class PGroupController {
 	@RequestMapping(value = "users/{pgroupId}", method = RequestMethod.GET)
 	public @ResponseBody List<User> getUsersByPGroup(@PathVariable("pgroupId") String pgroupId) {
 		return pGroupService.getUsersByPGroupID(pgroupId);
+	}
+	
+	@RequestMapping(value = "users", method = RequestMethod.GET)
+	public @ResponseBody List<User> getUsers() {
+		return userService.getAll();
 	}
 }
