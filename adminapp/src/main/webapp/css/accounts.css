@@ -111,3 +111,7 @@
 #add_pgroup, #add_user{
 	width:80px;
 }
+
+.dialog_body label{
+	width:100px;
+}

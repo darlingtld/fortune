@@ -47,7 +47,6 @@ public class PGroupController {
 			response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
 			return;
 		}
-
 		pGroupService.createGroup(pGroup);
 	}
 

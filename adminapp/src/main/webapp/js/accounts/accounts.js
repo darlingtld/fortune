@@ -39,6 +39,7 @@ controller('accountsController', function ($rootScope) {
 		
 		$("body").on("click", "#add_pgroup", function(){
 			$(".dialog_title").html("增加新的代理商");
+			// TODO validate null
 			$(".dialog_body").html("<label for='pgroup_name_input'>代理商名称：</label><input type='text' id='pgroup_name_input'/>");
 			$(".dialog").show();
 		});
@@ -46,6 +47,7 @@ controller('accountsController', function ($rootScope) {
 		$("body").on("click", "#add_user", function(){
 			if($("#account_tree .pgroup.selected").length>0){
 				$(".dialog_title").html("增加新的用户");
+				// TODO 不用table，validate null
 				$(".dialog_body").html("<label for='user_name_input'>用户名称：</label><input type='text' id='user_name_input'/><br/><br/><label for='user_pwd_input'>密码：</label><input type='password' id='user_pwd_input'/>");
 				$(".dialog").show();
 			}
@@ -84,6 +86,23 @@ controller('accountsController', function ($rootScope) {
 			}
 			else{
 				// 插入用户
+				var pgroup_id=parentId,
+					username=$("#user_name_input").val(),
+					password=$("#user_pwd_input").val();
+				$.ajax({  
+		            'type' : 'POST',  
+		            'url' : 'pgroup/'+pgroup_id+'/add_user',  
+		            'contentType' : 'application/json',  
+		            'data' : JSON.stringify({
+						username: username,
+						password: password
+					}),  
+		            'dataType' : 'json',  
+		            'success' : function(){
+						alert("插入成功");
+						$(".dialog").hide();
+					}
+				});
 			}
 		});
 		
