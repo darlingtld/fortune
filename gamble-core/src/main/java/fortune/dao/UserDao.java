@@ -46,7 +46,7 @@ public class UserDao {
         Update update = new Update();
         update.set("roleList", user.getRoleList());
         update.set("pGroupList", user.getpGroupList());
-        return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
+        return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true).upsert(true), User.class);
 
     }
 

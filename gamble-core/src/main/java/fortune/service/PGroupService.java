@@ -32,11 +32,6 @@ public class PGroupService {
 	@Transactional
 	public void createGroup(PGroup pGroup) {
 		Utils.logger.info("create pGroup {}", pGroup);
-		for (User user : pGroup.getUserList()) {
-			user.setpGroupList(null);
-		}
-		User admin = pGroup.getAdmin();
-		admin.setpGroupList(null);
 		pGroupDao.createGroup(pGroup);
 	}
 
@@ -59,7 +54,7 @@ public class PGroupService {
 			pGroup.setUserList(null);
 			user.setpGroupList(pGroupListTmp);
 			user.getpGroupList().add(pGroup);
-			userDao.createUser(user);
+			userDao.updateUser(user);
 		}
 	}
 

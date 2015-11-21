@@ -49,7 +49,7 @@
 	margin:3px;
 }
 
-#account_tree p:hover{
+#account_tree p:hover, #account_tree p.selected{
 	background-color:#FDFDCE;
 }
 
@@ -68,7 +68,46 @@
 	background-image:url('../img/forbidden_user.png');
 }
 
-#delete_user{
+#delete_user, #add_user{
 	display:none;
 }
 
+.dialog{
+	position:fixed;
+	top:50px;
+	left:50%;
+	margin-left:-200px;
+	width:400px;
+	top:50%;
+	height:200px;
+	margin-top:-100px;
+	z-index:999;
+	background:white;
+	border:2px solid #dedede;
+	border-radius:10px;
+	padding:10px;
+	display:none;
+}
+
+.dialog_title{
+	font-size:1.1em;
+	font-weight:bold;
+	line-height:25px;
+	border-bottom:2px solid #dedede;
+}
+
+.dialog_body{
+	border-bottom:2px solid #dedede;
+	height:100px;
+	padding-top:10px;
+	padding-bottom:10px;
+	overflow:auto;
+}
+
+.dialog_bottom{
+	padding:10px;
+}
+
+#add_pgroup, #add_user{
+	width:80px;
+}

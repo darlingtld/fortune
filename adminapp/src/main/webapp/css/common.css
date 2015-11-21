@@ -197,7 +197,7 @@ input[type=radio], input[type=checkbox] {
     vertical-align: middle;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
     padding: 3px;
     line-height: 20px;
     border: 1px solid ＃999;
