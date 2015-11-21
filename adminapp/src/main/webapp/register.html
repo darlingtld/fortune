@@ -11,6 +11,11 @@
         <div class="register_area" ng-app="register" ng-controller="RegisterController">
         	<div class="register_header">会员注册</div>
         	<div class="register_body">
+        		<label>请选择注册类型：</label>
+        		<select id="type">
+        			<option value="pgroup">代理商</option>
+        			<option value="user">普通用户</option>
+        		</select>
         		<label for="username">请输入账号：</label>
         		<input type="text" id="username" ng-model="username"/><br/><br/>
         		<label for="password">请输入密码：</label>

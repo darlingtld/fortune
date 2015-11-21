@@ -78,24 +78,6 @@ public class UserService {
     }
 
     @Transactional
-    public void register(String name, String password) {
-        Utils.logger.info("register user {} {}", name, password);
-        if (Strings.isNullOrEmpty(name)) {
-            throw new RuntimeException("账号不能为空！");
-        } else if (Strings.isNullOrEmpty(password)) {
-            throw new RuntimeException("密码不能为空！");
-        } else if (userDao.getUserByUsername(name) != null) {
-            throw new RuntimeException("该用户名已存在！");
-        } else {
-            User user = new User();
-            user.setUsername(name);
-            user.setPassword(PasswordEncryptUtil.encrypt(password));
-            user.setRoleList(Arrays.asList(Role.NORMAL_USER));
-            userDao.createUser(user);
-        }
-    }
-
-    @Transactional
     public boolean depositAccount(String userid, double account) {
         Utils.logger.info("deposit account {} for user id {}", account, userid);
         return userDao.depositAccount(userid, account);

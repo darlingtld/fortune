@@ -9,7 +9,7 @@
 	line-height:30px;
 }
 
-#account_search .btn, #account_search label, #account_search input{
+#account_search .btn, #account_search .red_btn, #account_search label, #account_search input{
 	float:left;
 	margin-left:10px;
 }
@@ -25,6 +25,9 @@
 #account_tree{
 	overflow:auto;
 	height:300px;
+	border: 1px solid #dedede;
+	margin-top:5px;
+	margin-bottom:5px;
 }
 
 #account_tree ul{
@@ -61,7 +64,11 @@
 	border-left: 1px dashed #666;
 }
 
-.user.forbidden{
+.user.disabled{
 	background-image:url('../img/forbidden_user.png');
+}
+
+#delete_user{
+	display:none;
 }
 

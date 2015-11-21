@@ -55,6 +55,8 @@
     for windows, https://github.com/MSOpenTech/redis/releases
     run with 'redis-server'
 
+7. tomcat remote debug
+    sh ./catalina.sh jpda start
 
 
 Mark Six rules

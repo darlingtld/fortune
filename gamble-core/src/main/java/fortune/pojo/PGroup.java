@@ -25,63 +25,59 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "pgroup")
 public class PGroup {
-    @Id
-    private String id;
-    @NotNull
-    private String name;
+	@Id
+	private String id;
+	@NotNull
+	private String name;
 
-    private User admin;
-    private List<PGroup> subPGroupList = new ArrayList<>();
-    private List<User> userList = new ArrayList<>();
+	private String parentPGroupID;
 
-    @Override
-    public String toString() {
-        return "PGroup{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", admin=" + admin +
-                ", subPGroupList=" + subPGroupList +
-                ", userList=" + userList +
-                '}';
-    }
+	private User admin;
 
-    public User getAdmin() {
-        return admin;
-    }
+	private List<User> userList = new ArrayList<>();
 
-    public void setAdmin(User admin) {
-        this.admin = admin;
-    }
+	@Override
+	public String toString() {
+		return "PGroup{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", admin=" + admin + ", userList=" + userList + '}';
+	}
 
-    public String getId() {
-        return id;
-    }
+	public User getAdmin() {
+		return admin;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setAdmin(User admin) {
+		this.admin = admin;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public List<PGroup> getSubPGroupList() {
-        return subPGroupList;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setSubPGroupList(List<PGroup> subPGroupList) {
-        this.subPGroupList = subPGroupList;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public List<User> getUserList() {
-        return userList;
-    }
+	public List<User> getUserList() {
+		return userList;
+	}
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
+
+	public String getParentPGroupID() {
+		return parentPGroupID;
+	}
+
+	public void setParentPGroupID(String parentPGroupID) {
+		this.parentPGroupID = parentPGroupID;
+	}
 }

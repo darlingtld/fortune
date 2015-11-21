@@ -22,6 +22,7 @@ public class User {
     private double creditAccount;
     private double usedCreditAccount;
     private Date lastLoginTime;
+    private PeopleStatus status=PeopleStatus.ENABLED;
 
     public double getCreditAccount() {
         return creditAccount;
@@ -86,8 +87,18 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    
 
-    @Override
+    public PeopleStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(PeopleStatus status) {
+		this.status = status;
+	}
+
+	@Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +

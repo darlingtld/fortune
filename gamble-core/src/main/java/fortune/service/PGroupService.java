@@ -17,81 +17,89 @@ import java.util.List;
 @Service
 public class PGroupService {
 
-    @Autowired
-    private PGroupDao pGroupDao;
+	@Autowired
+	private PGroupDao pGroupDao;
 
-    @Autowired
-    private UserDao userDao;
+	@Autowired
+	private UserDao userDao;
 
-    @Transactional
-    public PGroup getGroupById(String id) {
-        Utils.logger.info("get pGroup by id {}", id);
-        return pGroupDao.getGroupById(id);
-    }
+	@Transactional
+	public PGroup getGroupById(String id) {
+		Utils.logger.info("get pGroup by id {}", id);
+		return pGroupDao.getGroupById(id);
+	}
 
-    @Transactional
-    public void createGroup(PGroup pGroup) {
-        Utils.logger.info("create pGroup {}", pGroup);
-        for (User user : pGroup.getUserList()) {
-            user.setpGroupList(null);
-        }
-        User admin = pGroup.getAdmin();
-        admin.setpGroupList(null);
-        pGroupDao.createGroup(pGroup);
-    }
+	@Transactional
+	public void createGroup(PGroup pGroup) {
+		Utils.logger.info("create pGroup {}", pGroup);
+		for (User user : pGroup.getUserList()) {
+			user.setpGroupList(null);
+		}
+		User admin = pGroup.getAdmin();
+		admin.setpGroupList(null);
+		pGroupDao.createGroup(pGroup);
+	}
 
-    @Transactional
-    public List<PGroup> getGroupAll() {
-        Utils.logger.info("get pGroup all");
-        return pGroupDao.getGroupAll();
-    }
+	@Transactional
+	public List<PGroup> getGroupAll() {
+		Utils.logger.info("get pGroup all");
+		return pGroupDao.getGroupAll();
+	}
 
-    @Transactional
-    public void addUser(String pGroupId, User user) {
-        Utils.logger.info("pgroup {} add user {}", pGroupId, user);
-        PGroup pGroup = pGroupDao.getGroupById(pGroupId);
-        if (!isUserInUserList(user, pGroup.getUserList())) {
-            List<PGroup> pGroupListTmp = user.getpGroupList();
-            user.setpGroupList(null);
-            pGroup.getAdmin().setpGroupList(null);
-            pGroup.getUserList().add(user);
-            pGroup = pGroupDao.updatePGroup(pGroup);
-            pGroup.setUserList(null);
-            pGroup.setSubPGroupList(null);
-            user.setpGroupList(pGroupListTmp);
-            user.getpGroupList().add(pGroup);
-            userDao.updateUser(user);
-        }
-    }
+	@Transactional
+	public void addUser(String pGroupId, User user) {
+		Utils.logger.info("pgroup {} add user {}", pGroupId, user);
+		PGroup pGroup = pGroupDao.getGroupById(pGroupId);
+		if (!isUserInUserList(user, pGroup.getUserList())) {
+			List<PGroup> pGroupListTmp = user.getpGroupList();
+			user.setpGroupList(null);
+			pGroup.getAdmin().setpGroupList(null);
+			pGroup.getUserList().add(user);
+			pGroup = pGroupDao.updatePGroup(pGroup);
+			pGroup.setUserList(null);
+			user.setpGroupList(pGroupListTmp);
+			user.getpGroupList().add(pGroup);
+			userDao.createUser(user);
+		}
+	}
 
-    private boolean isUserInUserList(User user, List<User> userList) {
-        for (User u : userList) {
-            if (user.getId().equals(u.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
+	private boolean isUserInUserList(User user, List<User> userList) {
+		for (User u : userList) {
+			if (user.getId().equals(u.getId())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    @Transactional
-    public PGroup changeAdmin(PGroup pgroup, User user) {
-        Utils.logger.info("change pgroup {} admin to {}", pgroup.getName(), user.getUsername());
-        if (isAdminBelongsToOtherPgroup(user)) {
-            throw new RuntimeException(String.format("user has already been assigned the admin to other pgroups"));
-        } else {
-            return pGroupDao.changeAdmin(pgroup, user);
-        }
-    }
+	@Transactional
+	public PGroup changeAdmin(PGroup pgroup, User user) {
+		Utils.logger.info("change pgroup {} admin to {}", pgroup.getName(), user.getUsername());
+		if (isAdminBelongsToOtherPgroup(user)) {
+			throw new RuntimeException(String.format("user has already been assigned the admin to other pgroups"));
+		} else {
+			return pGroupDao.changeAdmin(pgroup, user);
+		}
+	}
 
-    @Transactional
-    private boolean isAdminBelongsToOtherPgroup(User admin) {
-        PGroup pGroup = pGroupDao.getGroupByAdminUserName(admin.getUsername());
-        return pGroup != null;
-    }
+	@Transactional
+	private boolean isAdminBelongsToOtherPgroup(User admin) {
+		PGroup pGroup = pGroupDao.getGroupByAdminUserName(admin.getUsername());
+		return pGroup != null;
+	}
 
-    @Transactional
-    public PGroup getPGroupByName(String name) {
-        return pGroupDao.getPGroupByName(name);
+	@Transactional
+	public PGroup getPGroupByName(String name) {
+		return pGroupDao.getPGroupByName(name);
 
-    }
+	}
+
+	public List<PGroup> getPGroupsByParentID(String parentId) {
+		return pGroupDao.getPGroupsByParentID(parentId);
+	}
+
+	public List<User> getUsersByPGroupID(String pgroupId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

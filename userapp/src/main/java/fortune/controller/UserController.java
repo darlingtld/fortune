@@ -36,20 +36,4 @@ public class UserController {
     User login(@RequestBody JSONObject loginStub) {
         return userService.login(loginStub.getString("name"), loginStub.getString("password"));
     }
-
-    /*
-    {name:xxx, password:xxx}
-     */
-    @RequestMapping(value = "register", method = RequestMethod.POST, headers = "content-type=application/json")
-    public
-    @ResponseBody
-    void register(@RequestBody JSONObject registerStub, HttpServletResponse response) {
-        try {
-            userService.register(registerStub.getString("name"), registerStub.getString("password"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(HttpStatus.CONFLICT.value());
-            response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
-        }
-    }
 }
