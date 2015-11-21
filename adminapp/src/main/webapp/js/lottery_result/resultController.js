@@ -17,8 +17,3 @@ controller('resultController', function ($scope, $rootScope, resultService) {
         return '<span class="ball' + input.one + '">' + input.one + '</span>'
     }
 });
-
-jQuery(function(){
-	console.log("asdf");
-	jQuery(".filetree").treeview();
-});

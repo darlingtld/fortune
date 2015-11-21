@@ -1,5 +1,3 @@
-@import url("lib/jquery.treeview.css");
-
 .content{
 	background:white;
 	border: 1px solid #dedede;
@@ -13,7 +11,7 @@
 
 #account_search .btn, #account_search label, #account_search input{
 	float:left;
-	margin-right:5px;
+	margin-left:10px;
 }
 
 #account_search input{
@@ -23,3 +21,47 @@
 .content table{
 	width:90%;
 }
+
+#account_tree{
+	overflow:auto;
+	height:300px;
+}
+
+#account_tree ul{
+	padding-left:15px;
+	display:none;
+}
+
+#account_tree .first_level{
+	display:block;
+}
+
+#account_tree li{
+	list-style: none;
+}
+
+#account_tree p{
+	line-height:25px;
+	cursor:pointer;
+	margin:3px;
+}
+
+#account_tree p:hover{
+	background-color:#FDFDCE;
+}
+
+.pgroup{
+	padding-left:25px;
+	background:url('../img/pgroup.png') no-repeat left center;
+}
+
+.user{
+	padding-left:25px;
+	background:url('../img/user.png') no-repeat left center;
+	border-left: 1px dashed #666;
+}
+
+.user.forbidden{
+	background-image:url('../img/forbidden_user.png');
+}
+
