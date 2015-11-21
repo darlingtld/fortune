@@ -6,6 +6,12 @@ controller('accountsController', function ($rootScope) {
     	$(function(){
     		var ROOT="-1";
     		
+    		var initState=function(){
+    			$(".first_level").empty();
+				showPGroupLevel(ROOT, ".first_level");
+				$("#delete_user, #add_user").hide();
+    		};
+    		
     		// 展开某层pgroup
     		var showPGroupLevel=function(pgroupId, selector){
     			$.get("pgroup/pgroups/"+pgroupId, function(data){
@@ -51,8 +57,8 @@ controller('accountsController', function ($rootScope) {
 					$(this).next("ul").show();
 					$("#account_tree p").removeClass("selected");
 					$(this).addClass("selected"); //用于标记选中的pgroup
-					$("#add_user").show(); // 有selected才能有这两个按钮
 					$("#delete_user").hide();
+					$("#add_user").show(); // 有selected才能有这两个按钮
 					$.get("pgroup/candelete/"+$(this).attr("data-id"), function(data){
 						if(data){
 							$("#delete_user").show();
@@ -95,16 +101,14 @@ controller('accountsController', function ($rootScope) {
     			if($("#account_tree p.selected").hasClass("pgroup")){
     				$.post("pgroup/delete/pgroup/"+$("#account_tree p.selected").attr("data-id"), function(){
     					alert("删除成功");
-    					$(".first_level").empty();
-						showPGroupLevel(ROOT, ".first_level");
+    					initState();
     				});
     			}
     			// 删除用户
     			else{
     				$.post("pgroup/delete/user/"+$("#account_tree p.selected").attr("data-id"), function(){
     					alert("删除成功");
-    					$(".first_level").empty();
-						showPGroupLevel(ROOT, ".first_level");
+    					initState();
     				});
     			}
     		});
@@ -132,8 +136,7 @@ controller('accountsController', function ($rootScope) {
     					}),  
     		            success: function(){
     						$(".dialog").hide();
-    						$(".first_level").empty();
-    						showPGroupLevel(ROOT, ".first_level");
+    						initState();
     					}
     				});
     			}
@@ -152,8 +155,7 @@ controller('accountsController', function ($rootScope) {
     					}),  
     		            success: function(){
     						$(".dialog").hide();
-    						$(".first_level").empty();
-    						showPGroupLevel(ROOT, ".first_level");
+    						initState();
     					}
     				});
     			}

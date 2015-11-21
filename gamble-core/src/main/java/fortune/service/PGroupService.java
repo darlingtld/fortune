@@ -52,15 +52,15 @@ public class PGroupService {
 		List<User> userList = pGroup.getUserList();
 		pGroup.setUserList(null);
 		// 如果存在该用户就不用插入了
-		User existedUser=userDao.getUserByUsername(user.getUsername());
-		if(existedUser==null){
+		User existedUser = userDao.getUserByUsername(user.getUsername());
+		if (existedUser == null) {
 			user.setpGroupList(Arrays.asList(pGroup));
 			user.setPassword(PasswordEncryptUtil.encrypt(user.getPassword()));
 			userDao.createUser(user);
 		}
 		// 更新用户的pgroup列表
-		else{
-			List<PGroup> pgroupList=existedUser.getpGroupList();
+		else {
+			List<PGroup> pgroupList = existedUser.getpGroupList();
 			pgroupList.add(pGroup);
 			userDao.updateUser(existedUser);
 		}
@@ -74,6 +74,7 @@ public class PGroupService {
 			isUpdate = true;
 		}
 		if (isUpdate) {
+			user.setpGroupList(null);
 			userList.add(user);
 			pGroup.setUserList(userList);
 			pGroupDao.updatePGroup(pGroup);
@@ -119,19 +120,35 @@ public class PGroupService {
 		PGroup pGroup = pGroupDao.getGroupById(pgroupId);
 		return pGroup.getUserList();
 	}
-	
-	public boolean canDeletePGroup(String pgroupId){
+
+	public boolean canDeletePGroup(String pgroupId) {
 		PGroup pGroup = pGroupDao.getGroupById(pgroupId);
-		return pGroup.getUserList().size()==0 && pGroupDao.getPGroupsByParentID(pgroupId).size()==0;
+		return pGroup.getUserList().size() == 0 && pGroupDao.getPGroupsByParentID(pgroupId).size() == 0;
 	}
 
 	public void deletePGroupByID(String pgroupId) {
-		if(canDeletePGroup(pgroupId)){
-			pGroupDao.deletePGroupByID(pgroupId);			
+		if (canDeletePGroup(pgroupId)) {
+			pGroupDao.deletePGroupByID(pgroupId);
 		}
 	}
 
 	public void deleteUserByID(String userId) {
-		//需要删除代理商下的userList
+		// 需要删除代理商下的userList
+		User user = userDao.getUserById(userId);
+		List<PGroup> pgroupList = user.getpGroupList();
+		for (PGroup pgroup : pgroupList) {
+			String id = pgroup.getId();
+			PGroup pgroupDetails = pGroupDao.getGroupById(id);
+			List<User> userList = pgroupDetails.getUserList();
+			for (int i = 0; i < userList.size(); i++) {
+				if (userList.get(i).getId().equals(userId)) {
+					userList.remove(i);
+					break;
+				}
+			}
+			pGroupDao.updatePGroup(pgroupDetails);
+		}
+		// 删除用户
+		userDao.deleteUserByID(userId);
 	}
 }
