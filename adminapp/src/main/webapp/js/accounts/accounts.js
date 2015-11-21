@@ -32,11 +32,6 @@ controller('accountsController', function ($rootScope) {
     			}
     		};
     		
-    		// 判断是否可删除
-    		var canPGroupDelete = function(pgroupId){
-    			return $("#account_tree p[data-id=\""+pgroupId+"\"]").next("ul").length==0;
-    		};
-    		
     		// 初始时候显示第一层
     		showPGroupLevel(ROOT, ".first_level");
     		
@@ -46,26 +41,24 @@ controller('accountsController', function ($rootScope) {
     				showPGroupLevel($(this).attr("data-id"), node);
     				$(this).addClass("clicked"); //用于标记已经取过远程数据的pgroup
     			}
-    			else{
-    				if($(this).hasClass("selected")){
-    					$(this).next("ul").hide();
-    					$(this).removeClass("selected");
-    					$("#delete_user, #add_user").hide();
-    					return;
-    				}
-    				else{
-    					$(this).next("ul").show();
-    				}
-    			}
-    			$("#account_tree p").removeClass("selected");
-				$(this).addClass("selected"); //用于标记选中的pgroup
-				$("#add_user").show(); // 有selected才能有这两个按钮
-				if(canPGroupDelete($(this).attr("data-id"))){
-					$("#delete_user").show();
+				if($(this).hasClass("selected")){
+					$(this).next("ul").hide();
+					$(this).removeClass("selected");
+					$("#delete_user, #add_user").hide();
+					return;
 				}
 				else{
+					$(this).next("ul").show();
+					$("#account_tree p").removeClass("selected");
+					$(this).addClass("selected"); //用于标记选中的pgroup
+					$("#add_user").show(); // 有selected才能有这两个按钮
 					$("#delete_user").hide();
-				}
+					$.get("pgroup/candelete/"+$(this).attr("data-id"), function(data){
+						if(data){
+							$("#delete_user").show();
+						}
+					});
+    			}
     		});
     		
     		$("body").on("click", "#account_tree .user", function(){

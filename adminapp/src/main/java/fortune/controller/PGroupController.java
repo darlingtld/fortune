@@ -78,6 +78,11 @@ public class PGroupController {
 	public @ResponseBody void deleteUser(@PathVariable("userId") String userId) {
 		pGroupService.deleteUserByID(userId);
 	}
+	
+	@RequestMapping(value = "candelete/{pgroupId}", method = RequestMethod.GET)
+	public @ResponseBody boolean canDeletePGroup(@PathVariable("pgroupId") String pgroupId) {
+		return pGroupService.canDeletePGroup(pgroupId);
+	}
 
 	@RequestMapping(value = "pgroups/{parentId}", method = RequestMethod.GET)
 	public @ResponseBody List<PGroup> getPGroups(@PathVariable("parentId") String parentId) {

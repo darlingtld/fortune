@@ -119,14 +119,16 @@ public class PGroupService {
 		PGroup pGroup = pGroupDao.getGroupById(pgroupId);
 		return pGroup.getUserList();
 	}
+	
+	public boolean canDeletePGroup(String pgroupId){
+		PGroup pGroup = pGroupDao.getGroupById(pgroupId);
+		return pGroup.getUserList().size()==0 && pGroupDao.getPGroupsByParentID(pgroupId).size()==0;
+	}
 
 	public void deletePGroupByID(String pgroupId) {
-		PGroup pGroup = pGroupDao.getGroupById(pgroupId);
-		// 当该代理商下没有用户，并且下面没有代理商，才能删除
-		if(pGroup.getUserList().size()>0 || pGroupDao.getPGroupsByParentID(pgroupId).size()>0){
-			return;
+		if(canDeletePGroup(pgroupId)){
+			pGroupDao.deletePGroupByID(pgroupId);			
 		}
-		pGroupDao.deletePGroupByID(pgroupId);
 	}
 
 	public void deleteUserByID(String userId) {
