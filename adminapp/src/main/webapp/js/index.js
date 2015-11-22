@@ -10,7 +10,6 @@ controller('indexController', function ($scope, $interval) {
     $interval(function() {
         var currentTime = new Date();
         $scope.nowTime = currentTime;
-        console.log($scope.nowTime)
     }, 1000);
 }).config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/accounts', {

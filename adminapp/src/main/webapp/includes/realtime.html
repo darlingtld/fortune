@@ -62,7 +62,7 @@
     合计：<span>100</span>, 金额：<span>200</span>
 </div>
 <div class="real-time-dashboard lottery-special-type">
-    <div ng-repeat="subs in list">
+    <div ng-repeat="subs in specialtypelist">
         <table>
             <thead>
             <tr>
@@ -75,7 +75,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="rt in subs">
-                <td><span ng-bind="rt.number" class="ball ball{{rt.number}}"></span></td>
+                <td><span ng-bind="rt.lotteryMarkSixType" class="type"></span></td>
                 <td ng-bind="rt.transactions"></td>
                 <td ng-bind="rt.stakes"></td>
                 <td ng-bind="rt.odds"></td>
@@ -86,9 +86,11 @@
     </div>
 
 </div>
-
+<div>
+    合计：<span>100</span>, 金额：<span>200</span>
+</div>
 <div class="real-time-dashboard lottery-zodiac">
-    <div ng-repeat="subs in list">
+    <div ng-repeat="subs in animaltypelist">
         <table>
             <thead>
             <tr>
@@ -101,7 +103,105 @@
             </thead>
             <tbody>
             <tr ng-repeat="rt in subs">
-                <td><span ng-bind="rt.number" class="ball ball{{rt.number}}"></span></td>
+                <td><span ng-bind="rt.lotteryMarkSixType" class="type"></span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td ng-bind="rt.stakes"></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    合计：<span>100</span>, 金额：<span>200</span>
+</div>
+<div class="real-time-dashboard lottery-zodiac">
+    <div ng-repeat="subs in wavetypelist">
+        <table>
+            <thead>
+            <tr>
+                <th>半波</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in subs">
+                <td><span ng-bind="rt.lotteryMarkSixType" class="type"></span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td ng-bind="rt.stakes"></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    合计：<span>100</span>, 金额：<span>200</span>
+</div>
+<div class="real-time-dashboard lottery-zodiac">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>类别</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in othertypelist[0]">
+                <td><span ng-bind="rt.lotteryMarkSixType" class="type"></span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td ng-bind="rt.stakes"></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>色波</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in othertypelist[1]">
+                <td><span ng-bind="rt.lotteryMarkSixType" class="type"></span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td ng-bind="rt.stakes"></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>特大中小</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in othertypelist[2]">
+                <td><span ng-bind="rt.lotteryMarkSixType" class="type"></span></td>
                 <td ng-bind="rt.transactions"></td>
                 <td ng-bind="rt.stakes"></td>
                 <td ng-bind="rt.odds"></td>

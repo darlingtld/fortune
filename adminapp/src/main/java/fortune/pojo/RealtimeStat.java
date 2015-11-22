@@ -11,6 +11,7 @@ public class RealtimeStat {
     private double stakes;
     private double odds;
     private double balance;
+    private String lotteryMarkSixType;
 
     @Override
     public String toString() {
@@ -21,7 +22,16 @@ public class RealtimeStat {
                 ", stakes=" + stakes +
                 ", odds=" + odds +
                 ", balance=" + balance +
+                ", lotteryMarkSixType=" + lotteryMarkSixType +
                 '}';
+    }
+
+    public String getLotteryMarkSixType() {
+        return lotteryMarkSixType;
+    }
+
+    public void setLotteryMarkSixType(String lotteryMarkSixType) {
+        this.lotteryMarkSixType = lotteryMarkSixType;
     }
 
     public String getGroupId() {

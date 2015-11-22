@@ -1,11 +1,14 @@
 package fortune.pojo;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by tangl9 on 2015-10-20.
  */
 public enum LotteryMarkSixType {
     SPECIAL("特码"),
-    
+
     ZODIAC_SHU("鼠"),
     ZODIAC_NIU("牛"),
     ZODIAC_HU("虎"),
@@ -18,11 +21,11 @@ public enum LotteryMarkSixType {
     ZODIAC_JI("鸡"),
     ZODIAC_GOU("狗"),
     ZODIAC_ZHU("猪"),
-    
+
     RED("红波"),
     BLUE("蓝波"),
     GREEN("绿波"),
-    
+
     WAVE_RED_SHUANG("红双"),
     WAVE_RED_DAN("红单"),
     WAVE_RED_DA("红大"),
@@ -37,29 +40,29 @@ public enum LotteryMarkSixType {
     WAVE_GREEN_DAN("绿单"),
     WAVE_GREEN_DA("绿大"),
     WAVE_GREEN_XIAO("绿小"),
-    
+
     SUM_ZODIAC("合肖"), // ballNumber表示是几肖
-    
+
     ZHENG_1_6("正码1到6"),
     DAN("单"),
     SHUANG("双"),
     DA("大"),
+    ZHONG("中"),
     XIAO("小"),
     HEDAN("合单"),
     HESHUANG("合双"),
     
     /* 下面的这些类别还没用到 */
-    
+
     NUMBER("数字"),
 
-    
-    
+
     HEDA("合大"),
     HEXIAO("合小"),
     SPECIAL_WEIDA("特尾大"),
-    SPCIAL_WEIXIAO("特尾小"),
-    HEWEIDA("合尾大"),
-    HEWEIXIAO("合尾小"),
+    SPECIAL_WEIXIAO("特尾小"),
+    SPECIAL_HEWEIDA("合尾大"),
+    SPECIAL_HEWEIXIAO("合尾小"),
     JIAQIN("家禽"),
     YESHOU("野兽"),
     WEIDA("尾大"),
@@ -141,5 +144,72 @@ public enum LotteryMarkSixType {
         return this.type;
     }
 
+    public static List<LotteryMarkSixType> getRealTimeSpecialTypeList() {
+        return Arrays.asList(
+                SPECIAL_DAN,
+                SPECIAL_SHUANG,
+                SPECIAL_DA,
+                SPECIAL_XIAO,
+                SPECIAL_HEDAN,
+                SPECIAL_HESHUANG,
+                SPECIAL_HEDA,
+                SPECIAL_HEXIAO,
+                SPECIAL_HEWEIXIAO,
+                SPECIAL_HEWEIDA);
+    }
 
+
+    public static List<LotteryMarkSixType> getRealTimeAnimalTypeList() {
+        return Arrays.asList(
+                ZODIAC_SHU,
+                ZODIAC_NIU,
+                ZODIAC_HU,
+                ZODIAC_TU,
+                ZODIAC_LONG,
+                ZODIAC_SHE,
+                ZODIAC_MA,
+                ZODIAC_YANG,
+                ZODIAC_HOU,
+                ZODIAC_JI,
+                ZODIAC_GOU,
+                ZODIAC_ZHU,
+                JIAQIN,
+                YESHOU);
+    }
+
+    public static List<LotteryMarkSixType> getRealTimeWaveTypeList() {
+        return Arrays.asList(
+                WAVE_RED_SHUANG,
+                WAVE_RED_DAN,
+                WAVE_RED_DA,
+                WAVE_RED_XIAO,
+                WAVE_BLUE_SHUANG,
+                WAVE_BLUE_DAN,
+                WAVE_BLUE_DA,
+                WAVE_BLUE_XIAO,
+                WAVE_GREEN_SHUANG,
+                WAVE_GREEN_DAN,
+                WAVE_GREEN_DA,
+                WAVE_GREEN_XIAO);
+    }
+
+    public static List<LotteryMarkSixType> getRealTimeSpecialTailTypeList() {
+        return Arrays.asList(
+                SPECIAL_WEIDA,
+                SPECIAL_WEIXIAO);
+    }
+
+    public static List<LotteryMarkSixType> getRealTimeColorTypeList() {
+        return Arrays.asList(
+                RED,
+                BLUE,
+                GREEN);
+    }
+
+    public static List<LotteryMarkSixType> getRealTimeBigOrSmallTypeList() {
+        return Arrays.asList(
+                DA,
+                ZHONG,
+                XIAO);
+    }
 }
