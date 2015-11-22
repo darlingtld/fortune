@@ -18,4 +18,11 @@ angular.module('AdminApp')
             });
             return deferred.promise;
         };
+        this.getStakesDetail4Special = function (groupid, issue, number) {
+            var deferred = $q.defer();
+            $http.get('stat/realtime/stake_detail/special/groupid/' + groupid + '/issue/' + issue + '/ball/' + number).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        }
     })

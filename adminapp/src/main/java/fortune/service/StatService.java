@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by tangl9 on 2015-11-03.
@@ -29,6 +26,9 @@ public class StatService {
 
     @Autowired
     private OddsService oddsService;
+
+    @Autowired
+    private UserService userService;
 
     @Transactional
     public List<LotteryMarkSixStat> getLotteryMarkSixStat(String groupid, int from, int count) {
@@ -247,4 +247,36 @@ public class StatService {
         realTimeStatHashMap4Type.put(type.getType(), realtimeStat);
     }
 
+    @Transactional
+    public List<RealTimeWager> getStakeDetail4Special(String groupId, int issue, int number) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfSpecialNumber(groupId, issue, number);
+        List<RealTimeWager> realTimeWagerList = new ArrayList<>();
+        for (LotteryMarkSixWager wager : wagerList) {
+            RealTimeWager realTimeWager = new RealTimeWager();
+            realTimeWager.setTs(wager.getTimestamp());
+            realTimeWager.setUser(userService.getUserById(wager.getUserId()));
+            realTimeWager.setTuishui(0);
+            realTimeWager.setPanlei("A盘");
+            realTimeWager.setIssue(wager.getLotteryIssue());
+            LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
+            Date openTs = new Date();
+            if (lotteryMarkSix != null) {
+                openTs = lotteryMarkSix.getTimestamp();
+            }
+            realTimeWager.setOpenTs(openTs);
+            realTimeWager.setWageContent(String.format("%s %s", LotteryMarkSixType.SPECIAL.getType(), number));
+            for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                if (number == stub.getNumber()) {
+                    realTimeWager.setStakes(stub.getStakes());
+                    break;
+                }
+            }
+            realTimeWager.setOdds(oddsService.getOdds4LotteryIssue(issue, groupId, number).getOdds());
+            realTimeWager.setTuishui2(0);
+            realTimeWager.setResult(0);
+            realTimeWager.setRemark("");
+            realTimeWagerList.add(realTimeWager);
+        }
+        return realTimeWagerList;
+    }
 }

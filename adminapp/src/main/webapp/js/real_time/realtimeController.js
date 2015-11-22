@@ -38,4 +38,8 @@ angular.module('AdminApp')
             $scope.othertypelist[1] = $scope.realTimeTranscations.slice(87, 90);
             $scope.othertypelist[2] = $scope.realTimeTranscations.slice(90, 93);
         })
-    })
+    }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
+    realtimeService.getStakesDetail4Special($routeParams.groupid, $routeParams.issue, $routeParams.number).then(function (data) {
+        $scope.wagerList = data;
+    });
+})

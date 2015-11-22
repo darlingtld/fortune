@@ -1,5 +1,6 @@
 package fortune.dao;
 
+import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryMarkSixWager;
 import fortune.pojo.LotteryMarkSixWagerStub;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -77,5 +79,20 @@ public class WagerDao {
     public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfGroup(String groupid, int lotteryIssue) {
         Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("pgroupId").is(groupid)));
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
+    }
+
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfSpecialNumber(String groupId, int issue, int number) {
+        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(LotteryMarkSixType.SPECIAL)));
+        List<LotteryMarkSixWager> tmpwagerList = mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
+        List<LotteryMarkSixWager> wagerList = new ArrayList<>();
+        for (LotteryMarkSixWager wager : tmpwagerList) {
+            for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                if (stub.getNumber() == number) {
+                    wagerList.add(wager);
+                    break;
+                }
+            }
+        }
+        return wagerList;
     }
 }

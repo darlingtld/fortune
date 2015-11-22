@@ -50,7 +50,7 @@
             <tr ng-repeat="rt in subs">
                 <td><span ng-bind="rt.number" class="ball ball{{rt.number}}"></span></td>
                 <td ng-bind="rt.transactions"></td>
-                <td ng-bind="rt.stakes"></td>
+                <td><a href="#/stakesdetail/groupid/{{groupid}}/special/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span ng-bind="rt.stakes"></span></a></td>
                 <td ng-bind="rt.odds"></td>
                 <td ng-bind="rt.balance"></td>
             </tr>

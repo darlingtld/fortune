@@ -1,8 +1,6 @@
 package fortune.controller;
 
-import fortune.pojo.LotteryMarkSix;
-import fortune.pojo.LotteryMarkSixStat;
-import fortune.pojo.RealtimeStat;
+import fortune.pojo.*;
 import fortune.service.StatService;
 import fortune.service.ThriftService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +42,7 @@ public class StatController {
 
     /**
      * 获取代理商实时统计信息(实时注单)
+     *
      * @param groupId
      * @return
      */
@@ -54,5 +53,11 @@ public class StatController {
         return statService.getRealTimeTransactionResult(groupId);
     }
 
+    @RequestMapping(value = "realtime/stake_detail/special/groupid/{groupid}/issue/{issue}/ball/{number}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<RealTimeWager> getStakeDetail4Special(@PathVariable("groupid") String groupId, @PathVariable("issue") int issue, @PathVariable("number") int number) {
+        return statService.getStakeDetail4Special(groupId, issue, number);
+    }
 
 }

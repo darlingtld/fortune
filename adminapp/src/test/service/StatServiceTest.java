@@ -1,14 +1,15 @@
 package service;
 
-import fortune.pojo.LotteryMarkSix;
-import fortune.pojo.LotteryMarkSixStat;
-import fortune.pojo.PGroup;
+import fortune.pojo.*;
 import fortune.service.LotteryService;
 import fortune.service.PGroupService;
 import fortune.service.StatService;
+import fortune.service.WagerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -32,6 +33,9 @@ public class StatServiceTest {
 
     @Autowired
     private PGroupService pGroupService;
+
+    @Autowired
+    private WagerService wagerService;
 
     @Test
     public void getLotteryMarkSixStatList() {
@@ -59,6 +63,17 @@ public class StatServiceTest {
                 stat.setZoufeiStakes(new Random().nextDouble() * 1000000);
                 statService.saveLotteryMarkSixStat(stat);
             }
+        }
+    }
+
+    @Test
+    public void getWagerList() {
+        int issue = 300;
+        String groupId = "563338f6e708fad8259ea83f";
+        int number = 1;
+        List<LotteryMarkSixWager> list = wagerService.getLotteryMarkSixWagerListOfSpecialNumber(groupId, issue, number);
+        for (LotteryMarkSixWager wager : list) {
+            System.out.println(wager);
         }
     }
 }
