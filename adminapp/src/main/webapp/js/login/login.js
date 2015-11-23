@@ -7,7 +7,7 @@ loginApp.controller("LoginController", function ($scope, $http) {
             "password": $scope.password
         }).success(function (response) {
             if (response) {
-                sessionStorage["username"] = response.username;
+                sessionStorage["username"] = response.admin.username;
                 sessionStorage["userid"] = response.admin.id;
                 sessionStorage["pgroupid"] = response.id;
                 sessionStorage["pgroupname"] =  response.name;
