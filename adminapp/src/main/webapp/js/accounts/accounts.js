@@ -171,7 +171,6 @@ controller('accountsController', function ($rootScope) {
     			$(".dialog").hide();
     		});
     		
-    		// 一开始显示所有用户
     		// TODO 分页
     		$.get("pgroup/users", function(data){
     			if(data && data.length>0){

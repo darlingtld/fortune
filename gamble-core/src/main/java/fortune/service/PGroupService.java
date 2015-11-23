@@ -77,21 +77,14 @@ public class PGroupService {
 			userDao.createUser(user);
 		}
 		// 更新用户的pgroup列表
-		else {
+		else if (!isUserInUserList(user, userList)) {
 			List<PGroup> pgroupList = existedUser.getpGroupList();
 			pgroupList.add(pGroup);
 			userDao.updateUser(existedUser);
 		}
 		// 更新pgroup的userList
 		user = userDao.getUserByUsername(user.getUsername());
-		boolean isUpdate = false;
-		if (userList == null) {
-			userList = new ArrayList<User>();
-			isUpdate = true;
-		} else if (!isUserInUserList(user, userList)) {
-			isUpdate = true;
-		}
-		if (isUpdate) {
+		if (!isUserInUserList(user, userList)) {
 			user.setpGroupList(null);
 			userList.add(user);
 			pGroup.setUserList(userList);
