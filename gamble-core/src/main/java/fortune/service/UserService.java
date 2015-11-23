@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import common.Utils;
+import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
+import fortune.pojo.PGroup;
 import fortune.pojo.Role;
 import fortune.pojo.User;
 import password.PasswordEncryptUtil;
@@ -21,6 +23,9 @@ public class UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private PGroupDao pGroupDao;
 
 	@Transactional
 	public User getUserById(String id) {
@@ -82,28 +87,22 @@ public class UserService {
 	}
 
 	@Transactional
-	public User adminLogin(String username, String password) {
+	public PGroup adminLogin(String username, String password) {
 		Utils.logger.info("admin user login [name:{}, password:{}]", username, password);
-		User user = userDao.getUserByUsername(username);
-		if (user == null) {
-			Utils.logger.info("user name not existed");
-			return null;
-		} else {
-			if (!PasswordEncryptUtil.matches(password, user.getPassword())) {
-				Utils.logger.info("password does not match");
-				return null;
-			} else {
-				if (!user.getRoleList().contains(Role.GROUP_ADMIN)) {
-					Utils.logger.info("roles does not match");
-					return null;
-				} else {
-					user.setLastLoginTime(new Date());
-					userDao.updateUser(user);
-					return user;
-				}
-			}
-		}
+		PGroup pGroup = pGroupDao.getGroupByAdminUserName(username);
+        if (pGroup == null) {
+            Utils.logger.info("user name not existed");
+            return null;
+        } else {
+            if (!PasswordEncryptUtil.matches(password, pGroup.getAdmin().getPassword())) {
+                Utils.logger.info("password does not match");
+                return null;
+            } else {
+                return pGroup;
+            }
+        }
 	}
+
 
 	@Transactional
 	public void updateAccount(User user) {

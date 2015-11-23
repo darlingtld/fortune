@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 
-import fortune.pojo.User;
+import fortune.pojo.PGroup;
 import fortune.service.ThriftService;
 import fortune.service.UserService;
 
@@ -49,7 +49,7 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "login", method = RequestMethod.POST, headers = "content-type=application/json")
-	public @ResponseBody User login(@RequestBody JSONObject loginStub) {
+	public @ResponseBody PGroup login(@RequestBody JSONObject loginStub) {
 		String username = loginStub.getString("username");
 		String password = loginStub.getString("password");
 		return userService.adminLogin(username, password);
