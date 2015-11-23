@@ -81,15 +81,15 @@ public class PGroupService {
 			List<PGroup> pgroupList = existedUser.getpGroupList();
 			pgroupList.add(pGroup);
 			userDao.updateUser(existedUser);
+		} else {
+			return;
 		}
 		// 更新pgroup的userList
 		user = userDao.getUserByUsername(user.getUsername());
-		if (!isUserInUserList(user, userList)) {
-			user.setpGroupList(null);
-			userList.add(user);
-			pGroup.setUserList(userList);
-			pGroupDao.updatePGroup(pGroup);
-		}
+		user.setpGroupList(null);
+		userList.add(user);
+		pGroup.setUserList(userList);
+		pGroupDao.updatePGroup(pGroup);
 	}
 
 	private boolean isUserInUserList(User user, List<User> userList) {
