@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.druid.util.StringUtils;
+import com.alibaba.fastjson.JSONObject;
+
 import common.Utils;
 import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
@@ -34,9 +37,25 @@ public class PGroupService {
 	}
 
 	@Transactional
-	public void createGroup(PGroup pGroup) {
+	public boolean createGroup(PGroup pGroup) {
 		Utils.logger.info("create pGroup {}", pGroup);
-		pGroupDao.createGroup(pGroup);
+		// 插入管理员
+		User admin = pGroup.getAdmin();
+		admin.setPassword(PasswordEncryptUtil.encrypt(admin.getPassword()));
+		// 一个管理员只能管理一个pgroup
+		PGroup adminGroup = pGroupDao.getGroupByAdminUserName(admin.getUsername());
+		User existedUser = userDao.getUserByUsername(admin.getUsername());
+		if (adminGroup == null) {
+			if (existedUser == null) {
+				userDao.createUser(admin);
+			}
+			// 插入pgroup
+			pGroup.setAdmin(userDao.getUserByUsername(admin.getUsername()));
+			pGroupDao.createGroup(pGroup);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Transactional
@@ -90,28 +109,6 @@ public class PGroupService {
 		return false;
 	}
 
-	@Transactional
-	public PGroup changeAdmin(PGroup pgroup, User user) {
-		Utils.logger.info("change pgroup {} admin to {}", pgroup.getName(), user.getUsername());
-		if (isAdminBelongsToOtherPgroup(user)) {
-			throw new RuntimeException(String.format("user has already been assigned the admin to other pgroups"));
-		} else {
-			return pGroupDao.changeAdmin(pgroup, user);
-		}
-	}
-
-	@Transactional
-	private boolean isAdminBelongsToOtherPgroup(User admin) {
-		PGroup pGroup = pGroupDao.getGroupByAdminUserName(admin.getUsername());
-		return pGroup != null;
-	}
-
-	@Transactional
-	public PGroup getPGroupByName(String name) {
-		return pGroupDao.getPGroupByName(name);
-
-	}
-
 	public List<PGroup> getPGroupsByParentID(String parentId) {
 		return pGroupDao.getPGroupsByParentID(parentId);
 	}
@@ -121,13 +118,22 @@ public class PGroupService {
 		return pGroup.getUserList();
 	}
 
-	public boolean canDeletePGroup(String pgroupId) {
+	public JSONObject canOperatePGroup(String pgroupId, String adminName) {
+		JSONObject result = new JSONObject();
 		PGroup pGroup = pGroupDao.getGroupById(pgroupId);
-		return pGroup.getUserList().size() == 0 && pGroupDao.getPGroupsByParentID(pgroupId).size() == 0;
+		if (pGroup != null) {
+			result.put("canAdd", StringUtils.equals(pGroup.getAdmin().getUsername(), adminName));
+			PGroup parentPGroup = pGroupDao.getGroupById(pGroup.getParentPGroupID());
+			if (parentPGroup != null) {
+				result.put("canDelete", StringUtils.equals(parentPGroup.getAdmin().getUsername(), adminName)
+						&& pGroup.getUserList().size() == 0 && pGroupDao.getPGroupsByParentID(pgroupId).size() == 0);
+			}
+		}
+		return result;
 	}
 
-	public void deletePGroupByID(String pgroupId) {
-		if (canDeletePGroup(pgroupId)) {
+	public void deletePGroup(String pgroupId, String adminName) {
+		if (canOperatePGroup(pgroupId, adminName).getBoolean("canDelete")) {
 			pGroupDao.deletePGroupByID(pgroupId);
 		}
 	}
@@ -150,5 +156,9 @@ public class PGroupService {
 		}
 		// 删除用户
 		userDao.deleteUserByID(userId);
+	}
+
+	public PGroup getGroupByAdminUserName(String adminName) {
+		return pGroupDao.getGroupByAdminUserName(adminName);
 	}
 }

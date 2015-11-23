@@ -83,8 +83,8 @@
 	margin-left:-200px;
 	width:400px;
 	top:50%;
-	height:200px;
-	margin-top:-100px;
+	height:220px;
+	margin-top:-110px;
 	z-index:999;
 	background:white;
 	border:2px solid #dedede;
@@ -102,7 +102,7 @@
 
 .dialog_body{
 	border-bottom:2px solid #dedede;
-	height:100px;
+	height:120px;
 	padding-top:10px;
 	padding-bottom:10px;
 	overflow:auto;

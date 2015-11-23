@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
+
 import common.Utils;
 import fortune.pojo.PGroup;
 import fortune.pojo.User;
@@ -73,9 +75,9 @@ public class PGroupController {
 		pGroupService.addUser(pGroupId, user);
 	}
 
-	@RequestMapping(value = "delete/pgroup/{pgroupId}", method = RequestMethod.POST)
-	public @ResponseBody void deletePGroup(@PathVariable("pgroupId") String pgroupId) {
-		pGroupService.deletePGroupByID(pgroupId);
+	@RequestMapping(value = "delete/pgroup/{pgroupId}/{adminName}", method = RequestMethod.POST)
+	public @ResponseBody void deletePGroup(@PathVariable("pgroupId") String pgroupId, @PathVariable("adminName") String adminName) {
+		pGroupService.deletePGroup(pgroupId, adminName);
 	}
 
 	@RequestMapping(value = "delete/user/{userId}", method = RequestMethod.POST)
@@ -83,9 +85,9 @@ public class PGroupController {
 		pGroupService.deleteUserByID(userId);
 	}
 
-	@RequestMapping(value = "candelete/{pgroupId}", method = RequestMethod.GET)
-	public @ResponseBody boolean canDeletePGroup(@PathVariable("pgroupId") String pgroupId) {
-		return pGroupService.canDeletePGroup(pgroupId);
+	@RequestMapping(value = "can_operate/{pgroupId}/{adminName}", method = RequestMethod.GET)
+	public @ResponseBody JSONObject canOperatePGroup(@PathVariable("pgroupId") String pgroupId, @PathVariable("adminName") String adminName) {
+		return pGroupService.canOperatePGroup(pgroupId, adminName);
 	}
 
 	@RequestMapping(value = "pgroups/{parentId}", method = RequestMethod.GET)
@@ -93,11 +95,16 @@ public class PGroupController {
 		return pGroupService.getPGroupsByParentID(parentId);
 	}
 
+	@RequestMapping(value = "admin_pgroup/{adminName}", method = RequestMethod.GET)
+	public @ResponseBody PGroup getGroupByAdminUserName(@PathVariable("adminName") String adminName) {
+		return pGroupService.getGroupByAdminUserName(adminName);
+	}
+
 	@RequestMapping(value = "users/{pgroupId}", method = RequestMethod.GET)
 	public @ResponseBody List<User> getUsersByPGroup(@PathVariable("pgroupId") String pgroupId) {
 		return pGroupService.getUsersByPGroupID(pgroupId);
 	}
-	
+
 	@RequestMapping(value = "users", method = RequestMethod.GET)
 	public @ResponseBody List<User> getUsers() {
 		return userService.getAll();

@@ -13,18 +13,27 @@ controller('accountsController', function ($rootScope) {
     		};
     		
     		// 展开某层pgroup
-    		var showPGroupLevel=function(pgroupId, selector){    			
-    			$.get("pgroup/pgroups/"+pgroupId, function(data){
-    				var html="";
-    				for(var i=0;i<data.length;i++){
-    					var pgroup=data[i];
-    					html+='<li><p class="pgroup" data-id="'+pgroup.id+'">'+pgroup.name+'</p></li>';
-    				}
-    				$(html).appendTo($(selector));
-    				$(selector).show();
-    			});
-    			
-    			if(pgroupId!=ROOT){
+    		var showPGroupLevel=function(pgroupId, selector){  
+    			// 取当前用户作为管理员的pgroup
+    			if(pgroupId==ROOT){
+    				$.get("pgroup/admin_pgroup/"+sessionStorage["username"], function(data){
+    					var html='<li><p class="pgroup" data-id="'+data.id+'">'+data.name+'</p></li>';
+    					$(html).appendTo($(selector));
+						$(selector).show();
+						$("#account_tree .pgroup:eq(0)").click();
+    				});
+    			}
+    			// 取下一层pgroup
+    			else{
+    				$.get("pgroup/pgroups/"+pgroupId, function(data){
+        				var html="";
+        				for(var i=0;i<data.length;i++){
+        					var pgroup=data[i];
+        					html+='<li><p class="pgroup" data-id="'+pgroup.id+'">'+pgroup.name+'</p></li>';
+        				}
+        				$(html).appendTo($(selector));
+        				$(selector).show();
+        			});
     				$.get("pgroup/users/"+pgroupId, function(data){
     					if(data && data.length>0){
     						var html="";
@@ -42,30 +51,8 @@ controller('accountsController', function ($rootScope) {
     		// 初始时候显示第一层
     		showPGroupLevel(ROOT, ".first_level");
     		
-    		// 一开始显示所有用户
-    		$.get("pgroup/users", function(data){
-    			if(data && data.length>0){
-    				console.log(data);
-    				var html="";
-    				for(var i=0;i<data.length;i++){
-						var user=data[i], pgroupList=user.pGroupList, pgroups="";
-						for(var j=0;j<pgroupList.length;j++){
-							pgroups+=pgroupList[j].name+", ";
-						}
-						if(pgroups.length>0){
-							pgroups=pgroups.substring(0, pgroups.length-2);
-						}
-						html+="<tr><td>"+user.username+"</td><td class='pgroups_cell'>"+pgroups+"</td><td class='"+user.status.toLowerCase()+"'>"+
-							(user.status=="ENABLED" ? "已启用":"已禁用")+"</td><td>"+
-							user.creditAccount+"</td><td>"+user.usedCreditAccount+
-							(user.status=="ENABLED" ? "</td><td><a href='javascript:;' class='red_btn'>禁用</a>":"</td><td><a href='javascript:;' class='btn'>启用</a>")+
-							"<a href='javascript:;' class='red_btn'>删除</a></td></tr>";
-    				}
-    				$(".content table tbody").html(html);
-    			}
-    		});
-    		
     		$("body").on("click", "#account_tree .pgroup", function(){
+				$("#delete_user, #add_user").hide();
     			if(!$(this).hasClass("clicked")){
     				var node=$("<ul></ul>").insertAfter($(this));
     				showPGroupLevel($(this).attr("data-id"), node);
@@ -74,18 +61,19 @@ controller('accountsController', function ($rootScope) {
 				if($(this).hasClass("selected")){
 					$(this).next("ul").hide();
 					$(this).removeClass("selected");
-					$("#delete_user, #add_user").hide();
 					return;
 				}
 				else{
 					$(this).next("ul").show();
 					$("#account_tree p").removeClass("selected");
-					$(this).addClass("selected"); //用于标记选中的pgroup
-					$("#delete_user").hide();
-					$("#add_user").show(); // 有selected才能有这两个按钮
-					$.get("pgroup/candelete/"+$(this).attr("data-id"), function(data){
-						if(data){
+					$(this).addClass("selected"); 
+					// 判断是否可以显示操作按钮
+					$.get("pgroup/can_operate/"+$(this).attr("data-id")+"/"+sessionStorage["username"], function(data){
+						if(data.canDelete){
 							$("#delete_user").show();
+						}
+						if(data.canAdd){
+							$("#add_user").show();
 						}
 					});
     			}
@@ -101,7 +89,7 @@ controller('accountsController', function ($rootScope) {
     		$("body").on("click", "#add_pgroup", function(){
     			$(".dialog_title").html("增加新的代理商");
     			// TODO validate null
-    			$(".dialog_body").html("<label for='pgroup_name_input'>代理商名称：</label><input type='text' id='pgroup_name_input'/>");
+    			$(".dialog_body").html("<label for='pgroup_name_input'>代理商名称：</label><input type='text' id='pgroup_name_input'/><br/><br/><label for='admin_name_input'>管理员名称：</label><input type='text' id='admin_name_input'/><br/><br/><label for='admin_pwd_input'>密码：</label><input type='password' id='admin_pwd_input'/>");
     			$(".dialog").show();
     		});
     		
@@ -123,7 +111,7 @@ controller('accountsController', function ($rootScope) {
     			}
     			// 删除代理商
     			if($("#account_tree p.selected").hasClass("pgroup")){
-    				$.post("pgroup/delete/pgroup/"+$("#account_tree p.selected").attr("data-id"), function(){
+    				$.post("pgroup/delete/pgroup/"+$("#account_tree p.selected").attr("data-id")+"/"+sessionStorage["username"], function(){
     					alert("删除成功");
     					initState();
     				});
@@ -138,15 +126,15 @@ controller('accountsController', function ($rootScope) {
     		});
     		
     		$("body").on("click", "#dialog_confirm", function(){
-    			var parentId=ROOT;
-    			if($("#account_tree .pgroup.selected").length>0){
-    				parentId=$("#account_tree .pgroup.selected").attr("data-id");
-    			}
+    			var parentId=$("#account_tree .pgroup:eq(0)").attr("data-id");
     			if($("#pgroup_name_input").length>0){
     				// 插入代理商
     				var name=$("#pgroup_name_input").val(),
-    					parentPGroupID=parentId,
-    					admin={}, // TODO: admin怎么赛？
+    					admin={
+    						username: $("#admin_name_input").val(),
+    						password: $("#admin_pwd_input").val(),
+    						roleList: ["GROUP_ADMIN"]
+    					}, 
     					userList=[];
     				$.ajax({  
     		            type: "POST",  
@@ -154,7 +142,7 @@ controller('accountsController', function ($rootScope) {
     		            contentType: "application/json",  
     		            data: JSON.stringify({
     						name: name,
-    						parentPGroupID: parentPGroupID,
+    						parentPGroupID: parentId,
     						admin: admin,
     						userList: userList
     					}),  
@@ -166,16 +154,14 @@ controller('accountsController', function ($rootScope) {
     			}
     			else{
     				// 插入用户
-    				var pgroup_id=parentId,
-    					username=$("#user_name_input").val(),
-    					password=$("#user_pwd_input").val();
     				$.ajax({  
     		            type: "POST",  
-    		            url: "pgroup/"+pgroup_id+"/add_user",  
+    		            url: "pgroup/"+parentId+"/add_user",  
     		            contentType: "application/json",  
     		            data: JSON.stringify({
-    						username: username,
-    						password: password
+    						username: $("#user_name_input").val(),
+    						password: $("#user_pwd_input").val(),
+    						roleList: ["NORMAL_USER"]
     					}),  
     		            success: function(){
     						$(".dialog").hide();
@@ -187,6 +173,30 @@ controller('accountsController', function ($rootScope) {
     		
     		$("body").on("click", "#dialog_cancel", function(){
     			$(".dialog").hide();
+    		});
+    		
+    		// 一开始显示所有用户
+    		// TODO 分页
+    		$.get("pgroup/users", function(data){
+    			if(data && data.length>0){
+    				console.log(data);
+    				var html="";
+    				for(var i=0;i<data.length;i++){
+						var user=data[i], pgroupList=user.pGroupList, pgroups="";
+						for(var j=0;j<pgroupList.length;j++){
+							pgroups+=pgroupList[j].name+", ";
+						}
+						if(pgroups.length>0){
+							pgroups=pgroups.substring(0, pgroups.length-2);
+						}
+						html+="<tr><td>"+user.username+"</td><td class='pgroups_cell'>"+pgroups+"</td><td class='"+user.status.toLowerCase()+"'>"+
+							(user.status=="ENABLED" ? "已启用":"已禁用")+"</td><td>"+
+							user.creditAccount+"</td><td>"+user.usedCreditAccount+
+							(user.status=="ENABLED" ? "</td><td><a href='javascript:;' class='red_btn'>禁用</a>":"</td><td><a href='javascript:;' class='btn'>启用</a>")+
+							"<a href='javascript:;' class='red_btn'>删除</a></td></tr>";
+    				}
+    				$(".content table tbody").html(html);
+    			}
     		});
     	});
     })(jQuery);

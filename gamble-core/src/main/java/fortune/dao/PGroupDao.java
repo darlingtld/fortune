@@ -11,8 +11,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import fortune.pojo.PGroup;
-import fortune.pojo.User;
-import fortune.service.UserService;
 
 /**
  * Created by tangl9 on 2015-10-13.
@@ -22,9 +20,6 @@ public class PGroupDao {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
-
-	@Autowired
-	private UserService userService;
 
 	public PGroup getGroupById(String id) {
 		Query query = new Query(Criteria.where("id").is(id));
@@ -49,19 +44,6 @@ public class PGroupDao {
 
 	public PGroup getGroupByAdminUserName(String username) {
 		Query query = new Query(Criteria.where("admin.username").is(username));
-		return mongoTemplate.findOne(query, PGroup.class);
-	}
-
-	public PGroup changeAdmin(PGroup pgroup, User user) {
-		Query query = new Query(Criteria.where("id").is(pgroup.getId()));
-		Update update = new Update();
-		userService.sanitize(user);
-		update.set("admin", user);
-		return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), PGroup.class);
-	}
-
-	public PGroup getPGroupByName(String name) {
-		Query query = new Query(Criteria.where("name").is(name));
 		return mongoTemplate.findOne(query, PGroup.class);
 	}
 
