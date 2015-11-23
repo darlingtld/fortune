@@ -2,7 +2,6 @@ package fortune.controller;
 
 import fortune.pojo.*;
 import fortune.service.StatService;
-import fortune.service.ThriftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,7 @@ public class StatController {
     @RequestMapping(value = "lottery_mark_six/groupid/{groupid}/from/{from}/count/{count}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryMarkSixStat> getLotteryMarkSixPagination(@PathVariable("groupid") String groupid, @PathVariable("from") int from, @PathVariable("count") int count) {
+    List<LotteryMarkSixGroupStat> getLotteryMarkSixPagination(@PathVariable("groupid") String groupid, @PathVariable("from") int from, @PathVariable("count") int count) {
         return statService.getLotteryMarkSixStat(groupid, from, count);
     }
 

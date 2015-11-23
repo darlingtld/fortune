@@ -24,6 +24,9 @@ public class BeanHolder {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JobTrackerService jobTrackerService;
+
     private static BeanHolder beanHolder;
 
     public BeanHolder() {
@@ -48,5 +51,9 @@ public class BeanHolder {
 
     public static UserService getUserService() {
         return beanHolder.userService;
+    }
+
+    public static JobTrackerService getJobTrackerService() {
+        return beanHolder.jobTrackerService;
     }
 }

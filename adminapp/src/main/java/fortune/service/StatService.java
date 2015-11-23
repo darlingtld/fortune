@@ -31,13 +31,13 @@ public class StatService {
     private UserService userService;
 
     @Transactional
-    public List<LotteryMarkSixStat> getLotteryMarkSixStat(String groupid, int from, int count) {
+    public List<LotteryMarkSixGroupStat> getLotteryMarkSixStat(String groupid, int from, int count) {
         Utils.logger.info("get lottery mark six stat for group id {} from {}, count {}", groupid, from, count);
         return statDao.getLotteryMarkSixStat(groupid, from, count);
     }
 
     @Transactional
-    public void saveLotteryMarkSixStat(LotteryMarkSixStat stat) {
+    public void saveLotteryMarkSixStat(LotteryMarkSixGroupStat stat) {
         Utils.logger.info("save lottery mark six", stat);
         statDao.saveLotteryMarkSixStat(stat);
     }

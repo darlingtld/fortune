@@ -8,8 +8,6 @@ import fortune.service.WagerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -42,8 +40,8 @@ public class StatServiceTest {
         String pgroupId = "56395fa0e7081d3714335213";
         int from = 0;
         int count = 10;
-        List<LotteryMarkSixStat> lotteryMarkSixStatList = statService.getLotteryMarkSixStat(pgroupId, from, count);
-        lotteryMarkSixStatList.forEach(System.out::println);
+        List<LotteryMarkSixGroupStat> lotteryMarkSixGroupStatList = statService.getLotteryMarkSixStat(pgroupId, from, count);
+        lotteryMarkSixGroupStatList.forEach(System.out::println);
     }
 
     @Test
@@ -52,7 +50,7 @@ public class StatServiceTest {
             String pgroupId = pGroup.getId();
             List<LotteryMarkSix> lotteryMarkSixList = lotteryService.getLotteryMarkSixAll();
             for (LotteryMarkSix lotteryMarkSix : lotteryMarkSixList) {
-                LotteryMarkSixStat stat = new LotteryMarkSixStat();
+                LotteryMarkSixGroupStat stat = new LotteryMarkSixGroupStat();
                 stat.setLotteryMarkSix(lotteryMarkSix);
                 stat.setPgroupId(pgroupId);
                 stat.setPgroupResult(new Random().nextDouble() * 1000000);

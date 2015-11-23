@@ -4,6 +4,7 @@ import common.Utils;
 import fortune.pojo.*;
 import fortune.service.BeanHolder;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,7 +29,14 @@ public abstract class Rule implements Runnable {
     @Override
     public void run() {
         Utils.logger.info("rule [{}] runs...", lotteryMarkSixType);
+//        check whether this job has run
         lotteryIssue = BeanHolder.getLotteryService().getLatestLotteryIssue();
+        if (hasJobRun(lotteryMarkSixType, lotteryIssue)) {
+            Utils.logger.info("rule [{}] has run. skip.", lotteryMarkSixType);
+            return;
+        }
+        JobTracker jobTracker = new JobTracker(lotteryMarkSixType.name(), lotteryIssue, new Date(), JobTracker.RUNNING);
+        int jobId = BeanHolder.getJobTrackerService().save(jobTracker);
 //        get all wagers for this issue
         List<LotteryMarkSixWager> wagerList = BeanHolder.getWagerService().getLotteryMarkSixWagerListByType(lotteryIssue, lotteryMarkSixType);
 //        run against rules
@@ -61,7 +69,13 @@ public abstract class Rule implements Runnable {
 
             }
             BeanHolder.getResultService().saveLotteryResult(lotteryResult);
-            Utils.logger.info("rule [{}] finished", lotteryMarkSixType);
         }
+        BeanHolder.getJobTrackerService().updateEndStatus(jobId, new Date(), JobTracker.SUCCESS);
+        Utils.logger.info("rule [{}] finished", lotteryMarkSixType);
+
+    }
+
+    private boolean hasJobRun(LotteryMarkSixType lotteryMarkSixType, int lotteryIssue) {
+        return BeanHolder.getJobTrackerService().getJobByNameAndIssue(lotteryMarkSixType, lotteryIssue) != null;
     }
 }

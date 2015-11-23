@@ -6,8 +6,8 @@ import javax.persistence.*;
  * Created by tangl9 on 2015-11-03.
  */
 @Entity
-@Table(name = "lottery_mark_six_stat")
-public class LotteryMarkSixStat {
+@Table(name = "lottery_mark_six_group_stat")
+public class LotteryMarkSixGroupStat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class LotteryMarkSixStat {
 
     @Override
     public String toString() {
-        return "LotteryMarkSixStat{" +
+        return "LotteryMarkSixGroupStat{" +
                 "id='" + id + '\'' +
                 ", lotteryMarkSix=" + lotteryMarkSix +
                 ", pgroupId='" + pgroupId + '\'' +
