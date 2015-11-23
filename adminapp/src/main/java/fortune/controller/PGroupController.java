@@ -85,9 +85,9 @@ public class PGroupController {
 		pGroupService.deleteUserByID(userId);
 	}
 
-	@RequestMapping(value = "can_operate/{pgroupId}/{adminName}", method = RequestMethod.GET)
-	public @ResponseBody JSONObject canOperatePGroup(@PathVariable("pgroupId") String pgroupId, @PathVariable("adminName") String adminName) {
-		return pGroupService.canOperatePGroup(pgroupId, adminName);
+	@RequestMapping(value = "can_delete/{pgroupId}/{adminName}", method = RequestMethod.GET)
+	public @ResponseBody boolean canOperatePGroup(@PathVariable("pgroupId") String pgroupId, @PathVariable("adminName") String adminName) {
+		return pGroupService.canDeletePGroup(pgroupId, adminName);
 	}
 
 	@RequestMapping(value = "pgroups/{parentId}", method = RequestMethod.GET)

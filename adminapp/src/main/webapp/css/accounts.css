@@ -72,7 +72,7 @@
 	background-image:url('../img/forbidden_user.png');
 }
 
-#delete_user, #add_user{
+#delete_user{
 	display:none;
 }
 

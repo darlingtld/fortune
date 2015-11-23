@@ -9,7 +9,7 @@ controller('accountsController', function ($rootScope) {
     		var initState=function(){
     			$(".first_level").empty();
 				showPGroupLevel(ROOT, ".first_level");
-				$("#delete_user, #add_user").hide();
+				$("#delete_user").hide();
     		};
     		
     		// 展开某层pgroup
@@ -52,7 +52,7 @@ controller('accountsController', function ($rootScope) {
     		showPGroupLevel(ROOT, ".first_level");
     		
     		$("body").on("click", "#account_tree .pgroup", function(){
-				$("#delete_user, #add_user").hide();
+				$("#delete_user").hide();
     			if(!$(this).hasClass("clicked")){
     				var node=$("<ul></ul>").insertAfter($(this));
     				showPGroupLevel($(this).attr("data-id"), node);
@@ -68,12 +68,9 @@ controller('accountsController', function ($rootScope) {
 					$("#account_tree p").removeClass("selected");
 					$(this).addClass("selected"); 
 					// 判断是否可以显示操作按钮
-					$.get("pgroup/can_operate/"+$(this).attr("data-id")+"/"+sessionStorage["username"], function(data){
-						if(data.canDelete){
+					$.get("pgroup/can_delete/"+$(this).attr("data-id")+"/"+sessionStorage["username"], function(data){
+						if(data){
 							$("#delete_user").show();
-						}
-						if(data.canAdd){
-							$("#add_user").show();
 						}
 					});
     			}
@@ -81,7 +78,6 @@ controller('accountsController', function ($rootScope) {
     		
     		$("body").on("click", "#account_tree .user", function(){
     			$("#delete_user").show();
-    			$("#add_user").hide();
     			$("#account_tree p").removeClass("selected");
     			$(this).addClass("selected"); //用于标记选中的user
     		});

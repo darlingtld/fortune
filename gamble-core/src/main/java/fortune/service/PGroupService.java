@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
-import com.alibaba.fastjson.JSONObject;
 
 import common.Utils;
 import fortune.dao.PGroupDao;
@@ -118,22 +117,20 @@ public class PGroupService {
 		return pGroup.getUserList();
 	}
 
-	public JSONObject canOperatePGroup(String pgroupId, String adminName) {
-		JSONObject result = new JSONObject();
+	public boolean canDeletePGroup(String pgroupId, String adminName) {
 		PGroup pGroup = pGroupDao.getGroupById(pgroupId);
 		if (pGroup != null) {
-			result.put("canAdd", StringUtils.equals(pGroup.getAdmin().getUsername(), adminName));
 			PGroup parentPGroup = pGroupDao.getGroupById(pGroup.getParentPGroupID());
 			if (parentPGroup != null) {
-				result.put("canDelete", StringUtils.equals(parentPGroup.getAdmin().getUsername(), adminName)
-						&& pGroup.getUserList().size() == 0 && pGroupDao.getPGroupsByParentID(pgroupId).size() == 0);
+				return StringUtils.equals(parentPGroup.getAdmin().getUsername(), adminName)
+						&& pGroup.getUserList().size() == 0 && pGroupDao.getPGroupsByParentID(pgroupId).size() == 0;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	public void deletePGroup(String pgroupId, String adminName) {
-		if (canOperatePGroup(pgroupId, adminName).getBoolean("canDelete")) {
+		if (canDeletePGroup(pgroupId, adminName)) {
 			pGroupDao.deletePGroupByID(pgroupId);
 		}
 	}
