@@ -50,7 +50,9 @@
             <tr ng-repeat="rt in subs">
                 <td><span ng-bind="rt.number" class="ball ball{{rt.number}}"></span></td>
                 <td ng-bind="rt.transactions"></td>
-                <td><a href="#/stakesdetail/groupid/{{groupid}}/special/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span ng-bind="rt.stakes"></span></a></td>
+                <td>
+                    <a href="#/stakesdetail/groupid/{{groupid}}/special/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                            ng-bind="rt.stakes"></span></a></td>
                 <td ng-bind="rt.odds"></td>
                 <td ng-bind="rt.balance"></td>
             </tr>
@@ -59,7 +61,7 @@
     </div>
 </div>
 <div>
-    合计：<span>100</span>, 金额：<span>200</span>
+    合计：<span ng-bind="stats.specialTransactions"></span>, 金额：<span ng-bind="stats.specialStakes"></span>
 </div>
 <div class="real-time-dashboard lottery-special-type">
     <div ng-repeat="subs in specialtypelist">
@@ -87,7 +89,7 @@
 
 </div>
 <div>
-    合计：<span>100</span>, 金额：<span>200</span>
+    合计：<span ng-bind="stats.specialtypeTransactions"></span>, 金额：<span ng-bind="stats.specialtypeStakes"></span>
 </div>
 <div class="real-time-dashboard lottery-zodiac">
     <div ng-repeat="subs in animaltypelist">
@@ -114,7 +116,7 @@
     </div>
 </div>
 <div>
-    合计：<span>100</span>, 金额：<span>200</span>
+    合计：<span ng-bind="stats.animaltypeTransactions"></span>, 金额：<span ng-bind="stats.animaltypeStakes"></span>
 </div>
 <div class="real-time-dashboard lottery-zodiac">
     <div ng-repeat="subs in wavetypelist">
@@ -141,7 +143,7 @@
     </div>
 </div>
 <div>
-    合计：<span>100</span>, 金额：<span>200</span>
+    合计：<span ng-bind="stats.wavetypeTransactions"></span>, 金额：<span ng-bind="stats.wavetypeStakes"></span>
 </div>
 <div class="real-time-dashboard lottery-zodiac">
     <div>
@@ -162,6 +164,10 @@
                 <td ng-bind="rt.stakes"></td>
                 <td ng-bind="rt.odds"></td>
                 <td ng-bind="rt.balance"></td>
+            </tr>
+            <tr>
+                <td colspan="5">合计：<span ng-bind="stats.specialtailtypeTransactions"></span>, 金额：<span
+                        ng-bind="stats.specialtailtypeStakes"></span>
             </tr>
             </tbody>
         </table>
@@ -185,6 +191,10 @@
                 <td ng-bind="rt.odds"></td>
                 <td ng-bind="rt.balance"></td>
             </tr>
+            <tr>
+                <td colspan="5">合计：<span ng-bind="stats.colortypeTransactions"></span>, 金额：<span
+                        ng-bind="stats.colortypeStakes"></span>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -206,6 +216,10 @@
                 <td ng-bind="rt.stakes"></td>
                 <td ng-bind="rt.odds"></td>
                 <td ng-bind="rt.balance"></td>
+            </tr>
+            <tr>
+                <td colspan="5">合计：<span ng-bind="stats.bstypeTransactions"></span>, 金额：<span
+                        ng-bind="stats.bstypeStakes"></span>
             </tr>
             </tbody>
         </table>
