@@ -64,8 +64,8 @@ public class UserServiceTest {
 
     @Test
     public void loginAdmin() {
-        User user = userService.adminLogin("darling", "123");
-        System.out.println(user);
+        PGroup pGroup = userService.adminLogin("darling", "123");
+        System.out.println(pGroup);
 
     }
 

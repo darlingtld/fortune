@@ -151,4 +151,26 @@ public class PGroupService {
 	public PGroup getGroupByAdminUserName(String adminName) {
 		return pGroupDao.getGroupByAdminUserName(adminName);
 	}
+
+	@Transactional
+	public PGroup changeAdmin(PGroup pgroup, User user) {
+		Utils.logger.info("change pgroup {} admin to {}", pgroup.getName(), user.getUsername());
+		if (isAdminBelongsToOtherPgroup(user)) {
+			throw new RuntimeException(String.format("user has already been assigned the admin to other pgroups"));
+		} else {
+			return pGroupDao.changeAdmin(pgroup, user);
+		}
+	}
+
+	@Transactional
+	private boolean isAdminBelongsToOtherPgroup(User admin) {
+		PGroup pGroup = pGroupDao.getGroupByAdminUserName(admin.getUsername());
+		return pGroup != null;
+	}
+
+	@Transactional
+	public PGroup getPGroupByName(String name) {
+		return pGroupDao.getPGroupByName(name);
+
+	}
 }
