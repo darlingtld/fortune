@@ -5,8 +5,8 @@ angular.module("AdminApp").
 controller('resultController', function ($scope, $rootScope, resultService) {
     $rootScope.menu = 3;
     resultService.getLotteryMarkSixStatList().then(function (data) {
-        $scope.lotteryMarkSixStatList = data;
-        console.log($scope.lotteryMarkSixStatList);
+        $scope.lotteryMarkSixGroupStatList = data;
+        console.log($scope.lotteryMarkSixGroupStatList);
     });
 }).filter('chineseWeek', function () {
     return function (input) {

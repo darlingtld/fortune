@@ -43,6 +43,7 @@ public abstract class Rule implements Runnable {
         LotteryMarkSix lotteryMarkSix = BeanHolder.getLotteryService().getLotteryMarkSix(lotteryIssue);
         HashMap<String, Double> oddsCache = new HashMap<>();
         for (LotteryMarkSixWager wager : wagerList) {
+            Utils.logger.debug(wager.toString());
             LotteryResult lotteryResult = new LotteryResult();
             lotteryResult.setUserId(wager.getUserId());
             lotteryResult.setGroupId(wager.getPgroupId());

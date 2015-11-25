@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LotteryResultJob {
 
-    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 0, TimeUnit.MINUTES, new ArrayBlockingQueue<>(10));
+    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 0, TimeUnit.MINUTES, new ArrayBlockingQueue<>(100));
 
     @Autowired
     private RuleSPECIALDAN ruleSPECIALDAN;
@@ -43,11 +43,11 @@ public class LotteryResultJob {
     public void calculateLotteryResult() {
         Utils.logger.info("start to calculate lottery result at {}", Utils.yyyyMMddHHmmss2Format(new Date()));
         threadPoolExecutor.submit(ruleSPECIALDAN);
-        threadPoolExecutor.submit(ruleSPECIALDA);
-        threadPoolExecutor.submit(ruleSPECIALHEDA);
-        threadPoolExecutor.submit(ruleSPECIALHESHUANG);
-        threadPoolExecutor.submit(ruleSPECIALHEXIAO);
-        threadPoolExecutor.submit(ruleSPECIALSHUANG);
-        threadPoolExecutor.submit(ruleSPECIALXIAO);
+//        threadPoolExecutor.submit(ruleSPECIALDA);
+//        threadPoolExecutor.submit(ruleSPECIALHEDA);
+//        threadPoolExecutor.submit(ruleSPECIALHESHUANG);
+//        threadPoolExecutor.submit(ruleSPECIALHEXIAO);
+//        threadPoolExecutor.submit(ruleSPECIALSHUANG);
+//        threadPoolExecutor.submit(ruleSPECIALXIAO);
     }
 }
