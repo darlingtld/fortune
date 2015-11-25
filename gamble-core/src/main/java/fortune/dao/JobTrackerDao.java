@@ -31,8 +31,8 @@ public class JobTrackerDao {
         return (JobTracker) sessionFactory.getCurrentSession().get(JobTracker.class, id);
     }
 
-    public JobTracker getJobByNameAndIssue(LotteryMarkSixType lotteryMarkSixType, int lotteryIssue) {
-        return (JobTracker) sessionFactory.getCurrentSession().createQuery(String.format("from JobTracker where name='%s' and issue=%d", lotteryMarkSixType, lotteryIssue)).uniqueResult();
+    public JobTracker getJobByNameAndIssue(String jobName, int lotteryIssue) {
+        return (JobTracker) sessionFactory.getCurrentSession().createQuery(String.format("from JobTracker where name='%s' and issue=%d", jobName, lotteryIssue)).uniqueResult();
     }
 
     public void saveLotteryDrawTracker(LotteryDrawTracker lotteryDrawTracker) {

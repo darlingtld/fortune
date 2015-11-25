@@ -33,7 +33,7 @@ public class ResultController {
     @RequestMapping(value = "lottery_issue/{lottery_issue}/user_id/{user_id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryResult> getLotteryResult4User(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("user_id") int userId) {
+    List<LotteryResult> getLotteryResult4User(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("user_id") String userId) {
         return resultService.getLotteryResult4LotteryIssueAndUser(lotteryIssue, userId);
     }
 
@@ -48,7 +48,7 @@ public class ResultController {
     @RequestMapping(value = "lottery_issue/{lottery_issue}/pgroup/{pgroup_id}/user_id/{user_id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    LotteryResult getLotteryResult4User(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("pgroup_id") int pgroupId, @PathVariable("user_id") int userId) {
+    LotteryResult getLotteryResult4User(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("pgroup_id") String pgroupId, @PathVariable("user_id") String userId) {
         return resultService.getLotteryResult4LotteryIssue(lotteryIssue, pgroupId, userId);
     }
 
@@ -74,7 +74,7 @@ public class ResultController {
     @RequestMapping(value = "user_id/{user_id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryResult> getLotteryResult4User(@PathVariable("user_id") int userId) {
+    List<LotteryResult> getLotteryResult4User(@PathVariable("user_id") String userId) {
         return resultService.getLotteryResult4User(userId);
     }
 

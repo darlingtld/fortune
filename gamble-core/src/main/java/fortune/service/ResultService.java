@@ -19,7 +19,7 @@ public class ResultService {
     private LotteryResultDao lotteryResultDao;
 
     @Transactional
-    public List<LotteryResult> getLotteryResult4LotteryIssueAndUser(int lotteryIssue, int userId) {
+    public List<LotteryResult> getLotteryResult4LotteryIssueAndUser(int lotteryIssue, String userId) {
         Utils.logger.info("get lottery result of lottery issue {}, user id {}", lotteryIssue, userId);
         return lotteryResultDao.getLotteryResult4LotteryIssueAndUser(lotteryIssue, userId);
     }
@@ -43,19 +43,19 @@ public class ResultService {
     }
 
     @Transactional
-    public List<LotteryResult> getLotteryResult4LotteryIssue(int lotteryIssue, int groupId) {
+    public List<LotteryResult> getLotteryResult4LotteryIssue(int lotteryIssue, String groupId) {
         Utils.logger.info("get lottery result of lottery issue {}, group id {}", lotteryIssue, groupId);
         return lotteryResultDao.getLotteryResult4LotteryIssue(lotteryIssue, groupId);
     }
 
     @Transactional
-    public LotteryResult getLotteryResult4LotteryIssue(int lotteryIssue, int groupId, int userId) {
+    public LotteryResult getLotteryResult4LotteryIssue(int lotteryIssue, String groupId, String userId) {
         Utils.logger.info("get lottery result of lottery issue {}, group id {}, user id {}", lotteryIssue, groupId, userId);
         return lotteryResultDao.getLotteryResult4LotteryIssue(lotteryIssue, groupId, userId);
     }
 
     @Transactional
-    public List<LotteryResult> getLotteryResult4User(int userId) {
+    public List<LotteryResult> getLotteryResult4User(String userId) {
         Utils.logger.info("get lottery result of user id {}", userId);
         return lotteryResultDao.getLotteryResult4User(userId);
     }

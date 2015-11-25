@@ -77,6 +77,6 @@ public abstract class Rule implements Runnable {
     }
 
     private boolean hasJobRun(LotteryMarkSixType lotteryMarkSixType, int lotteryIssue) {
-        return BeanHolder.getJobTrackerService().getJobByNameAndIssue(lotteryMarkSixType, lotteryIssue) != null;
+        return BeanHolder.getJobTrackerService().getJobByNameAndIssue(lotteryMarkSixType.name(), lotteryIssue) != null;
     }
 }

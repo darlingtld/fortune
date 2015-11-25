@@ -33,7 +33,7 @@ public class JobTrackerService {
     }
 
     @Transactional
-    public JobTracker getJobByNameAndIssue(LotteryMarkSixType lotteryMarkSixType, int lotteryIssue) {
-        return jobTrackerDao.getJobByNameAndIssue(lotteryMarkSixType, lotteryIssue);
+    public JobTracker getJobByNameAndIssue(String jobName, int lotteryIssue) {
+        return jobTrackerDao.getJobByNameAndIssue(jobName, lotteryIssue);
     }
 }
