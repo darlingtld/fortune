@@ -31,8 +31,7 @@ public class LotteryServiceTest {
     @Test
     public void saveLottery() {
         DateTime dateTime = new DateTime();
-        dateTime = dateTime.minusDays(300);
-        for (int i = 1; i < 300; i++) {
+        for (int i = 300; i <= 300; i++) {
             LotteryMarkSix tmp = lotteryService.getLotteryMarkSix(i);
             if (tmp != null) {
                 System.out.println(i + " bingo");

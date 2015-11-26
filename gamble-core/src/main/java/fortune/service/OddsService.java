@@ -53,4 +53,10 @@ public class OddsService {
         Utils.logger.info("get odds for lottery issue {} of group id {} of type {}", lotteryIssue, groupId, lotteryMarkSixType);
         return oddsDao.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType);
     }
+
+    @Transactional
+    public List<LotteryOdds> getOdds4LotteryIssue(int issue) {
+        Utils.logger.info("get odds for lottery issue {}", issue);
+        return oddsDao.getOdds4LotteryIssue(issue);
+    }
 }
