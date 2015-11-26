@@ -1,7 +1,9 @@
 package fortune.job;
 
 import common.Utils;
+import fortune.pojo.JobTracker;
 import fortune.rule.*;
+import fortune.service.JobTrackerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LotteryResultJob {
 
-    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 0, TimeUnit.MINUTES, new ArrayBlockingQueue<>(100));
+    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 0, TimeUnit.MINUTES, new ArrayBlockingQueue<>(JobTrackerService.TOTAL_LOTTERY_RESULT_JOBS));
 
     @Autowired
     private RuleSPECIALDAN ruleSPECIALDAN;
@@ -43,11 +45,11 @@ public class LotteryResultJob {
     public void calculateLotteryResult() {
         Utils.logger.info("start to calculate lottery result at {}", Utils.yyyyMMddHHmmss2Format(new Date()));
         threadPoolExecutor.submit(ruleSPECIALDAN);
-        threadPoolExecutor.submit(ruleSPECIALDA);
-        threadPoolExecutor.submit(ruleSPECIALHEDA);
-        threadPoolExecutor.submit(ruleSPECIALHESHUANG);
-        threadPoolExecutor.submit(ruleSPECIALHEXIAO);
-        threadPoolExecutor.submit(ruleSPECIALSHUANG);
-        threadPoolExecutor.submit(ruleSPECIALXIAO);
+//        threadPoolExecutor.submit(ruleSPECIALDA);
+//        threadPoolExecutor.submit(ruleSPECIALHEDA);
+//        threadPoolExecutor.submit(ruleSPECIALHESHUANG);
+//        threadPoolExecutor.submit(ruleSPECIALHEXIAO);
+//        threadPoolExecutor.submit(ruleSPECIALSHUANG);
+//        threadPoolExecutor.submit(ruleSPECIALXIAO);
     }
 }

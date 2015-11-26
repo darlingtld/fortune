@@ -44,4 +44,8 @@ public class JobTrackerDao {
     public LotteryDrawTracker getLotteryDrawTracker() {
         return (LotteryDrawTracker) sessionFactory.getCurrentSession().createQuery(String.format("from LotteryDrawTracker order by lastLotteryIssue desc")).setMaxResults(1).uniqueResult();
     }
+
+    public int getLotteryResultJobsCountOfStatus(int lotteryIssue, String status) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from JobTracker where issue=%d and status='%s'", lotteryIssue, status)).list().size();
+    }
 }

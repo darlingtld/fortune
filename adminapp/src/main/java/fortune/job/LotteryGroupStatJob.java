@@ -36,10 +36,13 @@ public class LotteryGroupStatJob {
     private StatService statService;
 
     public void calculateGroupStat() {
+        int lotteryIssue = lotteryService.getLatestLotteryIssue();
+        if (!jobService.canGroupStatJobStart(lotteryIssue)) {
+            return;
+        }
         String jobName = LotteryGroupStatJob.class.getName();
         Utils.logger.info("{} runs...", jobName);
 //        check whether this job has run
-        int lotteryIssue = BeanHolder.getLotteryService().getLatestLotteryIssue();
         if (jobService.hasJobRun(jobName, lotteryIssue)) {
             Utils.logger.info("{} has run. skip.", jobName);
             return;
@@ -62,6 +65,7 @@ public class LotteryGroupStatJob {
                 userResult += lotteryResult.getWinningMoney() - wager.getTotalStakes();
                 pgroupResult += wager.getTotalStakes() - lotteryResult.getWinningMoney();
 
+                //// TODO: 2015-11-26  
             }
             LotteryMarkSixGroupStat lotteryMarkSixGroupStat = new LotteryMarkSixGroupStat();
             lotteryMarkSixGroupStat.setPgroupId(pGroup.getId());

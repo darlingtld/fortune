@@ -14,6 +14,8 @@ import java.util.Date;
  */
 @Service
 public class JobTrackerService {
+
+    public static final int TOTAL_LOTTERY_RESULT_JOBS = 1;
     @Autowired
     private JobTrackerDao jobTrackerDao;
 
@@ -35,5 +37,14 @@ public class JobTrackerService {
     @Transactional
     public JobTracker getJobByNameAndIssue(String jobName, int lotteryIssue) {
         return jobTrackerDao.getJobByNameAndIssue(jobName, lotteryIssue);
+    }
+
+    @Transactional
+    public boolean hasAllLotteryResultJobsFinished(int lotteryIssue) {
+        if (jobTrackerDao.getLotteryResultJobsCountOfStatus(lotteryIssue, JobTracker.SUCCESS) < TOTAL_LOTTERY_RESULT_JOBS) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

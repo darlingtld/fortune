@@ -16,4 +16,12 @@ public class JobService {
     public boolean hasJobRun(String jobName, int lotteryIssue) {
         return jobTrackerService.getJobByNameAndIssue(jobName, lotteryIssue) != null;
     }
+
+    public boolean canGroupStatJobStart(int lotteryIssue) {
+        return jobTrackerService.hasAllLotteryResultJobsFinished(lotteryIssue);
+    }
+
+    public boolean canUserStatJobStart(int lotteryIssue) {
+        return jobTrackerService.hasAllLotteryResultJobsFinished(lotteryIssue);
+    }
 }

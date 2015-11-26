@@ -24,4 +24,10 @@ public class StatService {
         Utils.logger.info("get lottery mark six user stat list of user id {}, from {} to {}", userId, startDate, endDate);
         return statDao.getLotteryMarkSixUserStatList(userId, startDate, endDate);
     }
+
+    @Transactional
+    public void saveLotteryMarkSixStat(LotteryMarkSixUserStat stat) {
+        Utils.logger.info("save lottery mark six user stat", stat);
+        statDao.saveLotteryMarkSixStat(stat);
+    }
 }

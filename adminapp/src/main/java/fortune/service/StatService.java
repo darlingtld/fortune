@@ -38,7 +38,7 @@ public class StatService {
 
     @Transactional
     public void saveLotteryMarkSixStat(LotteryMarkSixGroupStat stat) {
-        Utils.logger.info("save lottery mark six", stat);
+        Utils.logger.info("save lottery mark six group stat", stat);
         statDao.saveLotteryMarkSixStat(stat);
     }
 
