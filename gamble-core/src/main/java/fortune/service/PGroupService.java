@@ -2,6 +2,7 @@ package fortune.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +109,30 @@ public class PGroupService {
 	public List<User> getUsersByPGroupID(String pgroupId) {
 		PGroup pGroup = pGroupDao.getGroupById(pgroupId);
 		return pGroup.getUserList();
+	}
+
+	public List<User> getAllUsersByPGroupID(String pgroupId) {
+		LinkedList<String> parentPGroupIds = new LinkedList<String>();
+		parentPGroupIds.add(pgroupId);
+		List<User> userList = new ArrayList<User>();
+		boolean canDelete = true;
+		while (!parentPGroupIds.isEmpty()) {
+			String parentPGroupId = parentPGroupIds.removeFirst();
+			PGroup parentPGroup = pGroupDao.getGroupById(parentPGroupId);
+			for (User user : parentPGroup.getUserList()) {
+				PGroup tempGroup = new PGroup();
+				tempGroup.setName(parentPGroup.getName());
+				user.setpGroupList(Arrays.asList(tempGroup));
+				user.setCanDelete(canDelete);
+				userList.add(user);
+			}
+			canDelete = false;
+			List<PGroup> childPGroups = pGroupDao.getPGroupsByParentID(parentPGroupId);
+			for (PGroup pGroup : childPGroups) {
+				parentPGroupIds.add(pGroup.getId());
+			}
+		}
+		return userList;
 	}
 
 	public boolean canDeletePGroup(String pgroupId, String adminName) {

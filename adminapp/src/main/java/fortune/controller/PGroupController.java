@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
-
 import common.Utils;
 import fortune.pojo.PGroup;
 import fortune.pojo.User;
@@ -82,7 +80,7 @@ public class PGroupController {
 
 	@RequestMapping(value = "delete/user/{userId}", method = RequestMethod.POST)
 	public @ResponseBody void deleteUser(@PathVariable("userId") String userId) {
-		pGroupService.deleteUserByID(userId);
+		pGroupService.deleteUserByID(userId); //TODO: add can delete?
 	}
 
 	@RequestMapping(value = "can_delete/{pgroupId}/{adminName}", method = RequestMethod.GET)
@@ -105,8 +103,8 @@ public class PGroupController {
 		return pGroupService.getUsersByPGroupID(pgroupId);
 	}
 
-	@RequestMapping(value = "users", method = RequestMethod.GET)
-	public @ResponseBody List<User> getUsers() {
-		return userService.getAll();
+	@RequestMapping(value = "allusers/{pgroupId}", method = RequestMethod.GET)
+	public @ResponseBody List<User> getAllUsersByPGroup(@PathVariable("pgroupId") String pgroupId) {
+		return pGroupService.getAllUsersByPGroupID(pgroupId);
 	}
 }

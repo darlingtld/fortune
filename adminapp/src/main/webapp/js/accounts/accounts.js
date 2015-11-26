@@ -4,7 +4,7 @@ controller('accountsController', function ($rootScope) {
     
     (function($){
     	$(function(){
-    		var ROOT="-1";
+    		var ROOT="-1", userDeleteMap={};
     		
     		var initState=function(){
     			$(".first_level").empty();
@@ -21,9 +21,32 @@ controller('accountsController', function ($rootScope) {
     					$(html).appendTo($(selector));
 						$(selector).show();
 						$("#account_tree .pgroup:eq(0)").click();
+						// 并且，取出user列表
+						$.get("pgroup/allusers/"+data.id, function(data){
+							if(data && data.length>0){
+			    				console.log(data);
+			    				var html="";
+			    				for(var i=0;i<data.length;i++){
+									var user=data[i], pgroupList=user.pGroupList;
+									html+="<tr><td>"+user.username+"</td><td class='pgroups_cell'>"+pgroupList[0].name+"</td><td class='"+user.status.toLowerCase()+"'>"+
+										(user.status=="ENABLED" ? "已启用":"已禁用")+"</td><td>"+
+										user.creditAccount+"</td><td>"+user.usedCreditAccount+"</td>";
+									if(user.canDelete){
+										userDeleteMap[user.id]=true;
+										html+=(user.status=="ENABLED" ? "<td><a href='javascript:;' class='red_btn'>禁用</a>":"<td><a href='javascript:;' class='btn'>启用</a>")+
+										"<a href='javascript:;' class='red_btn'>删除</a></td></tr>";
+									}
+									else{
+										html+="<td>--</td></tr>";
+									}
+										
+			    				}
+			    				$(".content table tbody").html(html);
+			    			}
+						});
     				});
     			}
-    			// 取下一层pgroup
+    			// 取下一层pgroup和user
     			else{
     				$.get("pgroup/pgroups/"+pgroupId, function(data){
         				var html="";
@@ -77,9 +100,12 @@ controller('accountsController', function ($rootScope) {
     		});
     		
     		$("body").on("click", "#account_tree .user", function(){
-    			$("#delete_user").show();
+    			$("#delete_user").hide();
+    			if(userDeleteMap[$(this).attr("data-id")]){
+    				$("#delete_user").show();
+    			}
     			$("#account_tree p").removeClass("selected");
-    			$(this).addClass("selected"); //用于标记选中的user
+    			$(this).addClass("selected");
     		});
     		
     		$("body").on("click", "#add_pgroup", function(){
@@ -92,7 +118,7 @@ controller('accountsController', function ($rootScope) {
     		$("body").on("click", "#add_user", function(){
     			if($("#account_tree .pgroup.selected").length>0){
     				$(".dialog_title").html("增加新的用户");
-    				// TODO validate null，可以选择已有用户
+    				// TODO validate null
     				$(".dialog_body").html("<label for='user_name_input'>用户名称：</label><input type='text' id='user_name_input'/><br/><br/><label for='user_pwd_input'>密码：</label><input type='password' id='user_pwd_input'/>");
     				$(".dialog").show();
     			}
@@ -169,29 +195,6 @@ controller('accountsController', function ($rootScope) {
     		
     		$("body").on("click", "#dialog_cancel", function(){
     			$(".dialog").hide();
-    		});
-    		
-    		// TODO 分页
-    		$.get("pgroup/users", function(data){
-    			if(data && data.length>0){
-    				console.log(data);
-    				var html="";
-    				for(var i=0;i<data.length;i++){
-						var user=data[i], pgroupList=user.pGroupList, pgroups="";
-						for(var j=0;j<pgroupList.length;j++){
-							pgroups+=pgroupList[j].name+", ";
-						}
-						if(pgroups.length>0){
-							pgroups=pgroups.substring(0, pgroups.length-2);
-						}
-						html+="<tr><td>"+user.username+"</td><td class='pgroups_cell'>"+pgroups+"</td><td class='"+user.status.toLowerCase()+"'>"+
-							(user.status=="ENABLED" ? "已启用":"已禁用")+"</td><td>"+
-							user.creditAccount+"</td><td>"+user.usedCreditAccount+
-							(user.status=="ENABLED" ? "</td><td><a href='javascript:;' class='red_btn'>禁用</a>":"</td><td><a href='javascript:;' class='btn'>启用</a>")+
-							"<a href='javascript:;' class='red_btn'>删除</a></td></tr>";
-    				}
-    				$(".content table tbody").html(html);
-    			}
     		});
     	});
     })(jQuery);

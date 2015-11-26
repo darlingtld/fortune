@@ -45,12 +45,6 @@ public class UserService {
 	}
 
 	@Transactional
-	public List<User> getAll() {
-		Utils.logger.info("get all users");
-		return userDao.getAll();
-	}
-
-	@Transactional
 	public User login(String name, String password) {
 		Utils.logger.info("user login [name:{}, password:{}]", name, password);
 		User user = userDao.getUserByUsername(name);
