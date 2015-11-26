@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import fortune.pojo.PeopleStatus;
 import fortune.pojo.User;
 
 /**
@@ -82,6 +83,13 @@ public class UserDao {
 
 	public void deleteUserByID(String userId) {
 		mongoTemplate.remove(new Query(Criteria.where("id").is(userId)), User.class);
+	}
+	
+	public void updateUserStatusByID(String userId, PeopleStatus status){
+		Query query = new Query(Criteria.where("id").is(userId));
+		Update update = new Update();
+		update.set("status", status);
+		mongoTemplate.findAndModify(query, update, User.class);
 	}
 
 }

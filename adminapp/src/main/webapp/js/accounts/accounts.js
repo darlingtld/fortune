@@ -2,6 +2,7 @@ angular.module('AdminApp').
 controller('accountsController', function ($rootScope) {
     $rootScope.menu = 2;
     
+    //TODO: validate null;  validate canDelete,canEnable,canDisable,canAdd from backend
     (function($){
     	$(function(){
     		var ROOT="-1", userDeleteMap={};
@@ -33,8 +34,8 @@ controller('accountsController', function ($rootScope) {
 										user.creditAccount+"</td><td>"+user.usedCreditAccount+"</td>";
 									if(user.canDelete){
 										userDeleteMap[user.id]=true;
-										html+=(user.status=="ENABLED" ? "<td><a href='javascript:;' class='red_btn'>禁用</a>":"<td><a href='javascript:;' class='btn'>启用</a>")+
-										"<a href='javascript:;' class='red_btn'>删除</a></td></tr>";
+										html+=(user.status=="ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='"+user.id+"'>禁用</a>":"<td><a href='javascript:;' class='btn enable_operate' data-id='"+user.id+"'>启用</a>")+
+										"<a href='javascript:;' class='red_btn delete_operate' data-id='"+user.id+"'>删除</a></td></tr>";
 									}
 									else{
 										html+="<td>--</td></tr>";
@@ -110,7 +111,6 @@ controller('accountsController', function ($rootScope) {
     		
     		$("body").on("click", "#add_pgroup", function(){
     			$(".dialog_title").html("增加新的代理商");
-    			// TODO validate null
     			$(".dialog_body").html("<label for='pgroup_name_input'>代理商名称：</label><input type='text' id='pgroup_name_input'/><br/><br/><label for='admin_name_input'>管理员名称：</label><input type='text' id='admin_name_input'/><br/><br/><label for='admin_pwd_input'>密码：</label><input type='password' id='admin_pwd_input'/>");
     			$(".dialog").show();
     		});
@@ -118,7 +118,6 @@ controller('accountsController', function ($rootScope) {
     		$("body").on("click", "#add_user", function(){
     			if($("#account_tree .pgroup.selected").length>0){
     				$(".dialog_title").html("增加新的用户");
-    				// TODO validate null
     				$(".dialog_body").html("<label for='user_name_input'>用户名称：</label><input type='text' id='user_name_input'/><br/><br/><label for='user_pwd_input'>密码：</label><input type='password' id='user_pwd_input'/>");
     				$(".dialog").show();
     			}
@@ -145,6 +144,27 @@ controller('accountsController', function ($rootScope) {
     					initState();
     				});
     			}
+    		});
+    		
+    		$("body").on("click", ".delete_operate", function(){
+    			$.post("pgroup/delete/user/"+$(this).attr("data-id"), function(){
+					alert("删除成功");
+					initState();
+				});
+    		});
+    		
+    		$("body").on("click", ".enable_operate", function(){
+    			$.post("pgroup/enable/user/"+$(this).attr("data-id"),function() {
+    				alert("启用成功");
+					initState();
+    			});
+    		});
+    		
+    		$("body").on("click", ".disable_operate", function(){
+    			$.post("pgroup/disable/user/"+$(this).attr("data-id"),function() {
+    				alert("禁用成功");
+					initState();
+    			});
     		});
     		
     		$("body").on("click", "#dialog_confirm", function(){

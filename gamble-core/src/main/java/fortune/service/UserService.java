@@ -23,7 +23,7 @@ public class UserService {
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private PGroupDao pGroupDao;
 
@@ -84,19 +84,24 @@ public class UserService {
 	public PGroup adminLogin(String username, String password) {
 		Utils.logger.info("admin user login [name:{}, password:{}]", username, password);
 		PGroup pGroup = pGroupDao.getGroupByAdminUserName(username);
-        if (pGroup == null) {
-            Utils.logger.info("user name not existed");
-            return null;
-        } else {
-            if (!PasswordEncryptUtil.matches(password, pGroup.getAdmin().getPassword())) {
-                Utils.logger.info("password does not match");
-                return null;
-            } else {
-                return pGroup;
-            }
-        }
+		if (pGroup == null) {
+			Utils.logger.info("user name not existed");
+			return null;
+		} else {
+			if (!PasswordEncryptUtil.matches(password, pGroup.getAdmin().getPassword())) {
+				Utils.logger.info("password does not match");
+				return null;
+			} else {
+				return pGroup;
+			}
+		}
 	}
 
+	@Transactional
+	public List<User> getAll() {
+		Utils.logger.info("get all users");
+		return userDao.getAll();
+	}
 
 	@Transactional
 	public void updateAccount(User user) {

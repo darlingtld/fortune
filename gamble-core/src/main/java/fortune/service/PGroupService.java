@@ -15,6 +15,7 @@ import common.Utils;
 import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
 import fortune.pojo.PGroup;
+import fortune.pojo.PeopleStatus;
 import fortune.pojo.User;
 import password.PasswordEncryptUtil;
 
@@ -171,6 +172,10 @@ public class PGroupService {
 		}
 		// 删除用户
 		userDao.deleteUserByID(userId);
+	}
+	
+	public void updateUserStatusByID(String userId, PeopleStatus status) {
+		userDao.updateUserStatusByID(userId, status);
 	}
 
 	public PGroup getGroupByAdminUserName(String adminName) {

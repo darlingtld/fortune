@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.Utils;
 import fortune.pojo.PGroup;
+import fortune.pojo.PeopleStatus;
 import fortune.pojo.User;
 import fortune.service.PGroupService;
 import fortune.service.UserService;
@@ -80,7 +81,17 @@ public class PGroupController {
 
 	@RequestMapping(value = "delete/user/{userId}", method = RequestMethod.POST)
 	public @ResponseBody void deleteUser(@PathVariable("userId") String userId) {
-		pGroupService.deleteUserByID(userId); //TODO: add can delete?
+		pGroupService.deleteUserByID(userId);
+	}
+	
+	@RequestMapping(value = "enable/user/{userId}", method = RequestMethod.POST)
+	public @ResponseBody void enableUser(@PathVariable("userId") String userId) {
+		pGroupService.updateUserStatusByID(userId, PeopleStatus.ENABLED);
+	}
+	
+	@RequestMapping(value = "disable/user/{userId}", method = RequestMethod.POST)
+	public @ResponseBody void disableUser(@PathVariable("userId") String userId) {
+		pGroupService.updateUserStatusByID(userId, PeopleStatus.DISABLED);
 	}
 
 	@RequestMapping(value = "can_delete/{pgroupId}/{adminName}", method = RequestMethod.GET)
