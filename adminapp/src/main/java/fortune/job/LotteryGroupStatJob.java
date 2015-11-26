@@ -1,10 +1,7 @@
 package fortune.job;
 
 import common.Utils;
-import fortune.pojo.JobTracker;
-import fortune.pojo.LotteryMarkSixType;
-import fortune.pojo.LotteryResult;
-import fortune.pojo.PGroup;
+import fortune.pojo.*;
 import fortune.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +29,12 @@ public class LotteryGroupStatJob {
     @Autowired
     private JobTrackerService jobTrackerService;
 
+    @Autowired
+    private WagerService wagerService;
+
+    @Autowired
+    private StatService statService;
+
     public void calculateGroupStat() {
         String jobName = LotteryGroupStatJob.class.getName();
         Utils.logger.info("{} runs...", jobName);
@@ -48,6 +51,28 @@ public class LotteryGroupStatJob {
         for (PGroup pGroup : groupList) {
 //            get wager result of this group
             List<LotteryResult> lotteryResultList = resultService.getLotteryResult4LotteryIssue(lotteryIssue, pGroup.getId());
+            double totalStakes = 0;
+            double userResult = 0;
+            double pgroupResult = 0;
+            double zoufeiStakes = 0;
+            double zoufeiResult = 0;
+            for (LotteryResult lotteryResult : lotteryResultList) {
+                LotteryMarkSixWager wager = wagerService.getLotteryMarkSixWager(lotteryResult.getLotteryMarkSixWagerId());
+                totalStakes += wager.getTotalStakes();
+                userResult += lotteryResult.getWinningMoney() - wager.getTotalStakes();
+                pgroupResult += wager.getTotalStakes() - lotteryResult.getWinningMoney();
+
+            }
+            LotteryMarkSixGroupStat lotteryMarkSixGroupStat = new LotteryMarkSixGroupStat();
+            lotteryMarkSixGroupStat.setPgroupId(pGroup.getId());
+            lotteryMarkSixGroupStat.setLotteryMarkSix(lotteryService.getLotteryMarkSix(lotteryIssue));
+            lotteryMarkSixGroupStat.setTotalStakes(totalStakes);
+            lotteryMarkSixGroupStat.setUserResult(userResult);
+            lotteryMarkSixGroupStat.setPgroupResult(pgroupResult);
+            lotteryMarkSixGroupStat.setZoufeiStakes(zoufeiStakes);
+            lotteryMarkSixGroupStat.setZoufeiResult(zoufeiResult);
+            lotteryMarkSixGroupStat.setRemark("");
+            statService.saveLotteryMarkSixStat(lotteryMarkSixGroupStat);
         }
 
 

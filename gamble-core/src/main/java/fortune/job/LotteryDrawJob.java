@@ -25,12 +25,6 @@ public class LotteryDrawJob {
     @Autowired
     private LotteryResultJob lotteryResultJob;
 
-    @Autowired
-    private LotteryGroupStatJob lotteryGroupStatJob;
-
-    @Autowired
-    private LotteryUserStatJob lotteryUserStatJob;
-
     @Transactional
     public void hasNewLotteryDraw() {
         Utils.logger.info("check if there is a new lottery draw");
@@ -43,10 +37,6 @@ public class LotteryDrawJob {
 //            trigger result and stat jobs
 //            计算每笔下注的输赢情况
             lotteryResultJob.calculateLotteryResult();
-//            根据每笔下注的输赢情况，计算代理商的结果
-            lotteryGroupStatJob.calculateGroupStat();
-//            根据每笔下注的输赢情况，计算每个用户的结果
-            lotteryUserStatJob.calculateUserStat();
         }
         jobTrackerDao.saveLotteryDrawTracker(new LotteryDrawTracker(latestIssue, new Date()));
     }
