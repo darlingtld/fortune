@@ -89,7 +89,7 @@ public class UserDao {
 		Query query = new Query(Criteria.where("id").is(userId));
 		Update update = new Update();
 		update.set("status", status);
-		mongoTemplate.findAndModify(query, update, User.class);
+		mongoTemplate.updateFirst(query, update, User.class);
 	}
 
 }

@@ -173,9 +173,23 @@ public class PGroupService {
 		// 删除用户
 		userDao.deleteUserByID(userId);
 	}
-	
+
 	public void updateUserStatusByID(String userId, PeopleStatus status) {
+		// 更新User表的状态
 		userDao.updateUserStatusByID(userId, status);
+		// 更新PGroup中UserList中的状态
+		User updateUser = userDao.getUserById(userId);
+		List<PGroup> pgroupList = updateUser.getpGroupList();
+		for (PGroup pgroup : pgroupList) {
+			PGroup updatePGroup = pGroupDao.getGroupById(pgroup.getId());
+			List<User> userList = updatePGroup.getUserList();
+			for (User user : userList) {
+				if (StringUtils.equals(user.getId(), userId)) {
+					user.setStatus(status);
+				}
+			}
+			pGroupDao.updatePGroup(updatePGroup);
+		}
 	}
 
 	public PGroup getGroupByAdminUserName(String adminName) {
