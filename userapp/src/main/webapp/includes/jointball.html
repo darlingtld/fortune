@@ -1,36 +1,31 @@
 <div style="margin-left:50px;margin-top:15px;">
-	<input type="radio" name="jointSelect" id="jointSelect1"/><label for="jointSelect1">三全中</label>
-	<input type="radio" name="jointSelect" id="jointSelect2"/><label for="jointSelect2">三中二</label>
-	<input type="radio" name="jointSelect" id="jointSelect3"/><label for="jointSelect3">二全中</label>
-	<input type="radio" name="jointSelect" id="jointSelect4"/><label for="jointSelect4">二中特</label>
-	<input type="radio" name="jointSelect" id="jointSelect5"/><label for="jointSelect5">特串</label>
+	<input type="radio" name="jointSelect" id="jointSelect1" ng-model="jointLotteryType" value="JOINT_3_ALL"/><label for="jointSelect1">三全中<span style="color:red;">({{jointOddsMap.JOINT_3_ALL}})</span></label>
+	<input type="radio" name="jointSelect" id="jointSelect2" ng-model="jointLotteryType" value="JOINT_3_2"/><label for="jointSelect2">三中二<span style="color:red;">({{jointOddsMap.JOINT_3_2}})</span></label>
+	<input type="radio" name="jointSelect" id="jointSelect3" ng-model="jointLotteryType" value="JOINT_2_ALL"/><label for="jointSelect3">二全中<span style="color:red;">({{jointOddsMap.JOINT_2_ALL}})</span></label>
+	<input type="radio" name="jointSelect" id="jointSelect4" ng-model="jointLotteryType" value="JOINT_2_SPECIAL"/><label for="jointSelect4">二中特<span style="color:red;">({{jointOddsMap.JOINT_2_SPECIAL}})</span></label>
+	<input type="radio" name="jointSelect" id="jointSelect5" ng-model="jointLotteryType" value="JOINT_SPECIAL"/><label for="jointSelect5">特串<span style="color:red;">({{jointOddsMap.JOINT_SPECIAL}})</span></label>
+	<label for="jointLotteryStakes">注数：</label><input type="text" id="jointLotteryStakes" class="stakes_input" ng-model="jointBallStakes"/>
 </div>
-<table>
+<table style="margin-top:10px;">
 	<tr>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 	</tr>
 	<tr ng-repeat="row in jointItems">
-		<td colspan="3" ng-repeat="ball in row" style="border-right: 1px solid #1FADFB;">
-			<div class="ball {{colorMap[ball.ball]}}">{{ball.ball}}</div>
-			<div class="odds">{{ball.odds}}</div>
-			<input type="radio" name="jointBall" class="jointBallRadio"/>
+		<td colspan="2" ng-repeat="ball in row" style="border-right: 1px solid #1FADFB;">
+			<div class="ball {{colorMap[ball.ball]}}" style="margin-left:25px;margin-right:25px;">{{ball.ball}}</div>
+			<input type="checkbox" style="float:left;margin-left:25px;margin-right:25px;" ng-click="chooseBall($event,ball.ball)" ng-checked="selectedBalls[ball.ball]==true"/>
 		</td>
-		<td colspan="3" ng-if="$last">
+		<td colspan="2" ng-if="$last">
 		</td>
 	</tr>
 </table>
-<a href="javascript:;" class="btn" style="float:right;margin-right:45px;margin-bottom:15px;">下注</a>
+<div class="clear"></div>

@@ -41,7 +41,7 @@ public class WagerService {
     public void saveLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
         Utils.logger.info("save lottery mark six wager {}", lotteryMarkSixWager);
         lotteryMarkSixWager.setLotteryIssue(lotteryService.getNextLotteryMarkSixInfo().getIssue());
-        if (lotteryMarkSixWager.getLotteryMarkSixWagerStubList().size() > 0) {
+        if (lotteryMarkSixWager.getLotteryMarkSixWagerStubList().size() > 0 && lotteryMarkSixWager.getTotalStakes() < 1) {
             double totalStakes = 0;
             for (LotteryMarkSixWagerStub stub : lotteryMarkSixWager.getLotteryMarkSixWagerStubList()) {
                 totalStakes += stub.getStakes();

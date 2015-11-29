@@ -16,6 +16,7 @@ public class LotteryOdds {
     private String id;
 
     private int lotteryBallNumber;
+    
     private LotteryMarkSixType lotteryBallType;
 
     @NotNull

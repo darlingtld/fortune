@@ -52,10 +52,17 @@ public enum LotteryMarkSixType {
     HEDAN("合单"),
     HESHUANG("合双"),
     
+    JOINT_3_ALL("三全中"),
+    JOINT_3_2("三中二"),
+    JOINT_2_ALL("二全中"),
+    JOINT_2_SPECIAL("二中特"),
+    JOINT_SPECIAL("特串"),
+    
+    
+    
+    
     /* 下面的这些类别还没用到 */
-
     NUMBER("数字"),
-
 
     HEDA("合大"),
     HEXIAO("合小"),

@@ -204,13 +204,13 @@ public class OddsServiceTest {
 			}
 		}
 	}
-	
+
 	// 生成合肖赔率
 	@Test
 	public void generateSumZodiacLotteryOdds() {
 		List<PGroup> pGroupList = pGroupService.getGroupAll();
 		for (int i = 0; i < pGroupList.size(); i++) {
-			for (int j=1;j<=11;j++) {
+			for (int j = 1; j <= 11; j++) {
 				LotteryOdds odds = new LotteryOdds();
 				odds.setGroupId(pGroupList.get(i).getId());
 				odds.setOdds(10 + i);
@@ -222,13 +222,15 @@ public class OddsServiceTest {
 			}
 		}
 	}
-	
+
 	// 生成正码1到6赔率
 	@Test
 	public void generateZheng16LotteryOdds() {
 		List<PGroup> pGroupList = pGroupService.getGroupAll();
 		for (int i = 0; i < pGroupList.size(); i++) {
-			for (LotteryMarkSixType type:Arrays.asList(LotteryMarkSixType.DA,LotteryMarkSixType.XIAO,LotteryMarkSixType.DAN,LotteryMarkSixType.SHUANG,LotteryMarkSixType.RED,LotteryMarkSixType.BLUE,LotteryMarkSixType.GREEN,LotteryMarkSixType.HEDAN, LotteryMarkSixType.HESHUANG)) {
+			for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.DA, LotteryMarkSixType.XIAO,
+					LotteryMarkSixType.DAN, LotteryMarkSixType.SHUANG, LotteryMarkSixType.RED, LotteryMarkSixType.BLUE,
+					LotteryMarkSixType.GREEN, LotteryMarkSixType.HEDAN, LotteryMarkSixType.HESHUANG)) {
 				LotteryOdds odds = new LotteryOdds();
 				odds.setGroupId(pGroupList.get(i).getId());
 				odds.setOdds(9 + i);
@@ -238,6 +240,49 @@ public class OddsServiceTest {
 				odds.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_1_6);
 				oddsService.saveOdds(odds);
 			}
+		}
+	}
+
+	// 生成连码赔率
+	@Test
+	public void generateJointLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			LotteryOdds odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(10 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_2_ALL);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(20 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_2_SPECIAL);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(30 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_3_2);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(40 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_3_ALL);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(50 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_SPECIAL);
+			oddsService.saveOdds(odds); 
 		}
 	}
 

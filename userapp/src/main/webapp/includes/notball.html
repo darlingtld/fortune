@@ -7,33 +7,27 @@
 	<input type="radio" name="notSelect" id="notSelect6"/><label for="notSelect6">十不中</label>
 	<input type="radio" name="notSelect" id="notSelect7"/><label for="notSelect7">十一不中</label>
 	<input type="radio" name="notSelect" id="notSelect8"/><label for="notSelect8">十二不中</label>
+	<label for="notLotteryStakes">注数：</label><input type="text" id="notLotteryStakes" class="stakes_input" ng-model="notBallStakes"/>
 </div>
-<table>
+<table style="margin-top:10px;">
 	<tr>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 		<th>号码</th>
-		<th>赔率</th>
 		<th>选择</th>
 	</tr>
 	<tr ng-repeat="row in notItems">
-		<td colspan="3" ng-repeat="ball in row" style="border-right: 1px solid #1FADFB;">
-			<div class="ball {{colorMap[ball.ball]}}">{{ball.ball}}</div>
-			<div class="odds">{{ball.odds}}</div>
-			<input type="radio" name="notBall" class="notBallRadio"/>
+		<td colspan="2" ng-repeat="ball in row" style="border-right: 1px solid #1FADFB;">
+			<div class="ball {{colorMap[ball.ball]}}" style="margin-left:25px;margin-right:25px;">{{ball.ball}}</div>
+			<input type="checkbox" style="float:left;margin-left:25px;margin-right:25px;" ng-click="chooseBall($event,ball.ball)" ng-checked="selectedBalls[ball.ball]==true"/>
 		</td>
-		<td colspan="3" ng-if="$last">
+		<td colspan="2" ng-if="$last">
 		</td>
 	</tr>
 </table>
-<a href="javascript:;" class="btn" style="float:right;margin-right:45px;margin-bottom:15px;">下注</a>

@@ -262,12 +262,14 @@ app.service("jointBallService", function($q, $http) {
 				}
 				var item = {};
 				item.ball = ball;
-				item.odds = 11; // TODO 赔率
 				itemRow.push(item);
 			}
 			jointItems.push(itemRow);
 		}
 		return jointItems;
+	};
+	this.renderWageConfirmHTML = function(wager) {
+		
 	};
 });
 
@@ -284,7 +286,6 @@ app.service("notBallService", function($q, $http) {
 				}
 				var item = {};
 				item.ball = ball;
-				item.odds = 11; // TODO 赔率
 				itemRow.push(item);
 			}
 			notItems.push(itemRow);
@@ -303,6 +304,7 @@ app.controller("IndexController", function($scope, commonService,
 		$scope.selectedIndex = index;
 		$scope.reset();
 	};
+	
 	// 重置
 	$scope.reset = function(){
 		$scope.selectedBalls = {};
@@ -319,10 +321,6 @@ app.controller("IndexController", function($scope, commonService,
 	};
 	// 秋色
 	$scope.colorMap = colorMap;
-	// 连码
-	$scope.jointItems = jointBallService.getJointItems();
-	// 自选不中
-	$scope.notItems = notBallService.getNotItems();
 	
 	// 初始化数据
 	$scope.reset();
@@ -331,8 +329,8 @@ app.controller("IndexController", function($scope, commonService,
 	var generateLotteryList = function() {
 		// 获取赔率
 		commonService.getOddsList($scope.nextLottery.issue,
-				$scope.selectedPGroup.id).then(function(oddsList) {
-			var oddsMap={};
+				$scope.selectedPGroup.id).then(function(oddsList) {					
+			var oddsMap={}, jointOddsMap={};
 			for(var i=0;i<oddsList.length;i++){
 				var odds=oddsList[i];
 				if(odds.lotteryMarkSixType=="SPECIAL"){
@@ -353,6 +351,9 @@ app.controller("IndexController", function($scope, commonService,
 				else if(odds.lotteryMarkSixType=="ZHENG_1_6"){
 					oddsMap[odds.lotteryMarkSixType+"#"+odds.lotteryBallType]=odds.odds;
 				}
+				else if(odds.lotteryMarkSixType.indexOf("JOINT_")==0){
+					jointOddsMap[odds.lotteryMarkSixType]=odds.odds;
+				}
 			}
 			// 获取特码数据
 			$scope.tailItems = tailBallService.getTailItems(oddsMap);
@@ -366,6 +367,11 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.sumZodiacItems = sumZodiacService.getSumZodiacItems(oddsMap);
 			// 正码1-6
 			$scope.zheng16Items = zhengBallService.getZheng16Items(oddsMap);
+			// 连码
+			$scope.jointItems = jointBallService.getJointItems();
+			$scope.jointOddsMap = jointOddsMap;
+			// 自选不中
+			$scope.notItems = notBallService.getNotItems();
 		});
 	};
 	
@@ -384,6 +390,7 @@ app.controller("IndexController", function($scope, commonService,
 		generateLotteryList();
 	});
 	
+	// 合码的选择类型函数
 	$scope.chooseSumZodiac = function($event, zodiac){
 		var checkbox = $event.target;
 		if(checkbox.checked){
@@ -399,6 +406,7 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.sumZodiacList=copy;
 		}
 	};
+	
 	$scope.isCheckedSumZodiac = function(zodiac){
 		for(var i=0;i<$scope.sumZodiacList.length;i++){
 			if($scope.sumZodiacList[i]==zodiac){
@@ -419,6 +427,17 @@ app.controller("IndexController", function($scope, commonService,
 		}
 	};
 	
+	// 其他选择类型函数
+	$scope.chooseBall = function($event, ballNum){
+		var checkbox = $event.target;
+		if(checkbox.checked){
+			$scope.selectedBalls[ballNum]=true;
+		}
+		else{
+			$scope.selectedBalls[ballNum]=false;
+		}
+	};
+		
 	// 下注
 	$scope.wage = function() {
 		// 特码下注
@@ -561,6 +580,68 @@ app.controller("IndexController", function($scope, commonService,
 			// 对话框确认
 			$scope.isConfirmDialogVisible=true;
 			$scope.confirmDialogTitle="下注类型为正码1~6，请确认：";
+			// 确认下注
+			$scope.confirmDialog=function(){
+				$scope.isConfirmDialogVisible=false;
+				commonService.wage(wager);
+			}
+		}
+		// 连码下注
+		// TODO
+		else if($scope.selectedIndex == 6){
+			// 组装下注对象
+			var lotteryMarkSixWagerStubList = [];
+			for(var ball in $scope.selectedBalls){
+				if($scope.selectedBalls[ball]){
+					lotteryMarkSixWagerStubList.push({
+						number: parseInt(ball)
+					});
+				}
+			}
+			var wager={
+				userId : $scope.user.id,
+				pgroupId : $scope.selectedPGroup.id,
+				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+				lotteryMarkSixType: $scope.jointLotteryType,
+				totalStakes: $scope.jointBallStakes
+			};
+			console.log(wager);
+			var html=jointBallService.renderWageConfirmHTML(wager);
+			$scope.confirmDialogHTML=html;
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为连码，请确认：";
+			// 确认下注
+			$scope.confirmDialog=function(){
+				$scope.isConfirmDialogVisible=false;
+				commonService.wage(wager);
+			}
+		}
+		// 自选不中下注
+		// TODO
+		else if($scope.selectedIndex == 7){
+			// 组装下注对象
+			var lotteryMarkSixWagerStubList = [];
+			for(var ball in $scope.selectedBalls){
+				if($scope.selectedBalls[ball]){
+					lotteryMarkSixWagerStubList.push({
+						number: parseInt(ball)
+					});
+				}
+			}
+			var wager={
+				userId : $scope.user.id,
+				pgroupId : $scope.selectedPGroup.id,
+				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+				lotteryMarkSixType: null, //$scope.jointLotteryType,
+				totalStakes: $scope.notBallStakes
+			};
+			console.log(wager);
+			var html=notBallService.renderWageConfirmHTML(wager);
+			$scope.confirmDialogHTML=html;
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为自选不中，请确认：";
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
