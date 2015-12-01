@@ -300,4 +300,4 @@ var Zodiac = {
         }
         return balls;
     }
-}
+};

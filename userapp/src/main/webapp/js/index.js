@@ -603,9 +603,8 @@ app.controller("IndexController", function($scope, commonService,
 				pgroupId : $scope.selectedPGroup.id,
 				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
 				lotteryMarkSixType: $scope.jointLotteryType,
-				totalStakes: $scope.jointBallStakes
+				totalStakes: $scope.jointBallStakes  // TODO: 灵达就是这个值（jointball.html中），不传进来，为啥
 			};
-			console.log(wager);
 			var html=jointBallService.renderWageConfirmHTML(wager);
 			$scope.confirmDialogHTML=html;
 			// 对话框确认
