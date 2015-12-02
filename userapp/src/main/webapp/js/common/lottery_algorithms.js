@@ -50,6 +50,14 @@ var colorMap = {
     "49": "blue"
 };
 
+var jointTypeMap={
+	"JOINT_3_ALL": "三全中",
+	"JOINT_3_2": "三中二",
+	"JOINT_2_ALL": "二全中",
+	"JOINT_2_SPECIAL": "二中特",
+	"JOINT_SPECIAL": "特串"	
+};
+
 var Compare = {
     getSingleOrDouble: function (ball) {
         var ballNum = parseInt(ball);

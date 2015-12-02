@@ -1,13 +1,13 @@
 <div style="margin-left:50px;margin-top:15px;">
-	<input type="radio" name="notSelect" id="notSelect1"/><label for="notSelect1">五不中</label>
-	<input type="radio" name="notSelect" id="notSelect2"/><label for="notSelect2">六不中</label>
-	<input type="radio" name="notSelect" id="notSelect3"/><label for="notSelect3">七不中</label>
-	<input type="radio" name="notSelect" id="notSelect4"/><label for="notSelect4">八不中</label>
-	<input type="radio" name="notSelect" id="notSelect5"/><label for="notSelect5">九不中</label>
-	<input type="radio" name="notSelect" id="notSelect6"/><label for="notSelect6">十不中</label>
-	<input type="radio" name="notSelect" id="notSelect7"/><label for="notSelect7">十一不中</label>
-	<input type="radio" name="notSelect" id="notSelect8"/><label for="notSelect8">十二不中</label>
-	<label for="notLotteryStakes">注数：</label><input type="text" id="notLotteryStakes" class="stakes_input" ng-model="notBallStakes"/>
+	<input type="radio" name="notSelect" id="notSelect1" ng-model="otherParams.type" value="NOT_5"/><label for="notSelect1">五不中</label>
+	<input type="radio" name="notSelect" id="notSelect2" ng-model="otherParams.type" value="NOT_6"/><label for="notSelect2">六不中</label>
+	<input type="radio" name="notSelect" id="notSelect3" ng-model="otherParams.type" value="NOT_7"/><label for="notSelect3">七不中</label>
+	<input type="radio" name="notSelect" id="notSelect4" ng-model="otherParams.type" value="NOT_8"/><label for="notSelect4">八不中</label>
+	<input type="radio" name="notSelect" id="notSelect5" ng-model="otherParams.type" value="NOT_9"/><label for="notSelect5">九不中</label>
+	<input type="radio" name="notSelect" id="notSelect6" ng-model="otherParams.type" value="NOT_10"/><label for="notSelect6">十不中</label>
+	<input type="radio" name="notSelect" id="notSelect7" ng-model="otherParams.type" value="NOT_11"/><label for="notSelect7">十一不中</label>
+	<input type="radio" name="notSelect" id="notSelect8" ng-model="otherParams.type" value="NOT_12"/><label for="notSelect8">十二不中</label>
+	<label for="notLotteryStakes">注数：</label><input type="text" id="notLotteryStakes" class="stakes_input" ng-model="otherParams.stakes"/>
 </div>
 <table style="margin-top:10px;">
 	<tr>

@@ -250,7 +250,7 @@ app.service("zhengBallService", function($q, $http, $sce) {
 });
 
 // 连码相关
-app.service("jointBallService", function($q, $http) {
+app.service("jointBallService", function($q, $http, $sce) {
 	this.getJointItems = function() {
 		var row = 10, col = 5, jointItems = [];
 		for (var i = 0; i < row; i++) {
@@ -269,12 +269,19 @@ app.service("jointBallService", function($q, $http) {
 		return jointItems;
 	};
 	this.renderWageConfirmHTML = function(wager) {
-		
+		var wagerList=wager.lotteryMarkSixWagerStubList, stakes=wager.totalStakes, type=wager.lotteryMarkSixType, html="";
+		for(var i=0;i<wagerList.length;i++){
+			var item=wagerList[i], number=item.number;
+			html+="<div class='ball "+colorMap[number]+"'>"+number+"</div>";
+		}
+		html+="<div class='clear'><br/><span>连码类型："+jointTypeMap[type]+"</span>";
+		html+="<br/><br/><span style='color:red'>下注金额："+stakes+"</span>";
+		return	$sce.trustAsHtml(html);
 	};
 });
 
 // 自选不中相关
-app.service("notBallService", function($q, $http) {
+app.service("notBallService", function($q, $http, $sce) {
 	this.getNotItems = function() {
 		var row = 10, col = 5, notItems = [];
 		for (var i = 0; i < row; i++) {
@@ -291,6 +298,16 @@ app.service("notBallService", function($q, $http) {
 			notItems.push(itemRow);
 		}
 		return notItems;
+	};
+	this.renderWageConfirmHTML = function(wager) {
+		var wagerList=wager.lotteryMarkSixWagerStubList, stakes=wager.totalStakes, type=wager.lotteryMarkSixType, html="";
+		for(var i=0;i<wagerList.length;i++){
+			var item=wagerList[i], number=item.number;
+			html+="<div class='ball "+colorMap[number]+"'>"+number+"</div>";
+		}
+		html+="<div class='clear'><br/><span>自选不中类型："+type.split("_")[1]+"不中</span>";
+		html+="<br/><br/><span style='color:red'>下注金额："+stakes+"</span>";
+		return	$sce.trustAsHtml(html);
 	};
 });
 
@@ -318,6 +335,7 @@ app.controller("IndexController", function($scope, commonService,
 		$scope.confirmDialog = function(){
 			$scope.isConfirmDialogVisible=false;
 		};
+		$scope.otherParams = {};
 	};
 	// 秋色
 	$scope.colorMap = colorMap;
@@ -587,7 +605,6 @@ app.controller("IndexController", function($scope, commonService,
 			}
 		}
 		// 连码下注
-		// TODO
 		else if($scope.selectedIndex == 6){
 			// 组装下注对象
 			var lotteryMarkSixWagerStubList = [];
@@ -602,8 +619,8 @@ app.controller("IndexController", function($scope, commonService,
 				userId : $scope.user.id,
 				pgroupId : $scope.selectedPGroup.id,
 				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
-				lotteryMarkSixType: $scope.jointLotteryType,
-				totalStakes: $scope.jointBallStakes  // TODO: 灵达就是这个值（jointball.html中），不传进来，为啥
+				lotteryMarkSixType: $scope.otherParams.type,
+				totalStakes: $scope.otherParams.stakes
 			};
 			var html=jointBallService.renderWageConfirmHTML(wager);
 			$scope.confirmDialogHTML=html;
@@ -617,7 +634,6 @@ app.controller("IndexController", function($scope, commonService,
 			}
 		}
 		// 自选不中下注
-		// TODO
 		else if($scope.selectedIndex == 7){
 			// 组装下注对象
 			var lotteryMarkSixWagerStubList = [];
@@ -632,8 +648,8 @@ app.controller("IndexController", function($scope, commonService,
 				userId : $scope.user.id,
 				pgroupId : $scope.selectedPGroup.id,
 				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
-				lotteryMarkSixType: null, //$scope.jointLotteryType,
-				totalStakes: $scope.notBallStakes
+				lotteryMarkSixType: $scope.otherParams.type,
+				totalStakes: $scope.otherParams.stakes
 			};
 			console.log(wager);
 			var html=notBallService.renderWageConfirmHTML(wager);

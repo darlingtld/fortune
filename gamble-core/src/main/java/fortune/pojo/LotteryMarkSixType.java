@@ -58,6 +58,15 @@ public enum LotteryMarkSixType {
     JOINT_2_SPECIAL("二中特"),
     JOINT_SPECIAL("特串"),
     
+    NOT_5("五不中"),
+    NOT_6("六不中"),
+    NOT_7("七不中"),
+    NOT_8("八不中"),
+    NOT_9("九不中"),
+    NOT_10("十不中"),
+    NOT_11("十一不中"),
+    NOT_12("十二不中"),
+    
     
     
     
