@@ -348,7 +348,7 @@ app.controller("IndexController", function($scope, commonService,
 		// 获取赔率
 		commonService.getOddsList($scope.nextLottery.issue,
 				$scope.selectedPGroup.id).then(function(oddsList) {					
-			var oddsMap={}, jointOddsMap={};
+			var oddsMap={}, jointOddsMap={}, notOddsMap={};
 			for(var i=0;i<oddsList.length;i++){
 				var odds=oddsList[i];
 				if(odds.lotteryMarkSixType=="SPECIAL"){
@@ -372,6 +372,9 @@ app.controller("IndexController", function($scope, commonService,
 				else if(odds.lotteryMarkSixType.indexOf("JOINT_")==0){
 					jointOddsMap[odds.lotteryMarkSixType]=odds.odds;
 				}
+				else if(odds.lotteryMarkSixType.indexOf("NOT_")==0){
+					notOddsMap[odds.lotteryMarkSixType]=odds.odds;
+				}
 			}
 			// 获取特码数据
 			$scope.tailItems = tailBallService.getTailItems(oddsMap);
@@ -390,6 +393,7 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.jointOddsMap = jointOddsMap;
 			// 自选不中
 			$scope.notItems = notBallService.getNotItems();
+			$scope.notOddsMap = notOddsMap;
 		});
 	};
 	

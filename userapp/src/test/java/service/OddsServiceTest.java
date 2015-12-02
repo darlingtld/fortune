@@ -282,7 +282,71 @@ public class OddsServiceTest {
 			odds.setLotteryIssue(300);
 			odds.setTimestamp(new Date());
 			odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_SPECIAL);
-			oddsService.saveOdds(odds); 
+			oddsService.saveOdds(odds);
+		}
+	}
+
+	// 生成自选不中赔率
+	@Test
+	public void generateNotLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			LotteryOdds odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(10 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_5);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(20 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_6);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(30 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_7);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(40 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_8);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(50 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_9);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(60 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_10);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(70 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_11);
+			oddsService.saveOdds(odds);
+			odds = new LotteryOdds();
+			odds.setGroupId(pGroupList.get(i).getId());
+			odds.setOdds(80 + i);
+			odds.setLotteryIssue(300);
+			odds.setTimestamp(new Date());
+			odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_12);
+			oddsService.saveOdds(odds);
 		}
 	}
 
