@@ -471,7 +471,6 @@ app.controller("IndexController", function($scope, commonService,
 			// 正码特
 			$scope.zhengSpecificItems = zhengBallService.getZhengSpecificItems();
 			$scope.zhengSpecificOddsMap = zhengSpecificOddsMap;
-			$scope.otherParams.zhengSpecificNum = 1;
 			// 连码
 			$scope.jointItems = jointBallService.getJointItems();
 			$scope.jointOddsMap = jointOddsMap;
