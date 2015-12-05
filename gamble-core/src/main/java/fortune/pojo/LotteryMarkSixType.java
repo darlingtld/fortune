@@ -44,6 +44,13 @@ public enum LotteryMarkSixType {
     SUM_ZODIAC("合肖"), // ballNumber表示是几肖，总类型
     
     ZHENG_BALL("正码"),
+    
+    ZHENG_SPECIFIC_1("正码特1"), 
+    ZHENG_SPECIFIC_2("正码特2"), 
+    ZHENG_SPECIFIC_3("正码特3"), 
+    ZHENG_SPECIFIC_4("正码特4"), 
+    ZHENG_SPECIFIC_5("正码特5"), 
+    ZHENG_SPECIFIC_6("正码特6"), 
 
     ZHENG_1_6("正码1到6"),
     DAN("单"),
@@ -82,6 +89,12 @@ public enum LotteryMarkSixType {
     TAIL_NUM("尾数"), // ballNumber表示是几尾
     
     
+    
+    
+    
+    
+    
+    ////////////////////////DELETED BELOW//////////////////
     /* 下面的这些类别还没用到 */
     NUMBER("数字"),
 

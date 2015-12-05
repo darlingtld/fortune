@@ -257,6 +257,24 @@ public class OddsServiceTest {
 			}
 		}
 	}
+	
+	// 生成正码特赔率
+	@Test
+	public void generateZhengSpecificLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.ZHENG_SPECIFIC_1, LotteryMarkSixType.ZHENG_SPECIFIC_2, LotteryMarkSixType.ZHENG_SPECIFIC_3,
+					LotteryMarkSixType.ZHENG_SPECIFIC_4, LotteryMarkSixType.ZHENG_SPECIFIC_5, LotteryMarkSixType.ZHENG_SPECIFIC_6)) {
+				LotteryOdds odds = new LotteryOdds();
+				odds.setGroupId(pGroupList.get(i).getId());
+				odds.setOdds(22 + i);
+				odds.setLotteryIssue(300);
+				odds.setTimestamp(new Date());
+				odds.setLotteryMarkSixType(type);
+				oddsService.saveOdds(odds);
+			}
+		}
+	}
 
 	// 生成连码赔率
 	@Test

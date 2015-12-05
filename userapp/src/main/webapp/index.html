@@ -49,26 +49,23 @@
 			</div>
 			<div ng-show="selectedIndex==6">
 				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/jointball.html'"></div>
+				<div ng-include="'includes/ball_specific.html'"></div>
 			</div>
 			<div ng-show="selectedIndex==7">
 				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/notball.html'"></div>
+				<div ng-include="'includes/jointball.html'"></div>
 			</div>
 			<div ng-show="selectedIndex==8">
 				<div class="error_content">目前没有可以下注的期数</div>
-				<div ng-include="'includes/passball.html'"></div>
+				<div ng-include="'includes/notball.html'"></div>
 			</div>
 			<div ng-show="selectedIndex==9">
 				<div class="error_content">目前没有可以下注的期数</div>
+				<div ng-include="'includes/passball.html'"></div>
+			</div>
+			<div ng-show="selectedIndex==10">
+				<div class="error_content">目前没有可以下注的期数</div>
 				<div ng-include="'includes/zodiactail.html'"></div>
-			</div>
-			<div ng-show="selectedIndex==10">10</div>
-			<div ng-show="selectedIndex==11">
-				<div class="error_content">目前没有可以下注的期数</div>
-			</div>
-			<div ng-show="selectedIndex==12">
-				<div class="error_content">目前没有可以下注的期数</div>
 			</div>
 			<div class="wage_area">
 				<a href="javascript:;" class="btn" ng-click="wage();"

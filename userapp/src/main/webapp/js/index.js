@@ -221,8 +221,25 @@ app.service("zhengBallService", function($q, $http, $sce) {
 			items.push(itemRow);
 		}
 		return items;
-	}
-	this.renderWageConfirmHTML = function(wager){
+	};
+	this.getZhengSpecificItems = function(){
+		var row = 10, col = 5, items = [];
+		for (var i = 0; i < row; i++) {
+			var itemRow = [];
+			for (var j = 0; j < col; j++) {
+				var ball = i * col + j + 1;
+				if (ball > 49) {
+					break;
+				}
+				var item = {};
+				item.ball = ball;
+				itemRow.push(item);
+			}
+			items.push(itemRow);
+		}
+		return items;
+	};
+	this.renderZhengWageConfirmHTML = function(wager){
 		var wagerList=wager.lotteryMarkSixWagerStubList, html="";
 		for(var i=0;i<wagerList.length;i++){
 			var item=wagerList[i], number=item.number, stakes=item.stakes;
@@ -230,7 +247,7 @@ app.service("zhengBallService", function($q, $http, $sce) {
 		}
 		return	$sce.trustAsHtml(html);
 	};
-	this.renderWageConfirmHTML2 = function(wager){
+	this.renderZheng16WageConfirmHTML = function(wager){
 		var html="", wagers=wager.lotteryMarkSixWagerStubList;
 		for(var i=0;i<wagers.length;i++){
 			var item=wagers[i], number=item.number, stakes=item.stakes, lotteryType=item.lotteryMarkSixType, type=zhengTypeMap[lotteryType];
@@ -360,7 +377,7 @@ app.service("zodiacTailService", function($q, $http, $sce) {
 app.controller("IndexController", function($scope, commonService,
 		zodiacService, tailBallService, halfWaveService, sumZodiacService, zhengBallService, 
 		jointBallService, notBallService, passBallService, zodiacTailService) {
-	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "连码", "自选不中", "过关", "一肖尾数", "连肖", "连尾", "正码特" ];
+	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "正码特", "连码", "自选不中", "过关", "一肖尾数"];
 	$scope.selectedIndex = 0;
 	$scope.menu = 1;
 	$scope.goTab = function(index) {
@@ -394,7 +411,7 @@ app.controller("IndexController", function($scope, commonService,
 		// 获取赔率
 		commonService.getOddsList($scope.nextLottery.issue,
 				$scope.selectedPGroup.id).then(function(oddsList) {					
-			var oddsMap={}, jointOddsMap={}, notOddsMap={}, passOddsMap={}, tailNumOddsMap={};
+			var oddsMap={}, jointOddsMap={}, notOddsMap={}, passOddsMap={}, tailNumOddsMap={}, zhengSpecificOddsMap={};
 			for(var i=0;i<oddsList.length;i++){
 				var odds=oddsList[i];
 				if(odds.lotteryMarkSixType=="SPECIAL"){
@@ -417,6 +434,9 @@ app.controller("IndexController", function($scope, commonService,
 				}
 				else if(odds.lotteryMarkSixType=="ZHENG_1_6"){
 					oddsMap[odds.lotteryMarkSixType+"#"+odds.lotteryBallType]=odds.odds;
+				}
+				else if(odds.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC_")==0){
+					zhengSpecificOddsMap[odds.lotteryMarkSixType]=odds.odds;
 				}
 				else if(odds.lotteryMarkSixType.indexOf("JOINT_")==0){
 					jointOddsMap[odds.lotteryMarkSixType]=odds.odds;
@@ -448,6 +468,10 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.zhengBallItems = zhengBallService.getZhengBallItems(oddsMap);
 			// 正码1-6
 			$scope.zheng16Items = zhengBallService.getZheng16Items(oddsMap);
+			// 正码特
+			$scope.zhengSpecificItems = zhengBallService.getZhengSpecificItems();
+			$scope.zhengSpecificOddsMap = zhengSpecificOddsMap;
+			$scope.otherParams.zhengSpecificNum = 1;
 			// 连码
 			$scope.jointItems = jointBallService.getJointItems();
 			$scope.jointOddsMap = jointOddsMap;
@@ -668,7 +692,7 @@ app.controller("IndexController", function($scope, commonService,
 				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
 				lotteryMarkSixType: "ZHENG_BALL"
 			};
-			var html=zhengBallService.renderWageConfirmHTML(wager);
+			var html=zhengBallService.renderZhengWageConfirmHTML(wager);
 			$scope.confirmDialogHTML=html;
 			// 对话框确认
 			$scope.isConfirmDialogVisible=true;
@@ -699,7 +723,7 @@ app.controller("IndexController", function($scope, commonService,
 				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
 				lotteryMarkSixType: "ZHENG_1_6"
 			};
-			var html=zhengBallService.renderWageConfirmHTML2(wager);
+			var html=zhengBallService.renderZheng16WageConfirmHTML(wager);
 			$scope.confirmDialogHTML=html;
 			// 对话框确认
 			$scope.isConfirmDialogVisible=true;
@@ -710,8 +734,35 @@ app.controller("IndexController", function($scope, commonService,
 				commonService.wage(wager);
 			}
 		}
+		// 正码特下注
+		else if ($scope.selectedIndex == 6) {
+			// 组装下注对象
+			var lotteryMarkSixWagerStubList = [];
+			for(var ball in $scope.selectedBalls){
+				lotteryMarkSixWagerStubList.push({
+					number: parseInt(ball),
+					stakes: parseInt($scope.selectedBalls[ball])
+				});
+			}
+			var wager={
+				userId : $scope.user.id,
+				pgroupId : $scope.selectedPGroup.id,
+				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+				lotteryMarkSixType: "ZHENG_SPECIFIC_"+$scope.otherParams.zhengSpecificNum
+			};
+			var html=zhengBallService.renderZhengWageConfirmHTML(wager);
+			$scope.confirmDialogHTML=html;
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为正码特"+$scope.otherParams.zhengSpecificNum+"，请确认：";
+			// 确认下注
+			$scope.confirmDialog=function(){
+				$scope.isConfirmDialogVisible=false;
+				commonService.wage(wager);
+			}
+		}
 		// 连码下注
-		else if($scope.selectedIndex == 6){
+		else if($scope.selectedIndex == 7){
 			// 组装下注对象
 			var lotteryMarkSixWagerStubList = [];
 			for(var ball in $scope.selectedBalls){
@@ -740,7 +791,7 @@ app.controller("IndexController", function($scope, commonService,
 			}
 		}
 		// 自选不中下注
-		else if($scope.selectedIndex == 7){
+		else if($scope.selectedIndex == 8){
 			// 组装下注对象
 			var lotteryMarkSixWagerStubList = [];
 			for(var ball in $scope.selectedBalls){
@@ -769,7 +820,7 @@ app.controller("IndexController", function($scope, commonService,
 			}
 		}
 		// 过关
-		else if ($scope.selectedIndex == 8){
+		else if ($scope.selectedIndex == 9){
 			// 组装下注对象
 			var lotteryMarkSixWagerStubList = [];
 			for(var ball in $scope.selectedBalls){
@@ -803,7 +854,7 @@ app.controller("IndexController", function($scope, commonService,
 			}
 		}
 		// 一肖尾数下注
-		else if($scope.selectedIndex == 9){
+		else if($scope.selectedIndex == 10){
 			// 组装下注对象
 			// 一肖
 			var lotteryMarkSixWagerStubList = [];
