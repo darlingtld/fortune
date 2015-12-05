@@ -311,9 +311,29 @@ app.service("notBallService", function($q, $http, $sce) {
 	};
 });
 
+//过关相关
+app.service("passBallService", function($q, $http, $sce) {
+	this.renderWageConfirmHTML = function(wager) {
+		var html="";
+		return	$sce.trustAsHtml(html);
+	};
+});
+
+//一肖尾数相关
+app.service("zodiacTailService", function($q, $http, $sce) {
+	this.getZodiacTailItems = function(oddsMap) {
+		var zodiacTailItems=[];
+		return zodiacTailItems;
+	};
+	this.renderWageConfirmHTML = function(wager) {
+		var html="";
+		return	$sce.trustAsHtml(html);
+	};
+});
+
 app.controller("IndexController", function($scope, commonService,
 		zodiacService, tailBallService, halfWaveService, sumZodiacService, zhengBallService, 
-		jointBallService, notBallService) {
+		jointBallService, notBallService, passBallService, zodiacTailService) {
 	$scope.items = [ "特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "连码", "自选不中", "过关", "一肖尾数", "连肖", "连尾", "正码特" ];
 	$scope.selectedIndex = 0;
 	$scope.menu = 1;
@@ -348,7 +368,7 @@ app.controller("IndexController", function($scope, commonService,
 		// 获取赔率
 		commonService.getOddsList($scope.nextLottery.issue,
 				$scope.selectedPGroup.id).then(function(oddsList) {					
-			var oddsMap={}, jointOddsMap={}, notOddsMap={};
+			var oddsMap={}, jointOddsMap={}, notOddsMap={}, passOddsMap={};
 			for(var i=0;i<oddsList.length;i++){
 				var odds=oddsList[i];
 				if(odds.lotteryMarkSixType=="SPECIAL"){
@@ -375,6 +395,9 @@ app.controller("IndexController", function($scope, commonService,
 				else if(odds.lotteryMarkSixType.indexOf("NOT_")==0){
 					notOddsMap[odds.lotteryMarkSixType]=odds.odds;
 				}
+				else if(odds.lotteryMarkSixType.indexOf("PASS_")==0){
+					passOddsMap[odds.lotteryMarkSixType]=odds.odds;
+				}
 			}
 			// 获取特码数据
 			$scope.tailItems = tailBallService.getTailItems(oddsMap);
@@ -394,6 +417,8 @@ app.controller("IndexController", function($scope, commonService,
 			// 自选不中
 			$scope.notItems = notBallService.getNotItems();
 			$scope.notOddsMap = notOddsMap;
+			// 过关
+			$scope.passOddsMap = passOddsMap;
 		});
 	};
 	
@@ -448,6 +473,15 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.selectedBalls[ballNum]=undefined;
 		}
 	};
+	
+	// 过关的类型选择函数
+	$scope.choosePassBall = function($event, ballNum, type){
+		var checkbox = $event.target;
+		if(typeof $scope.selectedBalls[ballNum] === 'undefined'){
+			$scope.selectedBalls[ballNum]={};
+		}
+		$scope.selectedBalls[ballNum][type]=checkbox.checked;
+	}
 	
 	// 其他选择类型函数
 	$scope.chooseBall = function($event, ballNum){

@@ -1,68 +1,21 @@
 <p style="color:red;margin-top:10px;margin-left:42px;">每个号码最多选择两种玩法。</p>
-<br/><label for="passLotteryStakes">注数：</label><input type="text" id="passLotteryStakes" class="stakes_input" ng-model="otherParams.stakes"/>
+<div style="margin-top:10px;margin-bottom:10px;margin-left:42px;">
+	<label for="passLotteryStakes">注数：</label>
+	<input type="text" id="passLotteryStakes" class="stakes_input" ng-model="otherParams.stakes"/>
+</div>
 <table>
 	<tr>
 		<th>号码</th>
 		<th colspan="7">玩法</th>
 	</tr>
-	<tr>
-		<th class="vertical_th">正码一</th>
-		<td><input type="checkbox"/>单</td>
-		<td><input type="checkbox"/>双</td>
-		<td><input type="checkbox"/>大</td>
-		<td><input type="checkbox"/>小</td>
-		<td style="color:red"><input type="checkbox"/>红波</td>
-		<td style="color:blue"><input type="checkbox"/>蓝波</td>
-		<td style="color:green"><input type="checkbox"/>绿波</td>
-	</tr>
-	<tr>
-		<th class="vertical_th">正码二</th>
-		<td><input type="checkbox"/>单</td>
-		<td><input type="checkbox"/>双</td>
-		<td><input type="checkbox"/>大</td>
-		<td><input type="checkbox"/>小</td>
-		<td style="color:red"><input type="checkbox"/>红波</td>
-		<td style="color:blue"><input type="checkbox"/>蓝波</td>
-		<td style="color:green"><input type="checkbox"/>绿波</td>
-	</tr>
-	<tr>
-		<th class="vertical_th">正码三</th>
-		<td><input type="checkbox"/>单</td>
-		<td><input type="checkbox"/>双</td>
-		<td><input type="checkbox"/>大</td>
-		<td><input type="checkbox"/>小</td>
-		<td style="color:red"><input type="checkbox"/>红波</td>
-		<td style="color:blue"><input type="checkbox"/>蓝波</td>
-		<td style="color:green"><input type="checkbox"/>绿波</td>
-	</tr>
-	<tr>
-		<th class="vertical_th">正码四</th>
-		<td><input type="checkbox"/>单</td>
-		<td><input type="checkbox"/>双</td>
-		<td><input type="checkbox"/>大</td>
-		<td><input type="checkbox"/>小</td>
-		<td style="color:red"><input type="checkbox"/>红波</td>
-		<td style="color:blue"><input type="checkbox"/>蓝波</td>
-		<td style="color:green"><input type="checkbox"/>绿波</td>
-	</tr>
-	<tr>
-		<th class="vertical_th">正码五</th>
-		<td><input type="checkbox"/>单</td>
-		<td><input type="checkbox"/>双</td>
-		<td><input type="checkbox"/>大</td>
-		<td><input type="checkbox"/>小</td>
-		<td style="color:red"><input type="checkbox"/>红波</td>
-		<td style="color:blue"><input type="checkbox"/>蓝波</td>
-		<td style="color:green"><input type="checkbox"/>绿波</td>
-	</tr>
-	<tr>
-		<th class="vertical_th">正码六</th>
-		<td><input type="checkbox"/>单</td>
-		<td><input type="checkbox"/>双</td>
-		<td><input type="checkbox"/>大</td>
-		<td><input type="checkbox"/>小</td>
-		<td style="color:red"><input type="checkbox"/>红波</td>
-		<td style="color:blue"><input type="checkbox"/>蓝波</td>
-		<td style="color:green"><input type="checkbox"/>绿波</td>
+	<tr ng-repeat="num in [1,2,3,4,5,6]">
+		<th class="vertical_th">正码{{num}}</th>
+		<td><input type="checkbox"/>单 <span style="color:red;">({{passOddsMap.PASS_DAN}})</span></td>
+		<td><input type="checkbox"/>双 <span style="color:red;">({{passOddsMap.PASS_SHUANG}})</span></td>
+		<td><input type="checkbox"/>大 <span style="color:red;">({{passOddsMap.PASS_DA}})</span></td>
+		<td><input type="checkbox"/>小 <span style="color:red;">({{passOddsMap.PASS_XIAO}})</span></td>
+		<td style="color:red"><input type="checkbox"/>红波 <span style="color:red;">({{passOddsMap.PASS_RED}})</span></td>
+		<td style="color:blue"><input type="checkbox"/>蓝波 <span style="color:red;">({{passOddsMap.PASS_BLUE}})</span></td>
+		<td style="color:green"><input type="checkbox"/>绿波 <span style="color:red;">({{passOddsMap.PASS_GREEN}})</span></td>
 	</tr>
 </table>

@@ -67,7 +67,13 @@ public enum LotteryMarkSixType {
     NOT_11("十一不中"),
     NOT_12("十二不中"),
     
-    
+    PASS_DAN("过关单"),
+    PASS_SHUANG("过关双"),
+    PASS_DA("过关大"),
+    PASS_XIAO("过关小"),
+    PASS_RED("过关红"),
+    PASS_GREEN("过关绿"),
+    PASS_BLUE("过关蓝"),
     
     
     /* 下面的这些类别还没用到 */

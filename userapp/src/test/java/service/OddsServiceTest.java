@@ -18,7 +18,6 @@ import fortune.pojo.PGroup;
 import fortune.service.LotteryService;
 import fortune.service.OddsService;
 import fortune.service.PGroupService;
-import fortune.service.UserService;
 
 /**
  * Created by tangl9 on 2015-10-16.
@@ -33,9 +32,6 @@ public class OddsServiceTest {
 
 	@Autowired
 	private LotteryService lotteryService;
-
-	@Autowired
-	private UserService userService;
 
 	@Autowired
 	private PGroupService pGroupService;
@@ -347,6 +343,25 @@ public class OddsServiceTest {
 			odds.setTimestamp(new Date());
 			odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_12);
 			oddsService.saveOdds(odds);
+		}
+	}
+
+	// 生成过关赔率
+	@Test
+	public void generatePassBallLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.PASS_BLUE, LotteryMarkSixType.PASS_DA,
+					LotteryMarkSixType.PASS_DAN, LotteryMarkSixType.PASS_GREEN, LotteryMarkSixType.PASS_RED,
+					LotteryMarkSixType.PASS_SHUANG, LotteryMarkSixType.PASS_XIAO)) {
+				LotteryOdds odds = new LotteryOdds();
+				odds.setGroupId(pGroupList.get(i).getId());
+				odds.setOdds(9 + i);
+				odds.setLotteryIssue(300);
+				odds.setTimestamp(new Date());
+				odds.setLotteryMarkSixType(type);
+				oddsService.saveOdds(odds);
+			}
 		}
 	}
 
