@@ -46,6 +46,19 @@ public class LotteryOdds {
                 '}';
     }
 
+    public LotteryOdds() {
+    }
+
+    public LotteryOdds(int lotteryBallNumber, LotteryMarkSixType lotteryBallType, double odds, String groupId, int lotteryIssue, Date timestamp, LotteryMarkSixType lotteryMarkSixType) {
+        this.lotteryBallNumber = lotteryBallNumber;
+        this.lotteryBallType = lotteryBallType;
+        this.odds = odds;
+        this.groupId = groupId;
+        this.lotteryIssue = lotteryIssue;
+        this.timestamp = timestamp;
+        this.lotteryMarkSixType = lotteryMarkSixType;
+    }
+
     public String getId() {
         return id;
     }

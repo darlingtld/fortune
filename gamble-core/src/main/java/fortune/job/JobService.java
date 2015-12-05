@@ -26,6 +26,6 @@ public class JobService {
     }
 
     public boolean canLotteryOddsPopulateJobStart(int lotteryIssue) {
-        return jobTrackerService.hasAllLotteryResultJobsFinished(lotteryIssue);
+        return true;
     }
 }

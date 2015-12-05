@@ -3,6 +3,7 @@ package fortune.job;
 import common.Utils;
 import fortune.pojo.JobTracker;
 import fortune.pojo.LotteryOdds;
+import fortune.pojo.PGroup;
 import fortune.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class LotteryOddsPopulateJob {
     private OddsService oddsService;
 
     public void populate() {
-        int lotteryIssue = lotteryService.getLatestLotteryIssue();
+        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
         if (!jobService.canLotteryOddsPopulateJobStart(lotteryIssue)) {
             return;
         }
@@ -49,11 +50,17 @@ public class LotteryOddsPopulateJob {
         JobTracker jobTracker = new JobTracker(jobName, lotteryIssue, new Date(), JobTracker.RUNNING);
         int jobId = jobTrackerService.save(jobTracker);
 
-        List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue - 1);
-        for (LotteryOdds odds : oddsList) {
-            odds.setLotteryIssue(lotteryIssue);
-            oddsService.saveOdds(odds);
+        for (PGroup pGroup : pGroupService.getGroupAll()) {
+            List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue - 1, pGroup.getId());
+            if (oddsList.isEmpty()) {
+                oddsList = oddsService.generateOddsDefault(pGroup.getId(), lotteryIssue);
+            }
+            for (LotteryOdds odds : oddsList) {
+                odds.setLotteryIssue(lotteryIssue);
+                oddsService.saveOdds(odds);
+            }
         }
+
 
         jobTrackerService.updateEndStatus(jobId, new Date(), JobTracker.SUCCESS);
         Utils.logger.info("{} finished", jobName);
