@@ -1,1 +1,38 @@
-敬请期待
+<table>
+    <tr>
+        <th>号码</th>
+        <th>赔率</th>
+        <th>注数</th>
+        <th>号码</th>
+        <th>赔率</th>
+        <th>注数</th>
+        <th>号码</th>
+        <th>赔率</th>
+        <th>注数</th>
+        <th>号码</th>
+        <th>赔率</th>
+        <th>注数</th>
+        <th>号码</th>
+        <th>赔率</th>
+        <th>注数</th>
+    </tr>
+    <tr ng-repeat="row in zhengBallItems">
+        <td colspan="3" ng-repeat="ball in row" style="border-right: 1px solid #1FADFB;">
+            <div class="ball {{colorMap[ball.ball]}}">{{ball.ball}}</div>
+            <div class="odds">{{ball.odds}}</div>
+            <input type="text" ng-model="selectedBalls[ball.ball]" class="stakes_input" style="margin-left:24px;"/>
+        </td>
+        <td colspan="3" ng-if="$last">
+        </td>
+    </tr>
+</table>
+<div>
+	<div ng-repeat="item in [{label:'单',id:'DAN'},{label:'双',id:'SHUANG'},{label:'大',id:'DA'},{label:'小',id:'XIAO'},{label:'合单',id:'HEDAN'},{label:'合双',id:'HESHUANG'},{label:'合大',id:'HEDA'},{label:'合小',id:'HEXIAO'},{label:'特尾大',id:'TAILDA'},{label:'特尾小',id:'TAILXIAO'},{label:'合尾大',id:'SUMTAILDA'},{label:'合尾小',id:'SUMTAILXIAO'}]" class="quick_choose">
+		<input type="checkbox" ng-click="quickChooseTail($event,item.id)" ng-checked="isQuickChoose(item.id)"/>{{item.label}}
+	</div>
+	<div class="clear"></div>
+	<div ng-repeat="item in [{label:'红',id:'red'},{label:'蓝',id:'blue'},{label:'绿',id:'green'}]" class="quick_choose">
+		<input type="checkbox" ng-click="quickChooseTail($event,item.id)" ng-checked="isQuickChoose(item.id)"/>{{item.label}}
+	</div>
+	<div class="clear"></div>
+</div>

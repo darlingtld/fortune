@@ -219,6 +219,25 @@ public class OddsServiceTest {
 		}
 	}
 
+	// 生成正码赔率
+	@Test
+	public void generateZhengLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
+			for (LotteryBall ball : LotteryBall.values()) {
+				LotteryOdds odds = new LotteryOdds();
+				odds.setLotteryBallNumber(ball.getNumber());
+				odds.setGroupId(pGroupList.get(i).getId());
+				odds.setOdds(19);
+				odds.setLotteryIssue(issue);
+				odds.setTimestamp(new Date());
+				odds.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_BALL);
+				oddsService.saveOdds(odds);
+			}
+		}
+	}
+
 	// 生成正码1到6赔率
 	@Test
 	public void generateZheng16LotteryOdds() {
@@ -386,13 +405,13 @@ public class OddsServiceTest {
 			}
 		}
 	}
-	
+
 	// 生成尾数赔率
 	@Test
 	public void generateTailBallLotteryOdds() {
 		List<PGroup> pGroupList = pGroupService.getGroupAll();
 		for (int i = 0; i < pGroupList.size(); i++) {
-			for (int num : Arrays.asList(1,2,3,4,5,6,7,8,9,0)) {
+			for (int num : Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0)) {
 				LotteryOdds odds = new LotteryOdds();
 				odds.setGroupId(pGroupList.get(i).getId());
 				odds.setOdds(12 + num);

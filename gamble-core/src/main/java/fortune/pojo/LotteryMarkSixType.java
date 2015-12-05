@@ -42,6 +42,8 @@ public enum LotteryMarkSixType {
     WAVE_GREEN_XIAO("绿小"),
 
     SUM_ZODIAC("合肖"), // ballNumber表示是几肖，总类型
+    
+    ZHENG_BALL("正码"),
 
     ZHENG_1_6("正码1到6"),
     DAN("单"),
