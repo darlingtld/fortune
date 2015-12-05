@@ -66,8 +66,9 @@ public class LotteryUserStatJob {
             for (LotteryResult lotteryResult : lotteryResultList) {
                 LotteryMarkSixWager wager = wagerService.getLotteryMarkSixWager(lotteryResult.getLotteryMarkSixWagerId());
                 totalStakes += wager.getTotalStakes();
-                //TODO
+                result += lotteryResult.getWinningMoney();
             }
+            validStakes = totalStakes;
             LotteryMarkSixUserStat lotteryMarkSixUserStat = new LotteryMarkSixUserStat();
             lotteryMarkSixUserStat.setIssue(lotteryIssue);
             lotteryMarkSixUserStat.setOpenTs(lotteryMarkSix.getTimestamp());
