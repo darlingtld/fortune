@@ -41,7 +41,7 @@ public enum LotteryMarkSixType {
     WAVE_GREEN_DA("绿大"),
     WAVE_GREEN_XIAO("绿小"),
 
-    SUM_ZODIAC("合肖"), // ballNumber表示是几肖
+    SUM_ZODIAC("合肖"), // ballNumber表示是几肖，总类型
 
     ZHENG_1_6("正码1到6"),
     DAN("单"),
@@ -67,13 +67,14 @@ public enum LotteryMarkSixType {
     NOT_11("十一不中"),
     NOT_12("十二不中"),
     
-    PASS_DAN("过关单"),
+    PASS_DAN("过关单"), // 过关的子类型
     PASS_SHUANG("过关双"),
     PASS_DA("过关大"),
     PASS_XIAO("过关小"),
     PASS_RED("过关红"),
     PASS_GREEN("过关绿"),
     PASS_BLUE("过关蓝"),
+    PASS("过关"), // 总类型
     
     
     /* 下面的这些类别还没用到 */

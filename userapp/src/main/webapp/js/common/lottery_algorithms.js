@@ -50,12 +50,37 @@ var colorMap = {
     "49": "blue"
 };
 
+// 连码类型表
 var jointTypeMap={
 	"JOINT_3_ALL": "三全中",
 	"JOINT_3_2": "三中二",
 	"JOINT_2_ALL": "二全中",
 	"JOINT_2_SPECIAL": "二中特",
 	"JOINT_SPECIAL": "特串"	
+};
+
+// 过关类型表
+var passTypeMap={
+	"PASS_DAN": "过关单", 
+    "PASS_SHUANG": "过关双",
+    "PASS_DA": "过关大",
+    "PASS_XIAO": "过关小",
+    "PASS_RED": "过关红",
+    "PASS_GREEN": "过关绿",
+    "PASS_BLUE": "过关蓝"
+};
+
+// 正码类型表
+var zhengTypeMap={
+	"DAN": "单",
+	"SHUANG": "双",
+	"DA": "大",
+	"XIAO": "小",
+	"HEDAN": "合单",
+	"HESHUANG": "合双",
+	"RED": "红波",
+	"GREEN": "绿波",
+	"BLUE": "蓝波"
 };
 
 var Compare = {

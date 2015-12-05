@@ -217,32 +217,7 @@ app.service("zhengBallService", function($q, $http, $sce) {
 	this.renderWageConfirmHTML = function(wager){
 		var html="", wagers=wager.lotteryMarkSixWagerStubList;
 		for(var i=0;i<wagers.length;i++){
-			var item=wagers[i], number=item.number, stakes=item.stakes, lotteryType=item.lotteryMarkSixType;
-			var type="单";
-			if(lotteryType=="SHUANG"){
-				type="双";
-			}
-			else if(lotteryType=="DA"){
-				type="大";
-			}
-			else if(lotteryType=="XIAO"){
-				type="小";
-			}
-			else if(lotteryType=="HEDAN"){
-				type="合单";
-			}
-			else if(lotteryType=="HESHUANG"){
-				type="合双";
-			}
-			else if(lotteryType=="RED"){
-				type="红波";
-			}
-			else if(lotteryType=="GREEN"){
-				type="绿波";
-			}
-			else if(lotteryType=="BLUE"){
-				type="蓝波";
-			}
+			var item=wagers[i], number=item.number, stakes=item.stakes, lotteryType=item.lotteryMarkSixType, type=zhengTypeMap[lotteryType];
 			html+="<div style='height:40px;width:300px;margin:10px auto;'>正码"+number+"："+type+"<span style='color:red;margin-left:10px;'>下注金额："+stakes+"</span></div>";
 		}
 		return $sce.trustAsHtml(html);
@@ -314,7 +289,12 @@ app.service("notBallService", function($q, $http, $sce) {
 //过关相关
 app.service("passBallService", function($q, $http, $sce) {
 	this.renderWageConfirmHTML = function(wager) {
-		var html="";
+		var wagerList=wager.lotteryMarkSixWagerStubList, stakes=wager.totalStakes, html="";
+		for(var i=0;i<wagerList.length;i++){
+			var item=wagerList[i], number=item.number, type=item.lotteryMarkSixType;
+			html+="<div>正码"+number+": "+passTypeMap[type]+"</div>";
+		}
+		html+="<br/><br/><span style='color:red'>下注金额："+stakes+"</span>";
 		return	$sce.trustAsHtml(html);
 	};
 });
@@ -695,6 +675,41 @@ app.controller("IndexController", function($scope, commonService,
 			// 对话框确认
 			$scope.isConfirmDialogVisible=true;
 			$scope.confirmDialogTitle="下注类型为自选不中，请确认：";
+			// 确认下注
+			$scope.confirmDialog=function(){
+				$scope.isConfirmDialogVisible=false;
+				commonService.wage(wager);
+			}
+		}
+		// 过关
+		else if ($scope.selectedIndex == 8){
+			// 组装下注对象
+			var lotteryMarkSixWagerStubList = [];
+			for(var ball in $scope.selectedBalls){
+				if($scope.selectedBalls[ball]){
+					for(var type in $scope.selectedBalls[ball]){
+						if($scope.selectedBalls[ball][type]){
+							lotteryMarkSixWagerStubList.push({
+								number: parseInt(ball),
+								lotteryMarkSixType: type
+							});
+						}
+					}
+				}
+			}
+			var wager={
+				userId : $scope.user.id,
+				pgroupId : $scope.selectedPGroup.id,
+				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+				lotteryMarkSixType: "PASS",
+				totalStakes: $scope.otherParams.stakes
+			};
+			console.log(wager);
+			var html=passBallService.renderWageConfirmHTML(wager);
+			$scope.confirmDialogHTML=html;
+			// 对话框确认
+			$scope.isConfirmDialogVisible=true;
+			$scope.confirmDialogTitle="下注类型为过关，请确认：";
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
