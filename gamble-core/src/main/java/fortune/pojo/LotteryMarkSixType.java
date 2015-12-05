@@ -76,6 +76,9 @@ public enum LotteryMarkSixType {
     PASS_BLUE("过关蓝"),
     PASS("过关"), // 总类型
     
+    ONE_ZODIAC("一肖"),
+    TAIL_NUM("尾数"), // ballNumber表示是几尾
+    
     
     /* 下面的这些类别还没用到 */
     NUMBER("数字"),

@@ -348,7 +348,7 @@ public class OddsServiceTest {
 
 	// 生成过关赔率
 	@Test
-	public void generatePassBallLotteryOdds() {
+	public void generateOneZodiacLotteryOdds() {
 		List<PGroup> pGroupList = pGroupService.getGroupAll();
 		for (int i = 0; i < pGroupList.size(); i++) {
 			for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.PASS_BLUE, LotteryMarkSixType.PASS_DA,
@@ -360,6 +360,46 @@ public class OddsServiceTest {
 				odds.setLotteryIssue(300);
 				odds.setTimestamp(new Date());
 				odds.setLotteryMarkSixType(type);
+				oddsService.saveOdds(odds);
+			}
+		}
+	}
+
+	// 生成一肖赔率
+	@Test
+	public void generatePassBallLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.ZODIAC_SHU, LotteryMarkSixType.ZODIAC_NIU,
+					LotteryMarkSixType.ZODIAC_HU, LotteryMarkSixType.ZODIAC_TU, LotteryMarkSixType.ZODIAC_LONG,
+					LotteryMarkSixType.ZODIAC_SHE, LotteryMarkSixType.ZODIAC_MA, LotteryMarkSixType.ZODIAC_YANG,
+					LotteryMarkSixType.ZODIAC_HOU, LotteryMarkSixType.ZODIAC_JI, LotteryMarkSixType.ZODIAC_GOU,
+					LotteryMarkSixType.ZODIAC_ZHU)) {
+				LotteryOdds odds = new LotteryOdds();
+				odds.setGroupId(pGroupList.get(i).getId());
+				odds.setOdds(9 + i);
+				odds.setLotteryIssue(300);
+				odds.setTimestamp(new Date());
+				odds.setLotteryBallType(type); // 二级类型
+				odds.setLotteryMarkSixType(LotteryMarkSixType.ONE_ZODIAC);
+				oddsService.saveOdds(odds);
+			}
+		}
+	}
+	
+	// 生成尾数赔率
+	@Test
+	public void generateTailBallLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			for (int num : Arrays.asList(1,2,3,4,5,6,7,8,9,0)) {
+				LotteryOdds odds = new LotteryOdds();
+				odds.setGroupId(pGroupList.get(i).getId());
+				odds.setOdds(12 + num);
+				odds.setLotteryIssue(300);
+				odds.setTimestamp(new Date());
+				odds.setLotteryBallNumber(num); // 表示几尾
+				odds.setLotteryMarkSixType(LotteryMarkSixType.TAIL_NUM);
 				oddsService.saveOdds(odds);
 			}
 		}

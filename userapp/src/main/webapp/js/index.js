@@ -49,7 +49,6 @@ app.service("commonService", function($q, $http) {
 // 生肖相关
 app.service("zodiacService", function($q, $http, $sce) {
 	this.getZodiacItems = function(oddsMap) {
-		var deferred = $q.defer();
 		var zodiacMap = Zodiac.zodiacMap, items = [];
 		for (var i = 0; i < zodiacMap.length; i++) {
 			var item = {};
@@ -62,7 +61,6 @@ app.service("zodiacService", function($q, $http, $sce) {
 		return items;
 	};
 	this.getColorItems = function(oddsMap) {
-		var deferred = $q.defer();
 		var items = {};
 		items.red = oddsMap["RED"]; 
 		items.blue = oddsMap["BLUE"];
@@ -70,16 +68,13 @@ app.service("zodiacService", function($q, $http, $sce) {
 		return items;
 	};
 	this.renderWageConfirmHTML = function(wagerList){
-		var html="", zodiacs={};
-		for (var i = 0; i < Zodiac.zodiacMap.length; i++) {
-			zodiacs[Zodiac.zodiacMap[i].id]=Zodiac.zodiacMap[i].name;
-		}
+		var html="";
 		for(var i=0;i<wagerList.length;i++){
 			var wager=wagerList[i], type=wager.lotteryMarkSixType;
 			// 生肖
 			if(type.indexOf("ZODIAC_")==0){
 				html+="<div style='height:40px;width:300px;margin:10px auto;'><span style='line-height:25px;float:left;'>";
-				html+=zodiacs[type];
+				html+=zodiacTypeMap[type];
 				html+="</span><span style='color:red;margin-left:10px;line-height:25px;float:left;'>下注金额："+wager.totalStakes+"</span></div>";
 			}
 			// 色波
@@ -185,12 +180,7 @@ app.service("sumZodiacService", function($q, $http, $sce) {
 		var zodiacs=wager.subLotteryMarkSixTypes;
 		for(var i=0;i<zodiacs.length;i++){
 			var zodiac=zodiacs[i];
-			for(var j=0;j<Zodiac.zodiacMap.length;j++){
-				if(Zodiac.zodiacMap[j].id==zodiac){
-					html+=Zodiac.zodiacMap[j].name;
-					break;
-				}
-			}
+			html+=zodiacTypeMap[zodiac];
 		}
 		html+="</div>";
 		var wagers=wager.lotteryMarkSixWagerStubList;
@@ -301,12 +291,42 @@ app.service("passBallService", function($q, $http, $sce) {
 
 //一肖尾数相关
 app.service("zodiacTailService", function($q, $http, $sce) {
-	this.getZodiacTailItems = function(oddsMap) {
-		var zodiacTailItems=[];
-		return zodiacTailItems;
+	this.getOneZodiacItems = function(oddsMap) {		
+		var zodiacMap = Zodiac.zodiacMap, oneZodiacItems = [];
+		for (var i = 0; i < zodiacMap.length; i++) {
+			var item = {};
+			item.id=zodiacMap[i].id;
+			item.name = zodiacMap[i].name;
+			item.balls = Zodiac.getBallsByName(zodiacMap[i].name);
+			item.odds = oddsMap["ONE_ZODIAC#"+zodiacMap[i].id];
+			oneZodiacItems.push(item);
+		}		
+		return oneZodiacItems;
 	};
-	this.renderWageConfirmHTML = function(wager) {
-		var html="";
+	this.renderWageConfirmHTML = function(wagerList) {
+		var html="<table>";
+		for(var i=0;i<wagerList.length;i++){
+			var wager=wagerList[i];
+			if(wager.lotteryMarkSixType=="ONE_ZODIAC"){
+				html+="<tr><th>一肖下注：</th><td>";
+				var subWagerList=wager.lotteryMarkSixWagerStubList;
+				for(var j=0;j<subWagerList.length;j++){
+					var subWager=subWagerList[j];
+					html+=zodiacTypeMap[subWager.lotteryMarkSixType]+"<span style='color:red'>("+subWager.stakes+")</span>, ";
+				}
+				html+="</td></tr>";
+			}
+			else if(wager.lotteryMarkSixType=="TAIL_NUM"){
+				html+="<tr><th>尾数下注：</th><td>";
+				var subWagerList=wager.lotteryMarkSixWagerStubList;
+				for(var j=0;j<subWagerList.length;j++){
+					var subWager=subWagerList[j];
+					html+=subWager.number+"尾<span style='color:red'>("+subWager.stakes+")</span>, ";
+				}
+				html+="</td></tr>";
+			}
+		}
+		html+="</table>";
 		return	$sce.trustAsHtml(html);
 	};
 });
@@ -348,7 +368,7 @@ app.controller("IndexController", function($scope, commonService,
 		// 获取赔率
 		commonService.getOddsList($scope.nextLottery.issue,
 				$scope.selectedPGroup.id).then(function(oddsList) {					
-			var oddsMap={}, jointOddsMap={}, notOddsMap={}, passOddsMap={};
+			var oddsMap={}, jointOddsMap={}, notOddsMap={}, passOddsMap={}, tailNumOddsMap={};
 			for(var i=0;i<oddsList.length;i++){
 				var odds=oddsList[i];
 				if(odds.lotteryMarkSixType=="SPECIAL"){
@@ -378,6 +398,12 @@ app.controller("IndexController", function($scope, commonService,
 				else if(odds.lotteryMarkSixType.indexOf("PASS_")==0){
 					passOddsMap[odds.lotteryMarkSixType]=odds.odds;
 				}
+				else if(odds.lotteryMarkSixType=="ONE_ZODIAC"){
+					oddsMap[odds.lotteryMarkSixType+"#"+odds.lotteryBallType]=odds.odds;
+				}
+				else if(odds.lotteryMarkSixType=="TAIL_NUM"){
+					tailNumOddsMap[odds.lotteryMarkSixType+"#"+odds.lotteryBallNumber]=odds.odds;
+				}
 			}
 			// 获取特码数据
 			$scope.tailItems = tailBallService.getTailItems(oddsMap);
@@ -399,6 +425,10 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.notOddsMap = notOddsMap;
 			// 过关
 			$scope.passOddsMap = passOddsMap;
+			// 一肖
+			$scope.oneZodiacItems = zodiacTailService.getOneZodiacItems(oddsMap);
+			// 尾数
+			$scope.tailNumOddsMap = tailNumOddsMap;
 		});
 	};
 	
@@ -669,7 +699,6 @@ app.controller("IndexController", function($scope, commonService,
 				lotteryMarkSixType: $scope.otherParams.type,
 				totalStakes: $scope.otherParams.stakes
 			};
-			console.log(wager);
 			var html=notBallService.renderWageConfirmHTML(wager);
 			$scope.confirmDialogHTML=html;
 			// 对话框确认
@@ -704,7 +733,6 @@ app.controller("IndexController", function($scope, commonService,
 				lotteryMarkSixType: "PASS",
 				totalStakes: $scope.otherParams.stakes
 			};
-			console.log(wager);
 			var html=passBallService.renderWageConfirmHTML(wager);
 			$scope.confirmDialogHTML=html;
 			// 对话框确认
@@ -714,6 +742,61 @@ app.controller("IndexController", function($scope, commonService,
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
 				commonService.wage(wager);
+			}
+		}
+		// 一肖尾数下注
+		else if($scope.selectedIndex == 9){
+			// 组装下注对象
+			// 一肖
+			var lotteryMarkSixWagerStubList = [];
+			for(var zodiac in $scope.selectedBalls){
+				if($scope.selectedBalls[zodiac]){
+					lotteryMarkSixWagerStubList.push({
+						lotteryMarkSixType: zodiac,
+						stakes: parseInt($scope.selectedBalls[zodiac])
+					});
+				}
+			}
+			var zodiacWager={
+				userId : $scope.user.id,
+				pgroupId : $scope.selectedPGroup.id,
+				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+				lotteryMarkSixType: "ONE_ZODIAC"
+			};
+			// 尾数
+			var lotteryMarkSixWagerStubList2 = [];
+			for(var num in $scope.selectedBalls2){
+				if($scope.selectedBalls2[num]){
+					lotteryMarkSixWagerStubList2.push({
+						number: num,
+						stakes: parseInt($scope.selectedBalls2[num])
+					});
+				}
+			}
+			var tailWager={
+				userId : $scope.user.id,
+				pgroupId : $scope.selectedPGroup.id,
+				lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList2,
+				lotteryMarkSixType: "TAIL_NUM"	
+			};
+			var wagerList=[];
+			if(lotteryMarkSixWagerStubList.length>0){
+				wagerList.push(zodiacWager);
+			}
+			if(lotteryMarkSixWagerStubList2.length>0){
+				wagerList.push(tailWager);
+			}
+			if(wagerList.length>0){
+				var html=zodiacTailService.renderWageConfirmHTML(wagerList);
+				$scope.confirmDialogHTML=html;
+				// 对话框确认
+				$scope.isConfirmDialogVisible=true;
+				$scope.confirmDialogTitle="下注类型为一肖尾数，请确认：";
+				// 确认下注
+				$scope.confirmDialog=function(){
+					$scope.isConfirmDialogVisible=false;
+					commonService.wages(wagerList);
+				}
 			}
 		}
 	};

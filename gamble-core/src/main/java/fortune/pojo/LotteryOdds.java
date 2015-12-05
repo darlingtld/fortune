@@ -12,108 +12,105 @@ import java.util.Date;
 @Document(collection = "lottery_odds")
 public class LotteryOdds {
 
-    @Id
-    private String id;
+	@Id
+	private String id;
 
-    private int lotteryBallNumber;
-    
-    private LotteryMarkSixType lotteryBallType;
+	private int lotteryBallNumber;
 
-    @NotNull
-    private double odds;
+	@NotNull
+	private double odds;
 
-    @NotNull
-    private String groupId;
+	@NotNull
+	private String groupId;
 
-    @NotNull
-    private int lotteryIssue;
+	@NotNull
+	private int lotteryIssue;
 
-    @NotNull
-    private Date timestamp = new Date();
+	@NotNull
+	private Date timestamp = new Date();
 
-    private LotteryMarkSixType lotteryMarkSixType;
+	// 一级类型
+	private LotteryMarkSixType lotteryMarkSixType;
 
-    @Override
-    public String toString() {
-        return "LotteryOdds{" +
-                "id='" + id + '\'' +
-                ", lotteryBallNumber=" + lotteryBallNumber +
-                ", odds=" + odds +
-                ", groupId=" + groupId +
-                ", lotteryIssue=" + lotteryIssue +
-                ", timestamp=" + timestamp +
-                ", lotteryMarkSixType='" + lotteryMarkSixType + '\'' +
-                '}';
-    }
+	// 二级类型，如正码1～6下的子类型，一肖下的生肖 
+	private LotteryMarkSixType lotteryBallType; // (名字不改了)
 
-    public LotteryOdds() {
-    }
+	@Override
+	public String toString() {
+		return "LotteryOdds{" + "id='" + id + '\'' + ", lotteryBallNumber=" + lotteryBallNumber + ", odds=" + odds
+				+ ", groupId=" + groupId + ", lotteryIssue=" + lotteryIssue + ", timestamp=" + timestamp
+				+ ", lotteryMarkSixType='" + lotteryMarkSixType + '\'' + '}';
+	}
 
-    public LotteryOdds(int lotteryBallNumber, LotteryMarkSixType lotteryBallType, double odds, String groupId, int lotteryIssue, Date timestamp, LotteryMarkSixType lotteryMarkSixType) {
-        this.lotteryBallNumber = lotteryBallNumber;
-        this.lotteryBallType = lotteryBallType;
-        this.odds = odds;
-        this.groupId = groupId;
-        this.lotteryIssue = lotteryIssue;
-        this.timestamp = timestamp;
-        this.lotteryMarkSixType = lotteryMarkSixType;
-    }
+	public LotteryOdds() {
+	}
 
-    public String getId() {
-        return id;
-    }
+	public LotteryOdds(int lotteryBallNumber, LotteryMarkSixType lotteryBallType, double odds, String groupId,
+			int lotteryIssue, Date timestamp, LotteryMarkSixType lotteryMarkSixType) {
+		this.lotteryBallNumber = lotteryBallNumber;
+		this.lotteryBallType = lotteryBallType;
+		this.odds = odds;
+		this.groupId = groupId;
+		this.lotteryIssue = lotteryIssue;
+		this.timestamp = timestamp;
+		this.lotteryMarkSixType = lotteryMarkSixType;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public int getLotteryBallNumber() {
-        return lotteryBallNumber;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setLotteryBallNumber(int lotteryBallNumber) {
-        this.lotteryBallNumber = lotteryBallNumber;
-    }
+	public int getLotteryBallNumber() {
+		return lotteryBallNumber;
+	}
 
-    public double getOdds() {
-        return odds;
-    }
+	public void setLotteryBallNumber(int lotteryBallNumber) {
+		this.lotteryBallNumber = lotteryBallNumber;
+	}
 
-    public void setOdds(double odds) {
-        this.odds = odds;
-    }
+	public double getOdds() {
+		return odds;
+	}
 
-    public String getGroupId() {
-        return groupId;
-    }
+	public void setOdds(double odds) {
+		this.odds = odds;
+	}
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
+	public String getGroupId() {
+		return groupId;
+	}
 
-    public int getLotteryIssue() {
-        return lotteryIssue;
-    }
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
 
-    public void setLotteryIssue(int lotteryIssue) {
-        this.lotteryIssue = lotteryIssue;
-    }
+	public int getLotteryIssue() {
+		return lotteryIssue;
+	}
 
-    public Date getTimestamp() {
-        return timestamp;
-    }
+	public void setLotteryIssue(int lotteryIssue) {
+		this.lotteryIssue = lotteryIssue;
+	}
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
+	public Date getTimestamp() {
+		return timestamp;
+	}
 
-    public LotteryMarkSixType getLotteryMarkSixType() {
-        return lotteryMarkSixType;
-    }
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
 
-    public void setLotteryMarkSixType(LotteryMarkSixType lotteryMarkSixType) {
-        this.lotteryMarkSixType = lotteryMarkSixType;
-    }
+	public LotteryMarkSixType getLotteryMarkSixType() {
+		return lotteryMarkSixType;
+	}
+
+	public void setLotteryMarkSixType(LotteryMarkSixType lotteryMarkSixType) {
+		this.lotteryMarkSixType = lotteryMarkSixType;
+	}
 
 	public LotteryMarkSixType getLotteryBallType() {
 		return lotteryBallType;

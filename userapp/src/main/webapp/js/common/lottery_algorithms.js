@@ -83,6 +83,22 @@ var zhengTypeMap={
 	"BLUE": "蓝波"
 };
 
+// 生肖类型表
+var zodiacTypeMap={
+	"ZODIAC_SHU": "鼠",
+	"ZODIAC_NIU": "牛",
+	"ZODIAC_HU": "虎",
+	"ZODIAC_TU": "兔",
+	"ZODIAC_LONG": "龙",
+	"ZODIAC_SHE": "蛇",
+	"ZODIAC_MA": "马",
+	"ZODIAC_YANG": "羊",
+	"ZODIAC_HOU": "猴",
+	"ZODIAC_JI": "鸡",
+	"ZODIAC_GOU": "狗",
+	"ZODIAC_ZHU": "猪"
+}
+
 var Compare = {
     getSingleOrDouble: function (ball) {
         var ballNum = parseInt(ball);
