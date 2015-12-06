@@ -163,7 +163,9 @@ wageHistoryApp.filter('translate', function () {
             SPECIAL_HEDAN: "正码特合单",
             SPECIAL_HESHUANG: "正码特合双",
             SPECIAL_HEDA: "正码特合大",
-            SPECIAL_HEXIAO: "正码特合小"
+            SPECIAL_HEXIAO: "正码特合小",
+            ONE_ZODIAC: "一肖",
+            TAIL_NUM: "尾数",
 
         };
         return typeMap[input] == null ? input : typeMap[input];
