@@ -29,17 +29,29 @@ app.service("commonService", function($q, $http) {
 		return deferred.promise;
 	};
 	// 下注
-	this.wage = function(wager) {
+	this.wage = function(wager,scope) {
+		var _self = this;
 		$http.post("gamble/wage", wager).success(function() {
 			alert('下注成功');
+			// 更新下用户额度
+			_self.getUser().then(function(data) {
+				scope.user = data;
+				scope.reset();
+			});
 		}).error(function(data, status, headers) {
 			alert('下注失败');
 		});
 	};
 	// 多个下注
-	this.wages = function(wagers) {
+	this.wages = function(wagers,scope) {
+		var _self = this;
 		$http.post("gamble/wages", wagers).success(function() {
 			alert('下注成功');
+			// 更新下用户额度
+			_self.getUser().then(function(data) {
+				scope.user = data;
+				scope.reset();
+			});
 		}).error(function(data, status, headers) {
 			alert('下注失败');
 		});
@@ -584,7 +596,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wage(wager);
+				commonService.wage(wager,$scope);
 			}
 		}
 		// 生肖色波下注
@@ -619,7 +631,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wages(wagerList);
+				commonService.wages(wagerList,$scope);
 			}
 		}
 		// 半波下注
@@ -644,7 +656,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wages(wagerList);
+				commonService.wages(wagerList,$scope);
 			}
 		}
 		// 合肖下注
@@ -672,7 +684,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wage(wager);
+				commonService.wage(wager,$scope);
 			}
 		}
 		// 正码下注
@@ -699,7 +711,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wage(wager);
+				commonService.wage(wager,$scope);
 			}
 		}
 		// 正码1-6下注
@@ -730,7 +742,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wage(wager);
+				commonService.wage(wager,$scope);
 			}
 		}
 		// 正码特下注
@@ -757,7 +769,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wage(wager);
+				commonService.wage(wager,$scope);
 			}
 		}
 		// 连码下注
@@ -786,7 +798,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wage(wager);
+				commonService.wage(wager,$scope);
 			}
 		}
 		// 自选不中下注
@@ -815,7 +827,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wage(wager);
+				commonService.wage(wager,$scope);
 			}
 		}
 		// 过关
@@ -849,7 +861,7 @@ app.controller("IndexController", function($scope, commonService,
 			// 确认下注
 			$scope.confirmDialog=function(){
 				$scope.isConfirmDialogVisible=false;
-				commonService.wage(wager);
+				commonService.wage(wager,$scope);
 			}
 		}
 		// 一肖尾数下注
@@ -903,7 +915,7 @@ app.controller("IndexController", function($scope, commonService,
 				// 确认下注
 				$scope.confirmDialog=function(){
 					$scope.isConfirmDialogVisible=false;
-					commonService.wages(wagerList);
+					commonService.wages(wagerList,$scope);
 				}
 			}
 		}
