@@ -1,81 +1,86 @@
 @import url("common.css");
 
-.date_area{
-	background:white;
-	border: 1px solid #dedede;
-	padding:20px;
-	height:35px;
-	border-radius:15px;
+.date_area {
+    background: white;
+    border: 1px solid #dedede;
+    padding: 20px;
+    height: 35px;
+    border-radius: 15px;
 }
 
-.date_area>input{
-	padding:5px;
-	line-height:20px;
-	border:1px solid #999;
+.date_area > input {
+    padding: 5px;
+    line-height: 20px;
+    border: 1px solid #999;
 }
 
-.section>table{
-	width:100%;
-	border-collapse: collapse;
-	background:white;
-	margin-top:15px;
+.section > table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 15px;
 }
 
-.section>table td{
-	padding:10px;
-	text-align:left;
+.section > table td {
+    padding: 10px;
+    text-align: left;
 }
 
-.section>table th{
-	color:white;
-	background:#1FADFB;
-	padding:10px;
-	border-right:1px solid #fff;
-	text-align:left;
+.section > table th {
+    color: white;
+    background: #1FADFB;
+    padding: 10px;
+    border-right: 1px solid #fff;
+    text-align: left;
 }
 
-.section>table .sum_row>th{
-	background:#BAE4FB;
-	color:#666;
-	font-weight:normal;
-	border-right:none;
+.section > table .sum_row > th {
+    background: #BAE4FB;
+    color: #666;
+    font-weight: normal;
+    border-right: none;
 }
 
-.section>table th:last-child{
-	border-right:none;
+.section > table th:last-child {
+    border-right: none;
 }
 
-.section>table tr:nth-child(odd) {
-	background: #FDFDCE;
+.section > table tr:nth-child(odd) {
+    background: #FDFDCE;
 }
 
-.btn{
-	float: left;
-	margin-left:10px;
+.btn {
+    float: left;
+    margin-left: 10px;
 }
 
-.date_area>span, .date_area>input{
-	float:left;
+.date_area > span, .date_area > input {
+    float: left;
 }
 
-.date_area>span{
-	margin-left:10px;
-	margin-right:10px;
-	line-height:35px;
+.date_area > span {
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 35px;
 }
 
-.section{
-	margin-top:15px;
-	margin-bottom:40px;
+.section {
+    margin-top: 15px;
+    margin-bottom: 40px;
 }
 
 .full button span {
-	background-color: limegreen;
-	border-radius: 32px;
-	color: black;
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
 }
+
 .partially button span {
-	background-color: orange;
-	border-radius: 32px;
-	color: black;
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}
+
+.menu_item > a {
+    height: 40px;
 }
