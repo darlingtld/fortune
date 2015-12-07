@@ -17,8 +17,8 @@ public class StatDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<LotteryMarkSixUserStat> getLotteryMarkSixUserStatList(String userId, Date starDate, Date endDate) {
-        return sessionFactory.getCurrentSession().createQuery(String.format("from LotteryMarkSixUserStat where userId='%s' and openTs >= '%s' and openTs <='%s'", userId, starDate, endDate)).list();
+    public List<LotteryMarkSixUserStat> getLotteryMarkSixUserStatList(String userId, String starDate, String endDate) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from LotteryMarkSixUserStat where userId='%s' and openTs >= '%s' and openTs <='%s' order by issue desc", userId, starDate, endDate)).list();
     }
 
     public void saveLotteryMarkSixStat(LotteryMarkSixUserStat stat) {

@@ -1,120 +1,83 @@
 <!doctype html>
 <html>
 <head>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<meta charset="utf-8">
-<link rel="stylesheet" href="css/reports.css">
-<title>结算报表</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/reports.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+    <title>结算报表</title>
 </head>
 <body ng-app="reports" ng-controller="ReportsController">
-	<div class="nav" ng-include="'includes/nav.html'"></div>
-	<div class="section">
-		<div class="date_area">
-			<span>时间：从</span><input type="text" id="from_date" /><span>到</span><input
-				type="text" id="to_date" /> <a href="javascript:;" class="btn">查询</a>
-			<a href="javascript:;" class="btn">打印</a>
-		</div>
-		<table>
-			<tr>
-				<th>开奖日期</th>
-				<th>期数</th>
-				<th>下注金额</th>
-				<th>有效投注</th>
-				<th>退水</th>
-				<th>结果</th>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr>
-				<td>2015-10-11</td>
-				<td>120</td>
-				<td>1000</td>
-				<td>800</td>
-				<td>200</td>
-				<td>600</td>
-			</tr>
-			<tr class="sum_row">
-				<th colspan="2" style="text-align: center;">合计</th>
-				<th>6000</th>
-				<th>5600</th>
-				<th>1000</th>
-				<th>4000</th>
-			</tr>
-		</table>
-	</div>
-	<div ng-include="'includes/foot.html'"></div>
-	<script src="js/lib/angular.min.js"></script>
-	<script src="js/reports.js"></script>
+<div class="nav" ng-include="'includes/nav.html'"></div>
+<div class="section">
+    <!--<div class="date_area">-->
+    <!--<span>时间：从</span><input type="text" id="from_date"/><span>到</span><input-->
+    <!--type="text" id="to_date"/> <a href="javascript:;" class="btn">查询</a>-->
+    <!--<a href="javascript:;" class="btn">打印</a>-->
+    <!--</div>-->
+    <div class="row">
+
+        <div class="col-md-5">
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="fromDate"
+                       placeholder="选择起始时间"
+                       is-open="status.opened" datepicker-options="dateOptions"
+                       ng-required="true" close-text="Close"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+
+        <div class="col-md-5">
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="toDate"
+                       is-open="status.opened" placeholder="选择结束时间"
+                       datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+        <div class="col-md-2">
+            <p class="input-group">
+                <button type="button" class="btn btn-default" ng-click="query()">查询</button>
+            </p>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <th>开奖日期</th>
+            <th>期数</th>
+            <th>下注金额</th>
+            <th>有效投注</th>
+            <th>退水</th>
+            <th>结果</th>
+        </tr>
+        <tr ng-repeat="userStat in userStatList">
+            <td ng-bind='userStat.openTs | date : "yyyy-MM-dd"'></td>
+            <td ng-bind="userStat.issue"></td>
+            <td ng-bind="userStat.stakes"></td>
+            <td ng-bind="userStat.validStakes"></td>
+            <td ng-bind="userStat.tuishui"></td>
+            <td ng-bind="userStat.result"></td>
+        </tr>
+        <tr class="sum_row">
+            <th colspan="2" style="text-align: center;">合计</th>
+            <th ng-bind="stakesTotal"></th>
+            <th ng-bind="validStakesTotal"></th>
+            <th ng-bind="tuishuiTotal"></th>
+            <th ng-bind="resultTotal"></th>
+        </tr>
+    </table>
+</div>
+<div ng-include="'includes/foot.html'"></div>
+<script src="js/lib/angular.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="js/reports.js"></script>
 </body>
 </html>

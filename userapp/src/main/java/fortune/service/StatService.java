@@ -22,7 +22,7 @@ public class StatService {
     @Transactional
     public List<LotteryMarkSixUserStat> getLotteryMarkSixUserStatList(String userId, Date startDate, Date endDate) {
         Utils.logger.info("get lottery mark six user stat list of user id {}, from {} to {}", userId, startDate, endDate);
-        return statDao.getLotteryMarkSixUserStatList(userId, startDate, endDate);
+        return statDao.getLotteryMarkSixUserStatList(userId, Utils.yyyyMMddHHmmss2Format(startDate), Utils.yyyyMMddHHmmss2Format(endDate));
     }
 
     @Transactional
