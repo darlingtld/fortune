@@ -2,9 +2,7 @@ var reportsApp = angular.module("reports", ['ui.bootstrap']);
 reportsApp.controller("ReportsController", function ($scope, $http) {
     $scope.menu = 2;
     $scope.query = function () {
-        if ($scope.toDate == null) {
-            var toDate = $scope.maxDate;
-        }
+        var toDate = $scope.toDate == undefined ? $scope.maxDate : $scope.toDate;
         $http.get('report/userid/' + sessionStorage['userid'] + '/from/' + $scope.fromDate + '/to/' + toDate).success(function (data) {
             $scope.userStatList = data;
             $scope.stakesTotal = 0;
