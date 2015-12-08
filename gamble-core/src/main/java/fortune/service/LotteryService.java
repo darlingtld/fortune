@@ -76,4 +76,10 @@ public class LotteryService {
         nextLotteryMarkSixInfo.setDate(new Date());
         return nextLotteryMarkSixInfo;
     }
+
+    @Transactional
+    public int getLotteryMarkSixCount() {
+        Utils.logger.info("get lottery mark six total count");
+        return lotteryDao.getLotteryMarkSixCount();
+    }
 }

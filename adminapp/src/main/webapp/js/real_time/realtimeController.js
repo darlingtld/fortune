@@ -38,6 +38,7 @@ angular.module('AdminApp')
             $scope.othertypelist[1] = $scope.realTimeTranscations.slice(87, 90);
             $scope.othertypelist[2] = $scope.realTimeTranscations.slice(90, 93);
 
+
             $scope.stats = {
                 specialTransactions: 0,
                 specialStakes: 0,
@@ -49,10 +50,10 @@ angular.module('AdminApp')
                 wavetypeStakes: 0,
                 specialtailtypeTransactions: 0,
                 specialtailtypeStakes: 0,
-                colortypeTransactions:0,
-                colortypeStakes:0,
-                bstypeTransactions:0,
-                bstypeStakes:0
+                colortypeTransactions: 0,
+                colortypeStakes: 0,
+                bstypeTransactions: 0,
+                bstypeStakes: 0
             };
             for (var i = 0; i < $scope.list.length; i++) {
                 for (var j = 0; j < $scope.list[i].length; j++) {
@@ -62,19 +63,19 @@ angular.module('AdminApp')
             }
             for (var i = 0; i < $scope.specialtypelist.length; i++) {
                 for (var j = 0; j < $scope.specialtypelist[i].length; j++) {
-                    $scope.stats.specialtypeTransactons += $scope.specialtypelist[i][j].transactions;
+                    $scope.stats.specialtypeTransactions += $scope.specialtypelist[i][j].transactions;
                     $scope.stats.specialtypeStakes += $scope.specialtypelist[i][j].stakes;
                 }
             }
             for (var i = 0; i < $scope.animaltypelist.length; i++) {
                 for (var j = 0; j < $scope.animaltypelist[i].length; j++) {
-                    $scope.stats.animaltypeTransactons += $scope.animaltypelist[i][j].transactions;
+                    $scope.stats.animaltypeTransactions += $scope.animaltypelist[i][j].transactions;
                     $scope.stats.animaltypeStakes += $scope.animaltypelist[i][j].stakes;
                 }
             }
             for (var i = 0; i < $scope.wavetypelist.length; i++) {
                 for (var j = 0; j < $scope.wavetypelist[i].length; j++) {
-                    $scope.stats.wavetypeTransactons += $scope.wavetypelist[i][j].transactions;
+                    $scope.stats.wavetypeTransactions += $scope.wavetypelist[i][j].transactions;
                     $scope.stats.wavetypeStakes += $scope.wavetypelist[i][j].stakes;
                 }
             }
@@ -90,6 +91,9 @@ angular.module('AdminApp')
                 $scope.stats.bstypeTransactions += $scope.othertypelist[2][j].transactions;
                 $scope.stats.bstypeStakes += $scope.othertypelist[2][j].stakes;
             }
+
+            $scope.specialTransactionTotal = $scope.stats.specialTransactions + $scope.stats.specialtypeTransactions + $scope.stats.animaltypeTransactions
+                + $scope.stats.wavetypeTransactions + $scope.stats.specialtailtypeTransactions + $scope.stats.colortypeTransactions + $scope.stats.bstypeTransactions;
 
         })
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {

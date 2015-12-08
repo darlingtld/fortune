@@ -1,71 +1,87 @@
 <!doctype html>
 <html>
 <head>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<meta charset="utf-8">
-<link rel="stylesheet" href="css/history.css">
-<title>开奖历史</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/history.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <title>开奖历史</title>
 </head>
 <body ng-app="history" ng-controller="HistoryController">
-	<div class="nav" ng-include="'includes/nav.html'"></div>
-	<div class="section">
-		<table>
-			<tr>
-				<th rowspan="2">期数</th>
-				<th rowspan="2">星期</th>
-				<th rowspan="2">日期</th>
-				<th rowspan="2">彩球号码</th>
-				<th>特</th>
-				<th>特</th>
-				<th>特</th>
-				<th rowspan="2">总分</th>
-				<th>总</th>
-				<th>总</th>
-				<th rowspan="2">生肖</th>
-				<th>合</th>
-				<th>合</th>
-				<th rowspan="2">一肖</th>
-				<th rowspan="2">波段</th>
-			</tr>
-			<tr class="th_two">
-				<th>(单双)</th>
-				<th>(大小)</th>
-				<th>(大中小)</th>
-				<th>(单双)</th>
-				<th>(大小)</th>
-				<th>(单双)</th>
-				<th>(大小)</th>
-			</tr>
-			<tr>
-				<td>120</td>
-				<td>四</td>
-				<td>2010-10-05</td>
-				<td>
-					<div class="red ball">11</div>
-					<div class="red ball">32</div>
-					<div class="green ball">11</div>
-					<div class="blue ball">31</div>
-					<div class="red ball">32</div>
-					<div class="green ball">22</div>
-					<div class="blue ball">44</div>
-				</td>
-				<td>单</td>
-				<td>大</td>
-				<td>中</td>
-				<td>180</td>
-				<td>单</td>
-				<td>大</td>
-				<td>兔</td>
-				<td>单</td>
-				<td>大</td>
-				<td>鼠牛虎兔龙蛇</td>
-				<td class="color_td red">红</td>
-			</tr>
-		</table>
-	</div>
-	<div ng-include="'includes/foot.html'"></div>
-	<script src="js/lib/angular.min.js"></script>
-	<script src="js/history.js"></script>
+<div class="nav" ng-include="'includes/nav.html'"></div>
+<div class="section">
+    <table>
+        <tr>
+            <th rowspan="2">期数</th>
+            <th rowspan="2">星期</th>
+            <th rowspan="2">日期</th>
+            <th rowspan="2">彩球号码</th>
+            <th>特</th>
+            <th>特</th>
+            <th>特</th>
+            <th rowspan="2">总分</th>
+            <th>总</th>
+            <th>总</th>
+            <th rowspan="2">生肖</th>
+            <th>合</th>
+            <th>合</th>
+            <th rowspan="2">一肖</th>
+            <th rowspan="2">波段</th>
+        </tr>
+        <tr class="th_two">
+            <th>(单双)</th>
+            <th>(大小)</th>
+            <th>(大中小)</th>
+            <th>(单双)</th>
+            <th>(大小)</th>
+            <th>(单双)</th>
+            <th>(大小)</th>
+        </tr>
+        <tr ng-repeat="lotteryMarkSix in lotteryMarkSixList">
+            <td ng-bind="lotteryMarkSix.issue"></td>
+            <td ng-bind="lotteryMarkSix.timestamp | chineseWeek"></td>
+            <td ng-bind="lotteryMarkSix.timestamp | date : 'yyyy-MM-dd'"></td>
+            <td>
+                <div class="{{colorMap[lotteryMarkSix.one]}} ball" ng-bind="lotteryMarkSix.one"></div>
+                <div class="{{colorMap[lotteryMarkSix.two]}} ball" ng-bind="lotteryMarkSix.two"></div>
+                <div class="{{colorMap[lotteryMarkSix.three]}} ball" ng-bind="lotteryMarkSix.three"></div>
+                <div class="{{colorMap[lotteryMarkSix.four]}} ball" ng-bind="lotteryMarkSix.four"></div>
+                <div class="{{colorMap[lotteryMarkSix.five]}} ball" ng-bind="lotteryMarkSix.five"></div>
+                <div class="{{colorMap[lotteryMarkSix.six]}} ball" ng-bind="lotteryMarkSix.six"></div>
+                <div class="{{colorMap[lotteryMarkSix.special]}} ball" ng-bind="lotteryMarkSix.special"
+                     style="margin-left: 20px"></div>
+            </td>
+            <td ng-bind="lotteryMarkSix.special | specialDanShuang"></td>
+            <td ng-bind="lotteryMarkSix.special | specialDaXiao"></td>
+            <td ng-bind="lotteryMarkSix.special | specialDaZhongXiao"></td>
+            <td ng-bind="lotteryMarkSix.one+lotteryMarkSix.two+lotteryMarkSix.three+lotteryMarkSix.four+lotteryMarkSix.five+lotteryMarkSix.six+lotteryMarkSix.special"></td>
+            <td ng-bind="lotteryMarkSix.one+lotteryMarkSix.two+lotteryMarkSix.three+lotteryMarkSix.four+lotteryMarkSix.five+lotteryMarkSix.six+lotteryMarkSix.special | danShuang"></td>
+            <td ng-bind="lotteryMarkSix.one+lotteryMarkSix.two+lotteryMarkSix.three+lotteryMarkSix.four+lotteryMarkSix.five+lotteryMarkSix.six+lotteryMarkSix.special | daXiao"></td>
+            <td ng-bind="lotteryMarkSix.special | zodiac"></td>
+            <td ng-bind="lotteryMarkSix.special | heDanShuang"></td>
+            <td ng-bind="lotteryMarkSix.special | heDaXiao"></td>
+            <td><span ng-bind="lotteryMarkSix.one | zodiac"></span>
+                <span ng-bind="lotteryMarkSix.two | zodiac"></span>
+                <span ng-bind="lotteryMarkSix.three | zodiac"></span>
+                <span ng-bind="lotteryMarkSix.four | zodiac"></span>
+                <span ng-bind="lotteryMarkSix.five | zodiac"></span>
+                <span ng-bind="lotteryMarkSix.six | zodiac"></span>
+                <span ng-bind="lotteryMarkSix.special | zodiac"></span></td>
+            <td class="color_td {{colorMap[lotteryMarkSix.special]}}" ng-bind="colorMap[lotteryMarkSix.special] | wave"></td>
+        </tr>
+    </table>
+    <div class="pagination-area">
+        <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-md"
+                        items-per-page="itemsPerPage" ng-change="pageChanged()" previous-text="&lsaquo;"
+                        next-text="&rsaquo;" first-text="&laquo;"
+                        last-text="&raquo;"></uib-pagination>
+    </div>
+</div>
+<div ng-include="'includes/foot.html'"></div>
+<script src="js/lib/angular.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="js/common/lottery_algorithms.js"></script>
+<script src="js/history.js"></script>
 </body>
 </html>

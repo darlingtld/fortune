@@ -33,7 +33,10 @@ public class LotteryDao {
     }
 
     public List<LotteryMarkSix> getLotteryMarkSixByPagination(int from, int count) {
-        return sessionFactory.getCurrentSession().createQuery(String.format("from LotteryMarkSix order by issue desc limit %d, %d", from, count)).list();
+        return sessionFactory.getCurrentSession().createQuery(String.format("from LotteryMarkSix order by issue desc")).setFirstResult(from).setMaxResults(count).list();
     }
 
+    public int getLotteryMarkSixCount() {
+        return ((Number) sessionFactory.getCurrentSession().createQuery(String.format("select count(*) from LotteryMarkSix")).uniqueResult()).intValue();
+    }
 }

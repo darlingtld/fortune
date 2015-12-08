@@ -51,8 +51,11 @@ public class LotteryController {
     @RequestMapping(value = "pagination/from/{from}/count/{count}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryMarkSix> getLotteryMarkSixPagination(@PathVariable("from") int from, @PathVariable("count") int count) {
-        return lotteryService.getLotteryMarkSixByPagination(from, count);
+    JSONObject getLotteryMarkSixPagination(@PathVariable("from") int from, @PathVariable("count") int count) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("lotteryMarkSixList", lotteryService.getLotteryMarkSixByPagination(from, count));
+        jsonObject.put("totalItems", lotteryService.getLotteryMarkSixCount());
+        return jsonObject;
     }
 
     /**
