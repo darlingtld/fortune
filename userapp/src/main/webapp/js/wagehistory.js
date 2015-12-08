@@ -81,7 +81,42 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
     			return wage.totalStakes;
     		}
     	},
-    	
+    	'WAVE':{
+    		typeName: '半波',
+    		getWageHTML: function(wage){
+    			var arr=wage.lotteryMarkSixType.split("_"), color=zhengTypeMap[arr[1]], type=zhengTypeMap[arr[2]];
+    			var html='<p style="color:'+arr[1].toLowerCase()+';">'+color+' '+type+'</p>';
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
+    	},
+    	'SUM':{
+    		typeName: '合肖',
+    		getWageHTML: function(wage){
+    			var html='<p style="line-height:25px;">选择的生肖：', zodiacs=wage.subLotteryMarkSixTypes, wageList=wage.lotteryMarkSixWagerStubList;
+    			for(var i=0;i<zodiacs.length;i++){
+    				html+=zodiacTypeMap[zodiacs[i]];
+    			}
+    			html+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    			for(var i=0;i<wageList.length;i++){
+    				var number=wageList[i].number, count=parseInt(number/10), isZhong=number%2==1;
+    				html+=count+'肖'+(isZhong?'中':'不中')+" ";
+    			}
+    			html+='</p>';
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			var wageList=wage.lotteryMarkSixWagerStubList, stakes=wage.totalStakes+'(';
+    			for(var i=0;i<wageList.length;i++){
+    				var stake=wageList[i].stakes;
+    				stakes+=stake+',';
+    			}
+    			stakes=stakes.substring(0,stakes.length-1)+')';
+    			return stakes;
+    		}
+    	}
     };
     
     $scope.getWageRecord = function (user, pgroup, issue) {

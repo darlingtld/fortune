@@ -23,7 +23,8 @@
 }
 
 .section > table td {
-    padding: 10px;
+    padding: 5px;
+    padding-left:10px;
     text-align: left;
 }
 
