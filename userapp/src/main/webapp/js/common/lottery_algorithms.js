@@ -258,7 +258,7 @@ var Zodiac = {
             }
         }
         if (currentIndex < 11) {
-            for (var start = 12, i = currentIndex + 1; i < 11; i++, start--) {
+            for (var start = 12, i = currentIndex + 1; i < 12; i++, start--) {
                 var value = start, name = this.zodiacMap[i].name;
                 for (; ;) {
                     if (value == ballNum) {
