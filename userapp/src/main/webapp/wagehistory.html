@@ -11,38 +11,33 @@
 <div class="nav" ng-include="'includes/nav.html'"></div>
 <div class="section">
     <div class="issue_area">
-        <span>代理商：</span><select ng-model="selectedPGroup" ng-change="changePGroupAndIssue()"
-                                 ng-options="pg.name for pg in user.pGroupList track by pg.id"></select>
-        <span>期数：</span><select ng-model="selectedIssue" ng-change="changePGroupAndIssue()" ng-options="issue for issue in lotteryIssues"></select>
+        <span>代理商：</span>
+        <select ng-model="selectedPGroup" ng-change="changePGroupAndIssue()" ng-options="pg.name for pg in user.pGroupList track by pg.id"></select>
+        <span>期数：</span>
+        <select ng-model="selectedIssue" ng-change="changePGroupAndIssue()" ng-options="issue for issue in lotteryIssues"></select>
     </div>
     <table>
         <thead>
         <tr>
-            <th>数字</th>
             <th>类型</th>
+            <th>下注内容</th>
             <th>下注金额</th>
             <th>下注时间</th>
-            <th>操作</th>
         </tr>
         </thead>
-
         <tbody>
         <tr ng-repeat="wage in wageHistory">
-            <td>
-                <span ng-repeat="ball in wage.lotteryMarkSixWagerStubList" class="ball ball{{ball.number}}" ng-bind="ball.number"></span>
-            </td>
-            <td ng-bind="wage.lotteryMarkSixType | translate"></td>
-            <td ng-bind="wage.totalStakes"></td>
+            <td ng-bind="wage.typeName"></td>
+            <td ng-bind-html="wage.wageHTML"></td>
+            <td ng-bind="wage.stakes"></td>
             <td ng-bind="wage.timestamp | date:'yyyy-MM-dd HH:mm:ss'"></td>
-            <td><a href="#" class="btn">删除</a></td>
-
-
         </tr>
         </tbody>
     </table>
 </div>
 <div ng-include="'includes/foot.html'"></div>
 <script src="js/lib/angular.min.js"></script>
+<script src="js/common/lottery_algorithms.js"></script>
 <script src="js/wagehistory.js"></script>
 </body>
 </html>
