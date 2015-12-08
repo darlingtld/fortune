@@ -15,6 +15,15 @@
     justify-content: space-around;
 }
 
+.real-time-tab {
+    cursor: pointer;
+    color: blue;
+}
+
+.real-time-tab-active {
+    color: red;
+}
+
 .real-time-dashboard {
     display: flex;
     justify-content: center;

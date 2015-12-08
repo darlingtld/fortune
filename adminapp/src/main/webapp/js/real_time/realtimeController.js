@@ -8,6 +8,17 @@ angular.module('AdminApp')
             $scope.lotteryMarkSixInfo = data;
         });
 
+        $scope.page = 'includes/realtime_special.html';
+        $scope.goto = function (page) {
+            $scope.page = 'includes/realtime_' + page + '.html';
+            var ele = $(event.target);
+            if (ele.siblings().length == 0) {
+                ele = ele.parent();
+            }
+            ele.siblings().removeClass('real-time-tab-active');
+            ele.addClass('real-time-tab-active');
+        }
+
         realtimeService.getRealTimeTransaction(sessionStorage['pgroupid']).then(function (data) {
             $scope.realTimeTranscations = data;
             $scope.list = [];
@@ -97,7 +108,7 @@ angular.module('AdminApp')
 
         })
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
-    realtimeService.getStakesDetail4Special($routeParams.groupid, $routeParams.issue, $routeParams.number).then(function (data) {
-        $scope.wagerList = data;
-    });
-})
+        realtimeService.getStakesDetail4Special($routeParams.groupid, $routeParams.issue, $routeParams.number).then(function (data) {
+            $scope.wagerList = data;
+        });
+    })
