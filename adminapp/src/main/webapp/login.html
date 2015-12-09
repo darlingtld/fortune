@@ -16,7 +16,11 @@
         <label for="username">账号：</label>
         <input type="text" id="username" ng-model="username"/><br/><br/>
         <label for="password">密码：</label>
-        <input type="password" id="password" ng-model="password"/>
+        <input type="password" id="password" ng-model="password"/><br/><br/>
+        <label for="kaptcha">验证码：</label>
+        <input type="text" id="kaptcha" name="kaptcha" ng-model="kaptcha"/>
+        <img id="kaptchaImage" align="middle" src="kaptcha/kaptcha.jpg" title="看不清，点击换一张"
+             ng-click="refreshImage()"/>
 
         <p class="error_message" ng-show="isError">登录失败！</p>
     </div>

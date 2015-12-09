@@ -4,7 +4,8 @@ loginApp.controller("LoginController", function ($scope, $http) {
     $scope.login = function () {
         $http.post("user/login", {
             "name": $scope.username,
-            "password": $scope.password
+            "password": $scope.password,
+            "kaptcha": $scope.kaptcha
         }).success(function (response) {
             if (response) {
                 sessionStorage["userid"] = response.id;
@@ -12,6 +13,15 @@ loginApp.controller("LoginController", function ($scope, $http) {
             } else {
                 $scope.isError = true;
             }
+        }).error(function (data, status, headers) {
+            //alert(headers("message"))
+            if (status == 417) {
+                alert("验证码错误")
+            }
         });
     };
+
+    $scope.refreshImage = function () {
+        event.target.setAttribute('src', 'kaptcha/kaptcha.jpg?' + Math.floor(Math.random() * 100));
+    }
 });

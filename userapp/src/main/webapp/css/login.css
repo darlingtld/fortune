@@ -50,3 +50,7 @@
     margin-top: 10px;
     margin-bottom: 0px;
 }
+
+#kaptcha {
+    width: 100px;
+}
