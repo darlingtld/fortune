@@ -19,7 +19,7 @@
 
     create a database named 'fortune'
 
-    mongodump -h dbhost -d dbname -o dbdirectory
+    mongodump -h localhost -d fortune -o dbdirectory
 
     mongorestore --host localhost -d fortune --dir '/Users/frank/workspace/fortune/configuration/src/main/database/mongo_db_init/fortune' --drop
     
