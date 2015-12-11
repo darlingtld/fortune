@@ -1,0 +1,101 @@
+<div class="real-time-dashboard lottery-special-number">
+    <div ng-repeat="subs in list1">
+        <table>
+            <thead>
+            <tr>
+                <th><span ng-bind="$index+1"></span>肖</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in subs">
+                <td><span ng-if="$index==0">中</span><span ng-if="$index==1">不中</span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td>
+                    <a href="#/stakesdetail/groupid/{{groupid}}/sum_zodiac/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                            ng-bind="rt.stakes"></span></a></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            <tr>
+                <td>合计</td>
+                <td ng-bind="transactions[$index]"></td>
+                <td ng-bind="stakes[$index]"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="real-time-dashboard lottery-special-number">
+    <div ng-repeat="subs in list2">
+        <table>
+            <thead>
+            <tr>
+                <th><span ng-bind="$index+5"></span>肖</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in subs">
+                <td><span ng-if="$index==0">中</span><span ng-if="$index==1">不中</span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td>
+                    <a href="#/stakesdetail/groupid/{{groupid}}/sum_zodiac/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                            ng-bind="rt.stakes"></span></a></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            <tr>
+                <td>合计</td>
+                <td ng-bind="transactions[$index+5]"></td>
+                <td ng-bind="stakes[$index+5]"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="real-time-dashboard lottery-special-number">
+    <div ng-repeat="subs in list3">
+        <table>
+            <thead>
+            <tr>
+                <th><span ng-bind="$index+9"></span>肖</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in subs">
+                <td><span ng-if="$index==0">中</span><span ng-if="$index==1">不中</span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td>
+                    <a href="#/stakesdetail/groupid/{{groupid}}/sum_zodiac/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                            ng-bind="rt.stakes"></span></a></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            <tr>
+                <td>合计</td>
+                <td ng-bind="transactions[$index+9]"></td>
+                <td ng-bind="stakes[$index+9]"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

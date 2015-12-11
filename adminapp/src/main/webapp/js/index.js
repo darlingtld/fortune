@@ -30,7 +30,7 @@ controller('indexController', function ($scope, $interval) {
     }).when('/realtime', {
         controller: 'realtimeController',
         templateUrl: 'includes/realtime.html'
-    }).when('/stakesdetail/groupid/:groupid/special/issue/:issue/ball/:number', {
+    }).when('/stakesdetail/groupid/:groupid/:type/issue/:issue/ball/:number', {
         controller: 'stakesDetailController',
         templateUrl: 'includes/stakesdetail.html'
     }).otherwise({

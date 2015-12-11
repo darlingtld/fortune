@@ -11,16 +11,16 @@ angular.module('AdminApp')
             return deferred.promise;
         };
 
-        this.getRealTimeTransaction = function (groupid) {
+        this.getRealTimeTransaction = function (groupid, type) {
             var deferred = $q.defer();
-            $http.get('stat/realtime/transaction_result/groupid/' + groupid).success(function (data) {
+            $http.get('stat/realtime/transaction_result/' + type + '/groupid/' + groupid).success(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;
         };
-        this.getStakesDetail4Special = function (groupid, issue, number) {
+        this.getStakesDetail4Special = function (type, groupid, issue, number) {
             var deferred = $q.defer();
-            $http.get('stat/realtime/stake_detail/special/groupid/' + groupid + '/issue/' + issue + '/ball/' + number).success(function (data) {
+            $http.get('stat/realtime/stake_detail/' + type + '/groupid/' + groupid + '/issue/' + issue + '/ball/' + number).success(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;

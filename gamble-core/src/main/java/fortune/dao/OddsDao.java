@@ -1,5 +1,6 @@
 package fortune.dao;
 
+import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryOdds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -38,6 +39,11 @@ public class OddsDao {
 
     public LotteryOdds getOdds4LotteryIssue(int lotteryIssue, String groupId, int number) {
         Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number)));
+        return mongoTemplate.findOne(query, LotteryOdds.class);
+    }
+
+    public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type) {
+        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type)));
         return mongoTemplate.findOne(query, LotteryOdds.class);
     }
 

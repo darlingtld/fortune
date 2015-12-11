@@ -45,18 +45,18 @@ public class StatController {
      * @param groupId
      * @return
      */
-    @RequestMapping(value = "realtime/transaction_result/groupid/{groupid}", method = RequestMethod.GET)
+    @RequestMapping(value = "realtime/transaction_result/{type}/groupid/{groupid}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<RealtimeStat> getRealTimeTransactionResult(@PathVariable("groupid") String groupId) {
-        return statService.getRealTimeTransactionResult(groupId);
+    List<RealtimeStat> getRealTimeTransactionResult(@PathVariable("type") String type, @PathVariable("groupid") String groupId) {
+        return statService.getRealTimeTransactionResult(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId);
     }
 
-    @RequestMapping(value = "realtime/stake_detail/special/groupid/{groupid}/issue/{issue}/ball/{number}", method = RequestMethod.GET)
+    @RequestMapping(value = "realtime/stake_detail/{type}/groupid/{groupid}/issue/{issue}/ball/{number}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<RealTimeWager> getStakeDetail4Special(@PathVariable("groupid") String groupId, @PathVariable("issue") int issue, @PathVariable("number") int number) {
-        return statService.getStakeDetail4Special(groupId, issue, number);
+    List<RealTimeWager> getStakeDetail4Special(@PathVariable("type") String type, @PathVariable("groupid") String groupId, @PathVariable("issue") int issue, @PathVariable("number") int number) {
+        return statService.getStakeDetail(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, issue, number);
     }
 
 }

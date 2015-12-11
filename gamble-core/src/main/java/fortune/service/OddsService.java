@@ -54,6 +54,12 @@ public class OddsService {
     }
 
     @Transactional
+    public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type) {
+        Utils.logger.info("get odds for lottery issue {} of group id {} of ball {} of type {}", lotteryIssue, groupId, number, type);
+        return oddsDao.getOdds(lotteryIssue, groupId, number, type);
+    }
+
+    @Transactional
     public LotteryOdds getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType) {
         Utils.logger.info("get odds for lottery issue {} of group id {} of type {}", lotteryIssue, groupId, lotteryMarkSixType);
         return oddsDao.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType);
@@ -251,7 +257,16 @@ public class OddsService {
             odds.setOdds(20);
             odds.setLotteryIssue(lotteryIssue);
             odds.setTimestamp(new Date());
-            odds.setLotteryBallNumber(j);
+            odds.setLotteryBallNumber(j * 10 + 1);
+            odds.setLotteryMarkSixType(LotteryMarkSixType.SUM_ZODIAC);
+            oddsList.add(odds);
+
+            odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(20);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallNumber(j * 10);
             odds.setLotteryMarkSixType(LotteryMarkSixType.SUM_ZODIAC);
             oddsList.add(odds);
         }

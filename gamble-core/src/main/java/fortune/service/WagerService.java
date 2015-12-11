@@ -110,8 +110,8 @@ public class WagerService {
     }
 
     @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfSpecialNumber(String groupId, int issue, int number) {
-        Utils.logger.info("get lottery mark six wager list of type special lottery issue {},group id{}, number {}", issue, groupId, number);
-        return wagerDao.getLotteryMarkSixWagerListOfSpecialNumber(groupId, issue, number);
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, int issue, int number) {
+        Utils.logger.info("get lottery mark six wager list of type {} lottery issue {},group id{}, number {}", type.getType(), issue, groupId, number);
+        return wagerDao.getLotteryMarkSixWagerList(type, groupId, issue, number);
     }
 }

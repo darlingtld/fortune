@@ -81,8 +81,8 @@ public class WagerDao {
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
     }
 
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfSpecialNumber(String groupId, int issue, int number) {
-        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(LotteryMarkSixType.SPECIAL)));
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, int issue, int number) {
+        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(type)));
         List<LotteryMarkSixWager> tmpwagerList = mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
         List<LotteryMarkSixWager> wagerList = new ArrayList<>();
         for (LotteryMarkSixWager wager : tmpwagerList) {
