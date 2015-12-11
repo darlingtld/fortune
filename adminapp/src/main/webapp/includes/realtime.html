@@ -20,8 +20,8 @@
         </div>
     </div>
     <div class="real-time-tabs">
-        <a ng-click="goto('special')" class="real-time-tab real-time-tab-active">特码（<span ng-bind="specialTransactionTotal"></span>）</a>
-        <a ng-click="goto('sum_zodiac')" class="real-time-tab">合肖（<span>10000</span>）</a>
+        <a ng-click="goto('special')" class="real-time-tab real-time-tab-active">特码（<span ng-bind="transactionTotalCount.SPECIAL"></span>）</a>
+        <a ng-click="goto('sum_zodiac')" class="real-time-tab">合肖（<span ng-bind="transactionTotalCount.SUM_ZODIAC"></span>）</a>
         <a ng-click="goto('hexiao')" class="real-time-tab">正码（<span>10000</span>）</a>
         <a ng-click="goto('hexiao')" class="real-time-tab">正码特（<span>10000</span>）</a>
         <a ng-click="goto('hexiao')" class="real-time-tab">一肖尾数（<span>10000</span>）</a>
@@ -29,7 +29,7 @@
         <a ng-click="goto('hexiao')" class="real-time-tab">自选不中（<span>10000</span>）</a>
         <a ng-click="goto('hexiao')" class="real-time-tab">连肖（<span>10000</span>）</a>
         <a ng-click="goto('hexiao')" class="real-time-tab">连尾（<span>10000</span>）</a>
-        <a ng-click="goto('hexiao')" class="real-time-tab">全部（<span>10000</span>）</a>
+        <a ng-click="goto('hexiao')" class="real-time-tab">全部（<span ng-bind="transactionTotalCount.ALL"></span>）</a>
 
     </div>
 </div>

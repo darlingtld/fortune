@@ -25,4 +25,11 @@ angular.module('AdminApp')
             });
             return deferred.promise;
         }
+        this.getRealTimeTransactionTotalCount = function (groupid, issue) {
+            var deferred = $q.defer();
+            $http.get('stat/realtime/transaction_result/total_count/groupid/' + groupid + '/issue/' + issue).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        }
     })

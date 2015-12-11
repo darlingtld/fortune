@@ -1,5 +1,8 @@
 package fortune.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import common.Utils;
 import fortune.dao.StatDao;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static fortune.pojo.LotteryMarkSixType.*;
 
@@ -391,5 +396,24 @@ public class StatService {
             realTimeWagerList.add(realTimeWager);
         }
         return realTimeWagerList;
+    }
+
+    @Transactional
+    public JSONObject getRealTimeTransactionTotalCount(String groupId, int issue) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupId, issue);
+        Map<String, AtomicInteger> transactionMap = new HashMap<>();
+        transactionMap.put(LotteryMarkSixType.SPECIAL.name(), new AtomicInteger(0));
+        transactionMap.put(LotteryMarkSixType.SUM_ZODIAC.name(), new AtomicInteger(0));
+        transactionMap.put("ALL", new AtomicInteger(0));
+
+        for (LotteryMarkSixWager wager : wagerList) {
+            if (transactionMap.containsKey(wager.getLotteryMarkSixType().name())) {
+                transactionMap.get(wager.getLotteryMarkSixType().name()).incrementAndGet();
+            }
+            transactionMap.get("ALL").incrementAndGet();
+        }
+        JSONObject json = new JSONObject();
+        json.putAll(transactionMap);
+        return json;
     }
 }

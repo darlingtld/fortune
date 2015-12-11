@@ -152,6 +152,12 @@ angular.module('AdminApp')
             }
             ele.siblings().removeClass('real-time-tab-active');
             ele.addClass('real-time-tab-active');
+            realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
+                $scope.lotteryMarkSixInfo = data;
+                return realtimeService.getRealTimeTransactionTotalCount(sessionStorage['pgroupid'], $scope.lotteryMarkSixInfo.issue);
+            }).then(function (data) {
+                $scope.transactionTotalCount = data;
+            });
             switch (page) {
                 case 'special':
                     renderSpecial();

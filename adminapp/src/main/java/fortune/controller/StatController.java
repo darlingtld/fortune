@@ -1,5 +1,7 @@
 package fortune.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import fortune.pojo.*;
 import fortune.service.StatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,19 @@ public class StatController {
     @ResponseBody
     List<RealtimeStat> getRealTimeTransactionResult(@PathVariable("type") String type, @PathVariable("groupid") String groupId) {
         return statService.getRealTimeTransactionResult(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId);
+    }
+
+    /**
+     * 获取每个种类即时注单的交易总数
+     *
+     * @param groupId
+     * @return
+     */
+    @RequestMapping(value = "realtime/transaction_result/total_count/groupid/{groupid}/issue/{issue}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONObject getRealTimeTransactionTotalCount(@PathVariable("groupid") String groupId, @PathVariable("issue") int issue) {
+        return statService.getRealTimeTransactionTotalCount(groupId, issue);
     }
 
     @RequestMapping(value = "realtime/stake_detail/{type}/groupid/{groupid}/issue/{issue}/ball/{number}", method = RequestMethod.GET)
