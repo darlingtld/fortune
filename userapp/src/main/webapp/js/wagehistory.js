@@ -95,11 +95,11 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
     	'SUM':{
     		typeName: '合肖',
     		getWageHTML: function(wage){
-    			var html='<p style="line-height:25px;">选择的生肖：', zodiacs=wage.subLotteryMarkSixTypes, wageList=wage.lotteryMarkSixWagerStubList;
+    			var html='<p>选择的生肖：', zodiacs=wage.subLotteryMarkSixTypes, wageList=wage.lotteryMarkSixWagerStubList;
     			for(var i=0;i<zodiacs.length;i++){
     				html+=zodiacTypeMap[zodiacs[i]];
     			}
-    			html+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    			html+='<br/>';
     			for(var i=0;i<wageList.length;i++){
     				var number=wageList[i].number, count=parseInt(number/10), isZhong=number%2==1;
     				html+=count+'肖'+(isZhong?'中':'不中')+" ";
@@ -116,6 +116,112 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
     			stakes=stakes.substring(0,stakes.length-1)+')';
     			return stakes;
     		}
+    	},
+    	'ZHENG':{
+    		typeName: function(wage){
+    			if(wage.lotteryMarkSixType=='ZHENG_BALL'){
+    				return '正码';
+    			}
+    			else if(wage.lotteryMarkSixType=='ZHENG_1_6'){
+    				return '正码1~6';
+    			}
+    			else if(wage.lotteryMarkSixType.split("_")[1]=="SPECIFIC"){
+    				return '正码特'+wage.lotteryMarkSixType.split("_")[2];
+    			}
+    		},
+    		getWageHTML: function(wage){
+    			var html='', wageSubList=wage.lotteryMarkSixWagerStubList;
+    			if(wage.lotteryMarkSixType=='ZHENG_BALL' || wage.lotteryMarkSixType.split("_")[1]=="SPECIFIC"){
+    				for(var i=0;i<wageSubList.length;i++){
+        				var item=wageSubList[i];
+        				html+='<div class="ball ball'+item.number+'">'+item.number+'</div><div style="float:left;line-height:25px;margin-right:5px;">('+item.stakes+')</div>';
+        			}
+    			}
+    			else if(wage.lotteryMarkSixType=='ZHENG_1_6'){
+    				for(var i=0;i<wageSubList.length;i++){
+        				var item=wageSubList[i];
+        				html+='<span style="margin-right:10px;">正码'+item.number+': '+zhengTypeMap[item.lotteryMarkSixType]+'('+item.stakes+')</span>';
+        			}
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
+    	},
+    	'JOINT': {
+    		typeName: function(wage){
+    			return '连码'+jointTypeMap[wage.lotteryMarkSixType];
+    		},
+    		getWageHTML: function(wage){
+    			var html='', wageSubList=wage.lotteryMarkSixWagerStubList;
+    			for(var i=0;i<wageSubList.length;i++){
+    				var item=wageSubList[i];
+    				html+='<div class="ball ball'+item.number+'">'+item.number+'</div>';
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
+    	},
+    	'NOT': {
+    		typeName: function(wage){
+    			return '自选'+wage.lotteryMarkSixType.split('_')[1]+'不中';
+    		},
+    		getWageHTML: function(wage){
+    			var html='', wageSubList=wage.lotteryMarkSixWagerStubList;
+    			for(var i=0;i<wageSubList.length;i++){
+    				var item=wageSubList[i];
+    				html+='<div class="ball ball'+item.number+'">'+item.number+'</div>';
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
+    	},
+    	'PASS': {
+    		typeName: '过关',
+    		getWageHTML: function(wage){
+    			var html='', wageSubList=wage.lotteryMarkSixWagerStubList;
+    			for(var i=0;i<wageSubList.length;i++){
+    				var item=wageSubList[i];
+    				html+='<span style="margin-right:10px;">正码'+item.number+': '+passTypeMap[item.lotteryMarkSixType]+'</span>';
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
+    	},
+    	'ONE': {
+    		typeName: '一肖',
+    		getWageHTML: function(wage){
+    			var zodiac=wage.lotteryMarkSixType, zodiacName=zodiacTypeMap[zodiac], html='<div style="float:left;margin-right:20px;line-height:25px;">'+zodiacName+':</div>', balls=Zodiac.getBallsByName(zodiacName);
+    			for(var i=0;i<balls.length;i++){
+    				var ball=balls[i];
+    				html+='<div class="ball ball'+ball+'">'+ball+'</div>';
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
+    	},
+    	'TAIL': {
+    		typeName: '尾数',
+    		getWageHTML: function(wage){
+    			var html='', wageSubList=wage.lotteryMarkSixWagerStubList;
+    			for(var i=0;i<wageSubList.length;i++){
+    				var item=wageSubList[i];
+    				html+='<span style="margin-right:10px;">'+item.number+'尾('+item.stakes+')</span>';
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
     	}
     };
     
@@ -127,7 +233,7 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
                 	var prefix=data[i].lotteryMarkSixType.split('_')[0], mapItem=prefixHistoryMap[prefix];
                 	if(mapItem){
                 		$scope.wageHistory.push({
-                			typeName: mapItem.typeName,
+                			typeName: (typeof mapItem.typeName=='string' ? mapItem.typeName: mapItem.typeName(data[i])),
                 			wageHTML: mapItem.getWageHTML(data[i]),
                 			stakes: mapItem.getStakes(data[i]),
                 			timestamp: data[i].timestamp
