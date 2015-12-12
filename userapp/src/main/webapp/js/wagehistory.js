@@ -40,7 +40,7 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
     	'ZODIAC':{
     		typeName: '生肖',
     		getWageHTML: function(wage){
-    			var zodiac=wage.lotteryMarkSixType, zodiacName=zodiacTypeMap[zodiac], html='<div style="float:left;margin-right:20px;line-height:25px;">'+zodiacName+':</div>', balls=Zodiac.getBallsByName(zodiacName);
+    			var zodiac=wage.lotteryMarkSixType, zodiacName=zodiacTypeMap[zodiac], html='<div style="float:left;margin-right:5px;line-height:25px;">'+zodiacName+':</div>', balls=Zodiac.getBallsByName(zodiacName);
     			for(var i=0;i<balls.length;i++){
     				var ball=balls[i];
     				html+='<div class="ball ball'+ball+'">'+ball+'</div>';
@@ -198,11 +198,12 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
     	'ONE': {
     		typeName: '一肖',
     		getWageHTML: function(wage){
-    			var zodiac=wage.lotteryMarkSixType, zodiacName=zodiacTypeMap[zodiac], html='<div style="float:left;margin-right:20px;line-height:25px;">'+zodiacName+':</div>', balls=Zodiac.getBallsByName(zodiacName);
-    			for(var i=0;i<balls.length;i++){
-    				var ball=balls[i];
-    				html+='<div class="ball ball'+ball+'">'+ball+'</div>';
+    			var wageSubList=wage.lotteryMarkSixWagerStubList, html='';
+    			for(var i=0;i<wageSubList.length;i++){
+    				var zodiac=wageSubList[i].lotteryMarkSixType, zodiacName=zodiacTypeMap[zodiac];
+    				html+=zodiacName+'('+wageSubList[i].stakes+')  ';
     			}
+    			
     			return $sce.trustAsHtml(html);
     		},
     		getStakes: function(wage){
