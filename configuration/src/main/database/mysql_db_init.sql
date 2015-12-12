@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2015-12-06 08:16:10
+Date: 2015-12-12 10:05:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `job_tracker` (
   `endtime` datetime DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of job_tracker
@@ -63,6 +63,10 @@ INSERT INTO `job_tracker` VALUES ('97', 'SPECIAL', '304', '2015-12-05 15:47:00',
 INSERT INTO `job_tracker` VALUES ('98', 'fortune.job.LotteryUserStatJob', '304', '2015-12-05 15:47:00', '2015-12-05 15:47:05', 'SUCCESS');
 INSERT INTO `job_tracker` VALUES ('99', 'fortune.job.LotteryOddsPopulateJob', '305', '2015-12-05 15:47:00', '2015-12-05 15:47:06', 'SUCCESS');
 INSERT INTO `job_tracker` VALUES ('100', 'fortune.job.LotteryGroupStatJob', '304', '2015-12-05 15:47:00', '2015-12-05 15:47:05', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('101', 'SPECIAL', '306', '2015-12-12 10:02:30', '2015-12-12 10:02:30', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('102', 'fortune.job.LotteryUserStatJob', '306', '2015-12-12 10:03:00', '2015-12-12 10:03:01', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('103', 'fortune.job.LotteryGroupStatJob', '306', '2015-12-12 10:03:00', '2015-12-12 10:03:01', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('104', 'fortune.job.LotteryOddsPopulateJob', '307', '2015-12-12 10:03:00', '2015-12-12 10:03:01', 'SUCCESS');
 
 -- ----------------------------
 -- Table structure for lottery_draw_tracker
@@ -73,12 +77,12 @@ CREATE TABLE `lottery_draw_tracker` (
   `last_lottery_issue` int(11) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=277 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=384 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_draw_tracker
 -- ----------------------------
-INSERT INTO `lottery_draw_tracker` VALUES ('276', '304', '2015-12-05 16:22:00');
+INSERT INTO `lottery_draw_tracker` VALUES ('383', '306', '2015-12-12 10:05:00');
 
 -- ----------------------------
 -- Table structure for lottery_mark_six
@@ -96,7 +100,7 @@ CREATE TABLE `lottery_mark_six` (
   `issue` int(11) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=310 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_mark_six
@@ -405,6 +409,7 @@ INSERT INTO `lottery_mark_six` VALUES ('306', '2', '3', '4', '5', '6', '8', '7',
 INSERT INTO `lottery_mark_six` VALUES ('307', '2', '3', '4', '5', '6', '8', '1', '302', '2015-12-05 15:07:13');
 INSERT INTO `lottery_mark_six` VALUES ('308', '2', '3', '4', '5', '16', '8', '6', '303', '2015-12-05 15:31:29');
 INSERT INTO `lottery_mark_six` VALUES ('309', '12', '3', '4', '5', '16', '8', '2', '304', '2015-12-05 15:46:45');
+INSERT INTO `lottery_mark_six` VALUES ('310', '10', '20', '30', '40', '11', '12', '13', '306', '2015-12-12 10:02:26');
 
 -- ----------------------------
 -- Table structure for lottery_mark_six_group_stat
@@ -422,7 +427,7 @@ CREATE TABLE `lottery_mark_six_group_stat` (
   `remark` text,
   `pgroup_id` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4821 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4827 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_mark_six_group_stat
@@ -1957,6 +1962,12 @@ INSERT INTO `lottery_mark_six_group_stat` VALUES ('4817', '309', '0', '0', '0', 
 INSERT INTO `lottery_mark_six_group_stat` VALUES ('4818', '309', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
 INSERT INTO `lottery_mark_six_group_stat` VALUES ('4819', '309', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
 INSERT INTO `lottery_mark_six_group_stat` VALUES ('4820', '309', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4821', '310', '0', '0', '0', '0', '0', '0', '', '563338f6e708fad8259ea83f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4822', '310', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2c');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4823', '310', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2d');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4824', '310', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4825', '310', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4826', '310', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
 
 -- ----------------------------
 -- Table structure for lottery_mark_six_stat
@@ -3489,7 +3500,7 @@ CREATE TABLE `lottery_mark_six_user_stat` (
   `result` double DEFAULT NULL,
   `userid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_mark_six_user_stat
@@ -3563,3 +3574,16 @@ INSERT INTO `lottery_mark_six_user_stat` VALUES ('66', '2015-12-05 15:46:45', '3
 INSERT INTO `lottery_mark_six_user_stat` VALUES ('67', '2015-12-05 15:46:45', '304', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
 INSERT INTO `lottery_mark_six_user_stat` VALUES ('68', '2015-12-05 15:46:45', '304', '0', '0', '0', '0', '56513a546313886e4f8417f0');
 INSERT INTO `lottery_mark_six_user_stat` VALUES ('69', '2015-12-05 15:46:45', '304', '20', '20', '0', '425', '563b499a63132cd7d9a66c84');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('70', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563336b4e70832d79057b88a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('71', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563338c5e70868c873ec7827');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('72', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c82');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('73', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c83');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('74', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c84');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('75', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c86');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('76', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c87');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('77', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c88');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('78', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c89');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('79', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c85');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('80', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c8a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('81', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('82', '2015-12-12 10:02:26', '306', '0', '0', '0', '0', '56513a546313886e4f8417f0');
