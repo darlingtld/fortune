@@ -29,10 +29,12 @@ Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month 
 
     <bean id="lotteryGroupStatJob" class="fortune.job.LotteryGroupStatJob"/>
     <bean id="lotteryOddsPopulateJob" class="fortune.job.LotteryOddsPopulateJob"/>
+    <bean id="lotteryMarkSixCrawler" class="fortune.crawler.LotteryMarkSixCrawler"/>
 
     <task:scheduled-tasks scheduler="lotteryResultScheduler">
         <task:scheduled ref="lotteryGroupStatJob" method="calculateGroupStat" cron="0 * * * * ?"/>
         <task:scheduled ref="lotteryOddsPopulateJob" method="populate" cron="0 * * * * ?"/>
+        <task:scheduled ref="lotteryMarkSixCrawler" method="fetchDrawingResult" cron="0 0 0/6 * * ?"/>
     </task:scheduled-tasks>
 
 

@@ -29,7 +29,8 @@ public class LotteryDao {
     }
 
     public int getLatestLotteryIssue() {
-        return (int) sessionFactory.getCurrentSession().createQuery(String.format("select issue from LotteryMarkSix order by issue desc")).setMaxResults(1).uniqueResult();
+        Object issue = sessionFactory.getCurrentSession().createQuery(String.format("select issue from LotteryMarkSix order by issue desc")).setMaxResults(1).uniqueResult();
+        return issue == null ? 1 : (int) issue;
     }
 
     public List<LotteryMarkSix> getLotteryMarkSixByPagination(int from, int count) {
