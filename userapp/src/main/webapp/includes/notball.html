@@ -7,7 +7,7 @@
 	<input type="radio" name="notSelect" id="notSelect6" ng-model="otherParams.type" value="NOT_10"/><label for="notSelect6">十不中<span style="color:red;">({{notOddsMap.NOT_10}})</span></label>
 	<input type="radio" name="notSelect" id="notSelect7" ng-model="otherParams.type" value="NOT_11"/><label for="notSelect7">十一不中<span style="color:red;">({{notOddsMap.NOT_11}})</span></label>
 	<br/><input type="radio" name="notSelect" id="notSelect8" ng-model="otherParams.type" value="NOT_12"/><label for="notSelect8">十二不中<span style="color:red;">({{notOddsMap.NOT_12}})</span></label>
-	<br/><label for="notLotteryStakes">注数：</label><input type="text" id="notLotteryStakes" class="stakes_input" ng-model="otherParams.stakes"/>
+	<br/><label for="notLotteryStakes">注数：</label><input type="text" id="notLotteryStakes" class="stakes_input" ng-model="otherParams.stakes" ng-pattern="/^\d+$/"/>
 </div>
 <table style="margin-top:10px;">
 	<tr>

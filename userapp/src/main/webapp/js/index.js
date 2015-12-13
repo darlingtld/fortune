@@ -59,7 +59,11 @@ app.service("commonService", function ($q, $http) {
     // 下注校验
     this.validateWage = function (wage, scope){
     	scope.wageError=undefined;
-    	if(wage.lotteryMarkSixType=="SPECIAL" || wage.lotteryMarkSixType=="ZHENG_BALL" || wage.lotteryMarkSixType=="ZHENG_1_6" || wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0){
+    	if(typeof wage.lotteryMarkSixType==="undefined"){
+    		scope.wageError="请选择下注类型！";
+			return false;
+    	}
+    	else if(wage.lotteryMarkSixType=="SPECIAL" || wage.lotteryMarkSixType=="ZHENG_BALL" || wage.lotteryMarkSixType=="ZHENG_1_6" || wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0){
     		if(wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0){
     			if(typeof scope.otherParams.zhengSpecificNum==="undefined"){
     				scope.wageError="请选择正码号！";
@@ -124,6 +128,51 @@ app.service("commonService", function ($q, $http) {
     		}
     		return true;
     	}
+    	else if(wage.lotteryMarkSixType.indexOf("JOINT")==0 || wage.lotteryMarkSixType.indexOf("NOT")==0){
+    		if(isNaN(wage.totalStakes) || wage.totalStakes<=0){
+    			scope.wageError="下注的注数必须为正整数！";
+				return false;
+    		}
+    		var len=wage.lotteryMarkSixWagerStubList.length, count=wage.lotteryMarkSixType.split("_")[1];
+    		if(len==0){
+    			scope.wageError="请选择下注！";
+    			return false;
+    		}
+    		if(count=="SPECIAL"){
+    			count=2;
+    		}
+    		count=parseInt(count);
+    		if(count!=len){
+    			scope.wageError="请选择"+count+"个球进行下注！";
+    			return false;
+    		}
+    		return true;
+    	}
+    	else if(wage.lotteryMarkSixType=="PASS"){
+    		if(isNaN(wage.totalStakes) || wage.totalStakes<=0){
+    			scope.wageError="下注的注数必须为正整数！";
+				return false;
+    		}
+    		var subList=wage.lotteryMarkSixWagerStubList;
+    		if(subList.length==0){
+    			scope.wageError="请选择下注！";
+    			return false;
+    		}
+    		var counts={}
+    		for(var i=0;i<subList.length;i++){
+    			if(typeof counts[subList[i].number]==="undefined"){
+    				counts[subList[i].number]=[];
+    			}
+    			counts[subList[i].number].push(subList[i].lotteryMarkSixType);
+    		}
+    		for(var number in counts){
+    			if(counts[number].length>2){
+    				scope.wageError="每个号码最多选择两种玩法！";
+        			return false;
+    			}
+    		}
+    	}
+    	return true;
     };
     // 多个下注校验
     this.validateWages = function(wageList, scope){

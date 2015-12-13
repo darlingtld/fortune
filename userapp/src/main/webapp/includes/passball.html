@@ -1,7 +1,7 @@
 <p style="color:red;margin-top:10px;margin-left:42px;">每个号码最多选择两种玩法。</p>
 <div style="margin-top:10px;margin-bottom:10px;margin-left:42px;">
 	<label for="passLotteryStakes">注数：</label>
-	<input type="text" id="passLotteryStakes" class="stakes_input" ng-model="otherParams.stakes"/>
+	<input type="text" id="passLotteryStakes" class="stakes_input" ng-model="otherParams.stakes" ng-pattern="/^\d+$/"/>
 </div>
 <table>
 	<tr>

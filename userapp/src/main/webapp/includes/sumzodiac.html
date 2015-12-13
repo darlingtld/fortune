@@ -27,7 +27,7 @@
 		<td>
 			<input type="radio" name="{{'sumZodiac'+($index+1)}}" ng-model="selectedBalls2[($index+1)]" value="1"/><label>中</label>
 			<input type="radio" name="{{'sumZodiac'+($index+1)}}" ng-model="selectedBalls2[($index+1)]" value="0"/><label>不中</label>
-			<input type="text" ng-disabled="selectedBalls2[($index+1)]==undefined" ng-model="selectedBalls[($index+1)]" class="stakes_input"/>
+			<input type="text" ng-disabled="selectedBalls2[($index+1)]==undefined" ng-model="selectedBalls[($index+1)]" class="stakes_input" ng-pattern="/^\d+$/"/>
 		</td>
 	</tr>
 </table>
