@@ -59,10 +59,16 @@ app.service("commonService", function ($q, $http) {
     // 下注校验
     this.validateWage = function (wage, scope){
     	scope.wageError=undefined;
-    	if(wage.lotteryMarkSixType=="SPECIAL"){
+    	if(wage.lotteryMarkSixType=="SPECIAL" || wage.lotteryMarkSixType=="ZHENG_BALL" || wage.lotteryMarkSixType=="ZHENG_1_6" || wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0){
+    		if(wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0){
+    			if(typeof scope.otherParams.zhengSpecificNum==="undefined"){
+    				scope.wageError="请选择正码号！";
+        			return false;
+    			}
+    		}
     		var subList=wage.lotteryMarkSixWagerStubList;
     		if(subList.length==0){
-    			scope.wageError="请选择特码下注！";
+    			scope.wageError="请选择下注！";
     			return false;
     		}
     		else{

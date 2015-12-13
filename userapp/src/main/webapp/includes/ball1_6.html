@@ -50,11 +50,11 @@
 		<td><input type="checkbox" name="ball6" ng-click="chooseZheng16($event,6,item.name)" ng-checked="selectedBalls[6]==item.name"></td>
 	</tr>
 	<tr>
-		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[1]"/></td>
-		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[2]"/></td>
-		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[3]"/></td>
-		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[4]"/></td>
-		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[5]"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[1]" ng-pattern="/^\d+$/"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[2]" ng-pattern="/^\d+$/"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[3]" ng-pattern="/^\d+$/"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[4]" ng-pattern="/^\d+$/"/></td>
+		<td style="border-right:1px solid #1FADFB;" colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[5]" ng-pattern="/^\d+$/"/></td>
 		<td colspan="2">注数：<input type="text" class="stakes_input" ng-model="selectedBalls2[6]"/></td>
 	</tr>
 </table>
