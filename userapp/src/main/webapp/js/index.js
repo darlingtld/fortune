@@ -63,7 +63,7 @@ app.service("commonService", function ($q, $http) {
     		scope.wageError="请选择下注类型！";
 			return false;
     	}
-    	else if(wage.lotteryMarkSixType=="SPECIAL" || wage.lotteryMarkSixType=="ZHENG_BALL" || wage.lotteryMarkSixType=="ZHENG_1_6" || wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0){
+    	else if(wage.lotteryMarkSixType=="SPECIAL" || wage.lotteryMarkSixType=="ZHENG_BALL" || wage.lotteryMarkSixType=="ZHENG_1_6" || wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0 || wage.lotteryMarkSixType=="ONE_ZODIAC" || wage.lotteryMarkSixType=="TAIL_NUM"){
     		if(wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0){
     			if(typeof scope.otherParams.zhengSpecificNum==="undefined"){
     				scope.wageError="请选择正码号！";

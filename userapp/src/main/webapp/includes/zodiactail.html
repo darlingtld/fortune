@@ -12,7 +12,7 @@
 				class="ball {{colorMap[ball]}}">{{ball}}</div>
 		</td>
 		<td>{{item.odds}}</td>
-		<td><input type="text" class="stakes_input" ng-model="selectedBalls[item.id]"/></td>
+		<td><input type="text" class="stakes_input" ng-model="selectedBalls[item.id]" ng-pattern="/^\d+$/"/></td>
 	</tr>
 </table>
 <table class="zodiac_table" style="width:320px !important;">
@@ -24,7 +24,7 @@
 	<tr ng-repeat="num in [1,2,3,4,5,6,7,8,9,0]">
 		<td>{{num}}尾</td>
 		<td>{{tailNumOddsMap["TAIL_NUM#"+num]}}</td>
-		<td><input type="text" class="stakes_input" ng-model="selectedBalls2[num]"/></td>
+		<td><input type="text" class="stakes_input" ng-model="selectedBalls2[num]" ng-pattern="/^\d+$/"/></td>
 	</tr>
 </table>
 <div class="clear"></div>
