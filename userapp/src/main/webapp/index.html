@@ -68,8 +68,10 @@
 				<div ng-include="'includes/zodiactail.html'"></div>
 			</div>
 			<div class="wage_area">
+				<p class="error_message">{{wageError}}</p>
 				<a href="javascript:;" class="btn" ng-click="wage();"
-					style="margin-left: 355px;">下注</a> <a href="javascript:;"
+					style="margin-left: 355px;">下注</a> 
+				<a href="javascript:;"
 					class="btn" ng-click="reset();" style="margin-left: 54px;">重置</a>
 			</div>
 		</div>
@@ -79,7 +81,7 @@
 		<div class="dialog_body" ng-bind-html="confirmDialogHTML"></div>
 		<div class="dialog_bottom">
 			<a href="javascript:;" class="btn" style="float:right;width:80px;" ng-click="closeConfirmDialog()">取消</a>
-			<a href="javascript:;" class="btn" style="margin-right:20px;float:right;width:80px;" ng-click="confirmDialog()">确定下注</a>
+			<a href="javascript:;" class="btn" style="margin-right:20px;float:right;width:80px;" ng-click="confirmDialog()" ng-hide="isWageValid">确定下注</a>
 		</div>
 	</div>
 	<div ng-include="'includes/foot.html'"></div>

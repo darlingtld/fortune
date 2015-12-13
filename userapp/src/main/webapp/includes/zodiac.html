@@ -12,7 +12,7 @@
 				class="ball {{colorMap[ball]}}">{{ball}}</div>
 		</td>
 		<td>{{zodiacItem.odds}}</td>
-		<td><input type="text" class="stakes_input" ng-model="selectedBalls[zodiacItem.id]"/></td>
+		<td><input type="text" class="stakes_input" ng-model="selectedBalls[zodiacItem.id]" ng-pattern="/^\d+$/"/></td>
 	</tr>
 </table>
 <table class="zodiac_table">
@@ -24,17 +24,17 @@
 	<tr>
 		<td style="color: red;">红波</td>
 		<td>{{colorItems.red}}</td>
-		<td><input type="text" class="stakes_input" ng-model="selectedBalls2['RED']"/></td>
+		<td><input type="text" class="stakes_input" ng-model="selectedBalls2['RED']" ng-pattern="/^\d+$/"/></td>
 	</tr>
 	<tr>
 		<td style="color: blue;">蓝波</td>
 		<td>{{colorItems.blue}}</td>
-		<td><input type="text" class="stakes_input" ng-model="selectedBalls2['BLUE']"/></td>
+		<td><input type="text" class="stakes_input" ng-model="selectedBalls2['BLUE']" ng-pattern="/^\d+$/"/></td>
 	</tr>
 	<tr>
 		<td style="color: green;">绿波</td>
 		<td>{{colorItems.green}}</td>
-		<td><input type="text" class="stakes_input" ng-model="selectedBalls2['GREEN']"/></td>
+		<td><input type="text" class="stakes_input" ng-model="selectedBalls2['GREEN']" ng-pattern="/^\d+$/"/></td>
 	</tr>
 </table>
 <div class="clear"></div>

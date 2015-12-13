@@ -128,10 +128,15 @@ label{
 	width: 35px;
 }
 
+.ng-invalid{
+	background:#f98baf;
+}
+
 .wage_area{
 	width:100%;
 	margin-top:10px;	
 	border-top: 1px solid #dedede;
+	text-align:center;
 }
 
 .wage_area .btn{
@@ -181,4 +186,9 @@ label{
 
 .dialog_bottom{
 	padding:10px;
+}
+
+.error_message{
+	color:red;
+	font-weight:bold;
 }
