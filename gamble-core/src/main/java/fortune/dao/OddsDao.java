@@ -1,11 +1,15 @@
 package fortune.dao;
 
+import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryOdds;
+import fortune.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,13 +51,20 @@ public class OddsDao {
         return mongoTemplate.findOne(query, LotteryOdds.class);
     }
 
-    public LotteryOdds getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType) {
+    public List<LotteryOdds> getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType) {
         Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType)));
-        return mongoTemplate.findOne(query, LotteryOdds.class);
+        return mongoTemplate.find(query, LotteryOdds.class);
     }
 
     public List<LotteryOdds> getOdds4LotteryIssue(int issue) {
         Query query = new Query(Criteria.where("lotteryIssue").is(issue));
         return mongoTemplate.find(query, LotteryOdds.class);
+    }
+
+    public LotteryOdds changeOdds(String oddsId, double odds) {
+        Query query = new Query(Criteria.where("id").is(oddsId));
+        Update update = new Update();
+        update.set("odds", odds);
+        return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), LotteryOdds.class);
     }
 }

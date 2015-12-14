@@ -60,7 +60,7 @@ public class OddsService {
     }
 
     @Transactional
-    public LotteryOdds getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType) {
+    public List<LotteryOdds> getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType) {
         Utils.logger.info("get odds for lottery issue {} of group id {} of type {}", lotteryIssue, groupId, lotteryMarkSixType);
         return oddsDao.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType);
     }
@@ -392,5 +392,11 @@ public class OddsService {
         odds.setLotteryMarkSixType(LotteryMarkSixType.NOT_12);
         oddsList.add(odds);
         return oddsList;
+    }
+
+    @Transactional
+    public LotteryOdds changeOdds(String oddsId, double odds) {
+        Utils.logger.info("change odds of odds id {} to odds {}", oddsId, odds);
+        return oddsDao.changeOdds(oddsId, odds);
     }
 }

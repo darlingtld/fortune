@@ -24,7 +24,7 @@ public abstract class Rule implements Runnable {
         this.lotteryMarkSixType = lotteryMarkSixType;
     }
 
-    abstract RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix);
+    abstract RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub);
 
     @Override
     public void run() {
@@ -50,25 +50,26 @@ public abstract class Rule implements Runnable {
             lotteryResult.setLotteryIssue(lotteryIssue);
             lotteryResult.setLotteryMarkSixWagerId(wager.getId());
 
-            switch (getRuleResult(lotteryMarkSix)) {
-                case WIN:
-                    String oddsCacheKey = String.format("%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), wager.getLotteryMarkSixType());
-                    Double odds = oddsCache.get(oddsCacheKey);
-                    if (odds == null) {
-                        odds = BeanHolder.getOddsService().getOdds4LotteryIssueByType(lotteryIssue, wager.getPgroupId(), lotteryMarkSixType.name()).getOdds();
-                        oddsCache.put(oddsCacheKey, odds);
-                    }
-                    double winningMoney = wager.getTotalStakes() * odds;
-                    lotteryResult.setWinningMoney(winningMoney);
-                    break;
-                case DRAW:
-                    lotteryResult.setWinningMoney(wager.getTotalStakes());
-                    break;
-                case LOSE:
-                    lotteryResult.setWinningMoney(0);
-                    break;
-
+            double winningMoney = 0;
+            for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                String oddsCacheKey = String.format("%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType());
+                Double odds = oddsCache.get(oddsCacheKey);
+                if (odds == null) {
+                    odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType).getOdds();
+                    oddsCache.put(oddsCacheKey, odds);
+                }
+                switch (getRuleResult(lotteryMarkSix, stub)) {
+                    case WIN:
+                        winningMoney += stub.getStakes() * odds;
+                        break;
+                    case DRAW:
+                        winningMoney += stub.getStakes();
+                        break;
+                    case LOSE:
+                        break;
+                }
             }
+            lotteryResult.setWinningMoney(winningMoney);
             BeanHolder.getResultService().saveLotteryResult(lotteryResult);
         }
         BeanHolder.getJobTrackerService().updateEndStatus(jobId, new Date(), JobTracker.SUCCESS);

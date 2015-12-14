@@ -6,23 +6,7 @@ body {
     font-family: "Microsoft YaHei";
 }
 
-.btn {
-    border: 1px solid #04A21F;
-    background: #24C578;
-    color: white;
-    font-size: 0.9em;
-    display: block;
-    width: 50px;
-    line-height: 28px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
-.btn:hover {
-    background: #1CE845;
-}
 
 .red_btn {
     border: 1px solid #F73A3A;
@@ -40,10 +24,6 @@ body {
 
 .red_btn:hover {
     background: #F50000;
-}
-
-.nav {
-    height: 120px;
 }
 
 .section {

@@ -1,4 +1,4 @@
-angular.module("AdminApp", ['ngRoute']).
+angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
 controller('indexController', function ($scope, $interval) {
     $scope.userid = sessionStorage['userid'];
     $scope.username = sessionStorage['username'];
@@ -27,6 +27,9 @@ controller('indexController', function ($scope, $interval) {
     }).when('/withdraw', {
         controller: 'withdrawController',
         templateUrl: 'includes/withdraw.html'
+    }).when('/settings', {
+        controller: 'settingsController',
+        templateUrl: 'includes/settings.html'
     }).when('/realtime', {
         controller: 'realtimeController',
         templateUrl: 'includes/realtime.html'

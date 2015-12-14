@@ -1,0 +1,112 @@
+<div class="real-time-dashboard lottery-special-number">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>赔率</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="odd in odds.slice(0,10)" id="{{odd.id}}">
+                <td><span ng-bind="odd.lotteryBallNumber" class="ball ball{{odd.lotteryBallNumber}}"></span></td>
+                <td ng-bind="odd.odds"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markOdds(odd.id, odd.odds)" data-toggle="modal"
+                            data-target="#oddsDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>赔率</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="odd in odds.slice(10,20)">
+                <td><span ng-bind="odd.lotteryBallNumber" class="ball ball{{odd.lotteryBallNumber}}"></span></td>
+                <td ng-bind="odd.odds"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markOdds(odd.id, odd.odds)" data-toggle="modal"
+                            data-target="#oddsDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>赔率</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="odd in odds.slice(20,30)">
+                <td><span ng-bind="odd.lotteryBallNumber" class="ball ball{{odd.lotteryBallNumber}}"></span></td>
+                <td ng-bind="odd.odds"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markOdds(odd.id, odd.odds)" data-toggle="modal"
+                            data-target="#oddsDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>赔率</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="odd in odds.slice(30,40)">
+                <td><span ng-bind="odd.lotteryBallNumber" class="ball ball{{odd.lotteryBallNumber}}"></span></td>
+                <td ng-bind="odd.odds"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markOdds(odd.id, odd.odds)" data-toggle="modal"
+                            data-target="#oddsDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>赔率</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="odd in odds.slice(40,49)">
+                <td><span ng-bind="odd.lotteryBallNumber" class="ball ball{{odd.lotteryBallNumber}}"></span></td>
+                <td ng-bind="odd.odds"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markOdds(odd.id, odd.odds)" data-toggle="modal"
+                            data-target="#oddsDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 package fortune.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import common.Utils;
 import fortune.pojo.LotteryOdds;
 import fortune.service.OddsService;
@@ -43,6 +44,18 @@ public class OddsController {
             return;
         }
         oddsService.saveOdds(odds);
+    }
+
+    /**
+     * 修改赔率,根据odds Id修改赔率
+     */
+    @RequestMapping(value = "change", method = RequestMethod.POST, headers = "content-type=application/json")
+    public
+    @ResponseBody
+    LotteryOdds changeOddsById(@RequestBody JSONObject oddsStub, HttpServletResponse response) {
+        String oddsId = oddsStub.getString("oddsId");
+        double odds = oddsStub.getDouble("odds");
+        return oddsService.changeOdds(oddsId, odds);
     }
 
     /**
@@ -105,9 +118,9 @@ public class OddsController {
 
     /**
      * 获取某个代理商对于某一期的博彩的某一种类型的赔率
+     *
      * @param lotteryIssue
      * @param groupId
-     * @param number
      * @param lotteryMarkSixType
      * @return
      */
@@ -115,8 +128,8 @@ public class OddsController {
     @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}/lottery_mark_six_type/{lottery_mark_six_type}", method = RequestMethod.GET)
     public
     @ResponseBody
-    LotteryOdds getOdds4LotteryIssueAndType(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("number") int number, @PathVariable("lottery_mark_six_type") String lotteryMarkSixType) {
-        return oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType);
+    List<LotteryOdds> getOdds4LotteryIssueAndType(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("lottery_mark_six_type") String lotteryMarkSixType) {
+        return oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType.toUpperCase());
     }
 
 }
