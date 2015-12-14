@@ -6,7 +6,25 @@ body {
     font-family: "Microsoft YaHei";
 }
 
+.btn {
+	border: 1px solid #04A21F;
+	background: #24C578;
+	color: white !important;
+	font-size: 0.9em;
+	display: block;
+	width: 50px;
+	padding: 0px !important;
+	line-height: 28px !important;
+	text-align: center;
+	text-decoration: none !important;
+	border-radius: 5px;
+	cursor:pointer;
+}
 
+.btn:hover {
+	background: #1CE845;
+	color: white !important;
+}
 
 .red_btn {
     border: 1px solid #F73A3A;
