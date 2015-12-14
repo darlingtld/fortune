@@ -123,8 +123,11 @@ public class PGroupService {
                 tempGroup.setName(parentPGroup.getName());
                 user.setpGroupList(Arrays.asList(tempGroup));
                 user.setCanDelete(canDelete);
-//                TODO bad practice
-                user.setUsedCreditAccount(userDao.getUserById(user.getId()).getUsedCreditAccount());
+                User creditUser=userDao.getUserById(user.getId());
+                if(creditUser!=null){
+                    user.setUsedCreditAccount(creditUser.getUsedCreditAccount()); // 信用额度以user表中的为准 
+                    user.setCreditAccount(creditUser.getCreditAccount());
+                }
                 userList.add(user);
             }
             canDelete = false;
