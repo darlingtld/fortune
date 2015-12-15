@@ -11,6 +11,7 @@ controller('accountsController', function ($rootScope) {
     			$(".first_level").empty();
 				showPGroupLevel(ROOT, ".first_level");
 				$("#delete_user").hide();
+				$("#add_user").hide();
     		};
     		
     		// 展开某层pgroup
@@ -86,12 +87,14 @@ controller('accountsController', function ($rootScope) {
 				if($(this).hasClass("selected")){
 					$(this).next("ul").hide();
 					$(this).removeClass("selected");
+					$("#add_user").hide();
 					return;
 				}
 				else{
 					$(this).next("ul").show();
 					$("#account_tree p").removeClass("selected");
 					$(this).addClass("selected"); 
+					$("#add_user").show();
 					// 判断是否可以显示操作按钮
 					$.get("pgroup/can_delete/"+$(this).attr("data-id")+"/"+sessionStorage["username"], function(data){
 						if(data){
@@ -103,6 +106,7 @@ controller('accountsController', function ($rootScope) {
     		
     		$("body").on("click", "#account_tree .user", function(){
     			$("#delete_user").hide();
+    			$("#add_user").hide();
     			if(userDeleteMap[$(this).attr("data-id")]){
     				$("#delete_user").show();
     			}
