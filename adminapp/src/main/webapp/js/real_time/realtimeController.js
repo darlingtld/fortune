@@ -192,8 +192,8 @@ angular.module('AdminApp')
                     renderSumZodiac();
                     break;
                 case 'zheng_ball':
-                	renderZhengBall();
-                	break;
+                    renderZhengBall();
+                    break;
             }
 
         }
