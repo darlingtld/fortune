@@ -143,6 +143,32 @@ angular.module('AdminApp')
                 $scope.stakes.push(data[20].stakes + data[21].stakes);
             });
         }
+        
+        function renderZhengBall() {
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'zheng_ball').then(function (data) {
+                $scope.realTimeTranscations = data;
+                $scope.list = [];
+                $scope.list[0] = $scope.realTimeTranscations.slice(0, 10);
+                $scope.list[1] = $scope.realTimeTranscations.slice(10, 20);
+                $scope.list[2] = $scope.realTimeTranscations.slice(20, 30);
+                $scope.list[3] = $scope.realTimeTranscations.slice(30, 40);
+                $scope.list[4] = $scope.realTimeTranscations.slice(40, 49);
+
+                $scope.stats = {
+                    zhengBallTransactions: 0,
+                    zhengBallStakes: 0
+                };
+                for (var i = 0; i < $scope.list.length; i++) {
+                    for (var j = 0; j < $scope.list[i].length; j++) {
+                        $scope.stats.zhengBallTransactions += $scope.list[i][j].transactions;
+                        $scope.stats.zhengBallStakes += $scope.list[i][j].stakes;
+                    }
+                }
+
+                $scope.zhengBallTransactionTotal = $scope.stats.zhengBallTransactions;
+            })
+        }
+
 
         $scope.goto = function (page) {
             $scope.page = 'includes/realtime_' + page + '.html';
@@ -165,6 +191,9 @@ angular.module('AdminApp')
                 case 'sum_zodiac':
                     renderSumZodiac();
                     break;
+                case 'zheng_ball':
+                	renderZhengBall();
+                	break;
             }
 
         }
