@@ -5,6 +5,7 @@ import fortune.dao.OddsDao;
 import fortune.pojo.LotteryBall;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryOdds;
+import fortune.pojo.PGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,13 +75,143 @@ public class OddsService {
     public List<LotteryOdds> generateOddsDefault(String groupId, int lotteryIssue) {
         Utils.logger.info("get odds default for groupId {} of issue {}", groupId, lotteryIssue);
         List<LotteryOdds> oddsList = new ArrayList<>();
+//        特码赔率
         oddsList.addAll(generateSpecialLotteryOdds(groupId, lotteryIssue));
+//        生肖赔率
         oddsList.addAll(generateZodiacLotteryOdds(groupId, lotteryIssue));
+//        半波赔率
         oddsList.addAll(generateHalfWaveLotteryOdds(groupId, lotteryIssue));
+//        连码赔率
         oddsList.addAll(generateJointLotteryOdds(groupId, lotteryIssue));
+//        自选不中赔率
         oddsList.addAll(generateNotLotteryOdds(groupId, lotteryIssue));
+//        合肖赔率
         oddsList.addAll(generateSumZodiacLotteryOdds(groupId, lotteryIssue));
+//        正码1~6赔率
         oddsList.addAll(generateZheng16LotteryOdds(groupId, lotteryIssue));
+//        正码赔率
+        oddsList.addAll(generateZhengLotteryOdds(groupId, lotteryIssue));
+//        正码特赔率
+        oddsList.addAll(generateZhengSpecificLotteryOdds(groupId, lotteryIssue));
+//        过关赔率
+        oddsList.addAll(generateOneZodiacLotteryOdds(groupId, lotteryIssue));
+//        一肖赔率
+        oddsList.addAll(generatePassBallLotteryOdds(groupId, lotteryIssue));
+//        尾数赔率
+        oddsList.addAll(generateTailBallLotteryOdds(groupId, lotteryIssue));
+//        色波赔率
+        oddsList.addAll(generateColorLotteryOdds(groupId, lotteryIssue));
+        return oddsList;
+    }
+
+    // 生成色波赔率
+    private List<LotteryOdds> generateColorLotteryOdds(String groupId, int lotteryIssue) {
+        List<LotteryOdds> oddsList = new ArrayList<>();
+        LotteryOdds odds = new LotteryOdds();
+        odds.setGroupId(groupId);
+        odds.setOdds(20);
+        odds.setLotteryIssue(lotteryIssue);
+        odds.setTimestamp(new Date());
+        odds.setLotteryMarkSixType(LotteryMarkSixType.BLUE);
+        oddsList.add(odds);
+
+        odds = new LotteryOdds();
+        odds.setGroupId(groupId);
+        odds.setOdds(21);
+        odds.setLotteryIssue(lotteryIssue);
+        odds.setTimestamp(new Date());
+        odds.setLotteryMarkSixType(LotteryMarkSixType.GREEN);
+        oddsList.add(odds);
+
+        odds = new LotteryOdds();
+        odds.setGroupId(groupId);
+        odds.setOdds(22);
+        odds.setLotteryIssue(lotteryIssue);
+        odds.setTimestamp(new Date());
+        odds.setLotteryMarkSixType(LotteryMarkSixType.RED);
+        oddsList.add(odds);
+        return oddsList;
+
+    }
+
+    private List<LotteryOdds> generatePassBallLotteryOdds(String groupId, int lotteryIssue) {
+        List<LotteryOdds> oddsList = new ArrayList<>();
+        for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.ZODIAC_SHU, LotteryMarkSixType.ZODIAC_NIU,
+                LotteryMarkSixType.ZODIAC_HU, LotteryMarkSixType.ZODIAC_TU, LotteryMarkSixType.ZODIAC_LONG,
+                LotteryMarkSixType.ZODIAC_SHE, LotteryMarkSixType.ZODIAC_MA, LotteryMarkSixType.ZODIAC_YANG,
+                LotteryMarkSixType.ZODIAC_HOU, LotteryMarkSixType.ZODIAC_JI, LotteryMarkSixType.ZODIAC_GOU,
+                LotteryMarkSixType.ZODIAC_ZHU)) {
+            LotteryOdds odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(19);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallType(type); // 二级类型
+            odds.setLotteryMarkSixType(LotteryMarkSixType.ONE_ZODIAC);
+            oddsList.add(odds);
+        }
+        return oddsList;
+    }
+
+    private List<LotteryOdds> generateTailBallLotteryOdds(String groupId, int lotteryIssue) {
+        List<LotteryOdds> oddsList = new ArrayList<>();
+        for (int num : Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0)) {
+            LotteryOdds odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(12);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallNumber(num); // 表示几尾
+            odds.setLotteryMarkSixType(LotteryMarkSixType.TAIL_NUM);
+            oddsList.add(odds);
+        }
+        return oddsList;
+    }
+
+
+    private List<LotteryOdds> generateOneZodiacLotteryOdds(String groupId, int lotteryIssue) {
+        List<LotteryOdds> oddsList = new ArrayList<>();
+        for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.PASS_BLUE, LotteryMarkSixType.PASS_DA,
+                LotteryMarkSixType.PASS_DAN, LotteryMarkSixType.PASS_GREEN, LotteryMarkSixType.PASS_RED,
+                LotteryMarkSixType.PASS_SHUANG, LotteryMarkSixType.PASS_XIAO)) {
+            LotteryOdds odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(12);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryMarkSixType(type);
+            oddsList.add(odds);
+        }
+        return oddsList;
+    }
+
+    private List<LotteryOdds> generateZhengSpecificLotteryOdds(String groupId, int lotteryIssue) {
+        List<LotteryOdds> oddsList = new ArrayList<>();
+        for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.ZHENG_SPECIFIC_1, LotteryMarkSixType.ZHENG_SPECIFIC_2, LotteryMarkSixType.ZHENG_SPECIFIC_3,
+                LotteryMarkSixType.ZHENG_SPECIFIC_4, LotteryMarkSixType.ZHENG_SPECIFIC_5, LotteryMarkSixType.ZHENG_SPECIFIC_6)) {
+            LotteryOdds odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(22);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryMarkSixType(type);
+            oddsList.add(odds);
+        }
+        return oddsList;
+    }
+
+    private List<LotteryOdds> generateZhengLotteryOdds(String groupId, int lotteryIssue) {
+        List<LotteryOdds> oddsList = new ArrayList<>();
+        for (LotteryBall ball : LotteryBall.values()) {
+            LotteryOdds odds = new LotteryOdds();
+            odds.setLotteryBallNumber(ball.getNumber());
+            odds.setGroupId(groupId);
+            odds.setOdds(23);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_BALL);
+            oddsList.add(odds);
+        }
         return oddsList;
     }
 
