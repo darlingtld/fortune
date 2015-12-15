@@ -2,7 +2,7 @@ angular.module('AdminApp').
 controller('accountsController', function ($rootScope) {
     $rootScope.menu = 2;
     
-    //TODO: validate null;  validate canDelete,canEnable,canDisable,canAdd from backend
+    //TODO: validate null;  validate canDelete,canEnable,canDisable,canAdd,canSetCredit from backend
     (function($){
     	$(function(){
     		var ROOT="-1", userDeleteMap={};
@@ -35,7 +35,8 @@ controller('accountsController', function ($rootScope) {
 									if(user.canDelete){
 										userDeleteMap[user.id]=true;
 										html+=(user.status=="ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='"+user.id+"'>禁用</a>":"<td><a href='javascript:;' class='btn enable_operate' data-id='"+user.id+"'>启用</a>")+
-										"<a href='javascript:;' class='red_btn delete_operate' data-id='"+user.id+"'>删除</a></td></tr>";
+										"<a href='javascript:;' class='red_btn delete_operate' data-id='"+user.id+"'>删除</a>"+
+										"<input type='text' style='float:left;margin-left:5px;width:100px;'/><a href='javascript:;' class='btn credit_setting' data-id='"+user.id+"'>设置额度</a></td></tr>";
 									}
 									else{
 										html+="<td>--</td></tr>";
@@ -165,6 +166,20 @@ controller('accountsController', function ($rootScope) {
     				alert("禁用成功");
 					initState();
     			});
+    		});
+    		
+    		$("body").on("click", ".credit_setting", function(){
+    			// 获取额度值
+    			var credit_input = $(this).prev("input");
+    			if(!/^\d+$/.test(credit_input.val())){
+    				credit_input.css("background", "#FFC1C1");
+    			}
+    			else{
+    				$.post("pgroup/credit_setting/user/"+$(this).attr("data-id")+"/"+credit_input.val(), function() {
+    					alert("额度设置成功");
+    					initState();
+    				});
+    			}
     		});
     		
     		$("body").on("click", "#dialog_confirm", function(){
