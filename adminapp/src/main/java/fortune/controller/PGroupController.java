@@ -75,7 +75,8 @@ public class PGroupController {
 	}
 
 	@RequestMapping(value = "delete/pgroup/{pgroupId}/{adminName}", method = RequestMethod.POST)
-	public @ResponseBody void deletePGroup(@PathVariable("pgroupId") String pgroupId, @PathVariable("adminName") String adminName) {
+	public @ResponseBody void deletePGroup(@PathVariable("pgroupId") String pgroupId,
+			@PathVariable("adminName") String adminName) {
 		pGroupService.deletePGroup(pgroupId, adminName);
 	}
 
@@ -83,19 +84,26 @@ public class PGroupController {
 	public @ResponseBody void deleteUser(@PathVariable("userId") String userId) {
 		pGroupService.deleteUserByID(userId);
 	}
-	
+
 	@RequestMapping(value = "enable/user/{userId}", method = RequestMethod.POST)
 	public @ResponseBody void enableUser(@PathVariable("userId") String userId) {
 		pGroupService.updateUserStatusByID(userId, PeopleStatus.ENABLED);
 	}
-	
+
 	@RequestMapping(value = "disable/user/{userId}", method = RequestMethod.POST)
 	public @ResponseBody void disableUser(@PathVariable("userId") String userId) {
 		pGroupService.updateUserStatusByID(userId, PeopleStatus.DISABLED);
 	}
 
+	@RequestMapping(value = "credit_setting/user/{userId}/{creditValue}", method = RequestMethod.POST)
+	public @ResponseBody void disableUser(@PathVariable("userId") String userId,
+			@PathVariable("creditValue") double creditValue) {
+		userService.updateUserCreditByID(userId, creditValue);
+	}
+
 	@RequestMapping(value = "can_delete/{pgroupId}/{adminName}", method = RequestMethod.GET)
-	public @ResponseBody boolean canOperatePGroup(@PathVariable("pgroupId") String pgroupId, @PathVariable("adminName") String adminName) {
+	public @ResponseBody boolean canOperatePGroup(@PathVariable("pgroupId") String pgroupId,
+			@PathVariable("adminName") String adminName) {
 		return pGroupService.canDeletePGroup(pgroupId, adminName);
 	}
 

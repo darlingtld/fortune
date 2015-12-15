@@ -36,7 +36,7 @@ controller('accountsController', function ($rootScope) {
 										userDeleteMap[user.id]=true;
 										html+=(user.status=="ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='"+user.id+"'>禁用</a>":"<td><a href='javascript:;' class='btn enable_operate' data-id='"+user.id+"'>启用</a>")+
 										"<a href='javascript:;' class='red_btn delete_operate' data-id='"+user.id+"'>删除</a>"+
-										"<input type='text' style='float:left;margin-left:5px;width:100px;'/><a href='javascript:;' class='btn credit_setting' data-id='"+user.id+"'>设置额度</a></td></tr>";
+										"<input type='text' style='float:left;margin-left:5px;width:100px;' value='"+user.creditAccount+"'/><a href='javascript:;' class='btn credit_setting' data-id='"+user.id+"'>设置额度</a></td></tr>";
 									}
 									else{
 										html+="<td>--</td></tr>";

@@ -110,6 +110,13 @@ public class UserService {
 		userDao.updateAccount(user);
 	}
 
+	@Transactional
+	public void updateUserCreditByID(String userId, double creditValue) {
+		User user = userDao.getUserById(userId);
+		user.setCreditAccount(creditValue);
+		userDao.updateAccount(user);
+	}
+
 	public void sanitize(User user) {
 		user.setpGroupList(null);
 	}
