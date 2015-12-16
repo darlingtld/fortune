@@ -65,19 +65,37 @@ public class StatService {
                     return getRealTimeTransactionResult4Special(groupid, panlei);
                 }
             case SUM_ZODIAC:
-                return getRealTimeTransactionResult4SumZodiac(groupid);
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealtimeStat> list = new ArrayList<>();
+                    list.addAll(getRealTimeTransactionResult4SumZodiac(groupid, "A"));
+                    list.addAll(getRealTimeTransactionResult4SumZodiac(groupid, "B"));
+                    list.addAll(getRealTimeTransactionResult4SumZodiac(groupid, "C"));
+                    list.addAll(getRealTimeTransactionResult4SumZodiac(groupid, "D"));
+                    return list;
+                } else {
+                    return getRealTimeTransactionResult4SumZodiac(groupid, panlei);
+                }
             case ZHENG_BALL:
-                return getRealTimeTransactionResult4ZhengBall(groupid);
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealtimeStat> list = new ArrayList<>();
+                    list.addAll(getRealTimeTransactionResult4ZhengBall(groupid, "A"));
+                    list.addAll(getRealTimeTransactionResult4ZhengBall(groupid, "B"));
+                    list.addAll(getRealTimeTransactionResult4ZhengBall(groupid, "C"));
+                    list.addAll(getRealTimeTransactionResult4ZhengBall(groupid, "D"));
+                    return list;
+                } else {
+                    return getRealTimeTransactionResult4ZhengBall(groupid, panlei);
+                }
             default:
                 return null;
         }
     }
 
-    private List<RealtimeStat> getRealTimeTransactionResult4SumZodiac(String groupid) {
+    private List<RealtimeStat> getRealTimeTransactionResult4SumZodiac(String groupid, String panlei) {
         Utils.logger.info("get real time transaction result of group id {} for type sum zodiac", groupid);
         HashMap<Integer, RealtimeStat> realtimeStatHashMap = new HashMap<>();
         int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-        List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue, groupid);
+        List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue, groupid, panlei);
         HashMap<Integer, Double> oddsMap4Sumzodiac = new HashMap<>();
         for (LotteryOdds odds : oddsList) {
             if (odds.getLotteryMarkSixType().equals(SUM_ZODIAC)) {
@@ -301,13 +319,13 @@ public class StatService {
     }
 
     @Transactional
-    private List<RealtimeStat> getRealTimeTransactionResult4ZhengBall(String groupid) {
+    private List<RealtimeStat> getRealTimeTransactionResult4ZhengBall(String groupid, String panlei) {
         Utils.logger.info("get real time transaction result of group id {} for type zheng ball", groupid);
         HashMap<Integer, RealtimeStat> realTimeStatHashMap4Number = new HashMap<>();
         LinkedHashMap<String, RealtimeStat> realTimeStatHashMap4Type = new LinkedHashMap<>();
         int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
 
-        List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue, groupid);
+        List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue, groupid, panlei);
 
         HashMap<Integer, Double> oddsMap4ZhengBall = new HashMap<>();
         HashMap<String, Double> oddsMap4Type = new HashMap<>();

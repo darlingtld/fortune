@@ -114,7 +114,7 @@ angular.module('AdminApp')
         }
 
         function renderSumZodiac() {
-            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'sum_zodiac').then(function (data) {
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'sum_zodiac', $scope.selectedPan.name).then(function (data) {
                 $scope.list1 = [];
                 $scope.list1.push(data.slice(0, 2).reverse());
                 $scope.list1.push(data.slice(2, 4).reverse());
@@ -158,7 +158,7 @@ angular.module('AdminApp')
         }
 
         function renderZhengBall() {
-            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'zheng_ball').then(function (data) {
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'zheng_ball', $scope.selectedPan.name).then(function (data) {
                 $scope.realTimeTranscations = data;
                 $scope.list = [];
                 $scope.list[0] = $scope.realTimeTranscations.slice(0, 10);
