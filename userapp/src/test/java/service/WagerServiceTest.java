@@ -1,10 +1,8 @@
 package service;
 
 import fortune.pojo.*;
-import fortune.rule.RuleSPECIALDAN;
 import fortune.service.LotteryService;
 import fortune.service.OddsService;
-import fortune.service.UserService;
 import fortune.service.WagerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -34,9 +31,6 @@ public class WagerServiceTest {
 
     @Autowired
     private LotteryService lotteryService;
-
-    @Autowired
-    private RuleSPECIALDAN ruleSPECIALDAN;
 
     @Test
     public void saveLotteryMarkSixWager() {
@@ -124,12 +118,6 @@ public class WagerServiceTest {
         lotteryMarkSix.setIssue(lotteryIssue);
         lotteryService.saveLotteryMarkSix(lotteryMarkSix);
 
-        ruleSPECIALDAN.run();
-    }
-
-    @Test
-    public void runRules(){
-        ruleSPECIALDAN.run();
     }
 
 }

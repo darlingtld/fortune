@@ -26,28 +26,11 @@ public class LotteryResultJob {
     private RuleSPECIAL ruleSPECIAL;
 
     @Autowired
-    private RuleSPECIALDAN ruleSPECIALDAN;
-
-    @Autowired
-    private RuleSPECIALDA ruleSPECIALDA;
-
-    @Autowired
-    private RuleSPECIALHEDA ruleSPECIALHEDA;
-
-    @Autowired
-    private RuleSPECIALHESHUANG ruleSPECIALHESHUANG;
-
-    @Autowired
     private RuleSPECIALHEXIAO ruleSPECIALHEXIAO;
 
 
     public void calculateLotteryResult() {
         Utils.logger.info("start to calculate lottery result at {}", Utils.yyyyMMddHHmmss2Format(new Date()));
         threadPoolExecutor.submit(ruleSPECIAL);
-//        threadPoolExecutor.submit(ruleSPECIALDAN);
-//        threadPoolExecutor.submit(ruleSPECIALDA);
-//        threadPoolExecutor.submit(ruleSPECIALHEDA);
-//        threadPoolExecutor.submit(ruleSPECIALHESHUANG);
-//        threadPoolExecutor.submit(ruleSPECIALHEXIAO);
     }
 }
