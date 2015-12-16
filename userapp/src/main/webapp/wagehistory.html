@@ -21,6 +21,8 @@
         <tr>
             <th>类型</th>
             <th>下注内容</th>
+            <th>代理商</th>
+            <th>盘类</th>
             <th>下注金额</th>
             <th>下注时间</th>
         </tr>
@@ -29,6 +31,8 @@
         <tr ng-repeat="wage in wageHistory">
             <td ng-bind="wage.typeName" style="width:80px;"></td>
             <td ng-bind-html="wage.wageHTML"></td>
+            <td ng-bind="wage.pgroup" style="width:150px;"></td>
+            <td ng-bind="wage.panlei" style="width:50px;"></td>
             <td ng-bind="wage.stakes" style="width:100px;"></td>
             <td ng-bind="wage.timestamp | date:'yyyy-MM-dd HH:mm:ss'" style="width:200px;"></td>
         </tr>

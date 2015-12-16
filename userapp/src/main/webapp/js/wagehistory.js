@@ -237,6 +237,8 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
                 			typeName: (typeof mapItem.typeName=='string' ? mapItem.typeName: mapItem.typeName(data[i])),
                 			wageHTML: mapItem.getWageHTML(data[i]),
                 			stakes: mapItem.getStakes(data[i]),
+                			panlei: data[i].panlei,
+                			pgroup: pgroup.name,
                 			timestamp: data[i].timestamp
                 		});
                 	}
