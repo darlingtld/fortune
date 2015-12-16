@@ -20,9 +20,9 @@ app.service("commonService", function ($q, $http) {
         return deferred.promise;
     };
     // 获取某代理商对于某期的赔率
-    this.getOddsList = function (lotteryIssue, pgroupId) {
+    this.getOddsList = function (lotteryIssue, pgroupId, selectedPan) {
         var deferred = $q.defer();
-        $http.get("odds/lottery_issue/" + lotteryIssue + "/group/" + pgroupId)
+        $http.get("odds/lottery_issue/" + lotteryIssue + "/group/" + pgroupId + "/pan/" + selectedPan)
             .success(function (response) {
                 deferred.resolve(response);
             });
@@ -547,6 +547,7 @@ app.controller("IndexController", function ($scope, commonService,
         };
         $scope.otherParams = {};
         $scope.wageError = undefined;
+        $scope.selectedPan = "A";
     };
     
     // 秋色
@@ -555,11 +556,10 @@ app.controller("IndexController", function ($scope, commonService,
     // 初始化数据
     $scope.reset();
 
-    // 根据期数和代理商重新获取彩票
-    var generateLotteryList = function () {
+    // 根据期数和代理商，盘类重新获取彩票
+    $scope.refreshLotteryList = function () {
         // 获取赔率
-        commonService.getOddsList($scope.nextLottery.issue,
-            $scope.selectedPGroup.id).then(function (oddsList) {
+        commonService.getOddsList($scope.nextLottery.issue, $scope.selectedPGroup.id, $scope.selectedPan).then(function (oddsList) {
                 var oddsMap = {}, jointOddsMap = {}, notOddsMap = {}, passOddsMap = {}, tailNumOddsMap = {}, zhengSpecificOddsMap = {};
                 for (var i = 0; i < oddsList.length; i++) {
                     var odds = oddsList[i];
@@ -635,9 +635,6 @@ app.controller("IndexController", function ($scope, commonService,
             });
     };
 
-    // 更改代理商后，需要重新获取彩票数据
-    $scope.changePGroup = generateLotteryList;
-
     // 初始化数据
     commonService.getUser().then(function (data) {
         // 用户与组
@@ -647,7 +644,7 @@ app.controller("IndexController", function ($scope, commonService,
         return commonService.getNextLottery();
     }).then(function (data) {
         $scope.nextLottery = data;
-        generateLotteryList();
+        $scope.refreshLotteryList();
     });
 
     // 合码的选择类型函数
@@ -724,6 +721,7 @@ app.controller("IndexController", function ($scope, commonService,
             var wager = {
                 userId: $scope.user.id,
                 pgroupId: $scope.selectedPGroup.id,
+                panlei: $scope.selectedPan,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
                 lotteryMarkSixType: "SPECIAL"
             };
@@ -751,6 +749,7 @@ app.controller("IndexController", function ($scope, commonService,
                         userId: $scope.user.id,
                         pgroupId: $scope.selectedPGroup.id,
                         lotteryMarkSixWagerStubList: [],
+                        panlei: $scope.selectedPan,
                         lotteryMarkSixType: zodiac,
                         totalStakes: parseInt($scope.selectedBalls[zodiac])
                     };
@@ -763,6 +762,7 @@ app.controller("IndexController", function ($scope, commonService,
                         userId: $scope.user.id,
                         pgroupId: $scope.selectedPGroup.id,
                         lotteryMarkSixWagerStubList: [],
+                        panlei: $scope.selectedPan,
                         lotteryMarkSixType: color,
                         totalStakes: parseInt($scope.selectedBalls2[color])
                     };
@@ -793,6 +793,7 @@ app.controller("IndexController", function ($scope, commonService,
                         userId: $scope.user.id,
                         pgroupId: $scope.selectedPGroup.id,
                         lotteryMarkSixWagerStubList: [],
+                        panlei: $scope.selectedPan,
                         lotteryMarkSixType: type,
                         totalStakes: parseInt($scope.selectedBalls[type])
                     };
@@ -829,6 +830,7 @@ app.controller("IndexController", function ($scope, commonService,
                 userId: $scope.user.id,
                 pgroupId: $scope.selectedPGroup.id,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+                panlei: $scope.selectedPan,
                 subLotteryMarkSixTypes: $scope.sumZodiacList,
                 lotteryMarkSixType: "SUM_ZODIAC"
             };
@@ -862,6 +864,7 @@ app.controller("IndexController", function ($scope, commonService,
                 userId: $scope.user.id,
                 pgroupId: $scope.selectedPGroup.id,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+                panlei: $scope.selectedPan,
                 lotteryMarkSixType: "ZHENG_BALL"
             };
             if(!commonService.validateWage(wager, $scope)){
@@ -896,6 +899,7 @@ app.controller("IndexController", function ($scope, commonService,
                 userId: $scope.user.id,
                 pgroupId: $scope.selectedPGroup.id,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+                panlei: $scope.selectedPan,
                 lotteryMarkSixType: "ZHENG_1_6"
             };
             if(!commonService.validateWage(wager, $scope)){
@@ -928,6 +932,7 @@ app.controller("IndexController", function ($scope, commonService,
                 userId: $scope.user.id,
                 pgroupId: $scope.selectedPGroup.id,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+                panlei: $scope.selectedPan,
                 lotteryMarkSixType: "ZHENG_SPECIFIC_" + $scope.otherParams.zhengSpecificNum
             };
             if(!commonService.validateWage(wager, $scope)){
@@ -960,6 +965,7 @@ app.controller("IndexController", function ($scope, commonService,
                 pgroupId: $scope.selectedPGroup.id,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
                 lotteryMarkSixType: $scope.otherParams.type,
+                panlei: $scope.selectedPan,
                 totalStakes: $scope.otherParams.stakes
             };
             if(!commonService.validateWage(wager, $scope)){
@@ -992,6 +998,7 @@ app.controller("IndexController", function ($scope, commonService,
                 pgroupId: $scope.selectedPGroup.id,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
                 lotteryMarkSixType: $scope.otherParams.type,
+                panlei: $scope.selectedPan,
                 totalStakes: $scope.otherParams.stakes
             };
             if(!commonService.validateWage(wager, $scope)){
@@ -1029,6 +1036,7 @@ app.controller("IndexController", function ($scope, commonService,
                 pgroupId: $scope.selectedPGroup.id,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
                 lotteryMarkSixType: "PASS",
+                panlei: $scope.selectedPan,
                 totalStakes: $scope.otherParams.stakes
             };
             if(!commonService.validateWage(wager, $scope)){
@@ -1062,6 +1070,7 @@ app.controller("IndexController", function ($scope, commonService,
                 userId: $scope.user.id,
                 pgroupId: $scope.selectedPGroup.id,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+                panlei: $scope.selectedPan,
                 lotteryMarkSixType: "ONE_ZODIAC"
             };
             // 尾数
@@ -1078,6 +1087,7 @@ app.controller("IndexController", function ($scope, commonService,
                 userId: $scope.user.id,
                 pgroupId: $scope.selectedPGroup.id,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList2,
+                panlei: $scope.selectedPan,
                 lotteryMarkSixType: "TAIL_NUM"
             };
             var wagerList = [];
