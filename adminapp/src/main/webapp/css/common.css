@@ -7,23 +7,23 @@ body {
 }
 
 .btn {
-	border: 1px solid #04A21F;
-	background: #24C578;
-	color: white !important;
-	font-size: 0.9em;
-	display: block;
-	width: 60px;
-	padding: 0px !important;
-	line-height: 28px !important;
-	text-align: center;
-	text-decoration: none !important;
-	border-radius: 5px;
-	cursor:pointer;
+    border: 1px solid #04A21F;
+    background: #24C578;
+    color: white !important;
+    font-size: 0.9em;
+    display: block;
+    width: 60px;
+    padding: 0px !important;
+    line-height: 28px !important;
+    text-align: center;
+    text-decoration: none !important;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .btn:hover {
-	background: #1CE845;
-	color: white !important;
+    background: #1CE845;
+    color: white !important;
 }
 
 .red_btn {
@@ -245,5 +245,10 @@ input[type=text], input[type=password] {
     width: 1190px;
     margin-left: auto;
     margin-right: auto;
-    margin-top:10px;
+    margin-top: 10px;
+}
+
+.panlei {
+    display: inline-block;
+    width: 10%;
 }

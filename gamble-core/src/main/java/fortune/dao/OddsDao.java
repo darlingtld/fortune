@@ -36,28 +36,28 @@ public class OddsDao {
         return mongoTemplate.findAll(LotteryOdds.class);
     }
 
-    public List<LotteryOdds> getOdds4LotteryIssue(int lotteryIssue, String groupId) {
-        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId)));
+    public List<LotteryOdds> getOdds4LotteryIssue(int lotteryIssue, String groupId, String panlei) {
+        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId),Criteria.where("panlei").is(panlei)));
         return mongoTemplate.find(query, LotteryOdds.class);
     }
 
-    public LotteryOdds getOdds4LotteryIssue(int lotteryIssue, String groupId, int number) {
-        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number)));
+    public LotteryOdds getOdds4LotteryIssue(int lotteryIssue, String groupId, int number, String panlei) {
+        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("panlei").is(panlei)));
         return mongoTemplate.findOne(query, LotteryOdds.class);
     }
 
-    public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type) {
-        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type)));
+    public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type,String panlei) {
+        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type),Criteria.where("panlei").is(panlei)));
         return mongoTemplate.findOne(query, LotteryOdds.class);
     }
 
-    public List<LotteryOdds> getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType) {
-        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType)));
+    public List<LotteryOdds> getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType, String panlei) {
+        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType), Criteria.where("panlei").is(panlei)));
         return mongoTemplate.find(query, LotteryOdds.class);
     }
 
-    public List<LotteryOdds> getOdds4LotteryIssue(int issue) {
-        Query query = new Query(Criteria.where("lotteryIssue").is(issue));
+    public List<LotteryOdds> getOdds4LotteryIssue(int issue, String panlei) {
+        Query query = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("panlei").is(panlei)));
         return mongoTemplate.find(query, LotteryOdds.class);
     }
 

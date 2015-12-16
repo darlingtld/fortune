@@ -27,16 +27,35 @@ public class LotteryMarkSixWager {
     @NotNull
     private String pgroupId;
 
+    private String panlei;
     @NotNull
     private List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList;
-
     private double totalStakes;
-
     @NotNull
     private LotteryMarkSixType lotteryMarkSixType;
-    
     // 目前合肖要用，列出选择的生肖
     private List<LotteryMarkSixType> subLotteryMarkSixTypes;
+
+    public LotteryMarkSixWager() {
+    }
+    
+    public LotteryMarkSixWager(String userId, String pgroupId, int lotteryIssue, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type, List<LotteryMarkSixType> subLotteryMarkSixTypes) {
+        this.userId = userId;
+        this.pgroupId = pgroupId;
+        this.lotteryIssue = lotteryIssue;
+        this.totalStakes = totalStakes;
+        this.lotteryMarkSixWagerStubList = lotteryMarkSixWagerStubList;
+        this.lotteryMarkSixType = type;
+        this.subLotteryMarkSixTypes=subLotteryMarkSixTypes;
+    }
+
+    public String getPanlei() {
+        return panlei;
+    }
+
+    public void setPanlei(String panlei) {
+        this.panlei = panlei;
+    }
 
     @Override
     public String toString() {
@@ -50,19 +69,6 @@ public class LotteryMarkSixWager {
                 ", totalStakes=" + totalStakes +
                 ", lotteryMarkSixType=" + lotteryMarkSixType +
                 '}';
-    }
-
-    public LotteryMarkSixWager() {
-    }
-
-    public LotteryMarkSixWager(String userId, String pgroupId, int lotteryIssue, double totalStakes, List<LotteryMarkSixWagerStub> lotteryMarkSixWagerStubList, LotteryMarkSixType type, List<LotteryMarkSixType> subLotteryMarkSixTypes) {
-        this.userId = userId;
-        this.pgroupId = pgroupId;
-        this.lotteryIssue = lotteryIssue;
-        this.totalStakes = totalStakes;
-        this.lotteryMarkSixWagerStubList = lotteryMarkSixWagerStubList;
-        this.lotteryMarkSixType = type;
-        this.subLotteryMarkSixTypes=subLotteryMarkSixTypes;
     }
 
     public LotteryMarkSixType getLotteryMarkSixType() {

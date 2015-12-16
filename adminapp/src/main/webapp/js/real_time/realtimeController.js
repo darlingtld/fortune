@@ -7,10 +7,23 @@ angular.module('AdminApp')
         realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
             $scope.lotteryMarkSixInfo = data;
         });
+        $scope.pans = {
+            panlei: [
+                {name: 'ALL', title: '全部'},
+                {name: 'A', title: 'A盘'},
+                {name: 'B', title: 'B盘'},
+                {name: 'C', title: 'C盘'},
+                {name: 'D', title: 'D盘'}],
+        }
+        $scope.selectedPan = $scope.pans.panlei[0];
+
+        $scope.getRealtimeTransactions = function () {
+            $scope.goto($scope.pageType, $scope.selectedPan.name);
+        }
 
         $scope.page = 'includes/realtime_special.html';
         function renderSpecial() {
-            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'special').then(function (data) {
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'special', $scope.selectedPan.name).then(function (data) {
                 $scope.realTimeTranscations = data;
                 $scope.list = [];
                 $scope.list[0] = $scope.realTimeTranscations.slice(0, 10);
@@ -143,7 +156,7 @@ angular.module('AdminApp')
                 $scope.stakes.push(data[20].stakes + data[21].stakes);
             });
         }
-        
+
         function renderZhengBall() {
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'zheng_ball').then(function (data) {
                 $scope.realTimeTranscations = data;
@@ -170,8 +183,9 @@ angular.module('AdminApp')
         }
 
 
-        $scope.goto = function (page) {
+        $scope.goto = function (page, panlei) {
             $scope.page = 'includes/realtime_' + page + '.html';
+            $scope.pageType = page;
             var ele = $(event.target);
             if (ele.siblings().length == 0) {
                 ele = ele.parent();
@@ -180,7 +194,7 @@ angular.module('AdminApp')
             ele.addClass('real-time-tab-active');
             realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
                 $scope.lotteryMarkSixInfo = data;
-                return realtimeService.getRealTimeTransactionTotalCount(sessionStorage['pgroupid'], $scope.lotteryMarkSixInfo.issue);
+                return realtimeService.getRealTimeTransactionTotalCount(sessionStorage['pgroupid'], $scope.lotteryMarkSixInfo.issue, panlei);
             }).then(function (data) {
                 $scope.transactionTotalCount = data;
             });
@@ -202,7 +216,7 @@ angular.module('AdminApp')
 
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
-        realtimeService.getStakesDetail4Special($routeParams.type, $routeParams.groupid, $routeParams.issue, $routeParams.number).then(function (data) {
-            $scope.wagerList = data;
-        });
-    })
+    realtimeService.getStakesDetail4Special($routeParams.type, $routeParams.groupid, $routeParams.issue, $routeParams.number).then(function (data) {
+        $scope.wagerList = data;
+    });
+})

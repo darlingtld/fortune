@@ -92,11 +92,11 @@ public class OddsController {
      * @param groupId      代理商的id
      * @return
      */
-    @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}/pan/{panlei}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryOdds> getOdds4LotteryIssue(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId) {
-        return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId);
+    List<LotteryOdds> getOdds4LotteryIssue(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("panlei") String panlei) {
+        return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId, panlei.toUpperCase());
     }
 
     /**
@@ -109,11 +109,11 @@ public class OddsController {
      * @return
      */
     @Deprecated
-    @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}/ball_number/{number}", method = RequestMethod.GET)
+    @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}/ball_number/{number}/pan/{panlei}", method = RequestMethod.GET)
     public
     @ResponseBody
-    LotteryOdds getOdds4LotteryIssueAndNumber(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("number") int number) {
-        return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId, number);
+    LotteryOdds getOdds4LotteryIssueAndNumber(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("number") int number, @PathVariable("panlei") String panlei) {
+        return oddsService.getOdds4LotteryIssue(lotteryIssue, groupId, number, panlei);
     }
 
     /**
@@ -125,11 +125,11 @@ public class OddsController {
      * @return
      */
     @Deprecated
-    @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}/lottery_mark_six_type/{lottery_mark_six_type}", method = RequestMethod.GET)
+    @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}/lottery_mark_six_type/{lottery_mark_six_type}/pan/{panlei}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<LotteryOdds> getOdds4LotteryIssueAndType(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("lottery_mark_six_type") String lotteryMarkSixType) {
-        return oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType.toUpperCase());
+    List<LotteryOdds> getOdds4LotteryIssueAndType(@PathVariable("lottery_issue") int lotteryIssue, @PathVariable("group_id") String groupId, @PathVariable("lottery_mark_six_type") String lotteryMarkSixType, @PathVariable("panlei") String panlei) {
+        return oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType.toUpperCase(), panlei.toUpperCase());
     }
 
 }

@@ -55,7 +55,7 @@ public abstract class Rule implements Runnable {
                 String oddsCacheKey = String.format("%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType());
                 Double odds = oddsCache.get(oddsCacheKey);
                 if (odds == null) {
-                    odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType).getOdds();
+                    odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType, wager.getPanlei()).getOdds();
                     oddsCache.put(oddsCacheKey, odds);
                 }
                 switch (getRuleResult(lotteryMarkSix, stub)) {

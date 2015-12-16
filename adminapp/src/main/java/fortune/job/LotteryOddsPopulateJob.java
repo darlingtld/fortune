@@ -51,13 +51,15 @@ public class LotteryOddsPopulateJob {
         int jobId = jobTrackerService.save(jobTracker);
 
         for (PGroup pGroup : pGroupService.getGroupAll()) {
-            List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue - 1, pGroup.getId());
-            if (oddsList.isEmpty()) {
-                oddsList = oddsService.generateOddsDefault(pGroup.getId(), lotteryIssue);
-            }
-            for (LotteryOdds odds : oddsList) {
-                odds.setLotteryIssue(lotteryIssue);
-                oddsService.saveOdds(odds);
+            for(String panlei : new String[]{"A", "B", "C","D"}){
+                List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue - 1, pGroup.getId(), panlei);
+                if (oddsList.isEmpty()) {
+                    oddsList = oddsService.generateOddsDefault(pGroup.getId(), lotteryIssue, panlei);
+                }
+                for (LotteryOdds odds : oddsList) {
+                    odds.setLotteryIssue(lotteryIssue);
+                    oddsService.saveOdds(odds);
+                }
             }
         }
 

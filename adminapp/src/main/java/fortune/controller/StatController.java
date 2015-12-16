@@ -47,11 +47,11 @@ public class StatController {
      * @param groupId
      * @return
      */
-    @RequestMapping(value = "realtime/transaction_result/{type}/groupid/{groupid}", method = RequestMethod.GET)
+    @RequestMapping(value = "realtime/transaction_result/{type}/groupid/{groupid}/pan/{panlei}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<RealtimeStat> getRealTimeTransactionResult(@PathVariable("type") String type, @PathVariable("groupid") String groupId) {
-        return statService.getRealTimeTransactionResult(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId);
+    List<RealtimeStat> getRealTimeTransactionResult(@PathVariable("type") String type, @PathVariable("groupid") String groupId, @PathVariable("panlei") String panlei) {
+        return statService.getRealTimeTransactionResult(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase());
     }
 
     /**

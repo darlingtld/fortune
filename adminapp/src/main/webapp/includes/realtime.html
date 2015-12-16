@@ -10,19 +10,19 @@
                 <option>成数</option>
             </select>
             <span>盘类：</span>
-            <select>
-                <option>全部</option>
-                <option>A盘</option>
-                <option>B盘</option>
-                <option>C盘</option>
-                <option>D盘</option>
+            <select ng-model="selectedPan" ng-init="selectedPan=pans.panlei[0]"
+                    ng-options="pan.title for pan in pans.panlei track by pan.name"
+                    ng-change="getRealtimeTransactions()">
             </select>
         </div>
     </div>
     <div class="real-time-tabs">
-        <a ng-click="goto('special')" class="real-time-tab real-time-tab-active">特码（<span ng-bind="transactionTotalCount.SPECIAL"></span>）</a>
-        <a ng-click="goto('sum_zodiac')" class="real-time-tab">合肖（<span ng-bind="transactionTotalCount.SUM_ZODIAC"></span>）</a>
-        <a ng-click="goto('zheng_ball')" class="real-time-tab">正码（<span ng-bind="transactionTotalCount.ZHENG_BALL"></span>）</a>
+        <a ng-click="goto('special')" class="real-time-tab real-time-tab-active">特码（<span
+                ng-bind="transactionTotalCount.SPECIAL"></span>）</a>
+        <a ng-click="goto('sum_zodiac')" class="real-time-tab">合肖（<span
+                ng-bind="transactionTotalCount.SUM_ZODIAC"></span>）</a>
+        <a ng-click="goto('zheng_ball')" class="real-time-tab">正码（<span
+                ng-bind="transactionTotalCount.ZHENG_BALL"></span>）</a>
         <a ng-click="goto('hexiao')" class="real-time-tab">正码特（<span>10000</span>）</a>
         <a ng-click="goto('hexiao')" class="real-time-tab">一肖尾数（<span>10000</span>）</a>
         <a ng-click="goto('hexiao')" class="real-time-tab">连码（<span>10000</span>）</a>

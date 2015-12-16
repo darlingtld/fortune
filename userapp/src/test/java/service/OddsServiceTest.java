@@ -456,7 +456,7 @@ public class OddsServiceTest {
 
 	@Test
 	public void getOdds4Number() {
-		LotteryOdds odds = oddsService.getOdds4LotteryIssue(102, "", 15);
+		LotteryOdds odds = oddsService.getOdds4LotteryIssue(102, "", 15, "A");
 		System.out.println(odds);
 	}
 }
