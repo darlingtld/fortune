@@ -24,6 +24,13 @@
     color: red;
 }
 
+.real-time-sub-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    width: 600px;
+}
+
 .real-time-dashboard {
     display: flex;
     justify-content: center;

@@ -181,7 +181,41 @@ angular.module('AdminApp')
                 $scope.zhengBallTransactionTotal = $scope.stats.zhengBallTransactions;
             })
         }
+        
+        function renderZhengSpecific(page) {
+            $scope.zhengSpecificType = page;
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], page, $scope.selectedPan.name).then(function (data) {
+                $scope.realTimeTranscations = data;
+                
+                $scope.stats = {
+                    zhengSpecificTransactions: 0,
+                    zhengSpecificStakes: 0
+                };
+                for (var i = 0; i < $scope.realTimeTranscations.length; i++) {
+                    $scope.stats.zhengSpecificTransactions += $scope.realTimeTranscations[i].transactions;
+                    $scope.stats.zhengSpecificStakes += $scope.realTimeTranscations[i].stakes;
+                }
+                $scope.zhengSpecificTransactionTotal = $scope.stats.zhengSpecificTransactions;
+                
+                $scope.list = [];
+                $scope.list[0] = $scope.realTimeTranscations.slice(0, 10);
+                $scope.list[1] = $scope.realTimeTranscations.slice(10, 20);
+                $scope.list[2] = $scope.realTimeTranscations.slice(20, 30);
+                $scope.list[3] = $scope.realTimeTranscations.slice(30, 40);
+                $scope.list[4] = $scope.realTimeTranscations.slice(40, 49);
+            })
+        }
 
+        $scope.zhengSpecificGoto = function(page) {
+            var ele = $(event.target);
+            if (ele.siblings().length == 0) {
+                ele = ele.parent();
+            }
+            ele.siblings().removeClass('real-time-tab-active');
+            ele.addClass('real-time-tab-active');
+
+            renderZhengSpecific(page);
+        }
 
         $scope.goto = function (page, panlei) {
             $scope.page = 'includes/realtime_' + page + '.html';
@@ -197,6 +231,12 @@ angular.module('AdminApp')
                 return realtimeService.getRealTimeTransactionTotalCount(sessionStorage['pgroupid'], $scope.selectedPan.name, $scope.lotteryMarkSixInfo.issue);
             }).then(function (data) {
                 $scope.transactionTotalCount = data;
+                
+                // calculate total counts for zheng specific
+                $scope.transactionTotalCount.ZHENG_SPECIFIC = 0;
+                for (var i = 1; i <= 6; i++) {
+                    $scope.transactionTotalCount.ZHENG_SPECIFIC += eval('$scope.transactionTotalCount.ZHENG_SPECIFIC_' + i);
+                }
             });
             switch (page) {
                 case 'special':
@@ -207,6 +247,9 @@ angular.module('AdminApp')
                     break;
                 case 'zheng_ball':
                     renderZhengBall();
+                    break;
+                case 'zheng_specific':
+                    $scope.zhengSpecificGoto('zheng_specific_1');
                     break;
             }
 

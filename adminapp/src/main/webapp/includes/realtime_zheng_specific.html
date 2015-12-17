@@ -1,0 +1,50 @@
+<div class="real-time-sub-tabs">
+    [<a ng-click="zhengSpecificGoto('zheng_specific_1')" class="real-time-tab real-time-tab-active">
+        正码一 (<span ng-bind="transactionTotalCount.ZHENG_SPECIFIC_1"></span>)
+    </a>|
+    <a ng-click="zhengSpecificGoto('zheng_specific_2')" class="real-time-tab">
+        正码二 (<span ng-bind="transactionTotalCount.ZHENG_SPECIFIC_2"></span>)
+    </a>|
+    <a ng-click="zhengSpecificGoto('zheng_specific_3')" class="real-time-tab">
+        正码三 (<span ng-bind="transactionTotalCount.ZHENG_SPECIFIC_3"></span>)
+    </a>|
+    <a ng-click="zhengSpecificGoto('zheng_specific_4')" class="real-time-tab">
+        正码四 (<span ng-bind="transactionTotalCount.ZHENG_SPECIFIC_4"></span>)
+    </a>|
+    <a ng-click="zhengSpecificGoto('zheng_specific_5')" class="real-time-tab">
+        正码五 (<span ng-bind="transactionTotalCount.ZHENG_SPECIFIC_5"></span>)
+    </a>|
+    <a ng-click="zhengSpecificGoto('zheng_specific_6')" class="real-time-tab">
+        正码六 (<span ng-bind="transactionTotalCount.ZHENG_SPECIFIC_6"></span>)
+    </a>]
+</div>
+
+<div class="real-time-dashboard lottery-special-number">
+    <div ng-repeat="subs in list">
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in subs">
+                <td><span ng-bind="rt.number" class="ball ball{{rt.number}}"></span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td>
+                    <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{zhengSpecificType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                            ng-bind="rt.stakes"></span></a></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    合计：<span ng-bind="stats.zhengSpecificTransactions"></span>, 金额：<span ng-bind="stats.zhengSpecificStakes"></span>
+</div>
