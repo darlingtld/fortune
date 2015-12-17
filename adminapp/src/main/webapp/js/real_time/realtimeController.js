@@ -194,7 +194,7 @@ angular.module('AdminApp')
             ele.addClass('real-time-tab-active');
             realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
                 $scope.lotteryMarkSixInfo = data;
-                return realtimeService.getRealTimeTransactionTotalCount(sessionStorage['pgroupid'], $scope.lotteryMarkSixInfo.issue, panlei);
+                return realtimeService.getRealTimeTransactionTotalCount(sessionStorage['pgroupid'], $scope.selectedPan.name, $scope.lotteryMarkSixInfo.issue);
             }).then(function (data) {
                 $scope.transactionTotalCount = data;
             });
@@ -216,7 +216,7 @@ angular.module('AdminApp')
 
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
-    realtimeService.getStakesDetail4Special($routeParams.type, $routeParams.groupid, $routeParams.issue, $routeParams.number).then(function (data) {
-        $scope.wagerList = data;
-    });
-})
+        realtimeService.getStakesDetail4Special($routeParams.type, $routeParams.groupid, $routeParams.panlei, $routeParams.issue, $routeParams.number).then(function (data) {
+            $scope.wagerList = data;
+        });
+    })

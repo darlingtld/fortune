@@ -69,7 +69,7 @@ public class StatServiceTest {
         int issue = 300;
         String groupId = "563338f6e708fad8259ea83f";
         int number = 1;
-        List<LotteryMarkSixWager> list = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.SPECIAL, groupId, issue, number);
+        List<LotteryMarkSixWager> list = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.SPECIAL, "A",groupId, issue, number);
         for (LotteryMarkSixWager wager : list) {
             System.out.println(wager);
         }

@@ -17,7 +17,7 @@
         <tr ng-repeat="wager in wagerList">
             <td ng-bind="wager.ts | date : 'yyyy-MM-dd HH:mm:ss'"></td>
             <td><span ng-bind="wager.user.username"></span>/<span ng-bind="wager.tuishui"></span></td>
-            <td><span ng-bind="wager.panlei"></span>/<span ng-bind="wager.issue"></span>/<span
+            <td><span ng-bind="wager.panlei"></span>盘/<span ng-bind="wager.issue"></span>/<span
                     ng-bind="wager.openTs | date : 'yyyy-MM-dd HH:mm:ss'"></span></td>
             <td ng-bind="wager.wageContent"></td>
             <td ng-bind="wager.stakes"></td>

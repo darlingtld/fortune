@@ -76,13 +76,13 @@ public class WagerDao {
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
     }
 
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfGroup(String groupid, int lotteryIssue) {
-        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("pgroupId").is(groupid)));
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfGroup(String groupid, String panlei, int lotteryIssue) {
+        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("pgroupId").is(groupid), Criteria.where("panlei").is(panlei)));
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
     }
 
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, int issue, int number) {
-        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(type)));
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, String panlei, int issue, int number) {
+        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei)));
         List<LotteryMarkSixWager> tmpwagerList = mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
         List<LotteryMarkSixWager> wagerList = new ArrayList<>();
         for (LotteryMarkSixWager wager : tmpwagerList) {

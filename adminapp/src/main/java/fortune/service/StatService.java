@@ -103,7 +103,7 @@ public class StatService {
             }
         }
 
-        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, lotteryIssue);
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, panlei, lotteryIssue);
         for (LotteryMarkSixWager wager : wagerList) {
             if (wager.getLotteryMarkSixType().equals(SUM_ZODIAC)) {
                 for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
@@ -211,7 +211,7 @@ public class StatService {
             }
         }
 
-        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, lotteryIssue);
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, panlei, lotteryIssue);
         for (LotteryMarkSixWager wager : wagerList) {
             switch (wager.getLotteryMarkSixType()) {
                 case SPECIAL:
@@ -383,7 +383,7 @@ public class StatService {
             }
         }
 
-        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, lotteryIssue);
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, panlei, lotteryIssue);
         for (LotteryMarkSixWager wager : wagerList) {
             switch (wager.getLotteryMarkSixType()) {
                 case ZHENG_BALL:
@@ -506,8 +506,8 @@ public class StatService {
     }
 
     @Transactional
-    public List<RealTimeWager> getStakeDetail4Special(String groupId, int issue, int number) {
-        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.SPECIAL, groupId, issue, number);
+    public List<RealTimeWager> getStakeDetail4Special(String groupId, String panlei, int issue, int number) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.SPECIAL, groupId, panlei, issue, number);
         List<RealTimeWager> realTimeWagerList = new ArrayList<>();
         for (LotteryMarkSixWager wager : wagerList) {
             RealTimeWager realTimeWager = new RealTimeWager();
@@ -539,21 +539,45 @@ public class StatService {
     }
 
     @Transactional
-    public List<RealTimeWager> getStakeDetail(LotteryMarkSixType type, String groupId, int issue, int number) {
+    public List<RealTimeWager> getStakeDetail(LotteryMarkSixType type, String groupId, String panlei, int issue, int number) {
         switch (type) {
             case SPECIAL:
-                return getStakeDetail4Special(groupId, issue, number);
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetail4Special(groupId, pan, issue, number));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetail4Special(groupId, panlei, issue, number);
+                }
             case SUM_ZODIAC:
-                return getStakeDetail4SumZodiac(groupId, issue, number);
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetail4SumZodiac(groupId, pan, issue, number));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetail4SumZodiac(groupId, panlei, issue, number);
+                }
             case ZHENG_BALL:
-                return getStakeDetail4ZhengBall(groupId, issue, number);
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetail4ZhengBall(groupId, pan, issue, number));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetail4ZhengBall(groupId, panlei, issue, number);
+                }
         }
         return null;
     }
 
     @Transactional
-    private List<RealTimeWager> getStakeDetail4SumZodiac(String groupId, int issue, int number) {
-        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.SUM_ZODIAC, groupId, issue, number);
+    private List<RealTimeWager> getStakeDetail4SumZodiac(String groupId, String panlei, int issue, int number) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.SUM_ZODIAC, groupId, panlei, issue, number);
         List<RealTimeWager> realTimeWagerList = new ArrayList<>();
         for (LotteryMarkSixWager wager : wagerList) {
             RealTimeWager realTimeWager = new RealTimeWager();
@@ -585,8 +609,8 @@ public class StatService {
     }
 
     @Transactional
-    public List<RealTimeWager> getStakeDetail4ZhengBall(String groupId, int issue, int number) {
-        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.ZHENG_BALL, groupId, issue, number);
+    public List<RealTimeWager> getStakeDetail4ZhengBall(String groupId, String panlei, int issue, int number) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.ZHENG_BALL, groupId, panlei, issue, number);
         List<RealTimeWager> realTimeWagerList = new ArrayList<>();
         for (LotteryMarkSixWager wager : wagerList) {
             RealTimeWager realTimeWager = new RealTimeWager();
@@ -618,8 +642,8 @@ public class StatService {
     }
 
     @Transactional
-    public JSONObject getRealTimeTransactionTotalCount(String groupId, int issue) {
-        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupId, issue);
+    public JSONObject getRealTimeTransactionTotalCount(String groupId, String panlei, int issue) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupId, panlei, issue);
         Map<String, AtomicInteger> transactionMap = new HashMap<>();
         transactionMap.put(LotteryMarkSixType.SPECIAL.name(), new AtomicInteger(0));
         transactionMap.put(LotteryMarkSixType.SUM_ZODIAC.name(), new AtomicInteger(0));

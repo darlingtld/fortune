@@ -1,5 +1,6 @@
 package fortune.service;
 
+import com.google.common.collect.Lists;
 import common.Utils;
 import fortune.dao.LotteryDao;
 import fortune.dao.WagerDao;
@@ -104,14 +105,22 @@ public class WagerService {
     }
 
     @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfGroup(String groupid, int lotteryIssue) {
-        Utils.logger.info("get all lottery mark six wager of lottery issue {}, group id {}", lotteryIssue, groupid);
-        return wagerDao.getLotteryMarkSixWagerListOfGroup(groupid, lotteryIssue);
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListOfGroup(String groupid, String panlei, int lotteryIssue) {
+        Utils.logger.info("get all lottery mark six wager of lottery issue {}, group id {}, panlei", lotteryIssue, groupid, panlei);
+        List<LotteryMarkSixWager> wagerList = Lists.newArrayList();
+        if (panlei.equalsIgnoreCase("ALL")) {
+            for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                wagerList.addAll(wagerDao.getLotteryMarkSixWagerListOfGroup(groupid, pan, lotteryIssue));
+            }
+        } else {
+            wagerList.addAll(wagerDao.getLotteryMarkSixWagerListOfGroup(groupid, panlei, lotteryIssue));
+        }
+        return wagerList;
     }
 
     @Transactional
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, int issue, int number) {
-        Utils.logger.info("get lottery mark six wager list of type {} lottery issue {},group id{}, number {}", type.getType(), issue, groupId, number);
-        return wagerDao.getLotteryMarkSixWagerList(type, groupId, issue, number);
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, String panlei, int issue, int number) {
+        Utils.logger.info("get lottery mark six wager list of type {} lottery issue {},group id{}, number {}, panlei {}", type.getType(), issue, groupId, number, panlei);
+        return wagerDao.getLotteryMarkSixWagerList(type, groupId, panlei, issue, number);
     }
 }
