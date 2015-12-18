@@ -99,4 +99,13 @@ public class LotteryServiceTest {
         }
         System.out.println(jsonArray);
     }
+
+    @Test
+    public void getLotteryMarkSixByPagination() {
+        System.out.println("---------------");
+        lotteryService.getLotteryMarkSixByPagination(10, 20);
+        System.out.println("---------------");
+        lotteryService.getLotteryMarkSixByPagination(10, 20);
+        System.out.println("---------------");
+    }
 }

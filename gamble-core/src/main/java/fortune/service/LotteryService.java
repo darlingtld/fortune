@@ -8,6 +8,7 @@ import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.NextLotteryMarkSixInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +62,7 @@ public class LotteryService {
         return lotteryDao.getLatestLotteryIssue();
     }
 
+    @Cacheable(value = "fortune")
     @Transactional
     public List<LotteryMarkSix> getLotteryMarkSixByPagination(int from, int count) {
         Utils.logger.info("get paginated lottery mark six from {} count {}", from, count);
