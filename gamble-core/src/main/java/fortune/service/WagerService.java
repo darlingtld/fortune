@@ -123,4 +123,10 @@ public class WagerService {
         Utils.logger.info("get lottery mark six wager list of type {} lottery issue {},group id{}, number {}, panlei {}", type.getType(), issue, groupId, number, panlei);
         return wagerDao.getLotteryMarkSixWagerList(type, groupId, panlei, issue, number);
     }
+    
+    @Transactional
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListByBallType(LotteryMarkSixType type, String groupId, String panlei, int issue, LotteryMarkSixType ballType) {
+        Utils.logger.info("get lottery mark six wager list of type {} lottery issue {},group id{}, panlei {}", type.getType(), issue, groupId, panlei);
+        return wagerDao.getLotteryMarkSixWagerListByBallType(type, groupId, panlei, issue, ballType);
+    }
 }

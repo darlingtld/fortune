@@ -24,12 +24,19 @@ angular.module('AdminApp')
                 deferred.resolve(data);
             });
             return deferred.promise;
-        }
+        };
+        this.getStakesDetailBySubType = function (type, groupid, panlei, issue, subtype) {
+            var deferred = $q.defer();
+            $http.get('stat/realtime/stake_detail/' + type + '/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/subtype/' + subtype).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
         this.getRealTimeTransactionTotalCount = function (groupid, panlei, issue) {
             var deferred = $q.defer();
             $http.get('stat/realtime/transaction_result/total_count/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue).success(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;
-        }
+        };
     })

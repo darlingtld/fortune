@@ -1,0 +1,31 @@
+<div class="real-time-dashboard lottery-special-number">
+    <div ng-repeat="subs in list">
+        <table>
+            <thead>
+            <tr>
+                <th>生肖</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in subs">
+                <td><span ng-bind="rt.zodiacName" class="type"></span></td>
+                <td ng-bind="rt.transactions"></td>
+                <td>
+                    <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/one_zodiac/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{rt.lotteryMarkSixType}}"><span
+                            ng-bind="rt.stakes"></span></a></td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    合计：<span ng-bind="stats.oneZodiacTailNumTransactions"></span>, 金额：<span ng-bind="stats.oneZodiacTailNumStakes"></span>
+</div>
+

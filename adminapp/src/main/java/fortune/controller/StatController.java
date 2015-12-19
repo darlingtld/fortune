@@ -73,5 +73,12 @@ public class StatController {
     List<RealTimeWager> getStakeDetail4Special(@PathVariable("type") String type, @PathVariable("groupid") String groupId, @PathVariable("panlei") String panlei, @PathVariable("issue") int issue, @PathVariable("number") int number) {
         return statService.getStakeDetail(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase(), issue, number);
     }
+    
+    @RequestMapping(value = "realtime/stake_detail/{type}/groupid/{groupid}/pan/{panlei}/issue/{issue}/subtype/{subtype}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<RealTimeWager> getStakeDetail4Special(@PathVariable("type") String type, @PathVariable("groupid") String groupId, @PathVariable("panlei") String panlei, @PathVariable("issue") int issue, @PathVariable("subtype") String subtype) {
+        return statService.getStakeDetailByBallType(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase(), issue, LotteryMarkSixType.valueOf(subtype.toUpperCase()));
+    }
 
 }

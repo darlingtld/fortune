@@ -36,6 +36,9 @@ controller('indexController', function ($scope, $interval) {
     }).when('/stakesdetail/groupid/:groupid/pan/:panlei/:type/issue/:issue/ball/:number', {
         controller: 'stakesDetailController',
         templateUrl: 'includes/stakesdetail.html'
+    }).when('/stakesdetail/groupid/:groupid/pan/:panlei/:type/issue/:issue/subtype/:subtype', {
+        controller: 'stakesDetailController',
+        templateUrl: 'includes/stakesdetail.html'
     }).otherwise({
         redirectTo: '/realtime'
     });

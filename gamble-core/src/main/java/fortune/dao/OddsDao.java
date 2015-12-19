@@ -51,6 +51,11 @@ public class OddsDao {
         return mongoTemplate.findOne(query, LotteryOdds.class);
     }
 
+    public LotteryOdds getOdds4LotteryIssueByBallType(int lotteryIssue, String groupId, String lotteryMarkSixType, String panlei, String ballType) {
+        Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType), Criteria.where("panlei").is(panlei), Criteria.where("lotteryBallType").is(ballType)));
+        return mongoTemplate.findOne(query, LotteryOdds.class);
+    }
+    
     public List<LotteryOdds> getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType, String panlei) {
         Query query = new Query(Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType), Criteria.where("panlei").is(panlei)));
         return mongoTemplate.find(query, LotteryOdds.class);

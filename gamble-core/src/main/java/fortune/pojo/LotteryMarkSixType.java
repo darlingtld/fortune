@@ -199,8 +199,7 @@ public enum LotteryMarkSixType {
                 SPECIAL_HEWEIDA);
     }
 
-
-    public static List<LotteryMarkSixType> getRealTimeAnimalTypeList() {
+    public static List<LotteryMarkSixType> getRealTimeAnimalList() {
         return Arrays.asList(
                 ZODIAC_SHU,
                 ZODIAC_NIU,
@@ -213,7 +212,11 @@ public enum LotteryMarkSixType {
                 ZODIAC_HOU,
                 ZODIAC_JI,
                 ZODIAC_GOU,
-                ZODIAC_ZHU,
+                ZODIAC_ZHU);
+    }
+
+    public static List<LotteryMarkSixType> getRealTimeAnimalTypeList() {
+        return Arrays.asList(
                 JIAQIN,
                 YESHOU);
     }

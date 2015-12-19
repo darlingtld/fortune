@@ -7,6 +7,22 @@ angular.module('AdminApp')
         realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
             $scope.lotteryMarkSixInfo = data;
         });
+        
+        $scope.zodiacNames = {
+            "zodiac_shu" : "鼠",
+            "zodiac_niu" : "牛",
+            "zodiac_hu" : "虎",
+            "zodiac_tu" : "兔",
+            "zodiac_long" : "龙",
+            "zodiac_she" : "蛇",
+            "zodiac_ma" : "马",
+            "zodiac_yang" : "羊",
+            "zodiac_hou" : "猴",
+            "zodiac_ji" : "鸡",
+            "zodiac_gou" : "狗",
+            "zodiac_zhu" : "猪"
+        };
+        
         $scope.pans = {
             panlei: [
                 {name: 'ALL', title: '全部'},
@@ -205,6 +221,29 @@ angular.module('AdminApp')
                 $scope.list[4] = $scope.realTimeTranscations.slice(40, 49);
             })
         }
+        
+        function renderOneZodiacTailNum() {
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'one_zodiac', $scope.selectedPan.name).then(function (data) {
+                $scope.realTimeTranscations = data;
+                
+                $scope.stats = {
+                    oneZodiacTailNumTransactions: 0,
+                    oneZodiacTailNumStakes: 0
+                };
+                for (var i = 0; i < data.length; i++) {
+                    data[i].zodiacName = $scope.zodiacNames[data[i].lotteryMarkSixType];
+                    
+                    $scope.stats.oneZodiacTailNumTransactions += data[i].transactions;
+                    $scope.stats.oneZodiacTailNumStakes += data[i].stakes;
+                }
+                
+                $scope.list = [];
+                $scope.list[0] = data.slice(0, 3);
+                $scope.list[1] = data.slice(3, 6);
+                $scope.list[2] = data.slice(6, 9);
+                $scope.list[3] = data.slice(9, 12);
+            })
+        }
 
         $scope.zhengSpecificGoto = function(page) {
             var ele = $(event.target);
@@ -232,12 +271,18 @@ angular.module('AdminApp')
             }).then(function (data) {
                 $scope.transactionTotalCount = data;
                 
-                // calculate total counts for zheng specific
+                // zheng specific
                 $scope.transactionTotalCount.ZHENG_SPECIFIC = 0;
                 for (var i = 1; i <= 6; i++) {
                     $scope.transactionTotalCount.ZHENG_SPECIFIC += eval('$scope.transactionTotalCount.ZHENG_SPECIFIC_' + i);
                 }
-            });
+                
+                // one zodiac and tail num
+                var tmpSum = 0;
+                tmpSum += $scope.transactionTotalCount.ONE_ZODIAC;
+                tmpSum += $scope.transactionTotalCount.TAIL_NUM;
+                $scope.transactionTotalCount.ONE_ZODIAC_TAIL_NUM = tmpSum;
+           });
             switch (page) {
                 case 'special':
                     renderSpecial();
@@ -251,15 +296,22 @@ angular.module('AdminApp')
                 case 'zheng_specific':
                     $scope.zhengSpecificGoto('zheng_specific_1');
                     break;
+                case 'one_zodiac_tail_num':
+                    renderOneZodiacTailNum();
+                    break;
             }
-
         }
 
         $scope.goto('special');
 
-
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
-        realtimeService.getStakesDetail4Special($routeParams.type, $routeParams.groupid, $routeParams.panlei, $routeParams.issue, $routeParams.number).then(function (data) {
-            $scope.wagerList = data;
-        });
+        if ($routeParams.number) {
+            realtimeService.getStakesDetail4Special($routeParams.type, $routeParams.groupid, $routeParams.panlei, $routeParams.issue, $routeParams.number).then(function (data) {
+                $scope.wagerList = data;
+            });
+        } else if ($routeParams.subtype) {
+            realtimeService.getStakesDetailBySubType($routeParams.type, $routeParams.groupid, $routeParams.panlei, $routeParams.issue, $routeParams.subtype).then(function (data) {
+                $scope.wagerList = data;
+            });
+        }
     })
