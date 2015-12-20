@@ -9,23 +9,62 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
             {name: 'B', title: 'B盘'},
             {name: 'C', title: 'C盘'},
             {name: 'D', title: 'D盘'}],
-    }
+    };
+    
     $scope.selectedPan = 'A';
 
-    $scope.getOdds = function (type) {
-        if (type != null) {
-            $scope.type = type;
-        }
+    $scope.getOdds = function () {
         realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
             $scope.lotteryMarkSixInfo = data;
-            $http.get('odds/lottery_issue/' + $scope.lotteryMarkSixInfo.issue + '/group/' + sessionStorage['pgroupid'] + '/lottery_mark_six_type/' + $scope.type + '/pan/' + $scope.selectedPan.name).success(function (data) {
-                $scope.odds = data;
-            })
+            $http.get("odds/lottery_issue/" + $scope.lotteryMarkSixInfo.issue + "/group/" + sessionStorage['pgroupid'] + "/pan/" + $scope.selectedPan.name).success(function (data) {
+            	$scope.specialOdds = [], $scope.oddsMap = {};
+                for (var i = 0; i < data.length; i++) {
+                    var odds = data[i];
+                    if (odds.lotteryMarkSixType == "SPECIAL") {
+                    	$scope.specialOdds.push(odds);
+                    }
+                    else if (odds.lotteryMarkSixType == "BLUE" || odds.lotteryMarkSixType == "RED" || odds.lotteryMarkSixType == "GREEN") {
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType.indexOf("ZODIAC_") == 0) {
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType.indexOf("WAVE_") == 0) {
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType == "SUM_ZODIAC") {
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType == "ZHENG_BALL") {
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType == "ZHENG_1_6") {
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC_") == 0) {
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType.indexOf("JOINT_") == 0) {
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType.indexOf("NOT_") == 0) {
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType.indexOf("PASS_") == 0) {
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType == "ONE_ZODIAC") {
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds.odds;
+                    }
+                    else if (odds.lotteryMarkSixType == "TAIL_NUM") {
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                    }
+                }
+            });
         })
     };
 
-    $scope.getOdds('special');
-    $scope.type = 'special';
+    $scope.getOdds();
     $scope.markOdds = function (oddsId, oddsToChange) {
         $scope.oddsId = oddsId;
         $scope.oddsToChange = oddsToChange;
@@ -40,7 +79,6 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
             $('a.close').click();
             $('#' + data.id).find('td:nth(1)').text(data.odds);
         })
-    }
-
-
+    };
+    
 })
