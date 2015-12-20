@@ -223,26 +223,44 @@ angular.module('AdminApp')
         }
         
         function renderOneZodiacTailNum() {
+            $scope.stats = {
+                oneZodiacTransactions: 0,
+                oneZodiacStakes: 0,
+                tailNumTransactions: 0,
+                tailNumStakes: 0
+            };
+            
+            // one zodiac section
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'one_zodiac', $scope.selectedPan.name).then(function (data) {
-                $scope.realTimeTranscations = data;
                 
-                $scope.stats = {
-                    oneZodiacTailNumTransactions: 0,
-                    oneZodiacTailNumStakes: 0
-                };
                 for (var i = 0; i < data.length; i++) {
                     data[i].zodiacName = $scope.zodiacNames[data[i].lotteryMarkSixType];
-                    
-                    $scope.stats.oneZodiacTailNumTransactions += data[i].transactions;
-                    $scope.stats.oneZodiacTailNumStakes += data[i].stakes;
+                    $scope.stats.oneZodiacTransactions += data[i].transactions;
+                    $scope.stats.oneZodiacStakes += data[i].stakes;
                 }
                 
-                $scope.list = [];
-                $scope.list[0] = data.slice(0, 3);
-                $scope.list[1] = data.slice(3, 6);
-                $scope.list[2] = data.slice(6, 9);
-                $scope.list[3] = data.slice(9, 12);
-            })
+                $scope.oneZodiacList = [];
+                $scope.oneZodiacList[0] = data.slice(0, 3);
+                $scope.oneZodiacList[1] = data.slice(3, 6);
+                $scope.oneZodiacList[2] = data.slice(6, 9);
+                $scope.oneZodiacList[3] = data.slice(9, 12);
+            });
+            
+            // tail number section
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'tail_num', $scope.selectedPan.name).then(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $scope.stats.tailNumTransactions += data[i].transactions;
+                    $scope.stats.tailNumStakes += data[i].stakes;
+                }
+                
+                $scope.tailNumList = [];
+                $scope.tailNumList[0] = data.slice(1, 3);   // start from 1
+                $scope.tailNumList[1] = data.slice(3, 5);
+                $scope.tailNumList[2] = data.slice(5, 7);
+                $scope.tailNumList[3] = data.slice(7, 9);
+                $scope.tailNumList[4] = data.slice(9, 10);
+                $scope.tailNumList[4].push(data[0]);
+            });
         }
 
         $scope.zhengSpecificGoto = function(page) {

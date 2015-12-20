@@ -113,6 +113,17 @@ public class StatService {
                 } else {
                     return getRealTimeTransactionResult4OneZodiac(groupid, panlei);
                 }
+            case TAIL_NUM:
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealtimeStat> list = new ArrayList<>();
+                    list.addAll(getRealTimeTransactionResult4TailNum(groupid, "A"));
+                    list.addAll(getRealTimeTransactionResult4TailNum(groupid, "B"));
+                    list.addAll(getRealTimeTransactionResult4TailNum(groupid, "C"));
+                    list.addAll(getRealTimeTransactionResult4TailNum(groupid, "D"));
+                    return list;
+                } else {
+                    return getRealTimeTransactionResult4TailNum(groupid, panlei);
+                }
             default:
                 return null;
         }
@@ -483,7 +494,8 @@ public class StatService {
                 for (LotteryMarkSixWagerStub stub : wagerStubList) {
                     LotteryMarkSixType lotteryType = stub.getLotteryMarkSixType();
                     
-                    if (realTimeStatHashMap4OneZodiac.containsKey(stub.getNumber())) {
+                    // use lottery type as key
+                    if (realTimeStatHashMap4OneZodiac.containsKey(lotteryType)) {
                         realTimeStatHashMap4OneZodiac.get(lotteryType).addStakes(stub.getStakes());
                         realTimeStatHashMap4OneZodiac.get(lotteryType).addTransactions(1);
                     } else {
@@ -515,6 +527,63 @@ public class StatService {
         });
 
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatHashMap4OneZodiac.values().iterator());
+        Collections.sort(realtimeStatList, (o1, o2) -> o1.getNumber() - o2.getNumber());
+        return realtimeStatList;
+    }
+    
+    private List<RealtimeStat> getRealTimeTransactionResult4TailNum(String groupid, String panlei) {
+        Utils.logger.info("get real time transaction result of group id {} for type tail number", groupid);
+
+        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
+        List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue, groupid, panlei);
+
+        HashMap<Integer, Double> oddsMap4TailNum = new HashMap<>();
+        for (LotteryOdds odds : oddsList) {
+            if (odds.getLotteryMarkSixType().equals(TAIL_NUM)) {
+                oddsMap4TailNum.put(odds.getLotteryBallNumber(), odds.getOdds());
+            }
+        }
+        
+        LinkedHashMap<Integer, RealtimeStat> realTimeStatHashMap4TailNum = new LinkedHashMap<>();
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, panlei, lotteryIssue);
+        for (LotteryMarkSixWager wager : wagerList) {
+            if (wager.getLotteryMarkSixType().equals(TAIL_NUM)) {
+                List<LotteryMarkSixWagerStub> wagerStubList = wager.getLotteryMarkSixWagerStubList();
+                for (LotteryMarkSixWagerStub stub : wagerStubList) {
+                    if (realTimeStatHashMap4TailNum.containsKey(stub.getNumber())) {
+                        realTimeStatHashMap4TailNum.get(stub.getNumber()).addStakes(stub.getStakes());
+                        realTimeStatHashMap4TailNum.get(stub.getNumber()).addTransactions(1);
+                    } else {
+                        RealtimeStat realtimeStat = new RealtimeStat();
+                        realtimeStat.setGroupId(groupid);
+                        realtimeStat.setNumber(stub.getNumber());
+                        realtimeStat.setBalance(0);
+                        realtimeStat.setStakes(stub.getStakes());
+                        realtimeStat.setOdds(oddsMap4TailNum.get(stub.getNumber()));
+                        realtimeStat.setTransactions(1);
+                        realtimeStat.setLotteryMarkSixType(TAIL_NUM.name());    //TODO name or type? (not used in front-end)
+                        realTimeStatHashMap4TailNum.put(stub.getNumber(), realtimeStat);
+                    }
+                }
+            }
+        }
+
+        // default value
+        for (int number = 0; number <= 9; number++) {
+            if (!realTimeStatHashMap4TailNum.containsKey(number)) {
+                RealtimeStat realtimeStat = new RealtimeStat();
+                realtimeStat.setGroupId(groupid);
+                realtimeStat.setNumber(number);
+                realtimeStat.setBalance(0);
+                realtimeStat.setStakes(0);
+                realtimeStat.setOdds(oddsMap4TailNum.get(number));
+                realtimeStat.setTransactions(0);
+                realtimeStat.setLotteryMarkSixType(TAIL_NUM.name());    //TODO name or type? (not used in front-end)
+                realTimeStatHashMap4TailNum.put(number, realtimeStat);
+            }
+        }
+
+        List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatHashMap4TailNum.values().iterator());
         Collections.sort(realtimeStatList, (o1, o2) -> o1.getNumber() - o2.getNumber());
         return realtimeStatList;
     }
@@ -617,6 +686,16 @@ public class StatService {
                 } else {
                     return getStakeDetail4ZhengSpecific(groupId, panlei, issue, number, type);
                 }
+            case TAIL_NUM:
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetail4TailNum(groupId, pan, issue, number));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetail4TailNum(groupId, panlei, issue, number);
+                }
         }
         return null;
     }
@@ -711,7 +790,7 @@ public class StatService {
                     break;
                 }
             }
-            realTimeWager.setOdds(oddsService.getOdds4LotteryIssue(issue, groupId, number, wager.getPanlei()).getOdds());
+            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, ZHENG_BALL, wager.getPanlei()).getOdds());
             realTimeWager.setTuishui2(0);
             realTimeWager.setResult(0);
             realTimeWager.setRemark("");
@@ -744,7 +823,40 @@ public class StatService {
                     break;
                 }
             }
-            realTimeWager.setOdds(oddsService.getOdds4LotteryIssue(issue, groupId, number, wager.getPanlei()).getOdds());
+            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, type, wager.getPanlei()).getOdds());
+            realTimeWager.setTuishui2(0);
+            realTimeWager.setResult(0);
+            realTimeWager.setRemark("");
+            realTimeWagerList.add(realTimeWager);
+        }
+        return realTimeWagerList;
+    }
+    
+    @Transactional
+    public List<RealTimeWager> getStakeDetail4TailNum(String groupId, String panlei, int issue, int number) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.TAIL_NUM, groupId, panlei, issue, number);
+        List<RealTimeWager> realTimeWagerList = new ArrayList<>();
+        for (LotteryMarkSixWager wager : wagerList) {
+            RealTimeWager realTimeWager = new RealTimeWager();
+            realTimeWager.setTs(wager.getTimestamp());
+            realTimeWager.setUser(userService.getUserById(wager.getUserId()));
+            realTimeWager.setTuishui(0);
+            realTimeWager.setPanlei(wager.getPanlei());
+            realTimeWager.setIssue(wager.getLotteryIssue());
+            LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
+            Date openTs = new Date();
+            if (lotteryMarkSix != null) {
+                openTs = lotteryMarkSix.getTimestamp();
+            }
+            realTimeWager.setOpenTs(openTs);
+            realTimeWager.setWageContent(String.format("%s %s", TAIL_NUM.getType(), number));
+            for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                if (number == stub.getNumber()) {
+                    realTimeWager.setStakes(stub.getStakes());
+                    break;
+                }
+            }
+            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, TAIL_NUM, wager.getPanlei()).getOdds());
             realTimeWager.setTuishui2(0);
             realTimeWager.setResult(0);
             realTimeWager.setRemark("");

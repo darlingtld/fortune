@@ -1,5 +1,5 @@
 <div class="real-time-dashboard lottery-special-number">
-    <div ng-repeat="subs in list">
+    <div ng-repeat="subs in oneZodiacList">
         <table>
             <thead>
             <tr>
@@ -28,6 +28,42 @@
 </div>
 
 <div>
-    合计：<span ng-bind="stats.oneZodiacTailNumTransactions"></span>, 金额：<span ng-bind="stats.oneZodiacTailNumStakes"></span>
+    合计：<strong ng-bind="stats.oneZodiacTransactions"></strong>,&nbsp;金额：<strong ng-bind="stats.oneZodiacStakes"></strong>
 </div>
+
+<div class="real-time-dashboard lottery-special-number">
+    <div ng-repeat="subs in tailNumList">
+        <table>
+            <thead>
+            <tr>
+                <th>尾数</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rt in subs">
+                <td><span ng-bind="rt.number"></span>尾</td>
+                <td ng-bind="rt.transactions"></td>
+                <td>
+                    <a ng-show="rt.stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/tail_num/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                            ng-bind="rt.stakes"></span></a>
+                    <span ng-show="rt.stakes == 0">0</span>        
+                </td>
+                <td ng-bind="rt.odds"></td>
+                <td ng-bind="rt.balance"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    合计：<strong ng-bind="stats.tailNumTransactions"></strong>,&nbsp;金额：<strong ng-bind="stats.tailNumStakes"></strong>
+</div>
+
+
+
 
