@@ -15,8 +15,10 @@
                 <td><span ng-bind="rt.zodiacName" class="type"></span></td>
                 <td ng-bind="rt.transactions"></td>
                 <td>
-                    <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/one_zodiac/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{rt.lotteryMarkSixType}}"><span
-                            ng-bind="rt.stakes"></span></a></td>
+                    <a ng-show="rt.stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/one_zodiac/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{rt.lotteryMarkSixType}}"><span
+                            ng-bind="rt.stakes"></span></a>
+                    <span ng-show="rt.stakes == 0">0</span>        
+                </td>
                 <td ng-bind="rt.odds"></td>
                 <td ng-bind="rt.balance"></td>
             </tr>

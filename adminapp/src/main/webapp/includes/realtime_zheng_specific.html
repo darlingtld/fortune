@@ -36,8 +36,10 @@
                 <td><span ng-bind="rt.number" class="ball ball{{rt.number}}"></span></td>
                 <td ng-bind="rt.transactions"></td>
                 <td>
-                    <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{zhengSpecificType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
-                            ng-bind="rt.stakes"></span></a></td>
+                    <a ng-show="rt.stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{zhengSpecificType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                            ng-bind="rt.stakes"></span></a>
+                    <span ng-show="rt.stakes == 0">0</span>            
+                </td>
                 <td ng-bind="rt.odds"></td>
                 <td ng-bind="rt.balance"></td>
             </tr>
