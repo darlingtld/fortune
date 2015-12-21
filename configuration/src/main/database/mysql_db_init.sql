@@ -2,18 +2,42 @@
 Navicat MySQL Data Transfer
 
 Source Server         : local mysql
-Source Server Version : 50709
+Source Server Version : 50625
 Source Host           : localhost:3306
 Source Database       : fortune
 
 Target Server Type    : MYSQL
-Target Server Version : 50709
+Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2015-12-13 18:46:39
+Date: 2015-12-21 14:47:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for action_trace
+-- ----------------------------
+DROP TABLE IF EXISTS `action_trace`;
+CREATE TABLE `action_trace` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` varchar(255) DEFAULT NULL,
+  `action` text,
+  `timestamp` datetime DEFAULT NULL,
+  `request_url` text,
+  `ip` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of action_trace
+-- ----------------------------
+INSERT INTO `action_trace` VALUES ('1', 'user2', 'user login', '2015-12-21 14:39:22', 'http://localhost:8080/userapp/user/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('2', 'user2', 'user login', '2015-12-21 14:41:35', '/userapp/user/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('3', 'user2', 'wage on 上海 [pan A]', '2015-12-21 14:41:55', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('4', 'user2', 'wage on taipei [pan A]', '2015-12-21 14:42:42', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('5', 'user1', 'admin login', '2015-12-21 14:46:00', '/adminapp/administrator/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('6', 'user2', 'wage on 香港 [pan A]', '2015-12-21 14:46:37', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
 
 -- ----------------------------
 -- Table structure for job_tracker
@@ -27,51 +51,15 @@ CREATE TABLE `job_tracker` (
   `endtime` datetime DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of job_tracker
 -- ----------------------------
-INSERT INTO `job_tracker` VALUES ('69', 'SPECIAL_HEXIAO', '299', '2015-11-23 17:49:47', '2015-11-23 17:49:47', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('70', 'SPECIAL_HEDA', '299', '2015-11-23 17:49:47', '2015-11-23 17:49:47', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('71', 'SPECIAL_DA', '299', '2015-11-23 17:49:47', '2015-11-23 17:49:47', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('72', 'SPECIAL_HESHUANG', '299', '2015-11-23 17:49:47', '2015-11-23 17:49:47', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('73', 'SPECIAL_DAN', '299', '2015-11-23 17:49:47', '2015-11-23 17:49:47', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('74', 'SPECIAL_SHUANG', '299', '2015-11-23 17:49:48', '2015-11-23 17:49:47', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('75', 'SPECIAL_XIAO', '299', '2015-11-23 17:49:48', '2015-11-23 17:49:47', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('76', 'fortune.job.LotteryUserStatJob', '299', '2015-12-05 08:46:35', '2015-12-05 08:46:35', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('77', 'fortune.job.LotteryGroupStatJob', '299', '2015-12-05 08:47:00', '2015-12-05 08:47:00', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('78', 'fortune.job.LotteryOddsPopulateJob', '299', '2015-12-05 08:47:00', '2015-12-05 08:47:00', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('80', 'fortune.job.LotteryOddsPopulateJob', '300', '2015-12-05 09:26:00', '2015-12-05 09:26:01', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('81', 'fortune.job.LotteryGroupStatJob', '300', '2015-12-05 14:55:02', '2015-12-05 14:55:04', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('82', 'fortune.job.LotteryOddsPopulateJob', '301', '2015-12-05 14:55:01', '2015-12-05 14:55:04', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('83', 'fortune.job.LotteryUserStatJob', '300', '2015-12-05 14:55:50', '2015-12-05 14:55:52', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('84', 'SPECIAL_DAN', '300', '2015-12-05 14:55:49', '2015-12-05 14:55:50', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('85', 'SPECIAL_DAN', '301', '2015-12-05 15:00:50', '2015-12-05 15:00:50', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('86', 'fortune.job.LotteryUserStatJob', '301', '2015-12-05 15:00:52', '2015-12-05 15:00:53', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('87', 'fortune.job.LotteryOddsPopulateJob', '302', '2015-12-05 15:01:00', '2015-12-05 15:06:15', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('88', 'fortune.job.LotteryGroupStatJob', '301', '2015-12-05 15:01:00', '2015-12-05 15:06:15', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('89', 'fortune.job.LotteryOddsPopulateJob', '303', '2015-12-05 15:08:00', null, 'RUNNING');
-INSERT INTO `job_tracker` VALUES ('90', 'SPECIAL_DAN', '302', '2015-12-05 15:08:00', '2015-12-05 15:12:28', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('91', 'fortune.job.LotteryUserStatJob', '302', '2015-12-05 15:08:00', null, 'RUNNING');
-INSERT INTO `job_tracker` VALUES ('92', 'fortune.job.LotteryGroupStatJob', '302', '2015-12-05 15:08:00', null, 'RUNNING');
-INSERT INTO `job_tracker` VALUES ('93', 'SPECIAL', '303', '2015-12-05 15:32:00', '2015-12-05 15:32:00', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('94', 'fortune.job.LotteryOddsPopulateJob', '304', '2015-12-05 15:32:00', '2015-12-05 15:32:01', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('95', 'fortune.job.LotteryUserStatJob', '303', '2015-12-05 15:32:13', '2015-12-05 15:32:13', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('96', 'fortune.job.LotteryGroupStatJob', '303', '2015-12-05 15:33:00', '2015-12-05 15:33:00', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('97', 'SPECIAL', '304', '2015-12-05 15:47:00', '2015-12-05 15:47:00', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('98', 'fortune.job.LotteryUserStatJob', '304', '2015-12-05 15:47:00', '2015-12-05 15:47:05', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('99', 'fortune.job.LotteryOddsPopulateJob', '305', '2015-12-05 15:47:00', '2015-12-05 15:47:06', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('100', 'fortune.job.LotteryGroupStatJob', '304', '2015-12-05 15:47:00', '2015-12-05 15:47:05', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('101', 'SPECIAL', '306', '2015-12-12 10:02:30', '2015-12-12 10:02:30', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('102', 'fortune.job.LotteryUserStatJob', '306', '2015-12-12 10:03:00', '2015-12-12 10:03:01', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('103', 'fortune.job.LotteryGroupStatJob', '306', '2015-12-12 10:03:00', '2015-12-12 10:03:01', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('104', 'fortune.job.LotteryOddsPopulateJob', '307', '2015-12-12 10:03:00', '2015-12-12 10:03:01', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('105', 'fortune.job.LotteryOddsPopulateJob', '2', '2015-12-13 18:40:29', '2015-12-13 18:40:31', 'SUCCESS');
 INSERT INTO `job_tracker` VALUES ('106', 'SPECIAL', '144', '2015-12-13 18:43:50', '2015-12-13 18:43:50', 'SUCCESS');
-INSERT INTO `job_tracker` VALUES ('107', 'fortune.job.LotteryOddsPopulateJob', '145', '2015-12-13 18:44:00', '2015-12-13 18:44:01', 'SUCCESS');
 INSERT INTO `job_tracker` VALUES ('108', 'fortune.job.LotteryGroupStatJob', '144', '2015-12-13 18:44:00', '2015-12-13 18:44:00', 'SUCCESS');
 INSERT INTO `job_tracker` VALUES ('109', 'fortune.job.LotteryUserStatJob', '144', '2015-12-13 18:44:00', '2015-12-13 18:44:01', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('113', 'fortune.job.LotteryOddsPopulateJob', '145', '2015-12-16 16:35:01', '2015-12-16 16:36:54', 'SUCCESS');
 
 -- ----------------------------
 -- Table structure for lottery_draw_tracker
@@ -82,12 +70,12 @@ CREATE TABLE `lottery_draw_tracker` (
   `last_lottery_issue` int(11) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=501 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2797 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_draw_tracker
 -- ----------------------------
-INSERT INTO `lottery_draw_tracker` VALUES ('500', '144', '2015-12-13 18:46:00');
+INSERT INTO `lottery_draw_tracker` VALUES ('2796', '144', '2015-12-21 14:47:00');
 
 -- ----------------------------
 -- Table structure for lottery_mark_six

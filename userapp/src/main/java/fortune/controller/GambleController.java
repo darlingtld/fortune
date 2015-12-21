@@ -3,6 +3,9 @@ package fortune.controller;
 import common.Utils;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryMarkSixWager;
+import fortune.service.ActionTraceService;
+import fortune.service.PGroupService;
+import fortune.service.UserService;
 import fortune.service.WagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
@@ -23,33 +27,45 @@ public class GambleController {
     @Autowired
     private WagerService wagerService;
 
+    @Autowired
+    private ActionTraceService actionTraceService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PGroupService pGroupService;
+
     /**
      * 玩家按数字下注
      * LotteryMarkSixWager里面有个type属性，见LotteryMarkSixType类
      * 如果按类型下注， LotteryMarkSixType必选
      * 如果按数字下注，LotteryMarkSixType设为LotteryMarkSixType.NUMBER
-     *
+     * <p>
      * 例如：
      * 1.按特码下注，类型为特码单，LotteryMarkSixType设为LotteryMarkSixType.SPECIAL_DAN
      * 此时，lotteryMarkSixWagerStubList可以不写，其他的要给我填上
      * 2.如果玩家下注按数字下注，比如买1号球10注，7号球15注
      * 那么lotteryMarkSixWagerStubList=[{number:1,stakes:10},{number:7,stakes15}],LotteryMarkSixType设为LotteryMarkSixType.NUMBER
      * 3.如果有些规则需要对lotteryMarkSixWagerStubList和LotteryMarkSixType都有设置的话，我会先根据type判断，如有需要，再去拿stublist里东西和开奖结果做对比
+     *
      * @param lotteryMarkSixWager
      * @param response
      */
     @RequestMapping(value = "wage", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    void wageLotteryMarkSix(@RequestBody @Valid LotteryMarkSixWager lotteryMarkSixWager, BindingResult result, HttpServletResponse response) {
+    void wageLotteryMarkSix(@RequestBody @Valid LotteryMarkSixWager lotteryMarkSixWager, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
         if (result.hasErrors()) {
             response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
             return;
         }
+        String trace = String.format("wage on %s [pan %s]", pGroupService.getGroupById(lotteryMarkSixWager.getPgroupId()).getName(), lotteryMarkSixWager.getPanlei());
+        actionTraceService.save(userService.getUserById(lotteryMarkSixWager.getUserId()).getUsername(), trace, request);
         wagerService.saveLotteryMarkSixWager(lotteryMarkSixWager);
     }
-    
+
     @RequestMapping(value = "wages", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
@@ -59,13 +75,14 @@ public class GambleController {
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
             return;
         }
-        for(LotteryMarkSixWager wager: lotteryMarkSixWagers){
-            wagerService.saveLotteryMarkSixWager(wager);        	
+        for (LotteryMarkSixWager wager : lotteryMarkSixWagers) {
+            wagerService.saveLotteryMarkSixWager(wager);
         }
     }
 
     /**
      * 根据id查询某笔下注
+     *
      * @param lotteryMarkSixWagerId
      * @param response
      * @return

@@ -3,6 +3,7 @@ package fortune.controller;
 import com.alibaba.fastjson.JSONObject;
 import common.Utils;
 import fortune.pojo.User;
+import fortune.service.ActionTraceService;
 import fortune.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ActionTraceService actionTraceService;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public
@@ -43,6 +47,7 @@ public class UserController {
             response.setStatus(org.apache.http.HttpStatus.SC_EXPECTATION_FAILED);
             return null;
         }
+        actionTraceService.save(loginStub.getString("name"), "user login", request);
         return userService.login(loginStub.getString("name"), loginStub.getString("password"));
     }
 }

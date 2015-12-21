@@ -1,6 +1,7 @@
 package fortune.controller;
 
 import common.Utils;
+import fortune.service.ActionTraceService;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -36,6 +37,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ActionTraceService actionTraceService;
+
     /**
      * 管理员或者代理商给用户充值
      *
@@ -70,6 +74,7 @@ public class AdminController {
             response.setStatus(HttpStatus.SC_EXPECTATION_FAILED);
             return null;
         }
+        actionTraceService.save(username, "admin login", request);
         return userService.adminLogin(username, password);
     }
 
