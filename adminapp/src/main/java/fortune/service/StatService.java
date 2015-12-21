@@ -52,6 +52,7 @@ public class StatService {
 
     @Transactional
     public List<RealtimeStat> getRealTimeTransactionResult(LotteryMarkSixType type, String groupid, String panlei) {
+        // FIXME calculate sum if panlei is "ALL"
         switch (type) {
             case SPECIAL:
                 if (panlei.equalsIgnoreCase("ALL")) {
@@ -903,10 +904,8 @@ public class StatService {
     public JSONObject getRealTimeTransactionTotalCount(String groupId, String panlei, int issue) {
         List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupId, panlei, issue);
         Map<String, AtomicInteger> transactionMap = new HashMap<>();
-//        transactionMap.put(LotteryMarkSixType.SPECIAL.name(), new AtomicInteger(0));
-//        transactionMap.put(LotteryMarkSixType.SUM_ZODIAC.name(), new AtomicInteger(0));
-//        transactionMap.put(LotteryMarkSixType.ZHENG_BALL.name(), new AtomicInteger(0));
         
+        // initialize count map for all types
         Arrays.asList(LotteryMarkSixType.values()).stream().forEach(type -> {
             transactionMap.put(type.name(), new AtomicInteger(0));
         });
@@ -914,10 +913,24 @@ public class StatService {
 
         for (LotteryMarkSixWager wager : wagerList) {
             if (transactionMap.containsKey(wager.getLotteryMarkSixType().name())) {
-                transactionMap.get(wager.getLotteryMarkSixType().name()).incrementAndGet();
+                int transactionNum = 0;
+                switch (wager.getLotteryMarkSixType()) {
+                    case JOINT_3_ALL:
+                    case JOINT_3_2:
+                    case JOINT_2_ALL:
+                    case JOINT_2_SPECIAL:
+                    case JOINT_SPECIAL:
+                        transactionNum = 1;
+                        break;
+                    default:
+                        transactionNum = wager.getLotteryMarkSixWagerStubList().size();
+                }
+                
+                transactionMap.get(wager.getLotteryMarkSixType().name()).addAndGet(transactionNum);
+                transactionMap.get("ALL").addAndGet(transactionNum);
             }
-            transactionMap.get("ALL").incrementAndGet();
         }
+        
         JSONObject json = new JSONObject();
         json.putAll(transactionMap);
         return json;
