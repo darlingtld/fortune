@@ -57,6 +57,7 @@ public class LotteryOddsPopulateJob {
                     oddsList = oddsService.generateOddsDefault(pGroup.getId(), lotteryIssue, panlei);
                 }
                 for (LotteryOdds odds : oddsList) {
+                    odds.setId(null);
                     odds.setLotteryIssue(lotteryIssue);
                     oddsService.saveOdds(odds);
                 }
