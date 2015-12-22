@@ -1,0 +1,123 @@
+<div class="real-time-dashboard real-time-joint-stat">
+    <div>
+        <table>
+            <thead>
+                <tr><th colspan="2">三全中</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2">最高<span ng-bind="stats.joint3AllOdds"></span></td></tr>
+                <tr><td colspan="2">最低<span ng-bind="stats.joint3AllOdds"></span></td></tr>
+                <tr><td colspan="2" ng-bind="stats.joint3AllTransactions"></td></tr>
+                
+                <tr ng-repeat="rt in joint3AllList">
+                    <td ng-bind="rt.numStr"></td>
+                    <td>
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_3_all/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                                ng-bind="rt.transactions"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr><th colspan="2">三中二</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>中二A <span ng-bind="stats.joint32Odds"></span></td>
+                    <td>中二B <span ng-bind="stats.joint32Odds"></span></td>
+                </tr>
+                <tr>
+                    <td>中三A <span ng-bind="stats.joint32Odds"></span></td>
+                    <td>中三B <span ng-bind="stats.joint32Odds"></span></td>
+                </tr>
+                <tr>
+                    <td colspan="2" ng-bind="stats.joint32Transactions"></td>
+                </tr>
+                
+                <tr ng-repeat="rt in joint32List">
+                    <td ng-bind="rt.numStr"></td>
+                    <td>
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_3_2/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                                ng-bind="rt.transactions"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr><th colspan="2">二全中</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2">二全中 <span ng-bind="stats.joint2AllOdds"></span></td></tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr>
+                    <td colspan="2" ng-bind="stats.joint2AllTransactions"></td>
+                </tr>
+                
+                <tr ng-repeat="rt in joint2AllList">
+                    <td ng-bind="rt.numStr"></td>
+                    <td>
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_2_all/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                                ng-bind="rt.transactions"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr><th colspan="2">二中特</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>中特A <span ng-bind="stats.joint2SpecialOdds"></span></td>
+                    <td>中特B <span ng-bind="stats.joint2SpecialOdds"></span></td>
+                </tr>
+                <tr>
+                    <td>中二A <span ng-bind="stats.joint2SpecialOdds"></span></td>
+                    <td>中二B <span ng-bind="stats.joint2SpecialOdds"></span></td>
+                </tr>
+                <tr>
+                    <td colspan="2" ng-bind="stats.joint2SpecialTransactions"></td>
+                </tr>
+                
+                <tr ng-repeat="rt in joint2SpecialList">
+                    <td ng-bind="rt.numStr"></td>
+                    <td>
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_2_special/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                                ng-bind="rt.transactions"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr><th colspan="2">特串</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2">特串 <span ng-bind="stats.jointSpecialOdds"></td></tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr>
+                    <td colspan="2" ng-bind="stats.jointSpecialTransactions"></td>
+                </tr>
+                
+                <tr ng-repeat="rt in jointSpecialList">
+                    <td ng-bind="rt.numStr"></td>
+                    <td>
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_special/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                                ng-bind="rt.transactions"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

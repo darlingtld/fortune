@@ -262,6 +262,110 @@ angular.module('AdminApp')
                 $scope.tailNumList[4].push(data[0]);
             });
         }
+        
+        function renderJoint() {
+            $scope.stats = {
+                joint3AllTransactions: 0,
+                joint3AllStakes: 0,
+                joint32Transactions: 0,
+                joint32Stakes: 0,
+                joint2AllTransactions: 0,
+                joint2AllStakes: 0,
+                joint2SpecialTransactions: 0,
+                joint2SpecialStakes: 0,
+                jointSpecialTransactions: 0,
+                jointSpecialStakes: 0,
+                
+                joint3AllOdds: 0,
+                joint32Odds: 0,
+                joint2AllOdds: 0,
+                joint2SpecialOdds: 0,
+                jointSpecialOdds: 0
+            };
+            
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_3_all', $scope.selectedPan.name).then(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $scope.stats.joint3AllTransactions += data[i].transactions;
+                    $scope.stats.joint3AllStakes += data[i].stakes;
+                    
+                    // build string for wager numbers
+                    var allNum = new String(data[i].number);
+                    if (allNum.length == 5)
+                        allNum = '0' + allNum;
+                    data[i].numStr = allNum.substring(0,2) + ', ' + allNum.substring(2,4) + ', ' + allNum.substring(4,6);
+                }
+                
+                $scope.joint3AllList = data;
+                
+                //FIXME get odds by sending requests
+                $scope.stats.joint3AllOdds = data[0].odds;
+            });
+            
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_3_2', $scope.selectedPan.name).then(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $scope.stats.joint32Transactions += data[i].transactions;
+                    $scope.stats.joint32Stakes += data[i].stakes;
+                    
+                    // build string for wager numbers
+                    var allNum = new String(data[i].number);
+                    if (allNum.length == 5)
+                        allNum = '0' + allNum;
+                    data[i].numStr = allNum.substring(0,2) + ', ' + allNum.substring(2,4) + ', ' + allNum.substring(4,6);
+                }
+                
+                $scope.joint32List = data;
+                $scope.stats.joint32Odds = data[0].odds;
+            });
+            
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_2_all', $scope.selectedPan.name).then(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $scope.stats.joint2AllTransactions += data[i].transactions;
+                    $scope.stats.joint2AllStakes += data[i].stakes;
+                    
+                    // build string for wager numbers
+                    var allNum = new String(data[i].number);
+                    if (allNum.length == 3)
+                        allNum = '0' + allNum;
+                    data[i].numStr = allNum.substring(0,2) + ', ' + allNum.substring(2,4);
+                }
+                
+                $scope.joint2AllList = data;
+                $scope.stats.joint2AllOdds = data[0].odds;
+            });
+            
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_2_special', $scope.selectedPan.name).then(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $scope.stats.joint2SpecialTransactions += data[i].transactions;
+                    $scope.stats.joint2SpecialStakes += data[i].stakes;
+                    
+                    // build string for wager numbers
+                    var allNum = new String(data[i].number);
+                    if (allNum.length == 3)
+                        allNum = '0' + allNum;
+                    data[i].numStr = allNum.substring(0,2) + ', ' + allNum.substring(2,4);
+                }
+                
+                $scope.joint2SpecialList = data;
+                $scope.stats.joint2SpecialOdds = data[0].odds;
+            });
+            
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_special', $scope.selectedPan.name).then(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $scope.stats.jointSpecialTransactions += data[i].transactions;
+                    $scope.stats.jointSpecialStakes += data[i].stakes;
+                    
+                    // build string for wager numbers
+                    var allNum = new String(data[i].number);
+                    if (allNum.length == 3)
+                        allNum = '0' + allNum;
+                    data[i].numStr = allNum.substring(0,2) + ', ' + allNum.substring(2,4);
+                }
+                
+                $scope.jointSpecialList = data;
+                $scope.stats.jointSpecialOdds = data[0].odds;
+            });
+            
+        }
 
         $scope.zhengSpecificGoto = function(page) {
             var ele = $(event.target);
@@ -277,12 +381,14 @@ angular.module('AdminApp')
         $scope.goto = function (page, panlei) {
             $scope.page = 'includes/realtime_' + page + '.html';
             $scope.pageType = page;
+            
             var ele = $(event.target);
             if (ele.siblings().length == 0) {
                 ele = ele.parent();
             }
             ele.siblings().removeClass('real-time-tab-active');
             ele.addClass('real-time-tab-active');
+            
             realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
                 $scope.lotteryMarkSixInfo = data;
                 return realtimeService.getRealTimeTransactionTotalCount(sessionStorage['pgroupid'], $scope.selectedPan.name, $scope.lotteryMarkSixInfo.issue);
@@ -300,7 +406,17 @@ angular.module('AdminApp')
                 tmpSum += $scope.transactionTotalCount.ONE_ZODIAC;
                 tmpSum += $scope.transactionTotalCount.TAIL_NUM;
                 $scope.transactionTotalCount.ONE_ZODIAC_TAIL_NUM = tmpSum;
-           });
+                
+                // joint
+                tmpSum = 0;
+                tmpSum += $scope.transactionTotalCount.JOINT_2_ALL;
+                tmpSum += $scope.transactionTotalCount.JOINT_2_SPECIAL;
+                tmpSum += $scope.transactionTotalCount.JOINT_3_2;
+                tmpSum += $scope.transactionTotalCount.JOINT_3_ALL;
+                tmpSum += $scope.transactionTotalCount.JOINT_SPECIAL;
+                $scope.transactionTotalCount.JOINT_TOTAL = tmpSum;
+            });
+            
             switch (page) {
                 case 'special':
                     renderSpecial();
@@ -317,10 +433,13 @@ angular.module('AdminApp')
                 case 'one_zodiac_tail_num':
                     renderOneZodiacTailNum();
                     break;
+                case 'joint':
+                    renderJoint();
+                    break;
             }
         }
 
-        $scope.goto('special');
+        $scope.goto('joint');
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
         if ($routeParams.number) {

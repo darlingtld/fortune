@@ -126,6 +126,10 @@ public class StatService {
                     return getRealTimeTransactionResult4TailNum(groupid, panlei);
                 }
             case JOINT_3_ALL:
+            case JOINT_3_2:
+            case JOINT_2_ALL:
+            case JOINT_2_SPECIAL:
+            case JOINT_SPECIAL:
                 if (panlei.equalsIgnoreCase("ALL")) {
                     List<RealtimeStat> list = new ArrayList<>();
                     list.addAll(getRealTimeTransactionResult4Joint(groupid, "A", type));
@@ -605,50 +609,48 @@ public class StatService {
 
         int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
         List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupid, type.name(), panlei);
-
         Double odds = oddsList.get(0).getOdds();
         
-        LinkedHashMap<Integer, RealtimeStat> realTimeStatHashMap4TailNum = new LinkedHashMap<>();
+        LinkedHashMap<Integer, RealtimeStat> realTimeStatHashMap = new LinkedHashMap<>();
+        
         List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, panlei, lotteryIssue);
         for (LotteryMarkSixWager wager : wagerList) {
-            if (wager.getLotteryMarkSixType().equals(TAIL_NUM)) {
+            if (wager.getLotteryMarkSixType().equals(type)) {
                 List<LotteryMarkSixWagerStub> wagerStubList = wager.getLotteryMarkSixWagerStubList();
-                for (LotteryMarkSixWagerStub stub : wagerStubList) {
-                    if (realTimeStatHashMap4TailNum.containsKey(stub.getNumber())) {
-                        realTimeStatHashMap4TailNum.get(stub.getNumber()).addStakes(stub.getStakes());
-                        realTimeStatHashMap4TailNum.get(stub.getNumber()).addTransactions(1);
-                    } else {
-                        RealtimeStat realtimeStat = new RealtimeStat();
-                        realtimeStat.setGroupId(groupid);
-                        realtimeStat.setNumber(stub.getNumber());
-                        realtimeStat.setBalance(0);
-                        realtimeStat.setStakes(stub.getStakes());
-                        realtimeStat.setOdds(odds);
-                        realtimeStat.setTransactions(1);
-                        realtimeStat.setLotteryMarkSixType(TAIL_NUM.name());    //TODO name or type? (not used in front-end)
-                        realTimeStatHashMap4TailNum.put(stub.getNumber(), realtimeStat);
-                    }
+                
+                int wagerNum = 0;
+                if (type.equals(JOINT_3_ALL) || type.equals(JOINT_3_2)) {
+                    int num1 = wagerStubList.get(0).getNumber();
+                    int num2 = wagerStubList.get(1).getNumber();
+                    int num3 = wagerStubList.get(2).getNumber();
+                    wagerNum = num1 * 10000 + num2 * 100 + num3;    // 12, 16, 29 -> 121629   1, 2, 3 -> 10203
+                
+                } else if (type.equals(JOINT_2_ALL) || type.equals(JOINT_2_SPECIAL) || type.equals(JOINT_SPECIAL)) {
+                    int num1 = wagerStubList.get(0).getNumber();
+                    int num2 = wagerStubList.get(1).getNumber();
+                    wagerNum = num1 * 100 + num2;    // 12, 16 -> 1216
                 }
+                
+                if (realTimeStatHashMap.containsKey(wagerNum)) {
+                    realTimeStatHashMap.get(wagerNum).addStakes(wager.getTotalStakes());
+                    realTimeStatHashMap.get(wagerNum).addTransactions(1);
+                } else {
+                    RealtimeStat realtimeStat = new RealtimeStat();
+                    realtimeStat.setGroupId(groupid);
+                    realtimeStat.setNumber(wagerNum);
+                    realtimeStat.setBalance(0);
+                    realtimeStat.setStakes(wager.getTotalStakes());
+                    realtimeStat.setOdds(odds);
+                    realtimeStat.setTransactions(1);
+                    realtimeStat.setLotteryMarkSixType(type.name());    //TODO name or type? (not used in front-end)
+                    realTimeStatHashMap.put(wagerNum, realtimeStat);
+                }
+                
             }
         }
 
-        // default value
-        for (int number = 0; number <= 9; number++) {
-            if (!realTimeStatHashMap4TailNum.containsKey(number)) {
-                RealtimeStat realtimeStat = new RealtimeStat();
-                realtimeStat.setGroupId(groupid);
-                realtimeStat.setNumber(number);
-                realtimeStat.setBalance(0);
-                realtimeStat.setStakes(0);
-                realtimeStat.setOdds(odds);
-                realtimeStat.setTransactions(0);
-                realtimeStat.setLotteryMarkSixType(TAIL_NUM.name());    //TODO name or type? (not used in front-end)
-                realTimeStatHashMap4TailNum.put(number, realtimeStat);
-            }
-        }
-
-        List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatHashMap4TailNum.values().iterator());
-        Collections.sort(realtimeStatList, (o1, o2) -> o1.getNumber() - o2.getNumber());
+        List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatHashMap.values().iterator());
+        Collections.sort(realtimeStatList, (o1, o2) -> (int)(o1.getStakes() - o2.getStakes()));
         return realtimeStatList;
     }
     

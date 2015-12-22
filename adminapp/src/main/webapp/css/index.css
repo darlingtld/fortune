@@ -39,3 +39,19 @@
 .real-time-dashboard > table {
     /*width: 0px;*/
 }
+
+.real-time-joint-stat > div {
+    width: 300px;
+}
+
+.real-time-joint-stat > table {
+    min-height: 500px;
+}
+
+.real-time-joint-stat tbody > tr:nth-child(n+1):nth-child(-n+3) {
+    background: #fff6d7;
+}
+
+.real-time-joint-stat tbody > tr:nth-child(3) {
+    border-bottom: 1px solid #1FADFB;
+}
