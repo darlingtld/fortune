@@ -2,10 +2,7 @@ package fortune.service;
 
 import common.Utils;
 import fortune.dao.OddsDao;
-import fortune.pojo.LotteryBall;
-import fortune.pojo.LotteryMarkSixType;
-import fortune.pojo.LotteryOdds;
-import fortune.pojo.PGroup;
+import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,9 +52,12 @@ public class OddsService {
     }
 
     @Transactional
-    public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type, String panlei) {
-        Utils.logger.info("get odds for lottery issue {} of group id {} of ball {} of type {} of panlei {}", lotteryIssue, groupId, number, type, panlei);
-        return oddsDao.getOdds(lotteryIssue, groupId, number, type, panlei);
+    public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type, LotteryMarkSixType ballType, String panlei) {
+        if (type.equals(LotteryMarkSixType.ZHENG_1_6)) {
+            number = 0;
+        }
+        Utils.logger.info("get odds for lottery issue {} of group id {} of ball {} of type {} of ball type {} of panlei {}", lotteryIssue, groupId, number, type, ballType, panlei);
+        return oddsDao.getOdds(lotteryIssue, groupId, number, type, ballType, panlei);
     }
 
     @Transactional
@@ -65,13 +65,13 @@ public class OddsService {
         Utils.logger.info("get odds for lottery issue {} of group id {} of type {} of panlei {} of ball type {}", lotteryIssue, groupId, lotteryMarkSixType, panlei, ballType);
         return oddsDao.getOdds4LotteryIssueByBallType(lotteryIssue, groupId, lotteryMarkSixType, panlei, ballType);
     }
-    
+
     @Transactional
     public List<LotteryOdds> getOdds4LotteryIssueByType(int lotteryIssue, String groupId, String lotteryMarkSixType, String panlei) {
         Utils.logger.info("get odds for lottery issue {} of group id {} of type {} of panlei {}", lotteryIssue, groupId, lotteryMarkSixType, panlei);
         return oddsDao.getOdds4LotteryIssueByType(lotteryIssue, groupId, lotteryMarkSixType, panlei);
     }
-    
+
     @Transactional
     public List<LotteryOdds> getOdds4LotteryIssue(int issue, String panlei) {
         Utils.logger.info("get odds for lottery issue {} of panlei {}", issue, panlei);

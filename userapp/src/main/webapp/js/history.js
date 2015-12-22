@@ -1,5 +1,8 @@
 var historyApp = angular.module("history", ['ui.bootstrap']);
 historyApp.controller("HistoryController", function ($scope, $http) {
+    if (!sessionStorage["userid"]) {
+        location.href = "login.html";
+    }
     $scope.menu = 3;
     $scope.colorMap = colorMap;
 

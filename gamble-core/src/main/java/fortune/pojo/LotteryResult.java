@@ -15,6 +15,7 @@ public class LotteryResult {
     private String id;
     private String userId;
     private String groupId;
+    private String panlei;
     private int lotteryIssue;
     private double winningMoney;
     private String lotteryMarkSixWagerId;
@@ -22,13 +23,22 @@ public class LotteryResult {
     @Override
     public String toString() {
         return "LotteryResult{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", groupId=" + groupId +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", groupId='" + groupId + '\'' +
+                ", panlei='" + panlei + '\'' +
                 ", lotteryIssue=" + lotteryIssue +
                 ", winningMoney=" + winningMoney +
-                ", lotteryMarkSixWagerId=" + lotteryMarkSixWagerId +
+                ", lotteryMarkSixWagerId='" + lotteryMarkSixWagerId + '\'' +
                 '}';
+    }
+
+    public String getPanlei() {
+        return panlei;
+    }
+
+    public void setPanlei(String panlei) {
+        this.panlei = panlei;
     }
 
     public String getId() {

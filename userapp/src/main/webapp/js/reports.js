@@ -1,5 +1,8 @@
 var reportsApp = angular.module("reports", ['ui.bootstrap']);
 reportsApp.controller("ReportsController", function ($scope, $http) {
+    if (!sessionStorage["userid"]) {
+        location.href = "login.html";
+    }
     $scope.menu = 2;
     $scope.query = function () {
         var toDate = $scope.toDate == undefined ? $scope.maxDate : $scope.toDate;
