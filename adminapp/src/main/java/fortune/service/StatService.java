@@ -758,7 +758,7 @@ public class StatService {
                     break;
                 }
             }
-            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, SUM_ZODIAC, wager.getPanlei()).getOdds());
+            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, SUM_ZODIAC, null, wager.getPanlei()).getOdds());
             realTimeWager.setTuishui2(0);
             realTimeWager.setResult(0);
             realTimeWager.setRemark("");
@@ -791,7 +791,7 @@ public class StatService {
                     break;
                 }
             }
-            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, ZHENG_BALL, wager.getPanlei()).getOdds());
+            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, ZHENG_BALL, null, wager.getPanlei()).getOdds());
             realTimeWager.setTuishui2(0);
             realTimeWager.setResult(0);
             realTimeWager.setRemark("");
@@ -824,7 +824,7 @@ public class StatService {
                     break;
                 }
             }
-            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, type, wager.getPanlei()).getOdds());
+            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, type, null, wager.getPanlei()).getOdds());
             realTimeWager.setTuishui2(0);
             realTimeWager.setResult(0);
             realTimeWager.setRemark("");
@@ -857,7 +857,7 @@ public class StatService {
                     break;
                 }
             }
-            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, TAIL_NUM, wager.getPanlei()).getOdds());
+            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, TAIL_NUM, null, wager.getPanlei()).getOdds());
             realTimeWager.setTuishui2(0);
             realTimeWager.setResult(0);
             realTimeWager.setRemark("");
