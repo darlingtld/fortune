@@ -57,136 +57,136 @@ app.service("commonService", function ($q, $http) {
         });
     };
     // 下注校验
-    this.validateWage = function (wage, scope){
-    	scope.wageError=undefined;
-    	if(typeof wage.lotteryMarkSixType==="undefined"){
-    		scope.wageError="请选择下注类型！";
-			return false;
-    	}
-    	else if(wage.lotteryMarkSixType=="SPECIAL" || wage.lotteryMarkSixType=="ZHENG_BALL" || wage.lotteryMarkSixType=="ZHENG_1_6" || wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0 || wage.lotteryMarkSixType=="ONE_ZODIAC" || wage.lotteryMarkSixType=="TAIL_NUM"){
-    		if(wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC")==0){
-    			if(typeof scope.otherParams.zhengSpecificNum==="undefined"){
-    				scope.wageError="请选择正码号！";
-        			return false;
-    			}
-    		}
-    		var subList=wage.lotteryMarkSixWagerStubList;
-    		if(subList.length==0){
-    			scope.wageError="请选择下注！";
-    			return false;
-    		}
-    		else{
-    			for(var i=0;i<subList.length;i++){
-    				var stakes=subList[i].stakes;
-    				if(isNaN(stakes) || stakes<=0){
-    					scope.wageError="下注的注数必须为正整数！";
-    					return false;
-    				}
-    			}
-    		}
-    		return true;
-    	}
-    	else if(wage.lotteryMarkSixType.indexOf("ZODIAC")==0 || wage.lotteryMarkSixType=="RED" || wage.lotteryMarkSixType=="GREEN" || wage.lotteryMarkSixType=="BLUE" || wage.lotteryMarkSixType.indexOf("WAVE")==0){
-    		if(isNaN(wage.totalStakes) || wage.totalStakes<=0){
-    			scope.wageError="下注的注数必须为正整数！";
-				return false;
-    		}
-    		return true;
-    	}
-    	else if(wage.lotteryMarkSixType.indexOf("SUM")==0){
-    		var subList=wage.lotteryMarkSixWagerStubList;
-    		if(subList.length==0){
-    			scope.wageError="请选择合肖下注！";
-    			return false;
-    		}
-    		else{
-    			var maxZodiacCount=0;
-    			for(var i=0;i<subList.length;i++){
-    				var stakes=subList[i].stakes;
-    				if(isNaN(stakes) || stakes<=0){
-    					scope.wageError="下注的注数必须为正整数！";
-    					return false;
-    				}
-    				if(subList[i].number>maxZodiacCount){
-    					maxZodiacCount=subList[i].number;
-    				}
-    			}
-    			maxZodiacCount=parseInt(maxZodiacCount/10);
-    			var zodiacList=wage.subLotteryMarkSixTypes;
-    			if(zodiacList.length==0){
-    				scope.wageError="请选择需要下注的生肖！";
-        			return false;
-    			}
-    			else if(zodiacList.length>11){
-    				scope.wageError="选择的生肖不能多于11个！";
-        			return false;
-    			}
-    			else if(zodiacList.length<maxZodiacCount){
-    				scope.wageError="选择的生肖少于下注所需的数量！";
-        			return false;
-    			}
-    		}
-    		return true;
-    	}
-    	else if(wage.lotteryMarkSixType.indexOf("JOINT")==0 || wage.lotteryMarkSixType.indexOf("NOT")==0){
-    		if(isNaN(wage.totalStakes) || wage.totalStakes<=0){
-    			scope.wageError="下注的注数必须为正整数！";
-				return false;
-    		}
-    		var len=wage.lotteryMarkSixWagerStubList.length, count=wage.lotteryMarkSixType.split("_")[1];
-    		if(len==0){
-    			scope.wageError="请选择下注！";
-    			return false;
-    		}
-    		if(count=="SPECIAL"){
-    			count=2;
-    		}
-    		count=parseInt(count);
-    		if(count!=len){
-    			scope.wageError="请选择"+count+"个球进行下注！";
-    			return false;
-    		}
-    		return true;
-    	}
-    	else if(wage.lotteryMarkSixType=="PASS"){
-    		if(isNaN(wage.totalStakes) || wage.totalStakes<=0){
-    			scope.wageError="下注的注数必须为正整数！";
-				return false;
-    		}
-    		var subList=wage.lotteryMarkSixWagerStubList;
-    		if(subList.length==0){
-    			scope.wageError="请选择下注！";
-    			return false;
-    		}
-    		var counts={}
-    		for(var i=0;i<subList.length;i++){
-    			if(typeof counts[subList[i].number]==="undefined"){
-    				counts[subList[i].number]=[];
-    			}
-    			counts[subList[i].number].push(subList[i].lotteryMarkSixType);
-    		}
-    		for(var number in counts){
-    			if(counts[number].length>2){
-    				scope.wageError="每个号码最多选择两种玩法！";
-        			return false;
-    			}
-    		}
-    	}
-    	return true;
+    this.validateWage = function (wage, scope) {
+        scope.wageError = undefined;
+        if (typeof wage.lotteryMarkSixType === "undefined") {
+            scope.wageError = "请选择下注类型！";
+            return false;
+        }
+        else if (wage.lotteryMarkSixType == "SPECIAL" || wage.lotteryMarkSixType == "ZHENG_BALL" || wage.lotteryMarkSixType == "ZHENG_1_6" || wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC") == 0 || wage.lotteryMarkSixType == "ONE_ZODIAC" || wage.lotteryMarkSixType == "TAIL_NUM") {
+            if (wage.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC") == 0) {
+                if (typeof scope.otherParams.zhengSpecificNum === "undefined") {
+                    scope.wageError = "请选择正码号！";
+                    return false;
+                }
+            }
+            var subList = wage.lotteryMarkSixWagerStubList;
+            if (subList.length == 0) {
+                scope.wageError = "请选择下注！";
+                return false;
+            }
+            else {
+                for (var i = 0; i < subList.length; i++) {
+                    var stakes = subList[i].stakes;
+                    if (isNaN(stakes) || stakes <= 0) {
+                        scope.wageError = "下注的注数必须为正整数！";
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        else if (wage.lotteryMarkSixType.indexOf("ZODIAC") == 0 || wage.lotteryMarkSixType == "RED" || wage.lotteryMarkSixType == "GREEN" || wage.lotteryMarkSixType == "BLUE" || wage.lotteryMarkSixType.indexOf("WAVE") == 0) {
+            if (isNaN(wage.totalStakes) || wage.totalStakes <= 0) {
+                scope.wageError = "下注的注数必须为正整数！";
+                return false;
+            }
+            return true;
+        }
+        else if (wage.lotteryMarkSixType.indexOf("SUM") == 0) {
+            var subList = wage.lotteryMarkSixWagerStubList;
+            if (subList.length == 0) {
+                scope.wageError = "请选择合肖下注！";
+                return false;
+            }
+            else {
+                var maxZodiacCount = 0;
+                for (var i = 0; i < subList.length; i++) {
+                    var stakes = subList[i].stakes;
+                    if (isNaN(stakes) || stakes <= 0) {
+                        scope.wageError = "下注的注数必须为正整数！";
+                        return false;
+                    }
+                    if (subList[i].number > maxZodiacCount) {
+                        maxZodiacCount = subList[i].number;
+                    }
+                }
+                maxZodiacCount = parseInt(maxZodiacCount / 10);
+                var zodiacList = wage.subLotteryMarkSixTypes;
+                if (zodiacList.length == 0) {
+                    scope.wageError = "请选择需要下注的生肖！";
+                    return false;
+                }
+                else if (zodiacList.length > 11) {
+                    scope.wageError = "选择的生肖不能多于11个！";
+                    return false;
+                }
+                else if (zodiacList.length < maxZodiacCount) {
+                    scope.wageError = "选择的生肖少于下注所需的数量！";
+                    return false;
+                }
+            }
+            return true;
+        }
+        else if (wage.lotteryMarkSixType.indexOf("JOINT") == 0 || wage.lotteryMarkSixType.indexOf("NOT") == 0) {
+            if (isNaN(wage.totalStakes) || wage.totalStakes <= 0) {
+                scope.wageError = "下注的注数必须为正整数！";
+                return false;
+            }
+            var len = wage.lotteryMarkSixWagerStubList.length, count = wage.lotteryMarkSixType.split("_")[1];
+            if (len == 0) {
+                scope.wageError = "请选择下注！";
+                return false;
+            }
+            if (count == "SPECIAL") {
+                count = 2;
+            }
+            count = parseInt(count);
+            if (count != len) {
+                scope.wageError = "请选择" + count + "个球进行下注！";
+                return false;
+            }
+            return true;
+        }
+        else if (wage.lotteryMarkSixType == "PASS") {
+            if (isNaN(wage.totalStakes) || wage.totalStakes <= 0) {
+                scope.wageError = "下注的注数必须为正整数！";
+                return false;
+            }
+            var subList = wage.lotteryMarkSixWagerStubList;
+            if (subList.length == 0) {
+                scope.wageError = "请选择下注！";
+                return false;
+            }
+            var counts = {}
+            for (var i = 0; i < subList.length; i++) {
+                if (typeof counts[subList[i].number] === "undefined") {
+                    counts[subList[i].number] = [];
+                }
+                counts[subList[i].number].push(subList[i].lotteryMarkSixType);
+            }
+            for (var number in counts) {
+                if (counts[number].length > 2) {
+                    scope.wageError = "每个号码最多选择两种玩法！";
+                    return false;
+                }
+            }
+        }
+        return true;
     };
     // 多个下注校验
-    this.validateWages = function(wageList, scope){
-    	scope.wageError=undefined;
-    	if(wageList.length==0){
-    		scope.wageError="下注内容为空！";
-			return false;
-    	}
-    	for(var i=0;i<wageList.length;i++){
-    		if(!this.validateWage(wageList[i],scope)){
-    			return false;
-    		}
-    	}
-    	return true;
+    this.validateWages = function (wageList, scope) {
+        scope.wageError = undefined;
+        if (wageList.length == 0) {
+            scope.wageError = "下注内容为空！";
+            return false;
+        }
+        for (var i = 0; i < wageList.length; i++) {
+            if (!this.validateWage(wageList[i], scope)) {
+                return false;
+            }
+        }
+        return true;
     };
 });
 
@@ -524,6 +524,9 @@ app.service("zodiacTailService", function ($q, $http, $sce) {
 app.controller("IndexController", function ($scope, commonService,
                                             zodiacService, tailBallService, halfWaveService, sumZodiacService, zhengBallService,
                                             jointBallService, notBallService, passBallService, zodiacTailService) {
+    if (!sessionStorage["userid"]) {
+        location.href = "login.html";
+    }
     $scope.items = ["特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "正码特", "连码", "自选不中", "过关", "一肖尾数"];
     $scope.selectedIndex = 0;
     $scope.menu = 1;
@@ -549,7 +552,7 @@ app.controller("IndexController", function ($scope, commonService,
         $scope.wageError = undefined;
         $scope.selectedPan = "A";
     };
-    
+
     // 秋色
     $scope.colorMap = colorMap;
 
@@ -560,79 +563,79 @@ app.controller("IndexController", function ($scope, commonService,
     $scope.refreshLotteryList = function () {
         // 获取赔率
         commonService.getOddsList($scope.nextLottery.issue, $scope.selectedPGroup.id, $scope.selectedPan).then(function (oddsList) {
-                var oddsMap = {}, jointOddsMap = {}, notOddsMap = {}, passOddsMap = {}, tailNumOddsMap = {}, zhengSpecificOddsMap = {};
-                for (var i = 0; i < oddsList.length; i++) {
-                    var odds = oddsList[i];
-                    if (odds.lotteryMarkSixType == "SPECIAL") {
-                        oddsMap[odds.lotteryBallNumber + ""] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType == "BLUE" || odds.lotteryMarkSixType == "RED" || odds.lotteryMarkSixType == "GREEN") {
-                        oddsMap[odds.lotteryMarkSixType] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType.indexOf("ZODIAC_") == 0) {
-                        oddsMap[odds.lotteryMarkSixType] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType.indexOf("WAVE_") == 0) {
-                        oddsMap[odds.lotteryMarkSixType] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType == "SUM_ZODIAC") {
-                        oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType == "ZHENG_BALL") {
-                        oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType == "ZHENG_1_6") {
-                        oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC_") == 0) {
-                        zhengSpecificOddsMap[odds.lotteryMarkSixType] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType.indexOf("JOINT_") == 0) {
-                        jointOddsMap[odds.lotteryMarkSixType] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType.indexOf("NOT_") == 0) {
-                        notOddsMap[odds.lotteryMarkSixType] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType.indexOf("PASS_") == 0) {
-                        passOddsMap[odds.lotteryMarkSixType] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType == "ONE_ZODIAC") {
-                        oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds.odds;
-                    }
-                    else if (odds.lotteryMarkSixType == "TAIL_NUM") {
-                        tailNumOddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
-                    }
+            var oddsMap = {}, jointOddsMap = {}, notOddsMap = {}, passOddsMap = {}, tailNumOddsMap = {}, zhengSpecificOddsMap = {};
+            for (var i = 0; i < oddsList.length; i++) {
+                var odds = oddsList[i];
+                if (odds.lotteryMarkSixType == "SPECIAL") {
+                    oddsMap[odds.lotteryBallNumber + ""] = odds.odds;
                 }
-                // 获取特码数据
-                $scope.tailItems = tailBallService.getTailItems(oddsMap);
-                // 获取生肖数据
-                $scope.zodiacItems = zodiacService.getZodiacItems(oddsMap);
-                // 色波
-                $scope.colorItems = zodiacService.getColorItems(oddsMap);
-                // 半波
-                $scope.halfWaveItems = halfWaveService.getHalfWaveItems(oddsMap);
-                // 合肖
-                $scope.sumZodiacItems = sumZodiacService.getSumZodiacItems(oddsMap);
-                // 正码
-                $scope.zhengBallItems = zhengBallService.getZhengBallItems(oddsMap);
-                // 正码1-6
-                $scope.zheng16Items = zhengBallService.getZheng16Items(oddsMap);
-                // 正码特
-                $scope.zhengSpecificItems = zhengBallService.getZhengSpecificItems();
-                $scope.zhengSpecificOddsMap = zhengSpecificOddsMap;
-                // 连码
-                $scope.jointItems = jointBallService.getJointItems();
-                $scope.jointOddsMap = jointOddsMap;
-                // 自选不中
-                $scope.notItems = notBallService.getNotItems();
-                $scope.notOddsMap = notOddsMap;
-                // 过关
-                $scope.passOddsMap = passOddsMap;
-                // 一肖
-                $scope.oneZodiacItems = zodiacTailService.getOneZodiacItems(oddsMap);
-                // 尾数
-                $scope.tailNumOddsMap = tailNumOddsMap;
-            });
+                else if (odds.lotteryMarkSixType == "BLUE" || odds.lotteryMarkSixType == "RED" || odds.lotteryMarkSixType == "GREEN") {
+                    oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType.indexOf("ZODIAC_") == 0) {
+                    oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType.indexOf("WAVE_") == 0) {
+                    oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType == "SUM_ZODIAC") {
+                    oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType == "ZHENG_BALL") {
+                    oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType == "ZHENG_1_6") {
+                    oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC_") == 0) {
+                    zhengSpecificOddsMap[odds.lotteryMarkSixType] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType.indexOf("JOINT_") == 0) {
+                    jointOddsMap[odds.lotteryMarkSixType] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType.indexOf("NOT_") == 0) {
+                    notOddsMap[odds.lotteryMarkSixType] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType.indexOf("PASS_") == 0) {
+                    passOddsMap[odds.lotteryMarkSixType] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType == "ONE_ZODIAC") {
+                    oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds.odds;
+                }
+                else if (odds.lotteryMarkSixType == "TAIL_NUM") {
+                    tailNumOddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                }
+            }
+            // 获取特码数据
+            $scope.tailItems = tailBallService.getTailItems(oddsMap);
+            // 获取生肖数据
+            $scope.zodiacItems = zodiacService.getZodiacItems(oddsMap);
+            // 色波
+            $scope.colorItems = zodiacService.getColorItems(oddsMap);
+            // 半波
+            $scope.halfWaveItems = halfWaveService.getHalfWaveItems(oddsMap);
+            // 合肖
+            $scope.sumZodiacItems = sumZodiacService.getSumZodiacItems(oddsMap);
+            // 正码
+            $scope.zhengBallItems = zhengBallService.getZhengBallItems(oddsMap);
+            // 正码1-6
+            $scope.zheng16Items = zhengBallService.getZheng16Items(oddsMap);
+            // 正码特
+            $scope.zhengSpecificItems = zhengBallService.getZhengSpecificItems();
+            $scope.zhengSpecificOddsMap = zhengSpecificOddsMap;
+            // 连码
+            $scope.jointItems = jointBallService.getJointItems();
+            $scope.jointOddsMap = jointOddsMap;
+            // 自选不中
+            $scope.notItems = notBallService.getNotItems();
+            $scope.notOddsMap = notOddsMap;
+            // 过关
+            $scope.passOddsMap = passOddsMap;
+            // 一肖
+            $scope.oneZodiacItems = zodiacTailService.getOneZodiacItems(oddsMap);
+            // 尾数
+            $scope.tailNumOddsMap = tailNumOddsMap;
+        });
     };
 
     // 初始化数据
@@ -711,12 +714,12 @@ app.controller("IndexController", function ($scope, commonService,
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
-            	if($scope.selectedBalls[ball]!=""){
-            		lotteryMarkSixWagerStubList.push({
+                if ($scope.selectedBalls[ball] != "") {
+                    lotteryMarkSixWagerStubList.push({
                         number: parseInt(ball),
                         stakes: parseInt($scope.selectedBalls[ball])
                     });
-            	}
+                }
             }
             var wager = {
                 userId: $scope.user.id,
@@ -725,8 +728,8 @@ app.controller("IndexController", function ($scope, commonService,
                 lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
                 lotteryMarkSixType: "SPECIAL"
             };
-            if(!commonService.validateWage(wager, $scope)){
-            	return;
+            if (!commonService.validateWage(wager, $scope)) {
+                return;
             }
             var html = tailBallService.renderWageConfirmHTML(wager);
             $scope.confirmDialogHTML = html;
@@ -744,8 +747,8 @@ app.controller("IndexController", function ($scope, commonService,
             // 组装下注对象
             var wagerList = [];
             for (var zodiac in $scope.selectedBalls) {
-            	if($scope.selectedBalls[zodiac]!=""){
-            		var wager = {
+                if ($scope.selectedBalls[zodiac] != "") {
+                    var wager = {
                         userId: $scope.user.id,
                         pgroupId: $scope.selectedPGroup.id,
                         lotteryMarkSixWagerStubList: [],
@@ -754,11 +757,11 @@ app.controller("IndexController", function ($scope, commonService,
                         totalStakes: parseInt($scope.selectedBalls[zodiac])
                     };
                     wagerList.push(wager);
-            	}
+                }
             }
             for (var color in $scope.selectedBalls2) {
-            	if($scope.selectedBalls2[color]!=""){
-            		var wager = {
+                if ($scope.selectedBalls2[color] != "") {
+                    var wager = {
                         userId: $scope.user.id,
                         pgroupId: $scope.selectedPGroup.id,
                         lotteryMarkSixWagerStubList: [],
@@ -767,10 +770,10 @@ app.controller("IndexController", function ($scope, commonService,
                         totalStakes: parseInt($scope.selectedBalls2[color])
                     };
                     wagerList.push(wager);
-            	}
+                }
             }
-            if(!commonService.validateWages(wagerList, $scope)){
-            	return;
+            if (!commonService.validateWages(wagerList, $scope)) {
+                return;
             }
             var html = zodiacService.renderWageConfirmHTML(wagerList);
             $scope.confirmDialogHTML = html;
@@ -788,8 +791,8 @@ app.controller("IndexController", function ($scope, commonService,
             // 组装下注对象
             var wagerList = [];
             for (var type in $scope.selectedBalls) {
-            	if($scope.selectedBalls[type]!=""){
-            		var wager = {
+                if ($scope.selectedBalls[type] != "") {
+                    var wager = {
                         userId: $scope.user.id,
                         pgroupId: $scope.selectedPGroup.id,
                         lotteryMarkSixWagerStubList: [],
@@ -798,10 +801,10 @@ app.controller("IndexController", function ($scope, commonService,
                         totalStakes: parseInt($scope.selectedBalls[type])
                     };
                     wagerList.push(wager);
-            	}
+                }
             }
-            if(!commonService.validateWages(wagerList, $scope)){
-            	return;
+            if (!commonService.validateWages(wagerList, $scope)) {
+                return;
             }
             var html = halfWaveService.renderWageConfirmHTML(wagerList);
             $scope.confirmDialogHTML = html;
@@ -819,12 +822,12 @@ app.controller("IndexController", function ($scope, commonService,
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
-            	if($scope.selectedBalls[ball]!=""){
-            		lotteryMarkSixWagerStubList.push({
+                if ($scope.selectedBalls[ball] != "") {
+                    lotteryMarkSixWagerStubList.push({
                         number: parseInt(ball) * 10 + parseInt($scope.selectedBalls2[ball]), // 101表示10肖中，20表示2肖不中。个位表示中不中，前面几位表示几肖,
                         stakes: parseInt($scope.selectedBalls[ball])
                     });
-            	}
+                }
             }
             var wager = {
                 userId: $scope.user.id,
@@ -834,8 +837,8 @@ app.controller("IndexController", function ($scope, commonService,
                 subLotteryMarkSixTypes: $scope.sumZodiacList,
                 lotteryMarkSixType: "SUM_ZODIAC"
             };
-            if(!commonService.validateWage(wager, $scope)){
-            	return;
+            if (!commonService.validateWage(wager, $scope)) {
+                return;
             }
             var html = sumZodiacService.renderWageConfirmHTML(wager);
             $scope.confirmDialogHTML = html;
@@ -853,12 +856,12 @@ app.controller("IndexController", function ($scope, commonService,
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
-            	if($scope.selectedBalls[ball]!=""){
-            		lotteryMarkSixWagerStubList.push({
+                if ($scope.selectedBalls[ball] != "") {
+                    lotteryMarkSixWagerStubList.push({
                         number: parseInt(ball),
                         stakes: parseInt($scope.selectedBalls[ball])
                     });
-            	}
+                }
             }
             var wager = {
                 userId: $scope.user.id,
@@ -867,8 +870,8 @@ app.controller("IndexController", function ($scope, commonService,
                 panlei: $scope.selectedPan,
                 lotteryMarkSixType: "ZHENG_BALL"
             };
-            if(!commonService.validateWage(wager, $scope)){
-            	return;
+            if (!commonService.validateWage(wager, $scope)) {
+                return;
             }
             var html = zhengBallService.renderZhengWageConfirmHTML(wager);
             $scope.confirmDialogHTML = html;
@@ -886,7 +889,7 @@ app.controller("IndexController", function ($scope, commonService,
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ballNum in $scope.selectedBalls) {
-                if (typeof $scope.selectedBalls[ballNum] == "undefined" || $scope.selectedBalls2[ballNum]=="") {
+                if (typeof $scope.selectedBalls[ballNum] == "undefined" || $scope.selectedBalls2[ballNum] == "") {
                     continue;
                 }
                 lotteryMarkSixWagerStubList.push({
@@ -902,8 +905,8 @@ app.controller("IndexController", function ($scope, commonService,
                 panlei: $scope.selectedPan,
                 lotteryMarkSixType: "ZHENG_1_6"
             };
-            if(!commonService.validateWage(wager, $scope)){
-            	return;
+            if (!commonService.validateWage(wager, $scope)) {
+                return;
             }
             var html = zhengBallService.renderZheng16WageConfirmHTML(wager);
             $scope.confirmDialogHTML = html;
@@ -921,12 +924,12 @@ app.controller("IndexController", function ($scope, commonService,
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
-            	if($scope.selectedBalls[ball]!=""){
-            		lotteryMarkSixWagerStubList.push({
+                if ($scope.selectedBalls[ball] != "") {
+                    lotteryMarkSixWagerStubList.push({
                         number: parseInt(ball),
                         stakes: parseInt($scope.selectedBalls[ball])
                     });
-            	}
+                }
             }
             var wager = {
                 userId: $scope.user.id,
@@ -935,8 +938,8 @@ app.controller("IndexController", function ($scope, commonService,
                 panlei: $scope.selectedPan,
                 lotteryMarkSixType: "ZHENG_SPECIFIC_" + $scope.otherParams.zhengSpecificNum
             };
-            if(!commonService.validateWage(wager, $scope)){
-            	return;
+            if (!commonService.validateWage(wager, $scope)) {
+                return;
             }
             var html = zhengBallService.renderZhengWageConfirmHTML(wager);
             $scope.confirmDialogHTML = html;
@@ -968,8 +971,8 @@ app.controller("IndexController", function ($scope, commonService,
                 panlei: $scope.selectedPan,
                 totalStakes: $scope.otherParams.stakes
             };
-            if(!commonService.validateWage(wager, $scope)){
-            	return;
+            if (!commonService.validateWage(wager, $scope)) {
+                return;
             }
             var html = jointBallService.renderWageConfirmHTML(wager);
             $scope.confirmDialogHTML = html;
@@ -1001,8 +1004,8 @@ app.controller("IndexController", function ($scope, commonService,
                 panlei: $scope.selectedPan,
                 totalStakes: $scope.otherParams.stakes
             };
-            if(!commonService.validateWage(wager, $scope)){
-            	return;
+            if (!commonService.validateWage(wager, $scope)) {
+                return;
             }
             var html = notBallService.renderWageConfirmHTML(wager);
             $scope.confirmDialogHTML = html;
@@ -1039,8 +1042,8 @@ app.controller("IndexController", function ($scope, commonService,
                 panlei: $scope.selectedPan,
                 totalStakes: $scope.otherParams.stakes
             };
-            if(!commonService.validateWage(wager, $scope)){
-            	return;
+            if (!commonService.validateWage(wager, $scope)) {
+                return;
             }
             var html = passBallService.renderWageConfirmHTML(wager);
             $scope.confirmDialogHTML = html;
@@ -1059,7 +1062,7 @@ app.controller("IndexController", function ($scope, commonService,
             // 一肖
             var lotteryMarkSixWagerStubList = [];
             for (var zodiac in $scope.selectedBalls) {
-                if ($scope.selectedBalls[zodiac] && $scope.selectedBalls[zodiac]!="") {
+                if ($scope.selectedBalls[zodiac] && $scope.selectedBalls[zodiac] != "") {
                     lotteryMarkSixWagerStubList.push({
                         lotteryMarkSixType: zodiac,
                         stakes: parseInt($scope.selectedBalls[zodiac])
@@ -1076,7 +1079,7 @@ app.controller("IndexController", function ($scope, commonService,
             // 尾数
             var lotteryMarkSixWagerStubList2 = [];
             for (var num in $scope.selectedBalls2) {
-                if ($scope.selectedBalls2[num] && $scope.selectedBalls2[num]!="") {
+                if ($scope.selectedBalls2[num] && $scope.selectedBalls2[num] != "") {
                     lotteryMarkSixWagerStubList2.push({
                         number: num,
                         stakes: parseInt($scope.selectedBalls2[num])
@@ -1097,8 +1100,8 @@ app.controller("IndexController", function ($scope, commonService,
             if (lotteryMarkSixWagerStubList2.length > 0) {
                 wagerList.push(tailWager);
             }
-            if(!commonService.validateWages(wagerList, $scope)){
-            	return;
+            if (!commonService.validateWages(wagerList, $scope)) {
+                return;
             }
             if (wagerList.length > 0) {
                 var html = zodiacTailService.renderWageConfirmHTML(wagerList);

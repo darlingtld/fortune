@@ -3,6 +3,9 @@
  */
 var wageHistoryApp = angular.module("wagehistory", []);
 wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce) {
+	if (!sessionStorage["userid"]) {
+		location.href = "login.html";
+	}
     $scope.menu = 6;
     $http.get('user/' + sessionStorage["userid"]).success(function (data) {
         $scope.user = data;
