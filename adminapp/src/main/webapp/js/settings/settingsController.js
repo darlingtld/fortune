@@ -12,6 +12,8 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
     };
     
     $scope.selectedPan = 'A';
+    
+    $scope.zodiacTypeMap = zodiacTypeMap;
 
     $scope.getOdds = function () {
         realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
@@ -24,41 +26,42 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
                     	$scope.specialOdds.push(odds);
                     }
                     else if (odds.lotteryMarkSixType == "BLUE" || odds.lotteryMarkSixType == "RED" || odds.lotteryMarkSixType == "GREEN") {
-                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds;
                     }
                     else if (odds.lotteryMarkSixType.indexOf("ZODIAC_") == 0) {
-                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds;
                     }
                     else if (odds.lotteryMarkSixType.indexOf("WAVE_") == 0) {
-                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds;
                     }
                     else if (odds.lotteryMarkSixType == "SUM_ZODIAC") {
-                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds;
                     }
                     else if (odds.lotteryMarkSixType == "ZHENG_BALL") {
-                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds;
                     }
                     else if (odds.lotteryMarkSixType == "ZHENG_1_6") {
-                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds;
                     }
                     else if (odds.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC_") == 0) {
-                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds;
                     }
                     else if (odds.lotteryMarkSixType.indexOf("JOINT_") == 0) {
-                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds;
                     }
                     else if (odds.lotteryMarkSixType.indexOf("NOT_") == 0) {
-                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds;
                     }
                     else if (odds.lotteryMarkSixType.indexOf("PASS_") == 0) {
-                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType] = odds;
                     }
                     else if (odds.lotteryMarkSixType == "ONE_ZODIAC") {
-                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds;
                     }
                     else if (odds.lotteryMarkSixType == "TAIL_NUM") {
-                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds;
                     }
+                    console.log($scope.oddsMap);
                 }
             });
         })
@@ -77,7 +80,7 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
             odds: $scope.oddsToChange
         }).success(function (data) {
             $('a.close').click();
-            $('#' + data.id).find('td:nth(1)').text(data.odds);
+            $('#' + data.id).text(data.odds);
         })
     };
     

@@ -1,9 +1,51 @@
-<table class="zodiac_table">
+<table style="width:45%;float:left;">
 	<tr>
 		<th>生肖</th>
-		<th>号码</th>
 		<th>赔率</th>
 		<th>操作</th>
 	</tr>
+	<tr ng-repeat="zodiac in ['ZODIAC_SHU','ZODIAC_NIU','ZODIAC_HU','ZODIAC_TU','ZODIAC_LONG','ZODIAC_SHE','ZODIAC_MA','ZODIAC_YANG','ZODIAC_HOU','ZODIAC_JI','ZODIAC_GOU','ZODIAC_ZHU']">
+		<td>{{zodiacTypeMap[zodiac]}}</td>
+		<td ng-bind="oddsMap[zodiac].odds" id="{{oddsMap[zodiac].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap[zodiac].id, oddsMap[zodiac].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
 </table>
 
+<table style="width:45%;float:right;">
+	<tr>
+		<th>色波</th>
+		<th>赔率</th>
+		<th>操作</th>
+	</tr>
+	<tr>
+		<td>红波</td>
+		<td ng-bind="oddsMap['RED'].odds" id="{{oddsMap['RED'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['RED'].id, oddsMap['RED'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
+	<tr>
+		<td>蓝波</td>
+		<td ng-bind="oddsMap['BLUE'].odds" id="{{oddsMap['BLUE'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['BLUE'].id, oddsMap['BLUE'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
+	<tr>
+		<td>绿波</td>
+		<td ng-bind="oddsMap['GREEN'].odds" id="{{oddsMap['GREEN'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['GREEN'].id, oddsMap['GREEN'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
+</table>
