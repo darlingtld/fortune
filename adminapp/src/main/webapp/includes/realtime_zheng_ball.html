@@ -1,4 +1,4 @@
-<div class="real-time-dashboard lottery-special-number">
+<div class="real-time-dashboard">
     <div ng-repeat="subs in list">
         <table>
             <thead>
@@ -29,3 +29,253 @@
 <div>
     合计：<strong ng-bind="stats.zhengBallTransactions"></strong>,&nbsp;金额：<strong ng-bind="stats.zhengBallStakes"></strong>
 </div>
+
+<div class="real-time-lottery-zheng-1-6">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th colspan="4">单</th>
+                <th colspan="4">双</th>
+                <th colspan="2">合计</th>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+                
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+                
+                <th>笔数</th>
+                <th>金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="num in [1,2,3,4,5,6]">
+                <td>正码{{zheng16Name[num - 1]}}</td>
+                <td ng-bind="zheng16Map[num+'_单'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_单'].stakes"></td>
+                <td ng-bind="zheng16Map[num+'_单'].odds"></td>
+                <td ng-bind="zheng16Map[num+'_单'].balance"></td>
+                
+                <td ng-bind="zheng16Map[num+'_双'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_双'].stakes"></td>
+                <td ng-bind="zheng16Map[num+'_双'].odds"></td>
+                <td ng-bind="zheng16Map[num+'_双'].balance"></td>
+                
+                <td ng-bind="zheng16Map[num+'_单'].transactions + zheng16Map[num+'_双'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_单'].stakes + zheng16Map[num+'_双'].stakes"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-left:5px">
+        <table>
+            <thead>
+            <tr>
+                <th colspan="4">大</th>
+                <th colspan="4">小</th>
+                <th colspan="2">合计</th>
+            </tr>
+            <tr>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+                
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+                
+                <th>笔数</th>
+                <th>金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="num in [1,2,3,4,5,6]">
+                <td ng-bind="zheng16Map[num+'_大'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_大'].stakes"></td>
+                <td ng-bind="zheng16Map[num+'_大'].odds"></td>
+                <td ng-bind="zheng16Map[num+'_大'].balance"></td>
+                
+                <td ng-bind="zheng16Map[num+'_小'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_小'].stakes"></td>
+                <td ng-bind="zheng16Map[num+'_小'].odds"></td>
+                <td ng-bind="zheng16Map[num+'_小'].balance"></td>
+                
+                <td ng-bind="zheng16Map[num+'_大'].transactions + zheng16Map[num+'_小'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_大'].stakes + zheng16Map[num+'_小'].stakes"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+  
+    <div style="margin-left:5px">
+        <table>
+            <thead>
+            <tr>
+                <th>类别</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>总单</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>总双</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+            <tr>
+                <th>类别</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>总大</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>总小</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+
+<div class="real-time-lottery-zheng-1-6">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th colspan="4">红波</th>
+                <th colspan="4">蓝波</th>
+                <th colspan="4">绿波</th>
+                <th colspan="2">合计</th>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+                
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+                
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+                
+                <th>笔数</th>
+                <th>金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="num in [1,2,3,4,5,6]">
+                <td>正码{{zheng16Name[num - 1]}}</td>
+                <td ng-bind="zheng16Map[num+'_红波'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_红波'].stakes"></td>
+                <td ng-bind="zheng16Map[num+'_红波'].odds"></td>
+                <td ng-bind="zheng16Map[num+'_红波'].balance"></td>
+                
+                <td ng-bind="zheng16Map[num+'_蓝波'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_蓝波'].stakes"></td>
+                <td ng-bind="zheng16Map[num+'_蓝波'].odds"></td>
+                <td ng-bind="zheng16Map[num+'_蓝波'].balance"></td>
+                
+                <td ng-bind="zheng16Map[num+'_绿波'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_绿波'].stakes"></td>
+                <td ng-bind="zheng16Map[num+'_绿波'].odds"></td>
+                <td ng-bind="zheng16Map[num+'_绿波'].balance"></td>
+                
+                <td ng-bind="zheng16Map[num+'_红波'].transactions + zheng16Map[num+'_蓝波'].transactions + zheng16Map[num+'_绿波'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_红波'].stakes + zheng16Map[num+'_蓝波'].stakes + zheng16Map[num+'_绿波'].stakes"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-left:5px">
+        <table>
+            <thead>
+            <tr>
+                <th colspan="4">合单</th>
+                <th colspan="4">合双</th>
+                <th colspan="2">合计</th>
+            </tr>
+            <tr>
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+                
+                <th>笔数</th>
+                <th>金额</th>
+                <th>赔率</th>
+                <th>输赢</th>
+                
+                <th>笔数</th>
+                <th>金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="num in [1,2,3,4,5,6]">
+                <td ng-bind="zheng16Map[num+'_合单'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_合单'].stakes"></td>
+                <td ng-bind="zheng16Map[num+'_合单'].odds"></td>
+                <td ng-bind="zheng16Map[num+'_合单'].balance"></td>
+
+                <td ng-bind="zheng16Map[num+'_合双'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_合双'].stakes"></td>
+                <td ng-bind="zheng16Map[num+'_合双'].odds"></td>
+                <td ng-bind="zheng16Map[num+'_合双'].balance"></td>
+                
+                <td ng-bind="zheng16Map[num+'_合单'].transactions + zheng16Map[num+'_合双'].transactions"></td>
+                <td ng-bind="zheng16Map[num+'_合单'].stakes + zheng16Map[num+'_合双'].stakes"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+

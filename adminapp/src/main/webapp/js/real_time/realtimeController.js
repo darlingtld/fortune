@@ -174,28 +174,36 @@ angular.module('AdminApp')
         }
 
         function renderZhengBall() {
+            $scope.stats = {
+                zhengBallTransactions: 0,
+                zhengBallStakes: 0
+            };
+            
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'zheng_ball', $scope.selectedPan.name).then(function (data) {
-                $scope.realTimeTranscations = data;
                 $scope.list = [];
-                $scope.list[0] = $scope.realTimeTranscations.slice(0, 10);
-                $scope.list[1] = $scope.realTimeTranscations.slice(10, 20);
-                $scope.list[2] = $scope.realTimeTranscations.slice(20, 30);
-                $scope.list[3] = $scope.realTimeTranscations.slice(30, 40);
-                $scope.list[4] = $scope.realTimeTranscations.slice(40, 49);
+                $scope.list[0] = data.slice(0, 10);
+                $scope.list[1] = data.slice(10, 20);
+                $scope.list[2] = data.slice(20, 30);
+                $scope.list[3] = data.slice(30, 40);
+                $scope.list[4] = data.slice(40, 49);
 
-                $scope.stats = {
-                    zhengBallTransactions: 0,
-                    zhengBallStakes: 0
-                };
                 for (var i = 0; i < $scope.list.length; i++) {
                     for (var j = 0; j < $scope.list[i].length; j++) {
                         $scope.stats.zhengBallTransactions += $scope.list[i][j].transactions;
                         $scope.stats.zhengBallStakes += $scope.list[i][j].stakes;
                     }
                 }
-
-                $scope.zhengBallTransactionTotal = $scope.stats.zhengBallTransactions;
-            })
+            });
+            
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'zheng_1_6', $scope.selectedPan.name).then(function (data) {
+                var map = {};
+                for (var i = 0; i < 54; i ++) {
+                    var key = data[i].number + '_' + data[i].lotteryMarkSixType;
+                    map[key] = data[i];
+                }
+                $scope.zheng16Map = map;
+                $scope.zheng16Name = ['一', '二', '三', '四', '五', '六'];
+            });
         }
         
         function renderZhengSpecific(page) {
@@ -439,7 +447,7 @@ angular.module('AdminApp')
             }
         }
 
-        $scope.goto('joint');
+        $scope.goto('zheng_ball');
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
         if ($routeParams.number) {

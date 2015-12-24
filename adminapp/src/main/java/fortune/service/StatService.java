@@ -87,6 +87,17 @@ public class StatService {
                 } else {
                     return getRealTimeTransactionResult4ZhengBall(groupid, panlei);
                 }
+            case ZHENG_1_6:
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealtimeStat> list = new ArrayList<>();
+                    list.addAll(getRealTimeTransactionResult4Zheng1To6(groupid, "A"));
+                    list.addAll(getRealTimeTransactionResult4Zheng1To6(groupid, "B"));
+                    list.addAll(getRealTimeTransactionResult4Zheng1To6(groupid, "C"));
+                    list.addAll(getRealTimeTransactionResult4Zheng1To6(groupid, "D"));
+                    return list;
+                } else {
+                    return getRealTimeTransactionResult4Zheng1To6(groupid, panlei);
+                }
             case ZHENG_SPECIFIC_1:
             case ZHENG_SPECIFIC_2:
             case ZHENG_SPECIFIC_3:
@@ -485,6 +496,78 @@ public class StatService {
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatHashMap4Number.values().iterator());
         Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getBalance() - o1.getBalance()));
+        return realtimeStatList;
+    }
+    
+    private List<RealtimeStat> getRealTimeTransactionResult4Zheng1To6(String groupid, String panlei) {
+        Utils.logger.info("get real time transaction result of group id {} for type zheng 1 - 6", groupid);
+        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
+
+        HashMap<LotteryMarkSixType, Double> oddsMap = new HashMap<>();
+        List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssue(lotteryIssue, groupid, panlei);
+        for (LotteryOdds odds : oddsList) {
+            if (LotteryMarkSixType.ZHENG_1_6.equals(odds.getLotteryMarkSixType())) {
+                oddsMap.put(odds.getLotteryBallType(), odds.getOdds());
+            }
+        }
+
+        HashMap<Integer, HashMap<LotteryMarkSixType, RealtimeStat>> realTimeStatMap = new HashMap<>();
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupid, panlei, lotteryIssue);
+        for (LotteryMarkSixWager wager : wagerList) {
+            if (wager.getLotteryMarkSixType().equals(ZHENG_1_6)) {
+                List<LotteryMarkSixWagerStub> wagerStubList = wager.getLotteryMarkSixWagerStubList();
+                for (LotteryMarkSixWagerStub stub : wagerStubList) {
+                    if (!realTimeStatMap.containsKey(stub.getNumber())) {
+                        realTimeStatMap.put(stub.getNumber(), new HashMap<LotteryMarkSixType, RealtimeStat>());
+                    }
+                    
+                    HashMap<LotteryMarkSixType, RealtimeStat> subMap = realTimeStatMap.get(stub.getNumber());
+                    
+                    LotteryMarkSixType stubType = stub.getLotteryMarkSixType();
+                    if (subMap.containsKey(stubType)) {
+                        subMap.get(stubType).addStakes(stub.getStakes());
+                        subMap.get(stubType).addTransactions(1);
+                    } else {
+                        RealtimeStat realtimeStat = new RealtimeStat();
+                        realtimeStat.setGroupId(groupid);
+                        realtimeStat.setNumber(stub.getNumber());
+                        realtimeStat.setBalance(0);
+                        realtimeStat.setLotteryMarkSixType(stubType.getType());
+                        realtimeStat.setStakes(stub.getStakes());
+                        realtimeStat.setOdds(oddsMap.get(stub.getLotteryMarkSixType()));
+                        realtimeStat.setTransactions(1);
+                        subMap.put(stubType, realtimeStat);
+                    }
+                }
+            }
+        }
+
+        //缺省调整
+        for (int number = 1; number <= 6; number++) {
+            if (!realTimeStatMap.containsKey(number)) {
+                realTimeStatMap.put(number, new HashMap<LotteryMarkSixType, RealtimeStat>());
+            }
+            HashMap<LotteryMarkSixType, RealtimeStat> subMap = realTimeStatMap.get(number);
+            
+            final int curNum = number;
+            getRealTimeZheng16TypeList().stream().filter(type -> !subMap.containsKey(type)).forEach(type -> {
+                RealtimeStat realtimeStat = new RealtimeStat();
+                realtimeStat.setGroupId(groupid);
+                realtimeStat.setNumber(curNum);
+                realtimeStat.setLotteryMarkSixType(type.getType());
+                realtimeStat.setBalance(0);
+                realtimeStat.setStakes(0);
+                realtimeStat.setOdds(oddsMap.get(type));
+                realtimeStat.setTransactions(0);
+                subMap.put(type, realtimeStat);
+            });
+        }
+        
+        List<RealtimeStat> realtimeStatList = new ArrayList<>();
+        for (int i = 1; i <= 6; i ++) {
+            realtimeStatList.addAll(Lists.newArrayList(realTimeStatMap.get(i).values().iterator()));
+        }
+        
         return realtimeStatList;
     }
 

@@ -256,4 +256,19 @@ public enum LotteryMarkSixType {
                 ZHONG,
                 XIAO);
     }
+    
+    public static List<LotteryMarkSixType> getRealTimeZheng16TypeList() {
+        return Arrays.asList(
+                DAN,
+                SHUANG,
+                DA,
+                XIAO,
+                RED,
+                BLUE,
+                GREEN,
+                HEDAN,
+                HESHUANG);
+    }
+    
+    
 }

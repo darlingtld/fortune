@@ -55,3 +55,12 @@
 .real-time-joint-stat tbody > tr:nth-child(3) {
     border-bottom: 1px solid #1FADFB;
 }
+
+.real-time-lottery-zheng-1-6 {
+    display: flex;
+    justify-content: left;
+}
+
+.real-time-lottery-zheng-1-6 table th, .real-time-lottery-zheng-1-6 table td {
+    padding: 7px;
+}
