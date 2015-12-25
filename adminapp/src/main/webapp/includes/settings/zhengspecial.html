@@ -1,0 +1,51 @@
+<table>
+	<tr>
+		<th>类型</th>
+		<th>赔率</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>赔率</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>赔率</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>赔率</th>
+		<th>操作</th>
+	</tr>
+	<tr>
+		<td>正码特一</td>
+		<td ng-bind="oddsMap['ZHENG_SPECIFIC_1'].odds" id="{{oddsMap['ZHENG_SPECIFIC_1'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['ZHENG_SPECIFIC_1'].id, oddsMap['ZHENG_SPECIFIC_1'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+		<td>正码特二</td>
+		<td ng-bind="oddsMap['ZHENG_SPECIFIC_2'].odds" id="{{oddsMap['ZHENG_SPECIFIC_2'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['ZHENG_SPECIFIC_2'].id, oddsMap['ZHENG_SPECIFIC_2'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+		<td>正码特三</td>
+		<td ng-bind="oddsMap['ZHENG_SPECIFIC_3'].odds" id="{{oddsMap['ZHENG_SPECIFIC_3'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['ZHENG_SPECIFIC_3'].id, oddsMap['ZHENG_SPECIFIC_3'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+		<td>正码特四</td>
+		<td ng-bind="oddsMap['ZHENG_SPECIFIC_4'].odds" id="{{oddsMap['ZHENG_SPECIFIC_4'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['ZHENG_SPECIFIC_4'].id, oddsMap['ZHENG_SPECIFIC_4'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+	</tr>
+	<tr>
+		<td>正码特五</td>
+		<td ng-bind="oddsMap['ZHENG_SPECIFIC_5'].odds" id="{{oddsMap['ZHENG_SPECIFIC_5'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['ZHENG_SPECIFIC_5'].id, oddsMap['ZHENG_SPECIFIC_5'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+		<td>正码特六</td>
+		<td ng-bind="oddsMap['ZHENG_SPECIFIC_6'].odds" id="{{oddsMap['ZHENG_SPECIFIC_6'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['ZHENG_SPECIFIC_6'].id, oddsMap['ZHENG_SPECIFIC_6'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+		<td colspan="6"></td>
+	</tr>
+</table>
