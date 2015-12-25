@@ -39,7 +39,7 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
         }).when('/stakesdetail/groupid/:groupid/pan/:panlei/:type/issue/:issue/ball/:number', {
             controller: 'stakesDetailController',
             templateUrl: 'includes/stakesdetail.html'
-        }).when('/stakesdetail/groupid/:groupid/pan/:panlei/:type/issue/:issue/subtype/:subtype', {
+        }).when('/stakesdetail/groupid/:groupid/pan/:panlei/:type/issue/:issue/subtype/:subtype/ball/:number', {
             controller: 'stakesDetailController',
             templateUrl: 'includes/stakesdetail.html'
         }).otherwise({

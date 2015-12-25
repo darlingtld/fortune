@@ -126,7 +126,6 @@ public class WagerService {
     
     @Transactional
     public List<LotteryMarkSixWager> getLotteryMarkSixWagerListByBallType(LotteryMarkSixType type, String groupId, String panlei, int issue, LotteryMarkSixType ballType) {
-        // FIXME if panlei equals to 'All'?
         Utils.logger.info("get lottery mark six wager list of type {} lottery issue {},group id{}, panlei {}", type.getType(), issue, groupId, panlei);
         return wagerDao.getLotteryMarkSixWagerListByBallType(type, groupId, panlei, issue, ballType);
     }

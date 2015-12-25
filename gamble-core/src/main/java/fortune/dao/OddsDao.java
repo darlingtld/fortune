@@ -51,7 +51,7 @@ public class OddsDao {
         if (ballType != null) {
             criteria = Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei));
         } else {
-            criteria = criteria.andOperator(Criteria.where("lotteryBallType").is(ballType));
+            criteria = Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei), Criteria.where("lotteryBallType").is(ballType));
         }
         Query query = new Query(criteria);
         return mongoTemplate.findOne(query, LotteryOdds.class);

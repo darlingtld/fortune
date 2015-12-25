@@ -771,24 +771,7 @@ public class StatService {
     }
 
     @Transactional
-    public List<RealTimeWager> getStakeDetailByBallType(LotteryMarkSixType type, String groupId, String panlei, int issue, LotteryMarkSixType ballType) {
-        switch (type) {
-            case ONE_ZODIAC:
-                if (panlei.equalsIgnoreCase("ALL")) {
-                    List<RealTimeWager> wagerList = new ArrayList<>();
-                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
-                        wagerList.addAll(getStakeDetailByBallType(groupId, pan, issue, type, ballType));
-                    }
-                    return wagerList;
-                } else {
-                    return getStakeDetailByBallType(groupId, panlei, issue, type, ballType);
-                }
-        }
-        return null;
-    }
-    
-    @Transactional
-    public List<RealTimeWager> getStakeDetail(LotteryMarkSixType type, String groupId, String panlei, int issue, int number) {
+    public List<RealTimeWager> getStakeDetail(LotteryMarkSixType type, String groupId, String panlei, int issue, int number, LotteryMarkSixType ballType) {
         switch (type) {
             case SPECIAL:
                 if (panlei.equalsIgnoreCase("ALL")) {
@@ -835,6 +818,16 @@ public class StatService {
                 } else {
                     return getStakeDetail4ZhengSpecific(groupId, panlei, issue, number, type);
                 }
+            case ONE_ZODIAC:
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetailByBallType(groupId, pan, issue, type, ballType));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetailByBallType(groupId, panlei, issue, type, ballType);
+                }
             case TAIL_NUM:
                 if (panlei.equalsIgnoreCase("ALL")) {
                     List<RealTimeWager> wagerList = new ArrayList<>();
@@ -844,6 +837,16 @@ public class StatService {
                     return wagerList;
                 } else {
                     return getStakeDetail4TailNum(groupId, panlei, issue, number);
+                }
+            case ZHENG_1_6:
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetail4Zheng16(groupId, pan, issue, number, ballType));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetail4Zheng16(groupId, panlei, issue, number, ballType);
                 }
         }
         return null;
@@ -1006,6 +1009,41 @@ public class StatService {
                 }
             }
             realTimeWager.setOdds(oddsService.getOdds(issue, groupId, number, TAIL_NUM, null, wager.getPanlei()).getOdds());
+            realTimeWager.setTuishui2(0);
+            realTimeWager.setResult(0);
+            realTimeWager.setRemark("");
+            realTimeWagerList.add(realTimeWager);
+        }
+        return realTimeWagerList;
+    }
+    
+    @Transactional
+    public List<RealTimeWager> getStakeDetail4Zheng16(String groupId, String panlei, int issue, int number, LotteryMarkSixType subType) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.ZHENG_1_6, groupId, panlei, issue, number);
+        List<RealTimeWager> realTimeWagerList = new ArrayList<>();
+        String[] zhengName = {"一","二","三","四","五","六"};
+        
+        for (LotteryMarkSixWager wager : wagerList) {
+            RealTimeWager realTimeWager = new RealTimeWager();
+            realTimeWager.setTs(wager.getTimestamp());
+            realTimeWager.setUser(userService.getUserById(wager.getUserId()));
+            realTimeWager.setTuishui(0);
+            realTimeWager.setPanlei(wager.getPanlei());
+            realTimeWager.setIssue(wager.getLotteryIssue());
+            LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
+            Date openTs = new Date();
+            if (lotteryMarkSix != null) {
+                openTs = lotteryMarkSix.getTimestamp();
+            }
+            realTimeWager.setOpenTs(openTs);
+            realTimeWager.setWageContent(String.format("正码%s %s", zhengName[number-1], subType.getType()));
+            for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                if (subType.equals(stub.getLotteryMarkSixType())) {
+                    realTimeWager.setStakes(stub.getStakes());
+                    break;
+                }
+            }
+            realTimeWager.setOdds(oddsService.getOdds(issue, groupId, 0, LotteryMarkSixType.ZHENG_1_6, subType, wager.getPanlei()).getOdds());
             realTimeWager.setTuishui2(0);
             realTimeWager.setResult(0);
             realTimeWager.setRemark("");

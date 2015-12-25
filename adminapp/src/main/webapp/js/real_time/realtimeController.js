@@ -403,6 +403,12 @@ angular.module('AdminApp')
             }).then(function (data) {
                 $scope.transactionTotalCount = data;
                 
+                // zheng ball
+                var tmpSum = 0;
+                tmpSum += $scope.transactionTotalCount.ZHENG_BALL;
+                tmpSum += $scope.transactionTotalCount.ZHENG_1_6;
+                $scope.transactionTotalCount.ZHENG_BALL_TOTAL = tmpSum;
+                
                 // zheng specific
                 $scope.transactionTotalCount.ZHENG_SPECIFIC = 0;
                 for (var i = 1; i <= 6; i++) {
@@ -410,7 +416,7 @@ angular.module('AdminApp')
                 }
                 
                 // one zodiac and tail num
-                var tmpSum = 0;
+                tmpSum = 0;
                 tmpSum += $scope.transactionTotalCount.ONE_ZODIAC;
                 tmpSum += $scope.transactionTotalCount.TAIL_NUM;
                 $scope.transactionTotalCount.ONE_ZODIAC_TAIL_NUM = tmpSum;
@@ -450,12 +456,12 @@ angular.module('AdminApp')
         $scope.goto('zheng_ball');
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
-        if ($routeParams.number) {
+        if (!$routeParams.subtype) {
             realtimeService.getStakesDetail4Special($routeParams.type, $routeParams.groupid, $routeParams.panlei, $routeParams.issue, $routeParams.number).then(function (data) {
                 $scope.wagerList = data;
             });
-        } else if ($routeParams.subtype) {
-            realtimeService.getStakesDetailBySubType($routeParams.type, $routeParams.groupid, $routeParams.panlei, $routeParams.issue, $routeParams.subtype).then(function (data) {
+        } else {
+            realtimeService.getStakesDetail($routeParams.type, $routeParams.groupid, $routeParams.panlei, $routeParams.issue, $routeParams.subtype, $routeParams.number).then(function (data) {
                 $scope.wagerList = data;
             });
         }

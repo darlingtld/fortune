@@ -25,9 +25,9 @@ angular.module('AdminApp')
             });
             return deferred.promise;
         };
-        this.getStakesDetailBySubType = function (type, groupid, panlei, issue, subtype) {
+        this.getStakesDetail = function (type, groupid, panlei, issue, subtype, number) {
             var deferred = $q.defer();
-            $http.get('stat/realtime/stake_detail/' + type + '/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/subtype/' + subtype).success(function (data) {
+            $http.get('stat/realtime/stake_detail/' + type + '/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/subtype/' + subtype + '/ball/' + number).success(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;
