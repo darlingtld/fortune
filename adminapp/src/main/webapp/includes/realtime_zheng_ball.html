@@ -59,23 +59,14 @@
             <tbody>
             <tr ng-repeat="num in [1,2,3,4,5,6]">
                 <td>正码{{zheng16Name[num - 1]}}</td>
-                <td ng-bind="zheng16Map[num+'_单'].transactions"></td>
+                <td ng-repeat-start="type in [{label:'单',id:'DAN'}, {label:'双',id:'SHUANG'}]" ng-bind="zheng16Map[num+'_{{type.label}}'].transactions"></td>
                 <td>
-                    <a ng-show="zheng16Map[num+'_单'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/DAN/ball/{{num}}"><span
-                            ng-bind="zheng16Map[num+'_单'].stakes"></span></a>
-                    <span ng-show="zheng16Map[num+'_单'].stakes == 0">0</span>            
+                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{type.id}}/ball/{{num}}"><span
+                            ng-bind="zheng16Map[num+'_{{type.label}}'].stakes"></span></a>
+                    <span ng-show="zheng16Map[num+'_{{type.label}}'].stakes == 0">0</span>            
                 </td>
-                <td ng-bind="zheng16Map[num+'_单'].odds"></td>
-                <td ng-bind="zheng16Map[num+'_单'].balance"></td>
-                
-                <td ng-bind="zheng16Map[num+'_双'].transactions"></td>
-                <td>
-                    <a ng-show="zheng16Map[num+'_双'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/SHUANG/ball/{{num}}"><span
-                            ng-bind="zheng16Map[num+'_双'].stakes"></span></a>
-                    <span ng-show="zheng16Map[num+'_双'].stakes == 0">0</span>            
-                </td>
-                <td ng-bind="zheng16Map[num+'_双'].odds"></td>
-                <td ng-bind="zheng16Map[num+'_双'].balance"></td>
+                <td ng-bind="zheng16Map[num+'_{{type.label}}'].odds"></td>
+                <td ng-repeat-end ng-bind="zheng16Map[num+'_{{type.label}}'].balance"></td>
                 
                 <td ng-bind="zheng16Map[num+'_单'].transactions + zheng16Map[num+'_双'].transactions"></td>
                 <td ng-bind="zheng16Map[num+'_单'].stakes + zheng16Map[num+'_双'].stakes"></td>
@@ -109,23 +100,14 @@
             </thead>
             <tbody>
             <tr ng-repeat="num in [1,2,3,4,5,6]">
-                <td ng-bind="zheng16Map[num+'_大'].transactions"></td>
+                <td ng-repeat-start="type in [{label:'大',id:'DA'}, {label:'小',id:'XIAO'}]" ng-bind="zheng16Map[num+'_{{type.label}}'].transactions"></td>
                 <td>
-                    <a ng-show="zheng16Map[num+'_大'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/DA/ball/{{num}}"><span
-                            ng-bind="zheng16Map[num+'_大'].stakes"></span></a>
-                    <span ng-show="zheng16Map[num+'_大'].stakes == 0">0</span>            
+                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{type.id}}/ball/{{num}}"><span
+                            ng-bind="zheng16Map[num+'_{{type.label}}'].stakes"></span></a>
+                    <span ng-show="zheng16Map[num+'_{{type.label}}'].stakes == 0">0</span>            
                 </td>
-                <td ng-bind="zheng16Map[num+'_大'].odds"></td>
-                <td ng-bind="zheng16Map[num+'_大'].balance"></td>
-                
-                <td ng-bind="zheng16Map[num+'_小'].transactions"></td>
-                <td>
-                    <a ng-show="zheng16Map[num+'_小'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/XIAO/ball/{{num}}"><span
-                            ng-bind="zheng16Map[num+'_小'].stakes"></span></a>
-                    <span ng-show="zheng16Map[num+'_小'].stakes == 0">0</span>            
-                </td>
-                <td ng-bind="zheng16Map[num+'_小'].odds"></td>
-                <td ng-bind="zheng16Map[num+'_小'].balance"></td>
+                <td ng-bind="zheng16Map[num+'_{{type.label}}'].odds"></td>
+                <td ng-repeat-end ng-bind="zheng16Map[num+'_{{type.label}}'].balance"></td>
                 
                 <td ng-bind="zheng16Map[num+'_大'].transactions + zheng16Map[num+'_小'].transactions"></td>
                 <td ng-bind="zheng16Map[num+'_大'].stakes + zheng16Map[num+'_小'].stakes"></td>
@@ -229,32 +211,14 @@
             <tbody>
             <tr ng-repeat="num in [1,2,3,4,5,6]">
                 <td>正码{{zheng16Name[num - 1]}}</td>
-                <td ng-bind="zheng16Map[num+'_红波'].transactions"></td>
+                <td ng-repeat-start="type in [{label:'红波',id:'RED'}, {label:'蓝波',id:'BLUE'}, {label:'绿波',id:'GREEN'}]" ng-bind="zheng16Map[num+'_{{type.label}}'].transactions"></td>
                 <td>
-                    <a ng-show="zheng16Map[num+'_红波'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/RED/ball/{{num}}"><span
-                            ng-bind="zheng16Map[num+'_红波'].stakes"></span></a>
-                    <span ng-show="zheng16Map[num+'_红波'].stakes == 0">0</span>            
+                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{type.id}}/ball/{{num}}"><span
+                            ng-bind="zheng16Map[num+'_{{type.label}}'].stakes"></span></a>
+                    <span ng-show="zheng16Map[num+'_{{type.label}}'].stakes == 0">0</span>            
                 </td>
-                <td ng-bind="zheng16Map[num+'_红波'].odds"></td>
-                <td ng-bind="zheng16Map[num+'_红波'].balance"></td>
-                
-                <td ng-bind="zheng16Map[num+'_蓝波'].transactions"></td>
-                <td>
-                    <a ng-show="zheng16Map[num+'_蓝波'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/BLUE/ball/{{num}}"><span
-                            ng-bind="zheng16Map[num+'_蓝波'].stakes"></span></a>
-                    <span ng-show="zheng16Map[num+'_蓝波'].stakes == 0">0</span>            
-                </td>
-                <td ng-bind="zheng16Map[num+'_蓝波'].odds"></td>
-                <td ng-bind="zheng16Map[num+'_蓝波'].balance"></td>
-                
-                <td ng-bind="zheng16Map[num+'_绿波'].transactions"></td>
-                <td>
-                    <a ng-show="zheng16Map[num+'_绿波'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/GREEN/ball/{{num}}"><span
-                            ng-bind="zheng16Map[num+'_绿波'].stakes"></span></a>
-                    <span ng-show="zheng16Map[num+'_绿波'].stakes == 0">0</span>            
-                </td>
-                <td ng-bind="zheng16Map[num+'_绿波'].odds"></td>
-                <td ng-bind="zheng16Map[num+'_绿波'].balance"></td>
+                <td ng-bind="zheng16Map[num+'_{{type.label}}'].odds"></td>
+                <td ng-repeat-end ng-bind="zheng16Map[num+'_{{type.label}}'].balance"></td>
                 
                 <td ng-bind="zheng16Map[num+'_红波'].transactions + zheng16Map[num+'_蓝波'].transactions + zheng16Map[num+'_绿波'].transactions"></td>
                 <td ng-bind="zheng16Map[num+'_红波'].stakes + zheng16Map[num+'_蓝波'].stakes + zheng16Map[num+'_绿波'].stakes"></td>
@@ -288,23 +252,14 @@
             </thead>
             <tbody>
             <tr ng-repeat="num in [1,2,3,4,5,6]">
-                <td ng-bind="zheng16Map[num+'_合单'].transactions"></td>
+                <td ng-repeat-start="type in [{label:'合单',id:'HEDAN'}, {label:'合双',id:'HESHUANG'}]" ng-bind="zheng16Map[num+'_{{type.label}}'].transactions"></td>
                 <td>
-                    <a ng-show="zheng16Map[num+'_合单'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/HEDAN/ball/{{num}}"><span
-                            ng-bind="zheng16Map[num+'_合单'].stakes"></span></a>
-                    <span ng-show="zheng16Map[num+'_合单'].stakes == 0">0</span>            
+                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{type.id}}/ball/{{num}}"><span
+                            ng-bind="zheng16Map[num+'_{{type.label}}'].stakes"></span></a>
+                    <span ng-show="zheng16Map[num+'_{{type.label}}'].stakes == 0">0</span>            
                 </td>
-                <td ng-bind="zheng16Map[num+'_合单'].odds"></td>
-                <td ng-bind="zheng16Map[num+'_合单'].balance"></td>
-
-                <td ng-bind="zheng16Map[num+'_合双'].transactions"></td>
-                <td>
-                    <a ng-show="zheng16Map[num+'_合双'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/HESHUANG/ball/{{num}}"><span
-                            ng-bind="zheng16Map[num+'_合双'].stakes"></span></a>
-                    <span ng-show="zheng16Map[num+'_合双'].stakes == 0">0</span>            
-                </td>
-                <td ng-bind="zheng16Map[num+'_合双'].odds"></td>
-                <td ng-bind="zheng16Map[num+'_合双'].balance"></td>
+                <td ng-bind="zheng16Map[num+'_{{type.label}}'].odds"></td>
+                <td ng-repeat-end ng-bind="zheng16Map[num+'_{{type.label}}'].balance"></td>
                 
                 <td ng-bind="zheng16Map[num+'_合单'].transactions + zheng16Map[num+'_合双'].transactions"></td>
                 <td ng-bind="zheng16Map[num+'_合单'].stakes + zheng16Map[num+'_合双'].stakes"></td>
