@@ -36,6 +36,11 @@
     justify-content: center;
 }
 
+.real-time-align-left {
+    display: flex;
+    justify-content: left;
+}
+
 .real-time-dashboard > table {
     /*width: 0px;*/
 }
@@ -56,11 +61,10 @@
     border-bottom: 1px solid #1FADFB;
 }
 
-.real-time-lottery-zheng-1-6 {
-    display: flex;
-    justify-content: left;
+.real-time-zheng-1-6 table th, .real-time-zheng-1-6 table td {
+    padding: 7px;
 }
 
-.real-time-lottery-zheng-1-6 table th, .real-time-lottery-zheng-1-6 table td {
-    padding: 7px;
+.not-wager-list {
+    width: 300px;
 }

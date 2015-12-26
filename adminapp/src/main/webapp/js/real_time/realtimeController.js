@@ -2,7 +2,7 @@
  * Created by lingda on 2015/11/9.
  */
 angular.module('AdminApp')
-    .controller('realtimeController', function ($rootScope, $scope, realtimeService) {
+    .controller('realtimeController', function ($rootScope, $scope, realtimeService, oddsService) {
         $rootScope.menu = 1;
         realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
             $scope.lotteryMarkSixInfo = data;
@@ -372,7 +372,44 @@ angular.module('AdminApp')
                 $scope.jointSpecialList = data;
                 $scope.stats.jointSpecialOdds = data[0].odds;
             });
+        }
+        
+        function renderNotTop20() {
+            //TODO
+        }
+        
+        function renderNot(page) {
+            $scope.notType = page;
+            realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
+                //TODO panlei
+                var panlei = $scope.selectedPan.name == 'ALL' ? 'A' : $scope.selectedPan.name;
+                oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, page).then(function(oddsList) {
+                    $scope.notOdds = oddsList[0];
+                });
+            });
             
+            // odds
+            var tmpNumList = [];
+            for (var number = 1; number <= 49; number ++) {
+                tmpNumList.push(number);
+            }
+            $scope.numList = [];
+            var totalNum = 49, rows = 5, curIndex = 0;
+            while (curIndex < totalNum) {
+                if (curIndex + rows < totalNum) {
+                    $scope.numList.push(tmpNumList.slice(curIndex, curIndex + rows));
+                    curIndex += rows;
+                } else {
+                    $scope.numList.push(tmpNumList.slice(curIndex, totalNum));
+                    break;
+                }
+            }
+
+            // transactions
+            $scope.notNameMap = {5:'五', 6:'六', 7:'七', 8:'八', 9:'九', 10:'十', 11:'十一', 12:'十二'};
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], page, $scope.selectedPan.name).then(function (data) {
+                $scope.statList = data;
+            });
         }
 
         $scope.zhengSpecificGoto = function(page) {
@@ -384,6 +421,17 @@ angular.module('AdminApp')
             ele.addClass('real-time-tab-active');
 
             renderZhengSpecific(page);
+        }
+        
+        $scope.notGoto = function(page) {
+            var ele = $(event.target);
+            if (ele.siblings().length == 0) {
+                ele = ele.parent();
+            }
+            ele.siblings().removeClass('real-time-tab-active');
+            ele.addClass('real-time-tab-active');
+
+            renderNot(page);
         }
 
         $scope.goto = function (page, panlei) {
@@ -429,6 +477,18 @@ angular.module('AdminApp')
                 tmpSum += $scope.transactionTotalCount.JOINT_3_ALL;
                 tmpSum += $scope.transactionTotalCount.JOINT_SPECIAL;
                 $scope.transactionTotalCount.JOINT_TOTAL = tmpSum;
+                
+                // not
+                tmpSum = 0;
+                tmpSum += $scope.transactionTotalCount.NOT_5;
+                tmpSum += $scope.transactionTotalCount.NOT_6;
+                tmpSum += $scope.transactionTotalCount.NOT_7;
+                tmpSum += $scope.transactionTotalCount.NOT_8;
+                tmpSum += $scope.transactionTotalCount.NOT_9;
+                tmpSum += $scope.transactionTotalCount.NOT_10;
+                tmpSum += $scope.transactionTotalCount.NOT_11;
+                tmpSum += $scope.transactionTotalCount.NOT_12;
+                $scope.transactionTotalCount.NOT_TOTAL = tmpSum;
             });
             
             switch (page) {
@@ -450,19 +510,23 @@ angular.module('AdminApp')
                 case 'joint':
                     renderJoint();
                     break;
+                case 'not':
+                    $scope.notGoto('not_5');
+                    break;
             }
         }
 
-        $scope.goto('zheng_ball');
+        $scope.goto('special');
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
-        if (!$routeParams.subtype) {
-            realtimeService.getStakesDetail4Special($routeParams.type, $routeParams.groupid, $routeParams.panlei, $routeParams.issue, $routeParams.number).then(function (data) {
-                $scope.wagerList = data;
-            });
-        } else {
-            realtimeService.getStakesDetail($routeParams.type, $routeParams.groupid, $routeParams.panlei, $routeParams.issue, $routeParams.subtype, $routeParams.number).then(function (data) {
-                $scope.wagerList = data;
-            });
-        }
+        realtimeService.getStakesDetail(
+                $routeParams.type, 
+                $routeParams.groupid, 
+                $routeParams.panlei, 
+                $routeParams.issue, 
+                $routeParams.subtype, 
+                $routeParams.number,
+                $routeParams.content).then(function (data) {
+            $scope.wagerList = data;
+        });
     })

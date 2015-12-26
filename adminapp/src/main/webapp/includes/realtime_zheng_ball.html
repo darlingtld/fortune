@@ -30,7 +30,7 @@
     合计：<strong ng-bind="stats.zhengBallTransactions"></strong>,&nbsp;金额：<strong ng-bind="stats.zhengBallStakes"></strong>
 </div>
 
-<div class="real-time-lottery-zheng-1-6">
+<div class="real-time-zheng-1-6 real-time-align-left">
     <div>
         <table>
             <thead>
@@ -61,7 +61,7 @@
                 <td>正码{{zheng16Name[num - 1]}}</td>
                 <td ng-repeat-start="type in [{label:'单',id:'DAN'}, {label:'双',id:'SHUANG'}]" ng-bind="zheng16Map[num+'_{{type.label}}'].transactions"></td>
                 <td>
-                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{type.id}}/ball/{{num}}"><span
+                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/ball/{{num}}?subtype={{type.id}}"><span
                             ng-bind="zheng16Map[num+'_{{type.label}}'].stakes"></span></a>
                     <span ng-show="zheng16Map[num+'_{{type.label}}'].stakes == 0">0</span>            
                 </td>
@@ -102,7 +102,7 @@
             <tr ng-repeat="num in [1,2,3,4,5,6]">
                 <td ng-repeat-start="type in [{label:'大',id:'DA'}, {label:'小',id:'XIAO'}]" ng-bind="zheng16Map[num+'_{{type.label}}'].transactions"></td>
                 <td>
-                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{type.id}}/ball/{{num}}"><span
+                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/ball/{{num}}?subtype={{type.id}}"><span
                             ng-bind="zheng16Map[num+'_{{type.label}}'].stakes"></span></a>
                     <span ng-show="zheng16Map[num+'_{{type.label}}'].stakes == 0">0</span>            
                 </td>
@@ -176,7 +176,7 @@
     
 </div>
 
-<div class="real-time-lottery-zheng-1-6">
+<div class="real-time-zheng-1-6 real-time-align-left">
     <div>
         <table>
             <thead>
@@ -213,7 +213,7 @@
                 <td>正码{{zheng16Name[num - 1]}}</td>
                 <td ng-repeat-start="type in [{label:'红波',id:'RED'}, {label:'蓝波',id:'BLUE'}, {label:'绿波',id:'GREEN'}]" ng-bind="zheng16Map[num+'_{{type.label}}'].transactions"></td>
                 <td>
-                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{type.id}}/ball/{{num}}"><span
+                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/ball/{{num}}?subtype={{type.id}}"><span
                             ng-bind="zheng16Map[num+'_{{type.label}}'].stakes"></span></a>
                     <span ng-show="zheng16Map[num+'_{{type.label}}'].stakes == 0">0</span>            
                 </td>
@@ -254,7 +254,7 @@
             <tr ng-repeat="num in [1,2,3,4,5,6]">
                 <td ng-repeat-start="type in [{label:'合单',id:'HEDAN'}, {label:'合双',id:'HESHUANG'}]" ng-bind="zheng16Map[num+'_{{type.label}}'].transactions"></td>
                 <td>
-                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/subtype/{{type.id}}/ball/{{num}}"><span
+                    <a ng-show="zheng16Map[num+'_{{type.label}}'].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/zheng_1_6/issue/{{lotteryMarkSixInfo.issue}}/ball/{{num}}?subtype={{type.id}}"><span
                             ng-bind="zheng16Map[num+'_{{type.label}}'].stakes"></span></a>
                     <span ng-show="zheng16Map[num+'_{{type.label}}'].stakes == 0">0</span>            
                 </td>

@@ -53,6 +53,7 @@ public class OddsService {
 
     @Transactional
     public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type, LotteryMarkSixType ballType, String panlei) {
+        // TODO should be passed from outside
         if (type.equals(LotteryMarkSixType.ZHENG_1_6)) {
             number = 0;
         }

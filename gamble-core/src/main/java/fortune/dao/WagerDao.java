@@ -96,18 +96,24 @@ public class WagerDao {
         return wagerList;
     }
     
-    public List<LotteryMarkSixWager> getLotteryMarkSixWagerListByBallType(LotteryMarkSixType type, String groupId, String panlei, int issue, LotteryMarkSixType ballType) {
+    //TODO code can be reused in getLotteryMarkSixWagerList()
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, String panlei, int issue, LotteryMarkSixType ballType) {
         Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei)));
-        List<LotteryMarkSixWager> tmpwagerList = mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
-        List<LotteryMarkSixWager> wagerList = new ArrayList<>();
-        for (LotteryMarkSixWager wager : tmpwagerList) {
-            for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
-                if (stub.getLotteryMarkSixType().equals(ballType)) {
-                    wagerList.add(wager);
-                    break;
+        
+        if (ballType != null) {
+            List<LotteryMarkSixWager> wagerList = new ArrayList<>();
+            List<LotteryMarkSixWager> tmpwagerList = mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
+            for (LotteryMarkSixWager wager : tmpwagerList) {
+                for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                    if (stub.getLotteryMarkSixType().equals(ballType)) {
+                        wagerList.add(wager);
+                        break;
+                    }
                 }
             }
+            return wagerList;
+        } else {
+            return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
         }
-        return wagerList;
     }
 }

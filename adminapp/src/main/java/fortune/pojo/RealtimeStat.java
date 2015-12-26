@@ -12,6 +12,7 @@ public class RealtimeStat {
     private double odds;
     private double balance;
     private String lotteryMarkSixType;
+    private String wagerContent;
 
     @Override
     public String toString() {
@@ -88,5 +89,13 @@ public class RealtimeStat {
 
     public void addTransactions(int transactions) {
         this.transactions += transactions;
+    }
+
+    public String getWagerContent() {
+        return wagerContent;
+    }
+
+    public void setWagerContent(String wagerContent) {
+        this.wagerContent = wagerContent;
     }
 }

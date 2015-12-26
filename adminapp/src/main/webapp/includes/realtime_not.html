@@ -1,0 +1,53 @@
+<div class="real-time-sub-tabs">
+    [
+    <a ng-click="notGoto('not_top_20')" class="real-time-tab real-time-tab-active">
+        Top 20
+    </a>|
+    <a ng-repeat-start="item in [5,6,7,8,9,10,11,12]" ng-click="notGoto('not_' + item)" class="real-time-tab">
+        {{notNameMap[item]}}不中
+    </a>
+    <span ng-show="item != 12">|</span>
+    <span ng-repeat-end ng-show="item == 12">]</span>
+</div>
+
+<div class="real-time-align-left">
+    <div ng-repeat="subList in numList">
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>赔率</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="num in subList">
+                <td><span ng-bind="num" class="ball ball{{num}}"></span></td>
+                <td ng-bind="notOdds.odds"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="real-time-align-left not-wager-list">
+    <table ng-if="statList.length > 0">
+        <thead>
+            <tr>
+                <th colspan="2">注单</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="stat in statList">
+                <td>
+                    <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{notType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{stat.wagerContent}}"><span
+                            ng-bind="stat.wagerContent"></span></a>
+                </td>
+                <td>
+                    <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{notType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{stat.wagerContent}}"><span
+                            ng-bind="stat.transactions"></span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p ng-if="statList.length == 0">无注单</p>
+</div>

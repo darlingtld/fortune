@@ -18,16 +18,24 @@ angular.module('AdminApp')
             });
             return deferred.promise;
         };
-        this.getStakesDetail4Special = function (type, groupid, panlei, issue, number) {
+        
+        this.getStakesDetail = function (type, groupid, panlei, issue, subtype, number, content) {
+            var url = 'stat/realtime/stake_detail/' + type + '/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/ball/' + number;
+            var param = '?', hasParam = false;
+            if (subtype) {
+                param += 'subtype=' + subtype + '&';
+                hasParam = true;
+            }
+            if (content) {
+                param += 'content=' + content + '&';
+                hasParam = true;
+            }
+            if (hasParam) {
+                url += param.substring(0, param.length - 1);
+            }
+            
             var deferred = $q.defer();
-            $http.get('stat/realtime/stake_detail/' + type + '/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/ball/' + number).success(function (data) {
-                deferred.resolve(data);
-            });
-            return deferred.promise;
-        };
-        this.getStakesDetail = function (type, groupid, panlei, issue, subtype, number) {
-            var deferred = $q.defer();
-            $http.get('stat/realtime/stake_detail/' + type + '/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/subtype/' + subtype + '/ball/' + number).success(function (data) {
+            $http.get(url).success(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;
