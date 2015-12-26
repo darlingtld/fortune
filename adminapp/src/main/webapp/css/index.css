@@ -72,3 +72,18 @@
 .real-time-not-top > div {
     width: 300px;
 }
+
+.real-time-not-top {
+    margin-top: 20px;
+    background-color: white;
+}
+
+.real-time-not-top table {
+    margin-top: 0px;
+    border: 0px solid white;
+}
+
+.real-time-not-top tbody > tr:nth-child(2) {
+    border-bottom: 1px solid #1FADFB;
+}
+

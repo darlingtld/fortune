@@ -376,9 +376,12 @@ angular.module('AdminApp')
         
         function renderNot(page) {
             $scope.topNum = 20;
+            $scope.notType = page;
+            $scope.notNameMap = {5:'五', 6:'六', 7:'七', 8:'八', 9:'九', 10:'十', 11:'十一', 12:'十二'};
+            $scope.notTypeName = $scope.notNameMap[parseInt(page.split('_')[1])] + '不中';
+            
             if (page == 'not_top') {
                 $scope.isTopPage = true;
-            	$scope.notNameMap = {5:'五', 6:'六', 7:'七', 8:'八', 9:'九', 10:'十', 11:'十一', 12:'十二'};
             	realtimeService.getRealTimeTransactionNotTop(sessionStorage['pgroupid'], $scope.selectedPan.name, $scope.topNum).then(function (data) {
                 	$scope.allTopStats = data;
             	});
@@ -386,7 +389,6 @@ angular.module('AdminApp')
             }
             
             $scope.isTopPage = false;
-            $scope.notType = page;
             realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
                 //TODO panlei
                 var panlei = $scope.selectedPan.name == 'ALL' ? 'A' : $scope.selectedPan.name;
@@ -397,24 +399,28 @@ angular.module('AdminApp')
             
             // odds
             var tmpNumList = [];
-            for (var number = 1; number <= 49; number ++) {
-                tmpNumList.push(number);
+            for (var i = 1; i <= 49; i ++) {
+                tmpNumList.push(i);
             }
             $scope.numList = [];
-            var totalNum = 49, rows = 5, curIndex = 0;
-            while (curIndex < totalNum) {
-                if (curIndex + rows < totalNum) {
-                    $scope.numList.push(tmpNumList.slice(curIndex, curIndex + rows));
-                    curIndex += rows;
-                } else {
-                    $scope.numList.push(tmpNumList.slice(curIndex, totalNum));
-                    break;
-                }
-            }
+            $scope.numList[0] = tmpNumList.slice(0,10);
+            $scope.numList[1] = tmpNumList.slice(10,20);
+            $scope.numList[2] = tmpNumList.slice(20,30);
+            $scope.numList[3] = tmpNumList.slice(30,40);
+            $scope.numList[4] = tmpNumList.slice(40,49);
 
             // transactions
-            $scope.notNameMap = {5:'五', 6:'六', 7:'七', 8:'八', 9:'九', 10:'十', 11:'十一', 12:'十二'};
+            $scope.stats = {
+                totalTransactions: 0,
+                totalRemarks: 0
+            };
+            
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], page, $scope.selectedPan.name).then(function (data) {
+                for (var i = 0; i < data.length; i ++) {
+                    $scope.stats.totalTransactions += data[i].transactions;
+                    $scope.stats.totalRemarks += data[i].stakes;   //TODO remark
+                }
+                
                 $scope.statList = data;
             });
         }
@@ -522,7 +528,7 @@ angular.module('AdminApp')
             }
         }
 
-        $scope.goto('not');
+        $scope.goto('special');
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
         realtimeService.getStakesDetail(
