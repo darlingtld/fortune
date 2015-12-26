@@ -1,0 +1,46 @@
+<table>
+	<tr>
+		<th>类型</th>
+		<th>赔率</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>赔率</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>赔率</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>赔率</th>
+		<th>操作</th>
+	</tr>
+	<tr>
+		<td>三全中</td>
+		<td ng-bind="oddsMap['JOINT_3_ALL'].odds" id="{{oddsMap['JOINT_3_ALL'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['JOINT_3_ALL'].id, oddsMap['JOINT_3_ALL'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+		<td>三中二</td>
+		<td ng-bind="oddsMap['JOINT_3_2'].odds" id="{{oddsMap['JOINT_3_2'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['JOINT_3_2'].id, oddsMap['JOINT_3_2'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+		<td>二全中</td>
+		<td ng-bind="oddsMap['JOINT_2_ALL'].odds" id="{{oddsMap['JOINT_2_ALL'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['JOINT_2_ALL'].id, oddsMap['JOINT_2_ALL'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+		<td>二中特</td>
+		<td ng-bind="oddsMap['JOINT_2_SPECIAL'].odds" id="{{oddsMap['JOINT_2_SPECIAL'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['JOINT_2_SPECIAL'].id, oddsMap['JOINT_2_SPECIAL'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+	</tr>
+	<tr>
+		<td>特串</td>
+		<td ng-bind="oddsMap['JOINT_SPECIAL'].odds" id="{{oddsMap['JOINT_SPECIAL'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['JOINT_SPECIAL'].id, oddsMap['JOINT_SPECIAL'].odds)" data-toggle="modal" data-target="#oddsDialog">修改</button>
+		</td>
+		<td colspan="9"></td>
+	</tr>
+</table>
