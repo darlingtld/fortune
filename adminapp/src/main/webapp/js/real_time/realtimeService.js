@@ -40,9 +40,18 @@ angular.module('AdminApp')
             });
             return deferred.promise;
         };
+        
         this.getRealTimeTransactionTotalCount = function (groupid, panlei, issue) {
             var deferred = $q.defer();
             $http.get('stat/realtime/transaction_result/total_count/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+        
+        this.getRealTimeTransactionNotTop = function (groupid, panlei, top) {
+            var deferred = $q.defer();
+            $http.get('stat/realtime/transaction_result/groupid/' + groupid + '/pan/' + panlei + '/not_top/' + top).success(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;

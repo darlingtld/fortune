@@ -159,21 +159,27 @@ public class StatService {
             case NOT_10:
             case NOT_11:
             case NOT_12:
-                if (panlei.equalsIgnoreCase("ALL")) {
-                    List<RealtimeStat> list = new ArrayList<>();
-                    list.addAll(getRealTimeTransactionResult4Not(groupid, "A", type));
-                    list.addAll(getRealTimeTransactionResult4Not(groupid, "B", type));
-                    list.addAll(getRealTimeTransactionResult4Not(groupid, "C", type));
-                    list.addAll(getRealTimeTransactionResult4Not(groupid, "D", type));
-                    return list;
-                } else {
-                    return getRealTimeTransactionResult4Not(groupid, panlei, type);
-                }
+                // already check panlei inside
+                return getRealTimeTransactionResult4Not(groupid, panlei, type);
             default:
                 return null;
         }
     }
 
+    public List<List<RealtimeStat>> getRealTimeTransactionResult4NotTop(String groupid, String panlei, int top) {
+        List<List<RealtimeStat>> resultList = Lists.newArrayList();
+        
+        getRealTimeNotList().stream().forEach(type -> {
+            List<RealtimeStat> statList = getRealTimeTransactionResult4Not(groupid, panlei, type);
+            //FIXME order by 'remark' desc
+            Collections.sort(statList, (stat1, stat2) -> (int)(stat2.getStakes() - stat1.getStakes()));
+            int end = statList.size() > top ? top : statList.size();
+            resultList.add(statList.subList(0, end));
+        });
+        
+        return resultList;
+    }
+    
     private List<RealtimeStat> getRealTimeTransactionResult4SumZodiac(String groupid, String panlei) {
         Utils.logger.info("get real time transaction result of group id {} for type sum zodiac", groupid);
         HashMap<Integer, RealtimeStat> realtimeStatHashMap = new HashMap<>();
@@ -759,12 +765,24 @@ public class StatService {
         Utils.logger.info("get real time transaction result of group id {} for type {}", groupid, type.name());
 
         int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-        List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupid, type.name(), panlei);
+        
+        //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
+        String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
+        List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupid, type.name(), pan4Odds);
         Double odds = oddsList.get(0).getOdds();
         
         HashMap<String, RealtimeStat> realTimeStatMap = new HashMap<>();
         
-        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(type, groupid, panlei, lotteryIssue, null);
+        List<LotteryMarkSixWager> wagerList = Lists.newArrayList();
+        if (isPanleiAll(panlei)) {
+            wagerList.addAll(wagerService.getLotteryMarkSixWagerList(type, groupid, "A", lotteryIssue, null));
+            wagerList.addAll(wagerService.getLotteryMarkSixWagerList(type, groupid, "B", lotteryIssue, null));
+            wagerList.addAll(wagerService.getLotteryMarkSixWagerList(type, groupid, "C", lotteryIssue, null));
+            wagerList.addAll(wagerService.getLotteryMarkSixWagerList(type, groupid, "D", lotteryIssue, null));
+        } else {
+            wagerList.addAll(wagerService.getLotteryMarkSixWagerList(type, groupid, panlei, lotteryIssue, null));
+        }
+        
         for (LotteryMarkSixWager wager : wagerList) {
             List<LotteryMarkSixWagerStub> wagerStubList = wager.getLotteryMarkSixWagerStubList();
             
@@ -796,7 +814,7 @@ public class StatService {
         Collections.sort(realtimeStatList, (o1, o2) -> (int)(o1.getStakes() - o2.getStakes()));
         return realtimeStatList;
     }    
-    
+
     private void calculateRealTimeStat(LotteryMarkSixWager wager, HashMap<String, RealtimeStat> realtimeStatHashMap, String groupid, HashMap<String, Double> oddsMap) {
         for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
             if (realtimeStatHashMap.containsKey(stub.getLotteryMarkSixType().getType())) {
@@ -1245,5 +1263,9 @@ public class StatService {
         JSONObject json = new JSONObject();
         json.putAll(transactionMap);
         return json;
+    }
+
+    private boolean isPanleiAll(String panlei) {
+        return "ALL".equalsIgnoreCase(panlei);
     }
 }

@@ -374,11 +374,18 @@ angular.module('AdminApp')
             });
         }
         
-        function renderNotTop20() {
-            //TODO
-        }
-        
         function renderNot(page) {
+            $scope.topNum = 20;
+            if (page == 'not_top') {
+                $scope.isTopPage = true;
+            	$scope.notNameMap = {5:'五', 6:'六', 7:'七', 8:'八', 9:'九', 10:'十', 11:'十一', 12:'十二'};
+            	realtimeService.getRealTimeTransactionNotTop(sessionStorage['pgroupid'], $scope.selectedPan.name, $scope.topNum).then(function (data) {
+                	$scope.allTopStats = data;
+            	});
+                return;
+            }
+            
+            $scope.isTopPage = false;
             $scope.notType = page;
             realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
                 //TODO panlei
@@ -430,7 +437,6 @@ angular.module('AdminApp')
             }
             ele.siblings().removeClass('real-time-tab-active');
             ele.addClass('real-time-tab-active');
-
             renderNot(page);
         }
 
@@ -511,12 +517,12 @@ angular.module('AdminApp')
                     renderJoint();
                     break;
                 case 'not':
-                    $scope.notGoto('not_5');
+                    $scope.notGoto('not_top');
                     break;
             }
         }
 
-        $scope.goto('special');
+        $scope.goto('not');
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
         realtimeService.getStakesDetail(

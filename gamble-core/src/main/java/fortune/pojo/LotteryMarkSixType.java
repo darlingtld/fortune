@@ -270,5 +270,15 @@ public enum LotteryMarkSixType {
                 HESHUANG);
     }
     
-    
+    public static List<LotteryMarkSixType> getRealTimeNotList() {
+        return Arrays.asList(
+                NOT_5,
+                NOT_6,
+                NOT_7,
+                NOT_8,
+                NOT_9,
+                NOT_10,
+                NOT_11,
+                NOT_12);
+    }
 }

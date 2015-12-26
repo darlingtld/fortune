@@ -41,7 +41,6 @@ public class StatController {
         return statService.getLotteryMarkSixStat(groupid, from, count);
     }
 
-
     /**
      * 获取代理商实时统计信息(实时注单)
      *
@@ -53,6 +52,22 @@ public class StatController {
     @ResponseBody
     List<RealtimeStat> getRealTimeTransactionResult(@PathVariable("type") String type, @PathVariable("groupid") String groupId, @PathVariable("panlei") String panlei) {
         return statService.getRealTimeTransactionResult(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase());
+    }
+    
+    /**
+     * 获取自选不中各类型的Top20注单信息
+     * 
+     * @param groupId
+     * @param panlei
+     * @param top
+     * @return
+     */
+    @RequestMapping(value = "realtime/transaction_result/groupid/{groupid}/pan/{panlei}/not_top/{top}", method = RequestMethod.GET)
+    public @ResponseBody List<List<RealtimeStat>> getNotTopStats(
+            @PathVariable("groupid") String groupId, 
+            @PathVariable("panlei") String panlei,
+            @PathVariable("top") int top) {
+        return statService.getRealTimeTransactionResult4NotTop(groupId, panlei.toUpperCase(), top);
     }
 
     /**
@@ -68,6 +83,18 @@ public class StatController {
         return statService.getRealTimeTransactionTotalCount(groupId, panlei, issue);
     }
     
+    /**
+     * 获取某个类型的注单的详细列表
+     * 
+     * @param type
+     * @param groupId
+     * @param panlei
+     * @param issue
+     * @param number
+     * @param subtypeStr
+     * @param content
+     * @return
+     */
     @RequestMapping(value = "realtime/stake_detail/{type}/groupid/{groupid}/pan/{panlei}/issue/{issue}/ball/{number}", method = RequestMethod.GET)
     public @ResponseBody List<RealTimeWager> getStakeDetail(
             @PathVariable("type") String type,
@@ -80,5 +107,5 @@ public class StatController {
         LotteryMarkSixType subtype = subtypeStr == null ? null : LotteryMarkSixType.valueOf(subtypeStr.toUpperCase());
         return statService.getStakeDetail(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase(), issue, number, subtype, content);
     }
-
+    
 }
