@@ -1,0 +1,33 @@
+<table style="width:45%;float:left;">
+	<tr>
+		<th>平肖</th>
+		<th>赔率</th>
+		<th>操作</th>
+	</tr>
+	<tr ng-repeat="zodiac in ['ZODIAC_SHU','ZODIAC_NIU','ZODIAC_HU','ZODIAC_TU','ZODIAC_LONG','ZODIAC_SHE','ZODIAC_MA','ZODIAC_YANG','ZODIAC_HOU','ZODIAC_JI','ZODIAC_GOU','ZODIAC_ZHU']">
+		<td>{{zodiacTypeMap[zodiac]}}</td>
+		<td ng-bind="oddsMap['JOINT_ZODIAC_PING#'+zodiac].odds" id="{{oddsMap['JOINT_ZODIAC_PING#'+zodiac].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['JOINT_ZODIAC_PING#'+zodiac].id, oddsMap['JOINT_ZODIAC_PING#'+zodiac].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
+</table>
+
+<table style="width:45%;float:right;">
+	<tr>
+		<th>正肖</th>
+		<th>赔率</th>
+		<th>操作</th>
+	</tr>
+	<tr ng-repeat="zodiac in ['ZODIAC_SHU','ZODIAC_NIU','ZODIAC_HU','ZODIAC_TU','ZODIAC_LONG','ZODIAC_SHE','ZODIAC_MA','ZODIAC_YANG','ZODIAC_HOU','ZODIAC_JI','ZODIAC_GOU','ZODIAC_ZHU']">
+		<td>{{zodiacTypeMap[zodiac]}}</td>
+		<td ng-bind="oddsMap['JOINT_ZODIAC_ZHENG#'+zodiac].odds" id="{{oddsMap['JOINT_ZODIAC_ZHENG#'+zodiac].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['JOINT_ZODIAC_ZHENG#'+zodiac].id, oddsMap['JOINT_ZODIAC_ZHENG#'+zodiac].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
+</table>
