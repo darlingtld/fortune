@@ -97,7 +97,25 @@ var zodiacTypeMap={
 	"ZODIAC_JI": "鸡",
 	"ZODIAC_GOU": "狗",
 	"ZODIAC_ZHU": "猪"
-}
+};
+
+// 两面类型表
+var twoFaceTypeMap={
+	DAN: "单",
+    SHUANG: "双",
+    DA: "大",
+    XIAO: "小",
+    HEDAN: "合单",
+    HESHUANG: "合双",
+    HEDA: "合大",
+    HEXIAO: "合小",
+    WEIDA: "尾大",
+    WEIXIAO: "尾小",
+    HEWEIDA: "合尾大",
+    HEWEIXIAO: "合尾小",
+    JIAQIN: "家禽",
+    YESHOU: "野兽"
+};
 
 var Compare = {
     getSingleOrDouble: function (ball) {
