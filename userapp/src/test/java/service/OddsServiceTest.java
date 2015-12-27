@@ -38,7 +38,7 @@ public class OddsServiceTest {
 
 	// 生成色波赔率
 	@Test
-	public void generateColorLotteryOdds() { 
+	public void generateColorLotteryOdds() {
 		List<PGroup> pGroupList = pGroupService.getGroupAll();
 		for (int i = 0; i < pGroupList.size(); i++) {
 			for (String panlei : Arrays.asList("A", "B", "C", "D")) {
@@ -502,6 +502,42 @@ public class OddsServiceTest {
 					odds.setLotteryBallNumber(num); // 表示几尾
 					odds.setPanlei(panlei);
 					odds.setLotteryMarkSixType(LotteryMarkSixType.TAIL_NUM);
+					oddsService.saveOdds(odds);
+				}
+			}
+		}
+	}
+
+	// 生成连肖赔率
+	@Test
+	public void generateJointZodiacLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.ZODIAC_SHU, LotteryMarkSixType.ZODIAC_NIU,
+					LotteryMarkSixType.ZODIAC_HU, LotteryMarkSixType.ZODIAC_TU, LotteryMarkSixType.ZODIAC_LONG,
+					LotteryMarkSixType.ZODIAC_SHE, LotteryMarkSixType.ZODIAC_MA, LotteryMarkSixType.ZODIAC_YANG,
+					LotteryMarkSixType.ZODIAC_HOU, LotteryMarkSixType.ZODIAC_JI, LotteryMarkSixType.ZODIAC_GOU,
+					LotteryMarkSixType.ZODIAC_ZHU)) {
+				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
+					LotteryOdds odds = new LotteryOdds();
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(9 + i);
+					odds.setLotteryIssue(151);
+					odds.setTimestamp(new Date());
+					odds.setLotteryBallType(type); // 二级类型
+					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+					odds.setPanlei(panlei);
+					oddsService.saveOdds(odds);
+				}
+				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
+					LotteryOdds odds = new LotteryOdds();
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(1 + i);
+					odds.setLotteryIssue(151);
+					odds.setTimestamp(new Date());
+					odds.setLotteryBallType(type); // 二级类型
+					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+					odds.setPanlei(panlei);
 					oddsService.saveOdds(odds);
 				}
 			}

@@ -31,7 +31,7 @@ public class LotteryOdds {
     private Date timestamp = new Date();
     // 一级类型
     private LotteryMarkSixType lotteryMarkSixType;
-    // 二级类型，如正码1～6下的子类型，一肖下的生肖
+    // 二级类型，如正码1～6下的子类型，一肖下的生肖，连肖下面的生肖
     private LotteryMarkSixType lotteryBallType; // (名字不改了)
 
     public LotteryOdds() {

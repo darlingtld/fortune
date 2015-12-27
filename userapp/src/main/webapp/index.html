@@ -74,6 +74,14 @@
 				<div class="error_content">目前没有可以下注的期数</div>
 				<div ng-include="'includes/zodiactail.html'"></div>
 			</div>
+			<div ng-show="selectedIndex==11">
+				<div class="error_content">目前没有可以下注的期数</div>
+				<div ng-include="'includes/joint_zodiac.html'"></div>
+			</div>
+			<div ng-show="selectedIndex==12">
+				<div class="error_content">目前没有可以下注的期数</div>
+				<div ng-include="'includes/joint_tail.html'"></div>
+			</div>
 			<div class="wage_area">
 				<p class="error_message">{{wageError}}</p>
 				<a href="javascript:;" class="btn" ng-click="wage();"
