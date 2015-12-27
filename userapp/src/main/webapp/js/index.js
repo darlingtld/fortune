@@ -556,7 +556,7 @@ app.controller("IndexController", function ($scope, commonService,
     if (!sessionStorage["userid"]) {
         location.href = "login.html";
     }
-    $scope.items = ["特码", "生肖色波", "半波", "合肖", "正码", "正码1~6", "正码特", "连码", "自选不中", "过关", "一肖尾数", "连肖", "连尾"];
+    $scope.items = ["特码", "两面", "生肖色波", "半波", "合肖", "正码", "正码1~6", "正码特", "连码", "自选不中", "过关", "一肖尾数", "连肖", "连尾"];
     $scope.selectedIndex = 0;
     $scope.menu = 1;
     $scope.goTab = function (index) {
@@ -593,7 +593,7 @@ app.controller("IndexController", function ($scope, commonService,
     $scope.refreshLotteryList = function () {
         // 获取赔率
         commonService.getOddsList($scope.nextLottery.issue, $scope.selectedPGroup.id, $scope.selectedPan).then(function (oddsList) {
-            var oddsMap = {}, jointOddsMap = {}, notOddsMap = {}, passOddsMap = {}, tailNumOddsMap = {}, zhengSpecificOddsMap = {}, jointZodiacPingOddsMap = {}, jointZodiacZhengOddsMap = {};
+            var oddsMap = {}, jointOddsMap = {}, notOddsMap = {}, passOddsMap = {}, tailNumOddsMap = {}, zhengSpecificOddsMap = {}, jointZodiacPingOddsMap = {}, jointZodiacZhengOddsMap = {}, twoFacesOddsMap = {};
             for (var i = 0; i < oddsList.length; i++) {
                 var odds = oddsList[i];
                 if (odds.lotteryMarkSixType == "SPECIAL") {
@@ -641,9 +641,14 @@ app.controller("IndexController", function ($scope, commonService,
                 else if (odds.lotteryMarkSixType == "TAIL_NUM") {
                     tailNumOddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
                 }
+                else if (odds.lotteryMarkSixType == "TWO_FACES") {
+                	twoFacesOddsMap[odds.lotteryBallType] = odds.odds;
+                }
             }
             // 获取特码数据
             $scope.tailItems = tailBallService.getTailItems(oddsMap);
+            // 两面
+            $scope.twoFacesOddsMap = twoFacesOddsMap;
             // 获取生肖数据
             $scope.zodiacItems = zodiacService.getZodiacItems(oddsMap);
             // 色波
@@ -820,7 +825,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 生肖色波下注
-        else if ($scope.selectedIndex == 1) {
+        else if ($scope.selectedIndex == 2) {
             // 组装下注对象
             var wagerList = [];
             for (var zodiac in $scope.selectedBalls) {
@@ -864,7 +869,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 半波下注
-        else if ($scope.selectedIndex == 2) {
+        else if ($scope.selectedIndex == 3) {
             // 组装下注对象
             var wagerList = [];
             for (var type in $scope.selectedBalls) {
@@ -895,7 +900,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 合肖下注
-        else if ($scope.selectedIndex == 3) {
+        else if ($scope.selectedIndex == 4) {
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
@@ -929,7 +934,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 正码下注
-        else if ($scope.selectedIndex == 4) {
+        else if ($scope.selectedIndex == 5) {
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
@@ -962,7 +967,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 正码1-6下注
-        else if ($scope.selectedIndex == 5) {
+        else if ($scope.selectedIndex == 6) {
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ballNum in $scope.selectedBalls) {
@@ -997,7 +1002,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 正码特下注
-        else if ($scope.selectedIndex == 6) {
+        else if ($scope.selectedIndex == 7) {
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
@@ -1030,7 +1035,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 连码下注
-        else if ($scope.selectedIndex == 7) {
+        else if ($scope.selectedIndex == 8) {
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
@@ -1063,7 +1068,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 自选不中下注
-        else if ($scope.selectedIndex == 8) {
+        else if ($scope.selectedIndex == 9) {
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
@@ -1096,7 +1101,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 过关
-        else if ($scope.selectedIndex == 9) {
+        else if ($scope.selectedIndex == 10) {
             // 组装下注对象
             var lotteryMarkSixWagerStubList = [];
             for (var ball in $scope.selectedBalls) {
@@ -1134,7 +1139,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 一肖尾数下注
-        else if ($scope.selectedIndex == 10) {
+        else if ($scope.selectedIndex == 11) {
             // 组装下注对象
             // 一肖
             var lotteryMarkSixWagerStubList = [];
@@ -1194,7 +1199,7 @@ app.controller("IndexController", function ($scope, commonService,
             }
         }
         // 连肖下注
-        else if ($scope.selectedIndex == 11){
+        else if ($scope.selectedIndex == 12){
         	var lotteryMarkSixWagerStubList = [];
         	for(var i=0;i<$scope.jointZodiacList.length;i++){
         		lotteryMarkSixWagerStubList.push({

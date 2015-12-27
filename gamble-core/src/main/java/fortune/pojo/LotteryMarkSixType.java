@@ -53,13 +53,22 @@ public enum LotteryMarkSixType {
     ZHENG_SPECIFIC_6("正码特6"), 
 
     ZHENG_1_6("正码1到6"),
+    
+    // 正码1-6，两面会用到
     DAN("单"),
     SHUANG("双"),
     DA("大"),
-    ZHONG("中"),
     XIAO("小"),
     HEDAN("合单"),
     HESHUANG("合双"),
+    HEDA("合大"),
+    HEXIAO("合小"),
+    WEIDA("尾大"),
+    WEIXIAO("尾小"),
+    HEWEIDA("合尾大"),
+    HEWEIXIAO("合尾小"),
+    JIAQIN("家禽"),
+    YESHOU("野兽"),
     
     JOINT_3_ALL("三全中"),
     JOINT_3_2("三中二"),
@@ -90,23 +99,25 @@ public enum LotteryMarkSixType {
     
     JOINT_ZODIAC_PING("连肖（平肖）"), //没有包含本年生肖
     JOINT_ZODIAC_ZHENG("连肖（正肖）"), //包含本年生肖
-        
     
+    TWO_FACE("两面"),
+        
     
     ////////////////////////DELETED BELOW//////////////////
     /* 下面的这些类别还没用到 */
+    @Deprecated
     NUMBER("数字"),
-
-    HEDA("合大"),
-    HEXIAO("合小"),
+    @Deprecated
+    ZHONG("中"),
+    @Deprecated
     SPECIAL_WEIDA("特尾大"),
+    @Deprecated
     SPECIAL_WEIXIAO("特尾小"),
+    @Deprecated
     SPECIAL_HEWEIDA("合尾大"),
+    @Deprecated
     SPECIAL_HEWEIXIAO("合尾小"),
-    JIAQIN("家禽"),
-    YESHOU("野兽"),
-    WEIDA("尾大"),
-    WEIXIAO("尾小"),
+    
 
     ONE_DAN("正码一单"),
     ONE_SHUANG("正码一双"),
@@ -162,15 +173,25 @@ public enum LotteryMarkSixType {
     SIX_HEDAN("正码六合单"),
     SIX_HESHUANG("正码六合双"),
 
+    @Deprecated
     SPECIAL_DAN("正码特单"),
+    @Deprecated
     SPECIAL_SHUANG("正码特双"),
+    @Deprecated
     SPECIAL_DA("正码特大"),
+    @Deprecated
     SPECIAL_XIAO("正码特小"),
+    @Deprecated
     SPECIAL_HONGBO("正码特红波"),
+    @Deprecated
     SPECIAL_LVBO("正码特绿波"),
+    @Deprecated
     SPECIAL_HEDAN("正码特合单"),
+    @Deprecated
     SPECIAL_HESHUANG("正码特合双"),
+    @Deprecated
     SPECIAL_HEDA("正码特合大"),
+    @Deprecated
     SPECIAL_HEXIAO("正码特合小");
 
 
@@ -184,6 +205,7 @@ public enum LotteryMarkSixType {
         return this.type;
     }
 
+    @Deprecated
     public static List<LotteryMarkSixType> getRealTimeSpecialTypeList() {
         return Arrays.asList(
                 SPECIAL_DAN,
@@ -236,6 +258,7 @@ public enum LotteryMarkSixType {
                 WAVE_GREEN_XIAO);
     }
 
+    @Deprecated
     public static List<LotteryMarkSixType> getRealTimeSpecialTailTypeList() {
         return Arrays.asList(
                 SPECIAL_WEIDA,
