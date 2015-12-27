@@ -84,6 +84,17 @@ public class StatController {
     }
     
     /**
+     * 获取所有即时注单的统计信息
+     *
+     */
+    @RequestMapping(value = "realtime/transaction_result/all/groupid/{groupid}/pan/{panlei}/issue/{issue}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<RealtimeStat> getRealTimeTransactionAllStats(@PathVariable("groupid") String groupId, @PathVariable("panlei") String panlei, @PathVariable("issue") int issue) {
+        return statService.getRealTimeTransactionAllStats(groupId, panlei, issue);
+    }
+    
+    /**
      * 获取某个类型的注单的详细列表
      * 
      * @param type

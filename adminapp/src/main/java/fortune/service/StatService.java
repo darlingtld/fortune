@@ -1,22 +1,34 @@
 package fortune.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Lists;
-import common.Utils;
-import fortune.dao.StatDao;
-import fortune.pojo.*;
-import org.hibernate.jpa.criteria.expression.function.AggregationFunction;
+import static fortune.pojo.LotteryMarkSixType.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
+import com.google.common.util.concurrent.AtomicDouble;
 
-import static fortune.pojo.LotteryMarkSixType.*;
+import common.Utils;
+import fortune.dao.StatDao;
+import fortune.pojo.LotteryMarkSix;
+import fortune.pojo.LotteryMarkSixGroupStat;
+import fortune.pojo.LotteryMarkSixType;
+import fortune.pojo.LotteryMarkSixWager;
+import fortune.pojo.LotteryMarkSixWagerStub;
+import fortune.pojo.LotteryOdds;
+import fortune.pojo.RealTimeWager;
+import fortune.pojo.RealtimeStat;
 
 /**
  * Created by tangl9 on 2015-11-03.
@@ -1263,6 +1275,64 @@ public class StatService {
         JSONObject json = new JSONObject();
         json.putAll(transactionMap);
         return json;
+    }
+    
+    @Transactional
+    public List<RealtimeStat> getRealTimeTransactionAllStats(String groupId, String panlei, int issue) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerListOfGroup(groupId, panlei, issue);
+        
+        // initialize count map for all types
+        Map<String, AtomicInteger> transactionMap = new HashMap<>();
+        Map<String, AtomicDouble> stakesMap = new HashMap<>();
+        getTypeList4AllStats().stream().forEach(type -> {
+            transactionMap.put(type.name(), new AtomicInteger(0));
+            stakesMap.put(type.name(), new AtomicDouble(0));
+        });
+
+        for (LotteryMarkSixWager wager : wagerList) {
+            if (transactionMap.containsKey(wager.getLotteryMarkSixType().name())) {
+                int transactionNum = 0;
+                double stakes = 0.0;
+                switch (wager.getLotteryMarkSixType()) {
+                    case JOINT_3_ALL:
+                    case JOINT_3_2:
+                    case JOINT_2_ALL:
+                    case JOINT_2_SPECIAL:
+                    case JOINT_SPECIAL:
+                    case NOT_5:
+                    case NOT_6:
+                    case NOT_7:
+                    case NOT_8:
+                    case NOT_9:
+                    case NOT_10:
+                    case NOT_11:
+                    case NOT_12:
+                        transactionNum = 1;
+                        stakes = wager.getTotalStakes();
+                        break;
+                    default:
+                        transactionNum = wager.getLotteryMarkSixWagerStubList().size();
+                        for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                            stakes = wager.getTotalStakes();
+                        }
+                       
+                }
+                
+                transactionMap.get(wager.getLotteryMarkSixType().name()).addAndGet(transactionNum);
+                stakesMap.get(wager.getLotteryMarkSixType().name()).addAndGet(stakes);
+            }
+        }
+        
+        List<RealtimeStat> statsList = Lists.newArrayList();
+        getTypeList4AllStats().stream().forEach(type -> {
+            RealtimeStat stat = new RealtimeStat();
+            stat.setLotteryMarkSixType(type.name());
+            stat.setLotteryMarkSixTypeName(type.getType());
+            stat.setTransactions(transactionMap.get(type.name()).get());
+            stat.setStakes(stakesMap.get(type.name()).get());
+            statsList.add(stat);
+        });
+        return statsList;
     }
 
     private boolean isPanleiAll(String panlei) {

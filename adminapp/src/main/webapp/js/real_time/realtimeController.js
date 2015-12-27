@@ -424,6 +424,22 @@ angular.module('AdminApp')
                 $scope.statList = data;
             });
         }
+        
+        function renderAll() {
+            $scope.allStatsTotalTransactions = 0;
+            $scope.allStatsTotalStakes = 0;
+            
+            realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
+                realtimeService.getRealTimeTransactionAllStats(sessionStorage['pgroupid'], $scope.selectedPan.name, $scope.lotteryMarkSixInfo.issue).then(function (data) {
+                    for (var i = 0; i < data.length; i ++) {
+                        $scope.allStatsTotalTransactions += data[i].transactions;
+                        $scope.allStatsTotalStakes += data[i].stakes;
+                    }
+                    
+                    $scope.allStats = data;
+                });
+            });
+        }
 
         $scope.zhengSpecificGoto = function(page) {
             var ele = $(event.target);
@@ -524,6 +540,9 @@ angular.module('AdminApp')
                     break;
                 case 'not':
                     $scope.notGoto('not_top');
+                    break;
+                case 'all':
+                    renderAll();
                     break;
             }
         }

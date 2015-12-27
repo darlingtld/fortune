@@ -1,0 +1,28 @@
+<div class="real-time-align-left">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>项目</th>
+                    <th>下注笔数</th>
+                    <th>下注金额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="stat in allStats">
+                    <td ng-bind="stat.lotteryMarkSixTypeName"></td>
+                    <td>
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{stat.lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0"><span
+                            ng-bind="stat.transactions"></span></a>
+                    </td>
+                    <td ng-bind="stat.stakes"></td>
+                </tr>
+                <tr>
+                    <td><strong>合计</strong></td>
+                    <td><strong ng-bind="allStatsTotalTransactions"></strong></td>
+                    <td><strong ng-bind="allStatsTotalStakes"></strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

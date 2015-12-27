@@ -56,4 +56,13 @@ angular.module('AdminApp')
             });
             return deferred.promise;
         };
+        
+        this.getRealTimeTransactionAllStats = function (groupid, panlei, issue) {
+            var deferred = $q.defer();
+            $http.get('stat/realtime/transaction_result/all/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+        
     })
