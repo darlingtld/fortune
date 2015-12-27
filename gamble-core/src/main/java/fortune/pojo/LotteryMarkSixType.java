@@ -88,10 +88,9 @@ public enum LotteryMarkSixType {
     ONE_ZODIAC("一肖"),
     TAIL_NUM("尾数"), // ballNumber表示是几尾
     
-    
-    
-    
-    
+    JOINT_ZODIAC_PING("连肖（平肖）"), //没有包含本年生肖
+    JOINT_ZODIAC_ZHENG("连肖（正肖）"), //包含本年生肖
+        
     
     
     ////////////////////////DELETED BELOW//////////////////

@@ -1,0 +1,23 @@
+<div style="margin-left:50px;margin-top:15px;margin-bottom:15px;">
+	<label for="jointLotteryStakes">注数：</label><input type="text" id="jointLotteryStakes" class="stakes_input" ng-model="otherParams.stakes" ng-pattern="/^\d+$/"/>
+</div>
+<table>
+	<tr>
+		<th>生肖</th>
+		<th>号码</th>
+		<th>赔率</th>
+		<th>选择(2~5个)</th>
+	</tr>
+	<tr ng-repeat="zodiacItem in zodiacItems">
+		<td>{{zodiacItem.name}}</td>
+		<td>
+			<div ng-repeat="ball in zodiacItem.balls"
+				class="ball {{colorMap[ball]}}">{{ball}}</div>
+		</td>
+		<td>{{jointZodiacOddsMap[zodiacItem.id]}}</td>
+		<td>
+			<input type="checkbox" ng-click="chooseJointZodiac($event, zodiacItem.id);" ng-checked="isCheckedJointZodiac(zodiacItem.id);"/>
+		</td>
+	</tr>
+</table>
+<div class="clear"></div>
