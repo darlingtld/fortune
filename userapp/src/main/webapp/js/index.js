@@ -1217,7 +1217,7 @@ app.controller("IndexController", function ($scope, commonService,
             $scope.confirmDialogHTML = html;
             // 对话框确认
             $scope.isConfirmDialogVisible = true;
-            $scope.confirmDialogTitle = "下注类型为连肖，请确认：";
+            $scope.confirmDialogTitle = "下注类型为连肖（"+lotteryMarkSixWagerStubList.length+"肖），请确认：";
             // 确认下注
             $scope.confirmDialog = function () {
                 $scope.isConfirmDialogVisible = false;

@@ -226,6 +226,34 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
     		getStakes: function(wage){
     			return wage.totalStakes;
     		}
+    	},
+    	'JOINT_ZODIAC_PING': {
+    		typeName: '连肖',
+    		getWageHTML: function(wage){
+    			var html='（平肖）', wageSubList=wage.lotteryMarkSixWagerStubList;
+    			for(var i=0;i<wageSubList.length;i++){
+    				var item=wageSubList[i].lotteryMarkSixType;
+    				html+='<span style="margin-right:10px;">'+zodiacTypeMap[item]+'</span>';
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
+    	},
+    	'JOINT_ZODIAC_ZHENG': {
+    		typeName: '连肖',
+    		getWageHTML: function(wage){
+    			var html='（正肖）', wageSubList=wage.lotteryMarkSixWagerStubList;
+    			for(var i=0;i<wageSubList.length;i++){
+    				var item=wageSubList[i].lotteryMarkSixType;
+    				html+='<span style="margin-right:10px;">'+zodiacTypeMap[item]+'</span>';
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
     	}
     };
     
@@ -234,7 +262,13 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
             $http.get('gamble/wage_record/' + user.id + '/pgroup/' + pgroup.id + '/lottery_issue/' + issue).success(function (data) {
             	$scope.wageHistory=[];
                 for(var i=0;i<data.length;i++){
-                	var prefix=data[i].lotteryMarkSixType.split('_')[0], mapItem=prefixHistoryMap[prefix];
+                	var prefix=data[i].lotteryMarkSixType.split('_')[0];
+                	if(prefix === 'JOINT'){
+                		if(data[i].lotteryMarkSixType === 'JOINT_ZODIAC_PING' || data[i].lotteryMarkSixType === 'JOINT_ZODIAC_ZHENG'){
+                			prefix = data[i].lotteryMarkSixType;
+                		}
+                	}
+                	var mapItem=prefixHistoryMap[prefix];
                 	if(mapItem){
                 		$scope.wageHistory.push({
                 			typeName: (typeof mapItem.typeName=='string' ? mapItem.typeName: mapItem.typeName(data[i])),
