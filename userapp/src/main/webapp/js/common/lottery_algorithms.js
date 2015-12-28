@@ -101,10 +101,10 @@ var zodiacTypeMap={
 
 // 两面类型表
 var twoFaceTypeMap={
-	DAN: "单",
-    SHUANG: "双",
-    DA: "大",
-    XIAO: "小",
+	DAN: "特单",
+    SHUANG: "特双",
+    DA: "特大",
+    XIAO: "特小",
     HEDAN: "合单",
     HESHUANG: "合双",
     HEDA: "合大",
