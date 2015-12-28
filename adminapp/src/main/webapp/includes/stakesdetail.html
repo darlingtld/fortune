@@ -2,12 +2,12 @@
     <table>
         <thead>
         <tr>
-            <th>单号/时间</th>
-            <th>会员/退水</th>
-            <th>盘类/期数/开奖日期</th>
+            <th>单号 / 时间</th>
+            <th>会员 / 退水</th>
+            <th>盘类 / 期数 / 开奖日期</th>
             <th>下注内容</th>
-            <th>下注金额</th>
             <th>赔率</th>
+            <th>下注金额</th>
             <th>退水</th>
             <th>结果</th>
             <th>备注</th>
@@ -16,12 +16,17 @@
         <tbody>
         <tr ng-repeat="wager in wagerList">
             <td ng-bind="wager.ts | date : 'yyyy-MM-dd HH:mm:ss'"></td>
-            <td><span ng-bind="wager.user.username"></span>/<span ng-bind="wager.tuishui"></span></td>
-            <td><span ng-bind="wager.panlei"></span>盘/<span ng-bind="wager.issue"></span>/<span
-                    ng-bind="wager.openTs | date : 'yyyy-MM-dd HH:mm:ss'"></span></td>
+            <td>
+                <a href="javascript:void(0)" ng-bind="wager.user.username"></a> / 
+                <span style="color:green" ng-bind="wager.tuishui"></span></td>
+            <td>
+                <span ng-bind="wager.panlei"></span>盘 / 
+                <span ng-bind="wager.issue"></span>期 / 
+                <span style="color:green" ng-bind="wager.openTs | date : 'yyyy-MM-dd'"></span>
+            </td>
             <td ng-bind="wager.wageContent"></td>
-            <td ng-bind="wager.stakes"></td>
             <td ng-bind="wager.odds"></td>
+            <td ng-bind="wager.stakes"></td>
             <td ng-bind="wager.tuishui2"></td>
             <td ng-bind="wager.result"></td>
             <td ng-bind="wager.remark"></td>

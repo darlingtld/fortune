@@ -1,4 +1,4 @@
-<div class="real-time-dashboard real-time-joint-stat">
+<div class="real-time-dashboard real-time-joint">
     <div>
         <table>
             <thead>
@@ -9,13 +9,14 @@
                 <tr><td colspan="2">最低<span ng-bind="stats.joint3AllOdds"></span></td></tr>
                 <tr><td colspan="2" ng-bind="stats.joint3AllTransactions"></td></tr>
                 
-                <tr ng-repeat="rt in joint3AllList">
+                <tr ng-if="joint3AllList.length > 0" ng-repeat="rt in joint3AllList">
                     <td ng-bind="rt.numStr"></td>
                     <td>
                         <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_3_all/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>
+                <tr ng-if="joint3AllList.length == 0"><td colspan="2">无</td></tr>
             </tbody>
         </table>
     </div>
@@ -37,13 +38,14 @@
                     <td colspan="2" ng-bind="stats.joint32Transactions"></td>
                 </tr>
                 
-                <tr ng-repeat="rt in joint32List">
+                <tr ng-if="joint32List.length > 0" ng-repeat="rt in joint32List">
                     <td ng-bind="rt.numStr"></td>
                     <td>
                         <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_3_2/issue/{{lotteryMarkSixInfo.issue}}/content/{{rt.number}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>
+                <tr ng-if="joint32List.length == 0"><td colspan="2">无</td></tr>
             </tbody>
         </table>
     </div>
@@ -59,13 +61,14 @@
                     <td colspan="2" ng-bind="stats.joint2AllTransactions"></td>
                 </tr>
                 
-                <tr ng-repeat="rt in joint2AllList">
+                <tr ng-if="joint2AllList.length > 0" ng-repeat="rt in joint2AllList">
                     <td ng-bind="rt.numStr"></td>
                     <td>
                         <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_2_all/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>
+                <tr ng-if="joint2AllList.length == 0"><td colspan="2">无</td></tr>
             </tbody>
         </table>
     </div>
@@ -87,13 +90,14 @@
                     <td colspan="2" ng-bind="stats.joint2SpecialTransactions"></td>
                 </tr>
                 
-                <tr ng-repeat="rt in joint2SpecialList">
+                <tr ng-if="joint2SpecialList.length > 0" ng-repeat="rt in joint2SpecialList">
                     <td ng-bind="rt.numStr"></td>
                     <td>
                         <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_2_special/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>
+                <tr ng-if="joint2SpecialList.length == 0"><td colspan="2">无</td></tr>
             </tbody>
         </table>
     </div>
@@ -109,13 +113,14 @@
                     <td colspan="2" ng-bind="stats.jointSpecialTransactions"></td>
                 </tr>
                 
-                <tr ng-repeat="rt in jointSpecialList">
+                <tr ng-if="jointSpecialList.length > 0" ng-repeat="rt in jointSpecialList">
                     <td ng-bind="rt.numStr"></td>
                     <td>
                         <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_special/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>
+                <tr ng-if="jointSpecialList.length == 0"><td colspan="2">无</td></tr>
             </tbody>
         </table>
     </div>

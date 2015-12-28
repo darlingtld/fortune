@@ -1,0 +1,38 @@
+
+<div class="real-time-dashboard real-time-joint-zodiac">
+    <div ng-repeat="column in ['二肖', '三肖', '四肖', '五肖']">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2" ng-bind="column"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <table>
+                            <tbody>
+                                <tr ng-repeat="row in odds.jointZodiacPing" style="background-color:white">
+                                    <td ng-repeat="zodiac in row">
+                                        <span ng-bind="zodiacNames[zodiac.lotteryBallType.toLowerCase()]"></span>&nbsp;<span ng-bind="zodiac.odds" style="color: red"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" ng-bind="totalStakesMap[column]"></td>
+                </tr>
+                <tr ng-if="statMap[column].length > 0" ng-repeat="stat in statMap[column]">
+                    <td>
+                        <a ng-bind="stat.wagerContent" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{stat.lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{stat.wagerContent}}"></a>
+                    </td>
+                    <td ng-bind="stat.stakes"></td>
+                </tr>
+                <tr ng-if="statMap[column].length == 0"><td colspan="2">无</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

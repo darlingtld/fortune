@@ -291,6 +291,26 @@ angular.module('AdminApp')
                 jointSpecialOdds: 0
             };
             
+            realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
+                //TODO panlei
+                var panlei = $scope.selectedPan.name == 'ALL' ? 'A' : $scope.selectedPan.name;
+                oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, 'joint_3_all').then(function(oddsList) {
+                    $scope.stats.joint3AllOdds = oddsList[0].odds;
+                });
+                oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, 'joint_3_2').then(function(oddsList) {
+                    $scope.stats.joint32Odds = oddsList[0].odds;
+                });
+                oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, 'joint_2_all').then(function(oddsList) {
+                    $scope.stats.joint2AllOdds = oddsList[0].odds;
+                });
+                oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, 'joint_2_special').then(function(oddsList) {
+                    $scope.stats.joint2SpecialOdds = oddsList[0].odds;
+                });
+                oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, 'joint_special').then(function(oddsList) {
+                    $scope.stats.jointSpecialOdds = oddsList[0].odds;
+                });
+            });
+            
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_3_all', $scope.selectedPan.name).then(function (data) {
                 for (var i = 0; i < data.length; i++) {
                     $scope.stats.joint3AllTransactions += data[i].transactions;
@@ -304,9 +324,6 @@ angular.module('AdminApp')
                 }
                 
                 $scope.joint3AllList = data;
-                
-                //FIXME get odds by sending requests
-                $scope.stats.joint3AllOdds = data[0].odds;
             });
             
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_3_2', $scope.selectedPan.name).then(function (data) {
@@ -322,7 +339,6 @@ angular.module('AdminApp')
                 }
                 
                 $scope.joint32List = data;
-                $scope.stats.joint32Odds = data[0].odds;
             });
             
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_2_all', $scope.selectedPan.name).then(function (data) {
@@ -338,7 +354,6 @@ angular.module('AdminApp')
                 }
                 
                 $scope.joint2AllList = data;
-                $scope.stats.joint2AllOdds = data[0].odds;
             });
             
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_2_special', $scope.selectedPan.name).then(function (data) {
@@ -354,7 +369,6 @@ angular.module('AdminApp')
                 }
                 
                 $scope.joint2SpecialList = data;
-                $scope.stats.joint2SpecialOdds = data[0].odds;
             });
             
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_special', $scope.selectedPan.name).then(function (data) {
@@ -370,7 +384,6 @@ angular.module('AdminApp')
                 }
                 
                 $scope.jointSpecialList = data;
-                $scope.stats.jointSpecialOdds = data[0].odds;
             });
         }
         
@@ -423,6 +436,50 @@ angular.module('AdminApp')
                 
                 $scope.statList = data;
             });
+        }
+        
+        function renderJointZodiac() {
+            $scope.notNameMap = {5:'五', 6:'六', 7:'七', 8:'八', 9:'九', 10:'十', 11:'十一', 12:'十二'};
+            
+            $scope.odds = {
+                jointZodiacPing: [],
+                jointZodiacZheng: []
+            }
+            
+            realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
+                //TODO panlei, fix odds
+                var panlei = $scope.selectedPan.name == 'ALL' ? 'A' : $scope.selectedPan.name;
+                oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, 'joint_zodiac_ping').then(function(oddsList) {
+                    $scope.odds.jointZodiacPing[0] = oddsList.slice(0,3);
+                    $scope.odds.jointZodiacPing[1] = oddsList.slice(3,6);
+                    $scope.odds.jointZodiacPing[2] = oddsList.slice(6,9);
+                });
+               
+            });
+            
+            realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_zodiac_ping', $scope.selectedPan.name).then(function (pingList) {
+                
+                realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'joint_zodiac_zheng', $scope.selectedPan.name).then(function (zhengList) {
+                    var statMap = {'二肖':[], '三肖':[], '四肖':[], '五肖':[]};
+                    var allList = pingList.concat(zhengList);
+                    for (var i = 0; i < allList.length; i ++) {
+                        var stat = allList[i];
+                        statMap[stat.lotteryMarkSixTypeName].push(stat);
+                    }
+                    
+                    var totalStakesMap = {'二肖':0, '三肖':0, '四肖':0, '五肖':0};
+                    for (key in totalStakesMap) {
+                        var statList = statMap[key];
+                        for (var i = 0; i < statList.length; i ++) {
+                            totalStakesMap[key] += statList[i].stakes;
+                        }
+                    }
+                    
+                    $scope.statMap = statMap;
+                    $scope.totalStakesMap = totalStakesMap;
+                });
+            });
+            
         }
         
         function renderAll() {
@@ -517,6 +574,12 @@ angular.module('AdminApp')
                 tmpSum += $scope.transactionTotalCount.NOT_11;
                 tmpSum += $scope.transactionTotalCount.NOT_12;
                 $scope.transactionTotalCount.NOT_TOTAL = tmpSum;
+                
+                // joint zodiac
+                tmpSum = 0;
+                tmpSum += $scope.transactionTotalCount.JOINT_ZODIAC_ZHENG;
+                tmpSum += $scope.transactionTotalCount.JOINT_ZODIAC_PING;
+                $scope.transactionTotalCount.JOINT_ZODIAC_TOTAL = tmpSum;
             });
             
             switch (page) {
@@ -540,6 +603,9 @@ angular.module('AdminApp')
                     break;
                 case 'not':
                     $scope.notGoto('not_top');
+                    break;
+                case 'joint_zodiac':
+                    renderJointZodiac();
                     break;
                 case 'all':
                     renderAll();

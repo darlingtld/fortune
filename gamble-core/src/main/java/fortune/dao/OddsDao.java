@@ -49,9 +49,9 @@ public class OddsDao {
     public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type, LotteryMarkSixType ballType, String panlei) {
         Criteria criteria = null;
         if (ballType != null) {
-            criteria = Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei));
-        } else {
             criteria = Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei), Criteria.where("lotteryBallType").is(ballType));
+        } else {
+            criteria = Criteria.where("lotteryIssue").is(lotteryIssue).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei));
         }
         Query query = new Query(criteria);
         return mongoTemplate.findOne(query, LotteryOdds.class);

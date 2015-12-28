@@ -45,20 +45,22 @@
     /*width: 0px;*/
 }
 
-.real-time-joint-stat > div {
+.real-time-joint {
+    margin-top: 20px;
+    background-color: white;
+}
+
+.real-time-joint > div {
     width: 300px;
 }
 
-.real-time-joint-stat > table {
-    min-height: 500px;
+.real-time-joint table {
+    margin-top: 0px;
+    border: 0px solid white;
 }
 
-.real-time-joint-stat tbody > tr:nth-child(n+1):nth-child(-n+3) {
-    background: #fff6d7;
-}
-
-.real-time-joint-stat tbody > tr:nth-child(3) {
-    border-bottom: 1px solid #1FADFB;
+.real-time-joint tbody > tr:nth-child(3) {
+    border-bottom: 2px solid #1FADFB;
 }
 
 .real-time-zheng-1-6 table th, .real-time-zheng-1-6 table td {
@@ -69,13 +71,13 @@
     width: 300px;
 }
 
-.real-time-not-top > div {
-    width: 300px;
-}
-
 .real-time-not-top {
     margin-top: 20px;
     background-color: white;
+}
+
+.real-time-not-top > div {
+    width: 300px;
 }
 
 .real-time-not-top table {
@@ -84,6 +86,23 @@
 }
 
 .real-time-not-top tbody > tr:nth-child(2) {
-    border-bottom: 1px solid #1FADFB;
+    border-bottom: 2px solid #1FADFB;
 }
 
+.real-time-joint-zodiac {
+    margin-top: 20px;
+    background-color: white;
+}
+
+.real-time-joint-zodiac > div {
+    width: 300px;
+}
+
+.real-time-joint-zodiac > div > table {
+    margin-top: 0px;
+    border: 0px solid white;
+}
+
+.real-time-joint-zodiac > div > table > tbody > tr:nth-child(2) {
+    border-bottom: 2px solid #1FADFB;
+}

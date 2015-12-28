@@ -119,4 +119,13 @@ public class StatController {
         return statService.getStakeDetail(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase(), issue, number, subtype, content);
     }
     
+    @RequestMapping(value = "realtime/stake_detail/{type}/groupid/{groupid}/pan/{panlei}/issue/{issue}", method = RequestMethod.GET)
+    public @ResponseBody List<RealTimeWager> getAllStakeDetail4Type(
+            @PathVariable("type") String type,
+            @PathVariable("groupid") String groupId, 
+            @PathVariable("panlei") String panlei,
+            @PathVariable("issue") int issue) {
+        return statService.getAllStakeDetail4Type(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase(), issue);
+    }
+    
 }

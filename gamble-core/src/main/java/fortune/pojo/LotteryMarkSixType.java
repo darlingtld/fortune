@@ -100,6 +100,12 @@ public enum LotteryMarkSixType {
     JOINT_ZODIAC_PING("连肖（平肖）"), //没有包含本年生肖
     JOINT_ZODIAC_ZHENG("连肖（正肖）"), //包含本年生肖
     
+    // 用于连肖统计
+    JOINT_ZODIAC_2("二肖"), 
+    JOINT_ZODIAC_3("三肖"), 
+    JOINT_ZODIAC_4("四肖"), 
+    JOINT_ZODIAC_5("五肖"), 
+    
     TWO_FACES("两面"),
         
     
