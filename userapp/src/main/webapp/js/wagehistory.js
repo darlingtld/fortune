@@ -254,6 +254,26 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
     		getStakes: function(wage){
     			return wage.totalStakes;
     		}
+    	},
+    	'TWO': {
+    		typeName: '两面',
+    		getWageHTML: function(wage){
+    			var html='', wageSubList=wage.lotteryMarkSixWagerStubList;
+    			for(var i=0;i<wageSubList.length;i++){
+    				var type=wageSubList[i].lotteryMarkSixType;
+    				html+='<span style="margin-right:10px;">'+twoFaceTypeMap[type]+'</span>';
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			var wageList=wage.lotteryMarkSixWagerStubList, stakes=wage.totalStakes+'(';
+    			for(var i=0;i<wageList.length;i++){
+    				var stake=wageList[i].stakes;
+    				stakes+=stake+',';
+    			}
+    			stakes=stakes.substring(0,stakes.length-1)+')';
+    			return stakes;
+    		}
     	}
     };
     
