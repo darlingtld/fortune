@@ -64,6 +64,9 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
                     else if (odds.lotteryMarkSixType == "TAIL_NUM") {
                     	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds;
                     }
+                    else if (odds.lotteryMarkSixType == "TWO_FACES") {
+                    	$scope.oddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallType] = odds;
+                    }
                     console.log($scope.oddsMap);
                 }
             });

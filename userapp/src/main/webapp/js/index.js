@@ -188,6 +188,23 @@ app.service("commonService", function ($q, $http) {
                 }
             }
         }
+        else if (wage.lotteryMarkSixType == "TWO_FACES") {
+        	var subList = wage.lotteryMarkSixWagerStubList;
+            if (subList.length == 0) {
+                scope.wageError = "请选择下注！";
+                return false;
+            }
+            else {
+                for (var i = 0; i < subList.length; i++) {
+                    var stakes = subList[i].stakes;
+                    if (isNaN(stakes) || stakes <= 0) {
+                        scope.wageError = "下注的注数必须为正整数！";
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         return true;
     };
     // 多个下注校验
@@ -549,10 +566,21 @@ app.service("jointZodiacService", function ($q, $http, $sce) {
     };
 });
 
+// 两面相关
+app.service("twoFacesService", function($q, $http, $sce) {
+	this.renderWageConfirmHTML = function (wager) {
+        var wagerList = wager.lotteryMarkSixWagerStubList, stakes = wager.totalStakes, html = "";
+        for (var i = 0; i < wagerList.length; i++) {
+            html += twoFaceTypeMap[wagerList[i].lotteryMarkSixType]+" <span style='color:red'>(下注金额：" + wagerList[i].stakes + ")</span><br/>";
+        }
+        return $sce.trustAsHtml(html);
+    };
+});
+
 app.controller("IndexController", function ($scope, commonService,
                                             zodiacService, tailBallService, halfWaveService, sumZodiacService, zhengBallService,
                                             jointBallService, notBallService, passBallService, zodiacTailService,
-                                            jointZodiacService) {
+                                            jointZodiacService, twoFacesService) {
     if (!sessionStorage["userid"]) {
         location.href = "login.html";
     }
@@ -818,6 +846,39 @@ app.controller("IndexController", function ($scope, commonService,
             // 对话框确认
             $scope.isConfirmDialogVisible = true;
             $scope.confirmDialogTitle = "下注类型为特码，请确认：";
+            // 确认下注
+            $scope.confirmDialog = function () {
+                $scope.isConfirmDialogVisible = false;
+                commonService.wage(wager, $scope);
+            }
+        }
+        // 两面下注
+        else if ($scope.selectedIndex == 1) {
+        	// 组装下注对象
+            var lotteryMarkSixWagerStubList = [];
+            for (var type in $scope.selectedBalls) {
+                if ($scope.selectedBalls[type] != "") {
+                    lotteryMarkSixWagerStubList.push({
+                    	lotteryMarkSixType: type,
+                        stakes: parseInt($scope.selectedBalls[type])
+                    });
+                }
+            }
+            var wager = {
+                userId: $scope.user.id,
+                pgroupId: $scope.selectedPGroup.id,
+                panlei: $scope.selectedPan,
+                lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
+                lotteryMarkSixType: "TWO_FACES"
+            };
+            if (!commonService.validateWage(wager, $scope)) {
+                return;
+            }
+            var html = twoFacesService.renderWageConfirmHTML(wager);
+            $scope.confirmDialogHTML = html;
+            // 对话框确认
+            $scope.isConfirmDialogVisible = true;
+            $scope.confirmDialogTitle = "下注类型为两面，请确认：";
             // 确认下注
             $scope.confirmDialog = function () {
                 $scope.isConfirmDialogVisible = false;
