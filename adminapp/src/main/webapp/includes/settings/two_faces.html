@@ -1,0 +1,153 @@
+<table>
+	<tr>
+		<th>半波</th>
+		<th>赔率</th>
+		<th>操作</th>
+		<th>半波</th>
+		<th>赔率</th>
+		<th>操作</th>
+		<th>半波</th>
+		<th>赔率</th>
+		<th>操作</th>
+		<th>半波</th>
+		<th>赔率</th>
+		<th>操作</th>
+	</tr>
+	<tr>
+		<td>特单</td>
+		<td ng-bind="oddsMap['TWO_FACES#DAN'].odds" id="{{oddsMap['TWO_FACES#DAN'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#DAN'].id, oddsMap['TWO_FACES#DAN'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>特双</td>
+		<td ng-bind="oddsMap['TWO_FACES#SHUANG'].odds" id="{{oddsMap['TWO_FACES#SHUANG'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#SHUANG'].id, oddsMap['TWO_FACES#SHUANG'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>特大</td>
+		<td ng-bind="oddsMap['TWO_FACES#DA'].odds" id="{{oddsMap['TWO_FACES#DA'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#DA'].id, oddsMap['TWO_FACES#DA'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>特小</td>
+		<td ng-bind="oddsMap['TWO_FACES#XIAO'].odds" id="{{oddsMap['TWO_FACES#XIAO'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#XIAO'].id, oddsMap['TWO_FACES#XIAO'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
+	<tr>
+		<td>蓝单</td>
+		<td ng-bind="oddsMap['WAVE_BLUE_DAN'].odds" id="{{oddsMap['WAVE_BLUE_DAN'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['WAVE_BLUE_DAN'].id, oddsMap['WAVE_BLUE_DAN'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>蓝双</td>
+		<td ng-bind="oddsMap['WAVE_BLUE_SHUANG'].odds" id="{{oddsMap['WAVE_BLUE_SHUANG'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['WAVE_BLUE_SHUANG'].id, oddsMap['WAVE_BLUE_SHUANG'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>蓝大</td>
+		<td ng-bind="oddsMap['WAVE_BLUE_DA'].odds" id="{{oddsMap['WAVE_BLUE_DA'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['WAVE_BLUE_DA'].id, oddsMap['WAVE_BLUE_DA'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>蓝小</td>
+		<td ng-bind="oddsMap['WAVE_BLUE_XIAO'].odds" id="{{oddsMap['WAVE_BLUE_XIAO'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['WAVE_BLUE_XIAO'].id, oddsMap['WAVE_BLUE_XIAO'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
+	<tr>
+		<td>合单</td>
+		<td ng-bind="oddsMap['TWO_FACES#HEDAN'].odds" id="{{oddsMap['TWO_FACES#HEDAN'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#HEDAN'].id, oddsMap['TWO_FACES#HEDAN'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>合双</td>
+		<td ng-bind="oddsMap['TWO_FACES#HESHUANG'].odds" id="{{oddsMap['TWO_FACES#HESHUANG'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#HESHUANG'].id, oddsMap['TWO_FACES#HESHUANG'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>合大</td>
+		<td ng-bind="oddsMap['TWO_FACES#HEDA'].odds" id="{{oddsMap['TWO_FACES#HEDA'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#HEDA'].id, oddsMap['TWO_FACES#HEDA'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>合小</td>
+		<td ng-bind="oddsMap['TWO_FACES#HEXIAO'].odds" id="{{oddsMap['TWO_FACES#HEXIAO'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#HEXIAO'].id, oddsMap['TWO_FACES#HEXIAO'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
+	<tr>
+		<td>尾大</td>
+		<td ng-bind="oddsMap['TWO_FACES#WEIDA'].odds" id="{{oddsMap['TWO_FACES#WEIDA'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#WEIDA'].id, oddsMap['TWO_FACES#WEIDA'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>尾小</td>
+		<td ng-bind="oddsMap['TWO_FACES#WEIXIAO'].odds" id="{{oddsMap['TWO_FACES#WEIXIAO'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#WEIXIAO'].id, oddsMap['TWO_FACES#WEIXIAO'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>合尾大</td>
+		<td ng-bind="oddsMap['TWO_FACES#HEWEIDA'].odds" id="{{oddsMap['TWO_FACES#HEWEIDA'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#HEWEIDA'].id, oddsMap['TWO_FACES#HEWEIDA'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>合尾小</td>
+		<td ng-bind="oddsMap['TWO_FACES#HEWEIXIAO'].odds" id="{{oddsMap['TWO_FACES#HEWEIXIAO'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#HEWEIXIAO'].id, oddsMap['TWO_FACES#HEWEIXIAO'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+	</tr>
+	<tr>
+		<td>家禽</td>
+		<td ng-bind="oddsMap['TWO_FACES#JIAQIN'].odds" id="{{oddsMap['TWO_FACES#JIAQIN'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#JIAQIN'].id, oddsMap['TWO_FACES#JIAQIN'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td>野兽</td>
+		<td ng-bind="oddsMap['TWO_FACES#YESHOU'].odds" id="{{oddsMap['TWO_FACES#YESHOU'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markOdds(oddsMap['TWO_FACES#YESHOU'].id, oddsMap['TWO_FACES#YESHOU'].odds)" data-toggle="modal"
+                    data-target="#oddsDialog">修改
+            </button>
+        </td>
+        <td colspan="6"></td>
+	</tr>
+</table>
