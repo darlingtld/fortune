@@ -69,7 +69,7 @@ public class AdminController {
         String password = loginStub.getString("password");
         String kaptchaReceived = loginStub.getString("kaptcha");
         String kaptchaExpected = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
-        if (kaptchaReceived == null || !kaptchaReceived.equals(kaptchaExpected)) {
+        if (kaptchaReceived == null || !kaptchaReceived.equalsIgnoreCase(kaptchaExpected)) {
             response.setHeader(Utils.HEADER_MESSAGE, new String("验证码错误".getBytes("utf-8"), "iso-8859-1"));
             response.setStatus(HttpStatus.SC_EXPECTATION_FAILED);
             return null;

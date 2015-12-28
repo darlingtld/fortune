@@ -108,6 +108,58 @@ public class OddsService {
         oddsList.addAll(generateTailBallLotteryOdds(groupId, lotteryIssue, panlei));
 //        色波赔率
         oddsList.addAll(generateColorLotteryOdds(groupId, lotteryIssue, panlei));
+//        两面赔率
+        oddsList.addAll(generateTwoFaceLotteryOdds(groupId, lotteryIssue, panlei));
+//        连肖赔率
+        oddsList.addAll(generateJointZodiacLotteryOdds(groupId, lotteryIssue, panlei));
+        return oddsList;
+    }
+
+    //    生成连肖赔率
+    private List<LotteryOdds> generateJointZodiacLotteryOdds(String groupId, int lotteryIssue, String panlei) {
+        List<LotteryOdds> oddsList = new ArrayList<>();
+        for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.ZODIAC_SHU, LotteryMarkSixType.ZODIAC_NIU,
+                LotteryMarkSixType.ZODIAC_HU, LotteryMarkSixType.ZODIAC_TU, LotteryMarkSixType.ZODIAC_LONG,
+                LotteryMarkSixType.ZODIAC_SHE, LotteryMarkSixType.ZODIAC_MA, LotteryMarkSixType.ZODIAC_YANG,
+                LotteryMarkSixType.ZODIAC_HOU, LotteryMarkSixType.ZODIAC_JI, LotteryMarkSixType.ZODIAC_GOU,
+                LotteryMarkSixType.ZODIAC_ZHU)) {
+            LotteryOdds oddsPing = new LotteryOdds();
+            oddsPing.setGroupId(groupId);
+            oddsPing.setOdds(9);
+            oddsPing.setLotteryIssue(lotteryIssue);
+            oddsPing.setTimestamp(new Date());
+            oddsPing.setLotteryBallType(type); // 二级类型
+            oddsPing.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+            oddsPing.setPanlei(panlei);
+            oddsList.add(oddsPing);
+
+            LotteryOdds oddsZheng = new LotteryOdds();
+            oddsZheng.setGroupId(groupId);
+            oddsZheng.setOdds(10);
+            oddsZheng.setLotteryIssue(lotteryIssue);
+            oddsZheng.setTimestamp(new Date());
+            oddsZheng.setLotteryBallType(type); // 二级类型
+            oddsZheng.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+            oddsZheng.setPanlei(panlei);
+            oddsList.add(oddsZheng);
+        }
+        return oddsList;
+    }
+
+    //    生成两面赔率
+    private List<LotteryOdds> generateTwoFaceLotteryOdds(String groupId, int lotteryIssue, String panlei) {
+        List<LotteryOdds> oddsList = new ArrayList<>();
+        for (LotteryMarkSixType subType : Arrays.asList(LotteryMarkSixType.DAN, LotteryMarkSixType.SHUANG, LotteryMarkSixType.DA, LotteryMarkSixType.XIAO, LotteryMarkSixType.HEDAN, LotteryMarkSixType.HESHUANG, LotteryMarkSixType.HEDA, LotteryMarkSixType.HEXIAO, LotteryMarkSixType.WEIDA, LotteryMarkSixType.WEIXIAO, LotteryMarkSixType.HEWEIDA, LotteryMarkSixType.HEWEIXIAO, LotteryMarkSixType.JIAQIN, LotteryMarkSixType.YESHOU)) {
+            LotteryOdds odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(1.93);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setPanlei(panlei);
+            odds.setLotteryMarkSixType(LotteryMarkSixType.TWO_FACES);
+            odds.setLotteryBallType(subType);
+            oddsList.add(odds);
+        }
         return oddsList;
     }
 

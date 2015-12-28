@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2015-12-21 14:47:36
+Date: 2015-12-28 10:45:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `action_trace` (
   `request_url` text,
   `ip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of action_trace
@@ -38,6 +38,23 @@ INSERT INTO `action_trace` VALUES ('3', 'user2', 'wage on 上海 [pan A]', '2015
 INSERT INTO `action_trace` VALUES ('4', 'user2', 'wage on taipei [pan A]', '2015-12-21 14:42:42', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
 INSERT INTO `action_trace` VALUES ('5', 'user1', 'admin login', '2015-12-21 14:46:00', '/adminapp/administrator/login', '0:0:0:0:0:0:0:1');
 INSERT INTO `action_trace` VALUES ('6', 'user2', 'wage on 香港 [pan A]', '2015-12-21 14:46:37', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('7', 'user1', 'admin login', '2015-12-22 14:55:18', '/adminapp/administrator/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('8', 'user2', 'user login', '2015-12-22 14:55:32', '/userapp/user/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('9', 'user2', 'user login', '2015-12-22 15:05:05', '/userapp/user/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('10', 'user2', 'wage on 上海 [pan A]', '2015-12-22 15:14:30', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('11', 'user2', 'wage on 上海 [pan A]', '2015-12-22 15:25:34', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('12', 'user2', 'wage on 上海 [pan A]', '2015-12-22 15:49:20', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('13', 'user2', 'wage on 上海 [pan A]', '2015-12-22 17:12:23', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('14', 'user2', 'wage on 上海 [pan A]', '2015-12-22 17:12:45', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('15', 'user2', 'wage on 上海 [pan A]', '2015-12-22 17:26:25', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('16', 'user2', 'wage on 上海 [pan A]', '2015-12-22 17:26:36', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('17', 'user2', 'wage on 上海 [pan A]', '2015-12-22 17:31:59', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('18', 'user1', 'admin login', '2015-12-23 09:21:41', '/adminapp/administrator/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('19', 'user2', 'user login', '2015-12-23 09:23:13', '/userapp/user/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('20', 'user2', 'wage on 上海 [pan A]', '2015-12-23 09:26:25', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('21', 'user2', 'user login', '2015-12-28 09:57:11', '/userapp/user/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('22', 'user1', 'admin login', '2015-12-28 09:57:18', '/adminapp/administrator/login', '0:0:0:0:0:0:0:1');
+INSERT INTO `action_trace` VALUES ('23', 'user2', 'wage on 上海 [pan A]', '2015-12-28 10:40:16', '/userapp/gamble/wage', '0:0:0:0:0:0:0:1');
 
 -- ----------------------------
 -- Table structure for job_tracker
@@ -51,7 +68,7 @@ CREATE TABLE `job_tracker` (
   `endtime` datetime DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of job_tracker
@@ -60,6 +77,36 @@ INSERT INTO `job_tracker` VALUES ('106', 'SPECIAL', '144', '2015-12-13 18:43:50'
 INSERT INTO `job_tracker` VALUES ('108', 'fortune.job.LotteryGroupStatJob', '144', '2015-12-13 18:44:00', '2015-12-13 18:44:00', 'SUCCESS');
 INSERT INTO `job_tracker` VALUES ('109', 'fortune.job.LotteryUserStatJob', '144', '2015-12-13 18:44:00', '2015-12-13 18:44:01', 'SUCCESS');
 INSERT INTO `job_tracker` VALUES ('113', 'fortune.job.LotteryOddsPopulateJob', '145', '2015-12-16 16:35:01', '2015-12-16 16:36:54', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('123', 'SPECIAL', '145', '2015-12-22 16:50:49', '2015-12-22 16:53:40', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('124', 'ZHENG_1_6', '145', '2015-12-22 16:50:49', '2015-12-22 16:50:49', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('125', 'fortune.job.LotteryUserStatJob', '145', '2015-12-22 16:51:06', '2015-12-22 16:51:10', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('127', 'fortune.job.LotteryGroupStatJob', '145', '2015-12-22 16:55:01', '2015-12-22 16:55:03', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('133', 'fortune.job.LotteryOddsPopulateJob', '146', '2015-12-22 17:25:03', '2015-12-22 17:25:46', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('134', 'fortune.job.LotteryOddsPopulateJob', '147', '2015-12-22 17:27:00', '2015-12-22 17:27:41', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('135', 'ZHENG_1_6', '146', '2015-12-22 17:27:00', null, 'RUNNING');
+INSERT INTO `job_tracker` VALUES ('136', 'SPECIAL', '146', '2015-12-22 17:27:00', '2015-12-22 17:27:00', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('137', 'fortune.job.LotteryUserStatJob', '146', '2015-12-22 17:27:11', '2015-12-22 17:27:12', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('138', 'fortune.job.LotteryGroupStatJob', '146', '2015-12-22 17:28:00', '2015-12-22 17:28:00', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('139', 'fortune.job.LotteryOddsPopulateJob', '148', '2015-12-22 17:33:09', '2015-12-22 17:35:37', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('141', 'SPECIAL', '147', '2015-12-22 17:33:23', '2015-12-22 17:33:31', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('142', 'fortune.job.LotteryUserStatJob', '147', '2015-12-22 17:33:55', '2015-12-22 17:33:58', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('143', 'fortune.job.LotteryGroupStatJob', '147', '2015-12-22 17:34:01', '2015-12-22 17:34:02', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('146', 'ZHENG_1_6', '147', '2015-12-22 18:02:26', '2015-12-22 18:02:36', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('147', 'SPECIAL', '148', '2015-12-28 10:13:00', '2015-12-28 10:13:00', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('148', 'ZHENG_1_6', '148', '2015-12-28 10:13:00', '2015-12-28 10:13:00', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('149', 'fortune.job.LotteryOddsPopulateJob', '149', '2015-12-28 10:13:00', '2015-12-28 10:13:15', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('150', 'fortune.job.LotteryUserStatJob', '148', '2015-12-28 10:13:38', '2015-12-28 10:13:38', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('151', 'fortune.job.LotteryGroupStatJob', '148', '2015-12-28 10:14:00', '2015-12-28 10:14:00', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('152', 'SPECIAL', '149', '2015-12-28 10:18:51', '2015-12-28 10:18:51', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('153', 'ZHENG_1_6', '149', '2015-12-28 10:18:51', '2015-12-28 10:18:51', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('154', 'fortune.job.LotteryUserStatJob', '149', '2015-12-28 10:19:00', '2015-12-28 10:19:00', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('155', 'fortune.job.LotteryOddsPopulateJob', '150', '2015-12-28 10:19:00', '2015-12-28 10:19:13', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('156', 'fortune.job.LotteryGroupStatJob', '149', '2015-12-28 10:19:00', '2015-12-28 10:19:02', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('157', 'SPECIAL', '150', '2015-12-28 10:35:04', '2015-12-28 10:35:04', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('158', 'ZHENG_1_6', '150', '2015-12-28 10:35:04', '2015-12-28 10:35:04', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('159', 'fortune.job.LotteryUserStatJob', '150', '2015-12-28 10:36:00', '2015-12-28 10:36:00', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('160', 'fortune.job.LotteryGroupStatJob', '150', '2015-12-28 10:36:01', '2015-12-28 10:36:02', 'SUCCESS');
+INSERT INTO `job_tracker` VALUES ('161', 'fortune.job.LotteryOddsPopulateJob', '151', '2015-12-28 10:36:01', '2015-12-28 10:36:17', 'SUCCESS');
 
 -- ----------------------------
 -- Table structure for lottery_draw_tracker
@@ -70,12 +117,12 @@ CREATE TABLE `lottery_draw_tracker` (
   `last_lottery_issue` int(11) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2797 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3299 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_draw_tracker
 -- ----------------------------
-INSERT INTO `lottery_draw_tracker` VALUES ('2796', '144', '2015-12-21 14:47:00');
+INSERT INTO `lottery_draw_tracker` VALUES ('3298', '150', '2015-12-28 10:45:04');
 
 -- ----------------------------
 -- Table structure for lottery_mark_six
@@ -93,7 +140,7 @@ CREATE TABLE `lottery_mark_six` (
   `issue` int(11) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=455 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=462 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_mark_six
@@ -242,6 +289,12 @@ INSERT INTO `lottery_mark_six` VALUES ('451', '19', '16', '35', '6', '34', '46',
 INSERT INTO `lottery_mark_six` VALUES ('452', '49', '25', '10', '9', '40', '48', '32', '142', '2015-12-08 00:00:00');
 INSERT INTO `lottery_mark_six` VALUES ('453', '9', '29', '24', '47', '32', '34', '42', '143', '2015-12-10 00:00:00');
 INSERT INTO `lottery_mark_six` VALUES ('454', '16', '42', '44', '27', '35', '18', '33', '144', '2015-12-12 00:00:00');
+INSERT INTO `lottery_mark_six` VALUES ('455', '1', '2', '3', '4', '5', '6', '7', '145', '2015-12-22 15:55:50');
+INSERT INTO `lottery_mark_six` VALUES ('457', '1', '2', '3', '4', '5', '6', '7', '146', '2015-12-22 17:26:47');
+INSERT INTO `lottery_mark_six` VALUES ('458', '1', '2', '3', '4', '5', '6', '7', '147', '2015-12-22 17:32:22');
+INSERT INTO `lottery_mark_six` VALUES ('459', '1', '2', '4', '5', '7', '12', '10', '148', '2015-12-28 10:12:50');
+INSERT INTO `lottery_mark_six` VALUES ('460', '1', '2', '4', '5', '7', '12', '10', '149', '2015-12-28 10:18:14');
+INSERT INTO `lottery_mark_six` VALUES ('461', '1', '2', '4', '5', '7', '12', '10', '150', '2015-12-28 10:34:42');
 
 -- ----------------------------
 -- Table structure for lottery_mark_six_group_stat
@@ -259,7 +312,7 @@ CREATE TABLE `lottery_mark_six_group_stat` (
   `remark` text,
   `pgroup_id` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4833 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4875 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_mark_six_group_stat
@@ -1806,6 +1859,48 @@ INSERT INTO `lottery_mark_six_group_stat` VALUES ('4829', '454', '0', '0', '0', 
 INSERT INTO `lottery_mark_six_group_stat` VALUES ('4830', '454', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
 INSERT INTO `lottery_mark_six_group_stat` VALUES ('4831', '454', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
 INSERT INTO `lottery_mark_six_group_stat` VALUES ('4832', '454', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4833', '455', '0', '0', '0', '0', '0', '0', '', '563338f6e708fad8259ea83f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4834', '455', '24', '18.5', '-18.5', '0', '0', '0', '', '563b49fe63130497d5fc6b2c');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4835', '455', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2d');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4836', '455', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4837', '455', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4838', '455', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4839', '456', '0', '0', '0', '0', '0', '0', '', '563338f6e708fad8259ea83f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4840', '456', '50', '-50', '50', '0', '0', '0', '', '563b49fe63130497d5fc6b2c');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4841', '456', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2d');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4842', '456', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4843', '456', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4844', '456', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4845', '457', '0', '0', '0', '0', '0', '0', '', '563338f6e708fad8259ea83f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4846', '457', '30', '-30', '30', '0', '0', '0', '', '563b49fe63130497d5fc6b2c');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4847', '457', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2d');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4848', '457', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4849', '457', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4850', '457', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4851', '458', '0', '0', '0', '0', '0', '0', '', '563338f6e708fad8259ea83f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4852', '458', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2c');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4853', '458', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2d');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4854', '458', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4855', '458', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4856', '458', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4857', '459', '0', '0', '0', '0', '0', '0', '', '563338f6e708fad8259ea83f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4858', '459', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2c');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4859', '459', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2d');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4860', '459', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4861', '459', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4862', '459', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4863', '460', '0', '0', '0', '0', '0', '0', '', '563338f6e708fad8259ea83f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4864', '460', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2c');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4865', '460', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2d');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4866', '460', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4867', '460', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4868', '460', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4869', '461', '0', '0', '0', '0', '0', '0', '', '563338f6e708fad8259ea83f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4870', '461', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2c');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4871', '461', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2d');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4872', '461', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2e');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4873', '461', '0', '0', '0', '0', '0', '0', '', '563b49fe63130497d5fc6b2f');
+INSERT INTO `lottery_mark_six_group_stat` VALUES ('4874', '461', '0', '0', '0', '0', '0', '0', '', '56513a246313886e4f8417ef');
 
 -- ----------------------------
 -- Table structure for lottery_mark_six_stat
@@ -3338,7 +3433,7 @@ CREATE TABLE `lottery_mark_six_user_stat` (
   `result` double DEFAULT NULL,
   `userid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of lottery_mark_six_user_stat
@@ -3438,3 +3533,94 @@ INSERT INTO `lottery_mark_six_user_stat` VALUES ('92', '2015-12-12 00:00:00', '1
 INSERT INTO `lottery_mark_six_user_stat` VALUES ('93', '2015-12-12 00:00:00', '144', '0', '0', '0', '0', '563b499a63132cd7d9a66c8a');
 INSERT INTO `lottery_mark_six_user_stat` VALUES ('94', '2015-12-12 00:00:00', '144', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
 INSERT INTO `lottery_mark_six_user_stat` VALUES ('95', '2015-12-12 00:00:00', '144', '0', '0', '0', '0', '56513a546313886e4f8417f0');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('96', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563336b4e70832d79057b88a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('97', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563338c5e70868c873ec7827');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('98', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c82');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('99', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c83');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('100', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c84');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('101', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c85');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('102', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c86');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('103', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c87');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('104', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c88');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('105', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c89');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('106', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c8a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('107', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('108', '2015-12-22 15:55:50', '145', '0', '0', '0', '0', '56513a546313886e4f8417f0');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('109', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563336b4e70832d79057b88a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('110', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563338c5e70868c873ec7827');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('111', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c82');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('112', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c83');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('113', '2015-12-22 17:13:06', '146', '50', '50', '0', '0', '563b499a63132cd7d9a66c84');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('114', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c85');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('115', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c86');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('116', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c87');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('117', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c88');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('118', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c89');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('119', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c8a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('120', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('121', '2015-12-22 17:13:06', '146', '0', '0', '0', '0', '56513a546313886e4f8417f0');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('122', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563336b4e70832d79057b88a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('123', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563338c5e70868c873ec7827');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('124', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c82');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('125', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c83');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('126', '2015-12-22 17:26:47', '146', '30', '30', '0', '0', '563b499a63132cd7d9a66c84');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('127', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c85');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('128', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c86');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('129', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c87');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('130', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c88');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('131', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c89');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('132', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c8a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('133', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('134', '2015-12-22 17:26:47', '146', '0', '0', '0', '0', '56513a546313886e4f8417f0');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('135', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563336b4e70832d79057b88a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('136', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563338c5e70868c873ec7827');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('137', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c82');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('138', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c83');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('139', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c84');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('140', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c85');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('141', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c86');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('142', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c87');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('143', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c88');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('144', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c89');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('145', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c8a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('146', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('147', '2015-12-22 17:32:22', '147', '0', '0', '0', '0', '56513a546313886e4f8417f0');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('148', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563336b4e70832d79057b88a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('149', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563338c5e70868c873ec7827');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('150', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c82');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('151', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c83');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('152', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c84');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('153', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c85');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('154', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c86');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('155', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c87');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('156', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c88');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('157', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c89');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('158', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c8a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('159', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('160', '2015-12-28 10:12:50', '148', '0', '0', '0', '0', '56513a546313886e4f8417f0');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('161', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563336b4e70832d79057b88a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('162', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563338c5e70868c873ec7827');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('163', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c82');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('164', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c83');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('165', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c84');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('166', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c85');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('167', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c86');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('168', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c87');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('169', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c88');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('170', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c89');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('171', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c8a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('172', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('173', '2015-12-28 10:18:14', '149', '0', '0', '0', '0', '56513a546313886e4f8417f0');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('174', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563336b4e70832d79057b88a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('175', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563338c5e70868c873ec7827');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('176', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c82');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('177', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c83');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('178', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c84');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('179', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c85');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('180', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c86');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('181', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c87');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('182', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c88');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('183', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c89');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('184', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c8a');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('185', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '563b499a63132cd7d9a66c8b');
+INSERT INTO `lottery_mark_six_user_stat` VALUES ('186', '2015-12-28 10:34:42', '150', '0', '0', '0', '0', '56513a546313886e4f8417f0');

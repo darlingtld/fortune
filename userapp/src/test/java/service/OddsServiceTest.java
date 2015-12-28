@@ -544,6 +544,27 @@ public class OddsServiceTest {
 		}
 	}
 
+	// 生成两面赔率
+	@Test
+	public void generateTwoFaceLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			for (LotteryMarkSixType subType : Arrays.asList(LotteryMarkSixType.DAN, LotteryMarkSixType.SHUANG, LotteryMarkSixType.DA, LotteryMarkSixType.XIAO, LotteryMarkSixType.HEDAN, LotteryMarkSixType.HESHUANG, LotteryMarkSixType.HEDA, LotteryMarkSixType.HEXIAO, LotteryMarkSixType.WEIDA, LotteryMarkSixType.WEIXIAO, LotteryMarkSixType.HEWEIDA, LotteryMarkSixType.HEWEIXIAO, LotteryMarkSixType.JIAQIN, LotteryMarkSixType.YESHOU)) {
+				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
+					LotteryOdds odds = new LotteryOdds();
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(12 + i);
+					odds.setLotteryIssue(151);
+					odds.setTimestamp(new Date());
+					odds.setPanlei(panlei);
+					odds.setLotteryMarkSixType(LotteryMarkSixType.TWO_FACES);
+					odds.setLotteryBallType(subType);
+					oddsService.saveOdds(odds);
+				}
+			}
+		}
+	}
+
 	@Test
 	public void getOdds() {
 		for (LotteryOdds odds : oddsService.getAll()) {
