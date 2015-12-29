@@ -12,9 +12,11 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.TemporalField;
+import java.util.*;
 
 /**
  * Created by tangl9 on 2015-10-14.
@@ -83,5 +85,31 @@ public class LotteryService {
     public int getLotteryMarkSixCount() {
         Utils.logger.info("get lottery mark six total count");
         return lotteryDao.getLotteryMarkSixCount();
+    }
+
+    @Transactional
+    public LotteryMarkSixType getZodiac(int lotteryIssue, int special) {
+        LotteryMarkSix lotteryMarkSix = getLotteryMarkSix(lotteryIssue);
+        Instant instant = lotteryMarkSix.getTimestamp().toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        int currentYear = localDateTime.getYear();
+        int baseYear = 2015;
+        int number = special % 12;
+        List<LotteryMarkSixType> zodiacList = new ArrayList<>();
+        zodiacList.add(LotteryMarkSixType.ZODIAC_YANG);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_HOU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_JI);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_GOU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_ZHU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_SHU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_NIU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_HU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_TU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_LONG);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_SHE);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_MA);
+        int index = (currentYear - baseYear - number + 1) >= 0 ? (currentYear - baseYear - number + 1) : 12 + (currentYear - baseYear - number + 1);
+        return zodiacList.get(index);
     }
 }

@@ -108,4 +108,27 @@ public class LotteryServiceTest {
         lotteryService.getLotteryMarkSixByPagination(10, 20);
         System.out.println("---------------");
     }
+
+    @Test
+    public void getZodiac() {
+        int currentYear = 2017;
+        int baseYear = 2015;
+        int number = 44 % 12;
+        List<LotteryMarkSixType> zodiacList = new ArrayList<>();
+        zodiacList.add(LotteryMarkSixType.ZODIAC_YANG);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_HOU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_JI);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_GOU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_ZHU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_SHU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_NIU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_HU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_TU);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_LONG);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_SHE);
+        zodiacList.add(LotteryMarkSixType.ZODIAC_MA);
+        int index = (currentYear - baseYear - number + 1) >= 0 ? (currentYear - baseYear - number + 1) : 12 + (currentYear - baseYear - number + 1);
+        System.out.println(zodiacList.get(index));
+
+    }
 }
