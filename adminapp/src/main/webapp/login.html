@@ -12,7 +12,7 @@
     <div class="login_header">
         管理员登录
     </div>
-    <div class="login_body">
+    <div class="login_body" ng-keypress="enterSubmit()">
         <label for="username">账号：</label>
         <input type="text" id="username" ng-model="username"/><br/><br/>
         <label for="password">密码：</label>

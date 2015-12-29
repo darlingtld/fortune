@@ -24,4 +24,11 @@ loginApp.controller("LoginController", function ($scope, $http) {
     $scope.refreshImage = function () {
         event.target.setAttribute('src', 'kaptcha/kaptcha.jpg?' + Math.floor(Math.random() * 100));
     }
+
+    $scope.enterSubmit = function () {
+        var e = event ? event : (window.event ? window.event : null);
+        if (e.keyCode == 13) {
+            $scope.login();
+        }
+    }
 });
