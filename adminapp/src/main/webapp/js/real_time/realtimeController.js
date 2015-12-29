@@ -526,8 +526,42 @@ angular.module('AdminApp')
             }).then(function (data) {
                 $scope.transactionTotalCount = data;
                 
-                // zheng ball
+                //TODO simplify this
+                // special
                 var tmpSum = 0;
+                tmpSum += $scope.transactionTotalCount.SPECIAL;
+                tmpSum += $scope.transactionTotalCount.TWO_FACES;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_GOU;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_HOU;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_HU;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_JI;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_LONG;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_MA;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_NIU;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_SHE;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_SHU;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_TU;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_YANG;
+                tmpSum += $scope.transactionTotalCount.ZODIAC_ZHU;
+                tmpSum += $scope.transactionTotalCount.WAVE_BLUE_DA;
+                tmpSum += $scope.transactionTotalCount.WAVE_BLUE_DAN;
+                tmpSum += $scope.transactionTotalCount.WAVE_BLUE_SHUANG;
+                tmpSum += $scope.transactionTotalCount.WAVE_BLUE_XIAO;
+                tmpSum += $scope.transactionTotalCount.WAVE_GREEN_DA;
+                tmpSum += $scope.transactionTotalCount.WAVE_GREEN_DAN;
+                tmpSum += $scope.transactionTotalCount.WAVE_GREEN_SHUANG;
+                tmpSum += $scope.transactionTotalCount.WAVE_GREEN_XIAO;
+                tmpSum += $scope.transactionTotalCount.WAVE_RED_DA;
+                tmpSum += $scope.transactionTotalCount.WAVE_RED_DAN;
+                tmpSum += $scope.transactionTotalCount.WAVE_RED_SHUANG;
+                tmpSum += $scope.transactionTotalCount.WAVE_RED_XIAO;
+                tmpSum += $scope.transactionTotalCount.RED;
+                tmpSum += $scope.transactionTotalCount.BLUE;
+                tmpSum += $scope.transactionTotalCount.GREEN;
+                $scope.transactionTotalCount.SPECIAL_TOTAL = tmpSum;
+                
+                // zheng ball
+                tmpSum = 0;
                 tmpSum += $scope.transactionTotalCount.ZHENG_BALL;
                 tmpSum += $scope.transactionTotalCount.ZHENG_1_6;
                 $scope.transactionTotalCount.ZHENG_BALL_TOTAL = tmpSum;

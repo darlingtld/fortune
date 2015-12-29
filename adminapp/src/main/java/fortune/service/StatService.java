@@ -205,6 +205,70 @@ public class StatService {
                 } else {
                     return getStakeDetail4Special(groupId, panlei, issue, number);
                 }
+            case TWO_FACES:
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetailByBallType(groupId, pan, issue, type, ballType));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetailByBallType(groupId, panlei, issue, type, ballType);
+                }
+            case ZODIAC_SHU:
+            case ZODIAC_NIU:
+            case ZODIAC_HU:
+            case ZODIAC_TU:
+            case ZODIAC_LONG:
+            case ZODIAC_SHE:
+            case ZODIAC_MA:
+            case ZODIAC_YANG:
+            case ZODIAC_HOU:
+            case ZODIAC_JI:
+            case ZODIAC_GOU:
+            case ZODIAC_ZHU:
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetailByLotteryType(groupId, pan, issue, type, "特码生肖"));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetailByLotteryType(groupId, panlei, issue, type, "特码生肖");
+                }
+            case WAVE_RED_DA:
+            case WAVE_RED_XIAO:
+            case WAVE_RED_DAN:
+            case WAVE_RED_SHUANG:
+            case WAVE_BLUE_DA:
+            case WAVE_BLUE_XIAO:
+            case WAVE_BLUE_DAN:
+            case WAVE_BLUE_SHUANG:
+            case WAVE_GREEN_DA:
+            case WAVE_GREEN_XIAO:
+            case WAVE_GREEN_DAN:
+            case WAVE_GREEN_SHUANG:
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetailByLotteryType(groupId, pan, issue, type, "特码半波"));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetailByLotteryType(groupId, panlei, issue, type, "特码半波");
+                }
+            case RED:
+            case BLUE:
+            case GREEN:
+                if (panlei.equalsIgnoreCase("ALL")) {
+                    List<RealTimeWager> wagerList = new ArrayList<>();
+                    for (String pan : Lists.newArrayList("A", "B", "C", "D")) {
+                        wagerList.addAll(getStakeDetailByLotteryType(groupId, pan, issue, type, "特码"));
+                    }
+                    return wagerList;
+                } else {
+                    return getStakeDetailByLotteryType(groupId, panlei, issue, type, "特码");
+                }
             case SUM_ZODIAC:
                 if (panlei.equalsIgnoreCase("ALL")) {
                     List<RealTimeWager> wagerList = new ArrayList<>();
@@ -1299,7 +1363,6 @@ public class StatService {
             }
             realTimeWager.setOpenTs(openTs);
             realTimeWager.setWageContent(String.format("%s %s", type.getType(), ballType.getType()));
-            realTimeWager.setStakes(wager.getLotteryMarkSixWagerStubList().get(0).getStakes());
             for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
                 if (stub.getLotteryMarkSixType().equals(ballType)) {
                     realTimeWager.setStakes(stub.getStakes());
@@ -1307,6 +1370,35 @@ public class StatService {
                 }
             }
             realTimeWager.setOdds(oddsService.getOdds4LotteryIssueByBallType(issue, groupId, type.name(), wager.getPanlei(), ballType.name()).getOdds());
+            realTimeWager.setTuishui2(0);
+            realTimeWager.setResult(0);
+            realTimeWager.setRemark("");
+            realTimeWagerList.add(realTimeWager);
+        }
+        return realTimeWagerList;
+    }
+    
+    @Transactional
+    private List<RealTimeWager> getStakeDetailByLotteryType(String groupId, String panlei, int issue, LotteryMarkSixType type, String contentPrefix) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(type, groupId, panlei, issue, null);
+        
+        List<RealTimeWager> realTimeWagerList = new ArrayList<>();
+        for (LotteryMarkSixWager wager : wagerList) {
+            RealTimeWager realTimeWager = new RealTimeWager();
+            realTimeWager.setTs(wager.getTimestamp());
+            realTimeWager.setUser(userService.getUserById(wager.getUserId()));
+            realTimeWager.setTuishui(0);
+            realTimeWager.setPanlei(wager.getPanlei());
+            realTimeWager.setIssue(wager.getLotteryIssue());
+            LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
+            Date openTs = new Date();
+            if (lotteryMarkSix != null) {
+                openTs = lotteryMarkSix.getTimestamp();
+            }
+            realTimeWager.setOpenTs(openTs);
+            realTimeWager.setWageContent(String.format("%s %s", contentPrefix, type.getType()));
+            realTimeWager.setStakes(wager.getTotalStakes());
+            realTimeWager.setOdds(oddsService.getOdds4LotteryIssueByType(issue, groupId, type.name(), wager.getPanlei()).get(0).getOdds());
             realTimeWager.setTuishui2(0);
             realTimeWager.setResult(0);
             realTimeWager.setRemark("");
@@ -1451,6 +1543,18 @@ public class StatService {
                     case NOT_10:
                     case NOT_11:
                     case NOT_12:
+                    case WAVE_RED_DA:
+                    case WAVE_RED_XIAO:
+                    case WAVE_RED_DAN:
+                    case WAVE_RED_SHUANG:
+                    case WAVE_BLUE_DA:
+                    case WAVE_BLUE_XIAO:
+                    case WAVE_BLUE_DAN:
+                    case WAVE_BLUE_SHUANG:
+                    case WAVE_GREEN_DA:
+                    case WAVE_GREEN_XIAO:
+                    case WAVE_GREEN_DAN:
+                    case WAVE_GREEN_SHUANG:
                         transactionNum = 1;
                         break;
                     default:
