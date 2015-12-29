@@ -19,7 +19,7 @@
                 <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="fromDate"
                        placeholder="选择起始时间"
                        is-open="status.opened" datepicker-options="dateOptions"
-                       ng-required="true" close-text="Close"/>
+                       ng-required="true" close-text="Close" ng-click="open($event)" ng-readonly="true"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
@@ -31,7 +31,8 @@
             <p class="input-group">
                 <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="toDate"
                        is-open="status.opened" placeholder="选择结束时间" min-date="fromDate"
-                       datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+                       datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-click="open($event)"
+                       ng-readonly="true"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
