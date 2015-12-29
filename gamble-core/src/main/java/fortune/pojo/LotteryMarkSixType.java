@@ -9,6 +9,7 @@ import java.util.List;
 public enum LotteryMarkSixType {
     SPECIAL("特码"),
 
+    ZODIAC("生肖"),       // 生肖类型总称
     ZODIAC_SHU("鼠"),
     ZODIAC_NIU("牛"),
     ZODIAC_HU("虎"),
@@ -22,10 +23,12 @@ public enum LotteryMarkSixType {
     ZODIAC_GOU("狗"),
     ZODIAC_ZHU("猪"),
 
+    COLOR("色波"),        // 色波类型总称
     RED("红波"),
     BLUE("蓝波"),
     GREEN("绿波"),
 
+    HALF_WAVE("半波"),       // 半波类型总称
     WAVE_RED_SHUANG("红双"),
     WAVE_RED_DAN("红单"),
     WAVE_RED_DA("红大"),
@@ -308,6 +311,25 @@ public enum LotteryMarkSixType {
                 NOT_10,
                 NOT_11,
                 NOT_12);
+    }
+    
+    public static List<LotteryMarkSixType> getRealTimeTwoFacesList() {
+        return Arrays.asList(
+                DAN,
+                SHUANG,
+                DA,
+                XIAO,
+                HEDAN,
+                HESHUANG,
+                HEDA,
+                HEXIAO,
+                WEIDA,
+                WEIXIAO,
+                HEWEIDA,
+                HEWEIXIAO,
+                JIAQIN,
+                YESHOU
+                );
     }
     
     public static List<LotteryMarkSixType> getTypeList4AllStats() {
