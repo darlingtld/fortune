@@ -12,6 +12,7 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
     $scope.menu = 6;
 	$http.get('common/platform_name').success(function (data) {
 		$scope.platformName = data.name;
+		$scope.corpName = data.corp;
 	});
     $http.get('user/' + sessionStorage["userid"]).success(function (data) {
         $scope.user = data;

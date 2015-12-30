@@ -8,5 +8,6 @@ linksApp.controller("LinksController", function ($scope, $http) {
     }
     $http.get('common/platform_name').success(function (data) {
         $scope.platformName = data.name;
+        $scope.corpName = data.corp;
     });
 });

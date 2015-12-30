@@ -589,6 +589,7 @@ app.controller("IndexController", function ($scope, $http, commonService,
     $scope.menu = 1;
     $http.get('common/platform_name').success(function (data) {
         $scope.platformName = data.name;
+        $scope.corpName = data.corp;
     });
     $scope.goTab = function (index) {
         $scope.selectedIndex = index;

@@ -8,5 +8,6 @@ rulesApp.controller("RulesController", function ($scope, $http) {
     }
     $http.get('common/platform_name').success(function (data) {
         $scope.platformName = data.name;
+        $scope.corpName = data.corp;
     });
 });

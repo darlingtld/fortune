@@ -9,6 +9,7 @@ reportsApp.controller("ReportsController", function ($scope, $http) {
     $scope.menu = 2;
     $http.get('common/platform_name').success(function (data) {
         $scope.platformName = data.name;
+        $scope.corpName = data.corp;
     });
     $scope.query = function () {
         var toDate = $scope.toDate == undefined ? $scope.maxDate : $scope.toDate;

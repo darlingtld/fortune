@@ -20,8 +20,8 @@ public class CommonController {
     @ResponseBody
     JSONObject getPlatformName() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", "水晶宫");
-        jsonObject.put("corp", "海盗船娱乐会所");
+        jsonObject.put("name", "六合彩");
+        jsonObject.put("corp", "淞沪路面对面博彩有限公司");
         return jsonObject;
     }
 

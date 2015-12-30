@@ -6,6 +6,7 @@ historyApp.controller("HistoryController", function ($scope, $http) {
     $scope.menu = 3;
     $http.get('common/platform_name').success(function (data) {
         $scope.platformName = data.name;
+        $scope.corpName = data.corp;
     });
     $scope.user = {
         username: sessionStorage["username"]
