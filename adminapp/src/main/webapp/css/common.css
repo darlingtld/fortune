@@ -3,7 +3,7 @@ body {
     font-size: 14px;
     color: #666;
     margin: 0px;
-    font-family: "Microsoft YaHei";
+    font-family: "Microsoft YaHei" !important;
 }
 
 .btn {
