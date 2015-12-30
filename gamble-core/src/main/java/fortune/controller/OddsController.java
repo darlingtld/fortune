@@ -124,7 +124,6 @@ public class OddsController {
      * @param lotteryMarkSixType
      * @return
      */
-    @Deprecated
     @RequestMapping(value = "lottery_issue/{lottery_issue}/group/{group_id}/lottery_mark_six_type/{lottery_mark_six_type}/pan/{panlei}", method = RequestMethod.GET)
     public
     @ResponseBody

@@ -657,14 +657,16 @@ angular.module('AdminApp')
         $scope.goto('special');
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
-    realtimeService.getStakesDetail(
-        $routeParams.type,
-        $routeParams.groupid,
-        $routeParams.panlei,
-        $routeParams.issue,
-        $routeParams.subtype,
-        $routeParams.number,
-        $routeParams.content).then(function (data) {
-        $scope.wagerList = data;
-    });
+    
+        realtimeService.getStakesDetail(
+            $routeParams.type,
+            $routeParams.groupid,
+            $routeParams.panlei,
+            $routeParams.issue,
+            $routeParams.subtype,
+            $routeParams.number,
+            $routeParams.content,
+            $routeParams.isAll).then(function (data) {
+                $scope.wagerList = data;
+        });
 })

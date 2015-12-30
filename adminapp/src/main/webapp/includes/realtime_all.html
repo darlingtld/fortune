@@ -12,8 +12,9 @@
                 <tr ng-repeat="stat in allStats">
                     <td ng-bind="stat.lotteryMarkSixTypeName"></td>
                     <td>
-                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{stat.lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0"><span
+                        <a ng-if="stat.transactions > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{stat.lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0?isAll=true"><span
                             ng-bind="stat.transactions"></span></a>
+                        <span ng-if="stat.transactions == 0">0</span>
                     </td>
                     <td ng-bind="stat.stakes"></td>
                 </tr>
