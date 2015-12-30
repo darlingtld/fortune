@@ -47,7 +47,7 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
                     	$scope.oddsMap[odds.lotteryMarkSixType] = odds;
                     }
                     else if (odds.lotteryMarkSixType == "JOINT_ZODIAC_PING" || odds.lotteryMarkSixType == "JOINT_ZODIAC_ZHENG") {
-                    	$scope.oddsMap[odds.lotteryMarkSixType+"#"+odds.lotteryBallType] = odds;
+                    	$scope.oddsMap[odds.lotteryMarkSixType+"#"+odds.lotteryBallNumber+"#"+odds.lotteryBallType] = odds;
                     }
                     else if (odds.lotteryMarkSixType.indexOf("JOINT_") == 0) {
                     	$scope.oddsMap[odds.lotteryMarkSixType] = odds;
