@@ -149,9 +149,9 @@ label{
 	margin-left:16px;
 }
 
-.quick_choose input[type=checkbox]{
-	margin-top:10px;
-}
+/*.quick_choose input[type=checkbox]{*/
+	/*margin-top:10px;*/
+/*}*/
 
 .dialog{
 	position:fixed;
