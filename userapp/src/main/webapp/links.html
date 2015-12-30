@@ -1,28 +1,31 @@
 <!doctype html>
 <html>
-    <head>
-    	<meta name="viewport"
+<head>
+    <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	    <meta charset="utf-8">
-	    <link rel="stylesheet" href="css/links.css">
-	    <title>参考</title>
-    </head>
-    <body ng-app ng-init="menu=5;">        
-        <div class="nav" ng-include="'includes/nav.html'"></div>
-        <div class="section">
-        	<div class="link_area">
-        		<div class="link_title">六合彩</div>
-        		<div class="link_item">
-        			<img class="link_icon" src="img/link1.png" height="80" width="80"/>
-        			<div class="link_info">
-        				<p class="link_name">六合彩</p>
-        				<a href="http://bet.hkjc.com/marksix/default.aspx" class="btn" target="_blank">官网</a>
-        				<a href="http://hsbc168.us/mark6/" class="btn" target="_blank">开奖直播</a>
-        			</div>
-        		</div>
-        	</div>
-    	</div>
-    	<div ng-include="'includes/foot.html'"></div>
-        <script src="js/lib/angular.min.js"></script>
-    </body>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/links.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <title>参考</title>
+</head>
+<body ng-app="links" ng-init="menu=5;" ng-controller="LinksController">
+<div class="nav" ng-include="'includes/nav.html'"></div>
+<div class="section">
+    <div class="link_area">
+        <div class="link_title">六合彩</div>
+        <div class="link_item">
+            <img class="link_icon" src="img/link1.png" height="80" width="80"/>
+            <div class="link_info">
+                <p class="link_name">六合彩</p>
+                <a href="http://bet.hkjc.com/marksix/default.aspx" class="btn" target="_blank">官网</a>
+                <a href="http://hsbc168.us/mark6/" class="btn" target="_blank">开奖直播</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="'includes/foot.html'"></div>
+<script src="js/lib/angular.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="js/links.js"></script>
+</body>
 </html>

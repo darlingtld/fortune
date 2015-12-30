@@ -3,7 +3,13 @@ reportsApp.controller("ReportsController", function ($scope, $http) {
     if (!sessionStorage["userid"]) {
         location.href = "login.html";
     }
+    $scope.user = {
+        username: sessionStorage["username"]
+    }
     $scope.menu = 2;
+    $http.get('common/platform_name').success(function (data) {
+        $scope.platformName = data.name;
+    });
     $scope.query = function () {
         var toDate = $scope.toDate == undefined ? $scope.maxDate : $scope.toDate;
         $http.get('report/userid/' + sessionStorage['userid'] + '/from/' + $scope.fromDate + '/to/' + toDate).success(function (data) {

@@ -1,190 +1,192 @@
 body {
-	background: #eee;
-	font-size: 14px;
-	color: #666;
-	margin: 0px;
-	font-family: "Microsoft YaHei";
+    background: #eee;
+    font-size: 14px;
+    color: #666;
+    margin: 0px;
+    font-family: "Microsoft YaHei";
 }
 
 .btn {
-	border: 1px solid #04A21F;
-	background: #24C578;
-	color: white;
-	font-size: 1.1em;
-	display: block;
-	width: 50px;
-	line-height: 28px;
-	text-align: center;
-	text-decoration: none;
-	border-radius: 5px;
-	cursor:pointer;
+    border: 1px solid #04A21F;
+    background: #24C578;
+    color: white;
+    font-size: 1.1em;
+    display: block;
+    width: 50px;
+    line-height: 28px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .btn:hover {
-	background: #1CE845;
+    background: #1CE845;
 }
 
 .nav {
-	height: 120px;
+    height: 120px;
 }
 
 .section {
-	width: 1190px;
-	margin-left: auto;
-	margin-right: auto;
+    width: 1190px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .sidebar {
-	float: left;
-	width: 300px;
-	margin-bottom:40px;
+    float: left;
+    width: 300px;
+    margin-bottom: 40px;
 }
 
 .content {
-	float: left;
-	width: 868px;
-	margin-top:15px;
-	margin-left:15px;
-	margin-bottom:40px;
+    float: left;
+    width: 868px;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 40px;
 }
 
 .menu_logo {
-	background: #1FADFB;
-	height: 80px;
+    background: #1FADFB;
+    height: 80px;
 }
 
-.logo{
-	width: 1190px;
-	margin: 0px auto;
-	padding:10px;
-	height:60px;
+.logo {
+    width: 1190px;
+    margin: 0px auto;
+    padding: 10px;
+    height: 60px;
 }
 
-.logo>span{
-	margin-left:20px;
-	margin-right:20px;
-	font-size:1.5em;
-	color:white;
-	font-weight:bold;
+.logo > span {
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 2.5em;
+    font-family: "Lucida Console", Monaco, monospace;
+    color: white;
+    font-weight: bold;
 }
 
 .menu_bar {
-	background: #1272BF;
-	height: 40px;
+    background: #1272BF;
+    height: 40px;
 }
 
 .menu_item_list {
-	width: 1190px;
-	margin: 0px auto;
-	list-style: none;
-	padding:0px;
+    width: 1190px;
+    margin: 0px auto;
+    list-style: none;
+    padding: 0px;
 }
 
 .menu_item {
-	float: left;
+    float: left;
+    height: 40px;
 }
 
-.menu_user_info{
-	float: right;
-	color: white;
-	line-height: 40px;
+.menu_user_info {
+    float: right;
+    color: white;
+    line-height: 40px;
 }
 
-.menu_user_info>a{
-	cursor: pointer;
-	color: white;
-	text-decoration: none;
+.menu_user_info > a {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
 }
 
-.menu_item>a {
-	color: white;
-	text-decoration: none;
-	display: block;
-	height: 30px;
-	line-height: 30px;
-	padding: 5px 20px 5px 20px;
-	cursor: pointer;
+.menu_item > a {
+    color: white;
+    text-decoration: none !important;
+    display: block;
+    height: 40px;
+    line-height: 30px;
+    padding: 5px 20px 5px 20px;
+    cursor: pointer;
 }
 
-.menu_item>a:hover, .menu_item.current {
-	background: #1FADFB;
+.menu_item > a:hover, .menu_item.current {
+    background: #1FADFB;
 }
 
 .side_area {
-	border: 1px solid #dedede;
-	background: white;
-	margin-top: 15px;
-	border-radius:15px;
+    border: 1px solid #dedede;
+    background: white;
+    margin-top: 15px;
+    border-radius: 15px;
 }
 
 .side_header {
-	color: white;
-	background: #1FADFB;
-	text-align: center;
-	padding: 10px;
+    color: white;
+    background: #1FADFB;
+    text-align: center;
+    padding: 10px;
 }
 
 .side_body table {
-	width: 90%;
-	margin: 5px auto;
-	border-collapse: collapse;
+    width: 90%;
+    margin: 5px auto;
+    border-collapse: collapse;
 }
 
 .side_body table th, .side_body table td {
-	padding: 5px;
-	text-align: center;
+    padding: 5px;
+    text-align: center;
 }
 
 .side_body table th {
-	font-weight: bold;
-	background: #BAE4FB;
+    font-weight: bold;
+    background: #BAE4FB;
 }
 
 .side_body table tr:nth-child(odd) {
-	background: #FDFDCE;
+    background: #FDFDCE;
 }
 
-.clear{
-	clear:both;
+.clear {
+    clear: both;
 }
 
-.ball{
-	color: white;
+.ball {
+    color: white;
     width: 25px;
     height: 25px;
     border-radius: 13px;
     float: left;
     line-height: 25px;
-    margin-left:2px;
+    margin-left: 2px;
     text-align: center;
-	box-shadow: inset 0 -5px 10px rgba(255,255,255,0.4), 
-				inset -2px -1px 40px rgba(0,0,0,0.4), 
-				0 0 1px #000;	
+    box-shadow: inset 0 -5px 10px rgba(255, 255, 255, 0.4),
+    inset -2px -1px 40px rgba(0, 0, 0, 0.4),
+    0 0 1px #000;
 }
 
-.red{
-	background:red;
+.red {
+    background: red;
 }
 
-.blue{
-	background:blue;
+.blue {
+    background: blue;
 }
 
-.green{
-	background:green;
+.green {
+    background: green;
 }
 
-.video_container{
-	height:280px;
+.video_container {
+    height: 280px;
 }
 
-.footer_area{
-	text-align:center;
-	line-height:60px;
-	width:1190px;
-	margin-left:auto;
-	margin-right:auto;
-	margin-bottom:40px;
-	border-top:1px solid #888;
-	clear:left;
+.footer_area {
+    text-align: center;
+    line-height: 60px;
+    width: 1190px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    border-top: 1px solid #888;
+    clear: left;
 }

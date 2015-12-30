@@ -577,7 +577,7 @@ app.service("twoFacesService", function ($q, $http, $sce) {
     };
 });
 
-app.controller("IndexController", function ($scope, commonService,
+app.controller("IndexController", function ($scope, $http, commonService,
                                             zodiacService, tailBallService, halfWaveService, sumZodiacService, zhengBallService,
                                             jointBallService, notBallService, passBallService, zodiacTailService,
                                             jointZodiacService, twoFacesService) {
@@ -587,6 +587,9 @@ app.controller("IndexController", function ($scope, commonService,
     $scope.items = ["特码", "两面", "生肖色波", "半波", "合肖", "正码", "正码1~6", "正码特", "连码", "自选不中", "过关", "一肖尾数", "连肖", "连尾"];
     $scope.selectedIndex = 0;
     $scope.menu = 1;
+    $http.get('common/platform_name').success(function (data) {
+        $scope.platformName = data.name;
+    });
     $scope.goTab = function (index) {
         $scope.selectedIndex = index;
         $scope.reset();

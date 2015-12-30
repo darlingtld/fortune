@@ -4,6 +4,12 @@ historyApp.controller("HistoryController", function ($scope, $http) {
         location.href = "login.html";
     }
     $scope.menu = 3;
+    $http.get('common/platform_name').success(function (data) {
+        $scope.platformName = data.name;
+    });
+    $scope.user = {
+        username: sessionStorage["username"]
+    }
     $scope.colorMap = colorMap;
 
     $scope.totalItems = 0;

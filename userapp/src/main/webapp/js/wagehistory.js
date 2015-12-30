@@ -1,12 +1,18 @@
 /**
  * Created by lingda on 2015/11/15.
  */
-var wageHistoryApp = angular.module("wagehistory", []);
+var wageHistoryApp = angular.module("wagehistory", ["ui.bootstrap"]);
 wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce) {
 	if (!sessionStorage["userid"]) {
 		location.href = "login.html";
 	}
+	$scope.user = {
+		username: sessionStorage["username"]
+	}
     $scope.menu = 6;
+	$http.get('common/platform_name').success(function (data) {
+		$scope.platformName = data.name;
+	});
     $http.get('user/' + sessionStorage["userid"]).success(function (data) {
         $scope.user = data;
         $scope.selectedPGroup = $scope.user.pGroupList[0];
