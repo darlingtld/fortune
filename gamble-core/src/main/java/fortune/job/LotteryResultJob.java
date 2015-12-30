@@ -18,16 +18,14 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LotteryResultJob {
 
-    public static final int TOTAL_LOTTERY_RESULT_JOBS = 18;
+    public static final int TOTAL_LOTTERY_RESULT_JOBS = 30;
     private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 0, TimeUnit.MINUTES, new ArrayBlockingQueue<>(TOTAL_LOTTERY_RESULT_JOBS));
 
 
     @Autowired
     private RuleSPECIAL ruleSPECIAL;
-
     @Autowired
     private RuleZheng1to6 ruleZheng1to6;
-
     @Autowired
     private RuleTWOFACES ruleTWOFACES;
     @Autowired
@@ -60,6 +58,30 @@ public class LotteryResultJob {
     private RuleGreen ruleGreen;
     @Autowired
     private RuleBlue ruleBlue;
+    @Autowired
+    private RuleWaveBlueDa ruleWaveBlueDa;
+    @Autowired
+    private RuleWaveBlueDan ruleWaveBlueDan;
+    @Autowired
+    private RuleWaveBlueShuang ruleWaveBlueShuang;
+    @Autowired
+    private RuleWaveBlueXiao ruleWaveBlueXiao;
+    @Autowired
+    private RuleWaveGreenDa ruleWaveGreenDa;
+    @Autowired
+    private RuleWaveGreenDan ruleWaveGreenDan;
+    @Autowired
+    private RuleWaveGreenShuang ruleWaveGreenShuang;
+    @Autowired
+    private RuleWaveGreenXiao ruleWaveGreenXiao;
+    @Autowired
+    private RuleWaveRedDa ruleWaveRedDa;
+    @Autowired
+    private RuleWaveRedDan ruleWaveRedDan;
+    @Autowired
+    private RuleWaveRedShuang ruleWaveRedShuang;
+    @Autowired
+    private RuleWaveRedXiao ruleWaveRedXiao;
 
 
     public void calculateLotteryResult() {
@@ -82,5 +104,17 @@ public class LotteryResultJob {
         threadPoolExecutor.submit(ruleRed);
         threadPoolExecutor.submit(ruleGreen);
         threadPoolExecutor.submit(ruleBlue);
+        threadPoolExecutor.submit(ruleWaveBlueDa);
+        threadPoolExecutor.submit(ruleWaveBlueDan);
+        threadPoolExecutor.submit(ruleWaveBlueShuang);
+        threadPoolExecutor.submit(ruleWaveBlueXiao);
+        threadPoolExecutor.submit(ruleWaveGreenDa);
+        threadPoolExecutor.submit(ruleWaveGreenDan);
+        threadPoolExecutor.submit(ruleWaveGreenShuang);
+        threadPoolExecutor.submit(ruleWaveGreenXiao);
+        threadPoolExecutor.submit(ruleWaveRedDa);
+        threadPoolExecutor.submit(ruleWaveRedDan);
+        threadPoolExecutor.submit(ruleWaveRedShuang);
+        threadPoolExecutor.submit(ruleWaveRedXiao);
     }
 }

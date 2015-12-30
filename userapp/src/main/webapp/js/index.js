@@ -950,11 +950,17 @@ app.controller("IndexController", function ($scope, $http, commonService,
             // 组装下注对象
             var wagerList = [];
             for (var type in $scope.selectedBalls) {
+                var lotteryMarkSixWagerStubList = [];
+                lotteryMarkSixWagerStubList.push({
+                    lotteryMarkSixType: type,
+                    stakes: parseInt($scope.selectedBalls[type]),
+                    number: 0
+                });
                 if ($scope.selectedBalls[type] != "") {
                     var wager = {
                         userId: $scope.user.id,
                         pgroupId: $scope.selectedPGroup.id,
-                        lotteryMarkSixWagerStubList: [],
+                        lotteryMarkSixWagerStubList: lotteryMarkSixWagerStubList,
                         panlei: $scope.selectedPan,
                         lotteryMarkSixType: type,
                         totalStakes: parseInt($scope.selectedBalls[type])
