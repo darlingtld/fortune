@@ -2,7 +2,7 @@
 	<label for="jointLotteryStakes">注数：</label><input type="text" id="jointLotteryStakes" class="stakes_input" ng-model="otherParams.stakes" ng-pattern="/^\d+$/"/>
 	<br/>
 	<label>请选择连肖类型：</label>
-	<select ng-model="otherParams.jointZodiacType" ng-init="2">
+	<select ng-model="otherParams.jointZodiacType">
 		<option value="2">二连肖</option>
 		<option value="3">三连肖</option>
 		<option value="4">四连肖</option>
@@ -22,7 +22,7 @@
 			<div ng-repeat="ball in zodiacItem.balls"
 				class="ball {{colorMap[ball]}}">{{ball}}</div>
 		</td>
-		<td>{{jointZodiacOddsMap[jointZodiacType+"#"+zodiacItem.id]}}</td>
+		<td>{{jointZodiacOddsMap[otherParams.jointZodiacType+"#"+zodiacItem.id]}}</td>
 		<td>
 			<input type="checkbox" ng-click="chooseJointZodiac($event, zodiacItem.id);" ng-checked="isCheckedJointZodiac(zodiacItem.id);"/>
 		</td>

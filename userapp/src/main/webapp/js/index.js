@@ -133,7 +133,7 @@ app.service("commonService", function ($q, $http) {
                 scope.wageError = "下注的注数必须为正整数！";
                 return false;
             }
-            if(parseInt(scope.otherParams.jointZodiacType)==-1){
+            if(typeof scope.otherParams.jointZodiacType === "undefined"){
             	scope.wageError = "请选择连肖类型！";
             	return false;
             }
@@ -716,7 +716,6 @@ app.controller("IndexController", function ($scope, $http, commonService,
             $scope.jointZodiacPingOddsMap = jointZodiacPingOddsMap;
             $scope.jointZodiacZhengOddsMap = jointZodiacZhengOddsMap;
             $scope.jointZodiacOddsMap = $scope.jointZodiacPingOddsMap;
-            $scope.otherParams.jointZodiacType = -1; // 表示几连肖
         });
     };
 
