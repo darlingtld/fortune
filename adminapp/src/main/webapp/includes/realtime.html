@@ -3,6 +3,10 @@
             ng-bind="lotteryMarkSixInfo.date | date : 'yyyy-MM-dd'"></span>
 
         <div style="float: right;">
+            <input ng-model="autoRefresh" type="checkbox" style="margin-top: 0px" ng-change="enableAutoRefresh()"><span>自动刷新</span>
+            <select ng-model="selectedFreq" ng-init="selectedFreq=freqs[0]"
+                    ng-options="freq.name for freq in freqs track by freq.value"
+                    ng-change="enableAutoRefresh()" ></select>
             <span>特码 即时注单</span>
             <span>成数：</span>
             <select>
