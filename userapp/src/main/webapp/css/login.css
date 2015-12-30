@@ -51,6 +51,10 @@
     margin-bottom: 0px;
 }
 
+.btn{
+    padding: 1px 10px 1px 10px;
+}
+
 #kaptcha {
     width: 100px;
 }
