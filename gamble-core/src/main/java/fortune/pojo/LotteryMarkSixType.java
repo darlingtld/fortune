@@ -48,6 +48,7 @@ public enum LotteryMarkSixType {
     
     ZHENG_BALL("正码"),
     
+    ZHENG_SPECIFIC("正码特"),      // 正码特类型总称
     ZHENG_SPECIFIC_1("正码特1"), 
     ZHENG_SPECIFIC_2("正码特2"), 
     ZHENG_SPECIFIC_3("正码特3"), 
@@ -100,8 +101,8 @@ public enum LotteryMarkSixType {
     ONE_ZODIAC("一肖"),
     TAIL_NUM("尾数"), // ballNumber表示是几尾
     
+    JOINT_ZODIAC("连肖"),  // 连肖类型总称
     JOINT_ZODIAC_PING("连肖（平肖）"), //没有包含本年生肖
-    
     JOINT_ZODIAC_ZHENG("连肖（正肖）"), //包含本年生肖
 
     // 用于连肖统计
@@ -335,9 +336,15 @@ public enum LotteryMarkSixType {
     
     public static List<LotteryMarkSixType> getTypeList4AllStats() {
         return Arrays.asList(
-                // TODO add type for all stats
                 SPECIAL,
+                TWO_FACES,
+                HALF_WAVE,
+                COLOR,
+                ZODIAC,
+                SUM_ZODIAC,
                 ZHENG_BALL,
+                ZHENG_1_6,
+                ZHENG_SPECIFIC,
                 JOINT_3_ALL,
                 JOINT_3_2,
                 JOINT_2_ALL,
@@ -350,7 +357,10 @@ public enum LotteryMarkSixType {
                 NOT_9,
                 NOT_10,
                 NOT_11,
-                NOT_12
+                NOT_12,
+                JOINT_ZODIAC,
+                ONE_ZODIAC,
+                TAIL_NUM
                 );
     }
 }

@@ -1584,37 +1584,83 @@ public class StatService {
         });
 
         for (LotteryMarkSixWager wager : wagerList) {
-            if (transactionMap.containsKey(wager.getLotteryMarkSixType().name())) {
-                int transactionNum = 0;
-                double stakes = 0.0;
-                switch (wager.getLotteryMarkSixType()) {
-                    case JOINT_3_ALL:
-                    case JOINT_3_2:
-                    case JOINT_2_ALL:
-                    case JOINT_2_SPECIAL:
-                    case JOINT_SPECIAL:
-                    case NOT_5:
-                    case NOT_6:
-                    case NOT_7:
-                    case NOT_8:
-                    case NOT_9:
-                    case NOT_10:
-                    case NOT_11:
-                    case NOT_12:
-                        transactionNum = 1;
-                        stakes = wager.getTotalStakes();
-                        break;
-                    default:
-                        transactionNum = wager.getLotteryMarkSixWagerStubList().size();
-                        for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
-                            stakes = wager.getTotalStakes();
-                        }
-                       
-                }
-                
-                transactionMap.get(wager.getLotteryMarkSixType().name()).addAndGet(transactionNum);
-                stakesMap.get(wager.getLotteryMarkSixType().name()).addAndGet(stakes);
+            LotteryMarkSixType statType = wager.getLotteryMarkSixType(); // use wager's type as default
+            double stakes = wager.getTotalStakes();
+            int transactionNum = 0;
+            
+            switch (wager.getLotteryMarkSixType()) {
+                case RED:
+                case BLUE:
+                case GREEN:
+                    statType = COLOR;
+                    transactionNum = 1;
+                    break;
+                case ZODIAC_SHU:
+                case ZODIAC_NIU:
+                case ZODIAC_HU:
+                case ZODIAC_TU:
+                case ZODIAC_LONG:
+                case ZODIAC_SHE:
+                case ZODIAC_MA:
+                case ZODIAC_YANG:
+                case ZODIAC_HOU:
+                case ZODIAC_JI:
+                case ZODIAC_GOU:
+                case ZODIAC_ZHU:
+                    statType = ZODIAC;
+                    transactionNum = 1;
+                    break;
+                case WAVE_RED_SHUANG:
+                case WAVE_RED_DAN:
+                case WAVE_RED_DA:
+                case WAVE_RED_XIAO:
+                case WAVE_BLUE_SHUANG:
+                case WAVE_BLUE_DAN:
+                case WAVE_BLUE_DA:
+                case WAVE_BLUE_XIAO:
+                case WAVE_GREEN_SHUANG:
+                case WAVE_GREEN_DAN:
+                case WAVE_GREEN_DA:
+                case WAVE_GREEN_XIAO:
+                    statType = HALF_WAVE;
+                    transactionNum = 1;
+                    break;
+                case ZHENG_SPECIFIC_1:
+                case ZHENG_SPECIFIC_2:
+                case ZHENG_SPECIFIC_3:
+                case ZHENG_SPECIFIC_4:
+                case ZHENG_SPECIFIC_5:
+                case ZHENG_SPECIFIC_6:
+                    statType = ZHENG_SPECIFIC;
+                    transactionNum = wager.getLotteryMarkSixWagerStubList().size();
+                    break;
+                case JOINT_ZODIAC_PING:
+                case JOINT_ZODIAC_ZHENG:
+                    statType = JOINT_ZODIAC;
+                    transactionNum = 1;
+                    break;
+                case JOINT_3_ALL:
+                case JOINT_3_2:
+                case JOINT_2_ALL:
+                case JOINT_2_SPECIAL:
+                case JOINT_SPECIAL:
+                case NOT_5:
+                case NOT_6:
+                case NOT_7:
+                case NOT_8:
+                case NOT_9:
+                case NOT_10:
+                case NOT_11:
+                case NOT_12:
+                    transactionNum = 1;
+                    break;
+                default:
+                    transactionNum = wager.getLotteryMarkSixWagerStubList().size();
+                   
             }
+            System.out.println(statType.name());
+            transactionMap.get(statType.name()).addAndGet(transactionNum);
+            stakesMap.get(statType.name()).addAndGet(stakes);
         }
         
         List<RealtimeStat> statsList = Lists.newArrayList();
