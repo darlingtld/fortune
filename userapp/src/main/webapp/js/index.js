@@ -133,13 +133,17 @@ app.service("commonService", function ($q, $http) {
                 scope.wageError = "下注的注数必须为正整数！";
                 return false;
             }
+            if(parseInt(scope.otherParams.jointZodiacType)==-1){
+            	scope.wageError = "请选择连肖类型！";
+            	return false;
+            }
             var len = wage.lotteryMarkSixWagerStubList.length;
             if (len == 0) {
                 scope.wageError = "请选择下注！";
                 return false;
             }
-            if (len < 2 || len > 5) {
-                scope.wageError = "请选择2～5个生肖下注！";
+            if (len != parseInt(scope.otherParams.jointZodiacType)) {
+                scope.wageError = scope.otherParams.jointZodiacType+"连肖请选择"+scope.otherParams.jointZodiacType+"个生肖下注！";
                 return false;
             }
             return true;
@@ -653,10 +657,10 @@ app.controller("IndexController", function ($scope, $http, commonService,
                     zhengSpecificOddsMap[odds.lotteryMarkSixType] = odds.odds;
                 }
                 else if (odds.lotteryMarkSixType == "JOINT_ZODIAC_PING") {
-                    jointZodiacPingOddsMap[odds.lotteryBallType] = odds.odds;
+                    jointZodiacPingOddsMap[odds.lotteryBallNumber + "#" + odds.lotteryBallType] = odds.odds;
                 }
                 else if (odds.lotteryMarkSixType == "JOINT_ZODIAC_ZHENG") {
-                    jointZodiacZhengOddsMap[odds.lotteryBallType] = odds.odds;
+                    jointZodiacZhengOddsMap[odds.lotteryBallNumber + "#" + odds.lotteryBallType] = odds.odds;
                 }
                 else if (odds.lotteryMarkSixType.indexOf("JOINT_") == 0) {
                     jointOddsMap[odds.lotteryMarkSixType] = odds.odds;
@@ -712,6 +716,7 @@ app.controller("IndexController", function ($scope, $http, commonService,
             $scope.jointZodiacPingOddsMap = jointZodiacPingOddsMap;
             $scope.jointZodiacZhengOddsMap = jointZodiacZhengOddsMap;
             $scope.jointZodiacOddsMap = $scope.jointZodiacPingOddsMap;
+            $scope.otherParams.jointZodiacType = -1; // 表示几连肖
         });
     };
 

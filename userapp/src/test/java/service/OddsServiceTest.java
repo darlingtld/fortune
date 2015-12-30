@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import fortune.pojo.LotteryBall;
+//import fortune.pojo.LotteryBall;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryOdds;
 import fortune.pojo.PGroup;
@@ -73,26 +73,26 @@ public class OddsServiceTest {
 	}
 
 	// 生成特码赔率
-	@Test
-	public void generateSpecialLotteryOdds() {
-		List<PGroup> pGroupList = pGroupService.getGroupAll();
-		for (int i = 0; i < pGroupList.size(); i++) {
-			int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-			for (LotteryBall ball : LotteryBall.values()) {
-				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
-					LotteryOdds odds = new LotteryOdds();
-					odds.setLotteryBallNumber(ball.getNumber());
-					odds.setGroupId(pGroupList.get(i).getId());
-					odds.setOdds(20 + i);
-					odds.setLotteryIssue(issue);
-					odds.setTimestamp(new Date());
-					odds.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL);
-					odds.setPanlei(panlei);
-					oddsService.saveOdds(odds);
-				}
-			}
-		}
-	}
+//	@Test
+//	public void generateSpecialLotteryOdds() {
+//		List<PGroup> pGroupList = pGroupService.getGroupAll();
+//		for (int i = 0; i < pGroupList.size(); i++) {
+//			int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
+//			for (LotteryBall ball : LotteryBall.values()) {
+//				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
+//					LotteryOdds odds = new LotteryOdds();
+//					odds.setLotteryBallNumber(ball.getNumber());
+//					odds.setGroupId(pGroupList.get(i).getId());
+//					odds.setOdds(20 + i);
+//					odds.setLotteryIssue(issue);
+//					odds.setTimestamp(new Date());
+//					odds.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL);
+//					odds.setPanlei(panlei);
+//					oddsService.saveOdds(odds);
+//				}
+//			}
+//		}
+//	}
 
 	// 生成生肖赔率
 	@Test
@@ -249,26 +249,26 @@ public class OddsServiceTest {
 	}
 
 	// 生成正码赔率
-	@Test
-	public void generateZhengLotteryOdds() {
-		List<PGroup> pGroupList = pGroupService.getGroupAll();
-		for (int i = 0; i < pGroupList.size(); i++) {
-			int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-			for (LotteryBall ball : LotteryBall.values()) {
-				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
-					LotteryOdds odds = new LotteryOdds();
-					odds.setLotteryBallNumber(ball.getNumber());
-					odds.setGroupId(pGroupList.get(i).getId());
-					odds.setOdds(19);
-					odds.setLotteryIssue(issue);
-					odds.setTimestamp(new Date());
-					odds.setPanlei(panlei);
-					odds.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_BALL);
-					oddsService.saveOdds(odds);
-				}
-			}
-		}
-	}
+//	@Test
+//	public void generateZhengLotteryOdds() {
+//		List<PGroup> pGroupList = pGroupService.getGroupAll();
+//		for (int i = 0; i < pGroupList.size(); i++) {
+//			int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
+//			for (LotteryBall ball : LotteryBall.values()) {
+//				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
+//					LotteryOdds odds = new LotteryOdds();
+//					odds.setLotteryBallNumber(ball.getNumber());
+//					odds.setGroupId(pGroupList.get(i).getId());
+//					odds.setOdds(19);
+//					odds.setLotteryIssue(issue);
+//					odds.setTimestamp(new Date());
+//					odds.setPanlei(panlei);
+//					odds.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_BALL);
+//					oddsService.saveOdds(odds);
+//				}
+//			}
+//		}
+//	}
 
 	// 生成正码1到6赔率
 	@Test
@@ -526,6 +526,40 @@ public class OddsServiceTest {
 					odds.setTimestamp(new Date());
 					odds.setLotteryBallType(type); // 二级类型
 					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+					odds.setLotteryBallNumber(2); // 2连肖
+					odds.setPanlei(panlei);
+					oddsService.saveOdds(odds);
+					
+					odds = new LotteryOdds();
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(9 + i);
+					odds.setLotteryIssue(151);
+					odds.setTimestamp(new Date());
+					odds.setLotteryBallType(type); // 二级类型
+					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+					odds.setLotteryBallNumber(3); // 3连肖
+					odds.setPanlei(panlei);
+					oddsService.saveOdds(odds);
+					
+					odds = new LotteryOdds();
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(9 + i);
+					odds.setLotteryIssue(151);
+					odds.setTimestamp(new Date());
+					odds.setLotteryBallType(type); // 二级类型
+					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+					odds.setLotteryBallNumber(4); // 4连肖
+					odds.setPanlei(panlei);
+					oddsService.saveOdds(odds);
+					
+					odds = new LotteryOdds();
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(9 + i);
+					odds.setLotteryIssue(151);
+					odds.setTimestamp(new Date());
+					odds.setLotteryBallType(type); // 二级类型
+					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+					odds.setLotteryBallNumber(5); // 5连肖
 					odds.setPanlei(panlei);
 					oddsService.saveOdds(odds);
 				}
@@ -537,6 +571,40 @@ public class OddsServiceTest {
 					odds.setTimestamp(new Date());
 					odds.setLotteryBallType(type); // 二级类型
 					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+					odds.setLotteryBallNumber(2); // 2连肖
+					odds.setPanlei(panlei);
+					oddsService.saveOdds(odds);
+					
+					odds = new LotteryOdds();
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(1 + i);
+					odds.setLotteryIssue(151);
+					odds.setTimestamp(new Date());
+					odds.setLotteryBallType(type); // 二级类型
+					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+					odds.setLotteryBallNumber(3); // 3连肖
+					odds.setPanlei(panlei);
+					oddsService.saveOdds(odds);
+					
+					odds = new LotteryOdds();
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(1 + i);
+					odds.setLotteryIssue(151);
+					odds.setTimestamp(new Date());
+					odds.setLotteryBallType(type); // 二级类型
+					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+					odds.setLotteryBallNumber(4); // 4连肖
+					odds.setPanlei(panlei);
+					oddsService.saveOdds(odds);
+					
+					odds = new LotteryOdds();
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(1 + i);
+					odds.setLotteryIssue(151);
+					odds.setTimestamp(new Date());
+					odds.setLotteryBallType(type); // 二级类型
+					odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+					odds.setLotteryBallNumber(5); // 5连肖
 					odds.setPanlei(panlei);
 					oddsService.saveOdds(odds);
 				}
