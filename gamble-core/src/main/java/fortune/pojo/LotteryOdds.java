@@ -15,7 +15,7 @@ public class LotteryOdds {
     @Id
     private String id;
 
-    private int lotteryBallNumber; // 在连肖中，也表示几连肖
+    private int lotteryBallNumber; // 在连肖中，也表示几连肖；连尾中，表示0-－9
 
     @NotNull
     private double odds;

@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-//import fortune.pojo.LotteryBall;
+import fortune.pojo.LotteryBall;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryOdds;
 import fortune.pojo.PGroup;
@@ -73,26 +73,26 @@ public class OddsServiceTest {
 	}
 
 	// 生成特码赔率
-//	@Test
-//	public void generateSpecialLotteryOdds() {
-//		List<PGroup> pGroupList = pGroupService.getGroupAll();
-//		for (int i = 0; i < pGroupList.size(); i++) {
-//			int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-//			for (LotteryBall ball : LotteryBall.values()) {
-//				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
-//					LotteryOdds odds = new LotteryOdds();
-//					odds.setLotteryBallNumber(ball.getNumber());
-//					odds.setGroupId(pGroupList.get(i).getId());
-//					odds.setOdds(20 + i);
-//					odds.setLotteryIssue(issue);
-//					odds.setTimestamp(new Date());
-//					odds.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL);
-//					odds.setPanlei(panlei);
-//					oddsService.saveOdds(odds);
-//				}
-//			}
-//		}
-//	}
+	@Test
+	public void generateSpecialLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
+			for (LotteryBall ball : LotteryBall.values()) {
+				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
+					LotteryOdds odds = new LotteryOdds();
+					odds.setLotteryBallNumber(ball.getNumber());
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(20 + i);
+					odds.setLotteryIssue(issue);
+					odds.setTimestamp(new Date());
+					odds.setLotteryMarkSixType(LotteryMarkSixType.SPECIAL);
+					odds.setPanlei(panlei);
+					oddsService.saveOdds(odds);
+				}
+			}
+		}
+	}
 
 	// 生成生肖赔率
 	@Test
@@ -249,26 +249,26 @@ public class OddsServiceTest {
 	}
 
 	// 生成正码赔率
-//	@Test
-//	public void generateZhengLotteryOdds() {
-//		List<PGroup> pGroupList = pGroupService.getGroupAll();
-//		for (int i = 0; i < pGroupList.size(); i++) {
-//			int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-//			for (LotteryBall ball : LotteryBall.values()) {
-//				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
-//					LotteryOdds odds = new LotteryOdds();
-//					odds.setLotteryBallNumber(ball.getNumber());
-//					odds.setGroupId(pGroupList.get(i).getId());
-//					odds.setOdds(19);
-//					odds.setLotteryIssue(issue);
-//					odds.setTimestamp(new Date());
-//					odds.setPanlei(panlei);
-//					odds.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_BALL);
-//					oddsService.saveOdds(odds);
-//				}
-//			}
-//		}
-//	}
+	@Test
+	public void generateZhengLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			int issue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
+			for (LotteryBall ball : LotteryBall.values()) {
+				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
+					LotteryOdds odds = new LotteryOdds();
+					odds.setLotteryBallNumber(ball.getNumber());
+					odds.setGroupId(pGroupList.get(i).getId());
+					odds.setOdds(19);
+					odds.setLotteryIssue(issue);
+					odds.setTimestamp(new Date());
+					odds.setPanlei(panlei);
+					odds.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_BALL);
+					oddsService.saveOdds(odds);
+				}
+			}
+		}
+	}
 
 	// 生成正码1到6赔率
 	@Test
@@ -529,7 +529,7 @@ public class OddsServiceTest {
 					odds.setLotteryBallNumber(2); // 2连肖
 					odds.setPanlei(panlei);
 					oddsService.saveOdds(odds);
-					
+
 					odds = new LotteryOdds();
 					odds.setGroupId(pGroupList.get(i).getId());
 					odds.setOdds(9 + i);
@@ -540,7 +540,7 @@ public class OddsServiceTest {
 					odds.setLotteryBallNumber(3); // 3连肖
 					odds.setPanlei(panlei);
 					oddsService.saveOdds(odds);
-					
+
 					odds = new LotteryOdds();
 					odds.setGroupId(pGroupList.get(i).getId());
 					odds.setOdds(9 + i);
@@ -551,7 +551,7 @@ public class OddsServiceTest {
 					odds.setLotteryBallNumber(4); // 4连肖
 					odds.setPanlei(panlei);
 					oddsService.saveOdds(odds);
-					
+
 					odds = new LotteryOdds();
 					odds.setGroupId(pGroupList.get(i).getId());
 					odds.setOdds(9 + i);
@@ -574,7 +574,7 @@ public class OddsServiceTest {
 					odds.setLotteryBallNumber(2); // 2连肖
 					odds.setPanlei(panlei);
 					oddsService.saveOdds(odds);
-					
+
 					odds = new LotteryOdds();
 					odds.setGroupId(pGroupList.get(i).getId());
 					odds.setOdds(1 + i);
@@ -585,7 +585,7 @@ public class OddsServiceTest {
 					odds.setLotteryBallNumber(3); // 3连肖
 					odds.setPanlei(panlei);
 					oddsService.saveOdds(odds);
-					
+
 					odds = new LotteryOdds();
 					odds.setGroupId(pGroupList.get(i).getId());
 					odds.setOdds(1 + i);
@@ -596,7 +596,7 @@ public class OddsServiceTest {
 					odds.setLotteryBallNumber(4); // 4连肖
 					odds.setPanlei(panlei);
 					oddsService.saveOdds(odds);
-					
+
 					odds = new LotteryOdds();
 					odds.setGroupId(pGroupList.get(i).getId());
 					odds.setOdds(1 + i);
@@ -617,7 +617,11 @@ public class OddsServiceTest {
 	public void generateTwoFaceLotteryOdds() {
 		List<PGroup> pGroupList = pGroupService.getGroupAll();
 		for (int i = 0; i < pGroupList.size(); i++) {
-			for (LotteryMarkSixType subType : Arrays.asList(LotteryMarkSixType.DAN, LotteryMarkSixType.SHUANG, LotteryMarkSixType.DA, LotteryMarkSixType.XIAO, LotteryMarkSixType.HEDAN, LotteryMarkSixType.HESHUANG, LotteryMarkSixType.HEDA, LotteryMarkSixType.HEXIAO, LotteryMarkSixType.WEIDA, LotteryMarkSixType.WEIXIAO, LotteryMarkSixType.HEWEIDA, LotteryMarkSixType.HEWEIXIAO, LotteryMarkSixType.JIAQIN, LotteryMarkSixType.YESHOU)) {
+			for (LotteryMarkSixType subType : Arrays.asList(LotteryMarkSixType.DAN, LotteryMarkSixType.SHUANG,
+					LotteryMarkSixType.DA, LotteryMarkSixType.XIAO, LotteryMarkSixType.HEDAN,
+					LotteryMarkSixType.HESHUANG, LotteryMarkSixType.HEDA, LotteryMarkSixType.HEXIAO,
+					LotteryMarkSixType.WEIDA, LotteryMarkSixType.WEIXIAO, LotteryMarkSixType.HEWEIDA,
+					LotteryMarkSixType.HEWEIXIAO, LotteryMarkSixType.JIAQIN, LotteryMarkSixType.YESHOU)) {
 				for (String panlei : Arrays.asList("A", "B", "C", "D")) {
 					LotteryOdds odds = new LotteryOdds();
 					odds.setGroupId(pGroupList.get(i).getId());
@@ -628,6 +632,32 @@ public class OddsServiceTest {
 					odds.setLotteryMarkSixType(LotteryMarkSixType.TWO_FACES);
 					odds.setLotteryBallType(subType);
 					oddsService.saveOdds(odds);
+				}
+			}
+		}
+	}
+
+	// 生成连尾赔率
+	@Test
+	public void generateJointTailLotteryOdds() {
+		List<PGroup> pGroupList = pGroupService.getGroupAll();
+		for (int i = 0; i < pGroupList.size(); i++) {
+			for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.JOINT_TAIL_2,
+					LotteryMarkSixType.JOINT_TAIL_3, LotteryMarkSixType.JOINT_TAIL_4,
+					LotteryMarkSixType.JOINT_TAIL_NOT_2, LotteryMarkSixType.JOINT_TAIL_NOT_3,
+					LotteryMarkSixType.JOINT_TAIL_NOT_4)) {
+				for (int ball : Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)) {
+					for (String panlei : Arrays.asList("A", "B", "C", "D")) {
+						LotteryOdds odds = new LotteryOdds();
+						odds.setGroupId(pGroupList.get(i).getId());
+						odds.setOdds(12 + i);
+						odds.setLotteryIssue(151);
+						odds.setTimestamp(new Date());
+						odds.setPanlei(panlei);
+						odds.setLotteryMarkSixType(type);
+						odds.setLotteryBallNumber(ball);
+						oddsService.saveOdds(odds);
+					}
 				}
 			}
 		}
