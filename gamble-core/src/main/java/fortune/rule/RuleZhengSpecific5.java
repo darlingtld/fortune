@@ -29,4 +29,9 @@ public class RuleZhengSpecific5 extends Rule {
     boolean isStubSplit() {
         return true;
     }
+
+    @Override
+    boolean isStubNumberNeededInOdds() {
+        return false;
+    }
 }

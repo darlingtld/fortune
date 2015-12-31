@@ -31,4 +31,8 @@ public class RuleWaveGreenDan extends Rule {
     boolean isStubSplit() {
         return true;
     }
+    @Override
+    boolean isStubNumberNeededInOdds() {
+        return false;
+    }
 }

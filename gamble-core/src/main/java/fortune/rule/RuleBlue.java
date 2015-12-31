@@ -31,4 +31,8 @@ public class RuleBlue extends Rule {
         return true;
     }
 
+    @Override
+    boolean isStubNumberNeededInOdds() {
+        return false;
+    }
 }

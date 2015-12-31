@@ -30,4 +30,8 @@ public class RuleZodiacJi extends Rule {
     boolean isStubSplit() {
         return true;
     }
+    @Override
+    boolean isStubNumberNeededInOdds() {
+        return false;
+    }
 }

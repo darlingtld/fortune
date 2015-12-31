@@ -3,24 +3,21 @@ package fortune.rule;
 import fortune.pojo.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import scala.Int;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
  * Created by tangl9 on 2015-10-26.
  */
-//连码 三全中
+//连码 三全二
 @Scope("prototype")
 @Component
-public class RuleJoint3All extends Rule {
+public class RuleJoint32 extends Rule {
 
-    public RuleJoint3All() {
-        super(LotteryMarkSixType.JOINT_3_ALL);
+    public RuleJoint32() {
+        super(LotteryMarkSixType.JOINT_3_2);
     }
 
     @Override

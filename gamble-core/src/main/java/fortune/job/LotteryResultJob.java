@@ -97,6 +97,8 @@ public class LotteryResultJob {
     private RuleZhengSpecific5 ruleZhengSpecific5;
     @Autowired
     private RuleZhengSpecific6 ruleZhengSpecific6;
+    @Autowired
+    private RuleJoint3All ruleJoint3All;
 
 
     public void calculateLotteryResult() {
@@ -139,5 +141,6 @@ public class LotteryResultJob {
         threadPoolExecutor.submit(ruleZhengSpecific4);
         threadPoolExecutor.submit(ruleZhengSpecific5);
         threadPoolExecutor.submit(ruleZhengSpecific6);
+        threadPoolExecutor.submit(ruleJoint3All);
     }
 }

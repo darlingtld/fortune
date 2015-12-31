@@ -26,6 +26,10 @@ public abstract class Rule implements Runnable {
 
     abstract boolean isStubSplit();
 
+    boolean isStubNumberNeededInOdds() {
+        return true;
+    }
+
     @Override
     public void run() {
         Utils.logger.info("rule [{}] runs...", lotteryMarkSixType);
@@ -54,12 +58,8 @@ public abstract class Rule implements Runnable {
             double winningMoney = 0;
             if (isStubSplit()) {
                 for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
-                    String oddsCacheKey = String.format("%s#%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType(), wager.getPanlei());
-                    Double odds = oddsCache.get(oddsCacheKey);
-                    if (odds == null) {
-                        odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
-                        oddsCache.put(oddsCacheKey, odds);
-                    }
+                    String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
+                    Double odds = getOdds(oddsCache, wager, stub, oddsCacheKey);
                     switch (getRuleResult(lotteryMarkSix, stub, wager)) {
                         case WIN:
                             winningMoney += stub.getStakes() * odds;
@@ -73,12 +73,8 @@ public abstract class Rule implements Runnable {
                 }
             } else {
                 for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
-                    String oddsCacheKey = String.format("%s#%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType(), wager.getPanlei());
-                    Double odds = oddsCache.get(oddsCacheKey);
-                    if (odds == null) {
-                        odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
-                        oddsCache.put(oddsCacheKey, odds);
-                    }
+                    String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
+                    Double odds = getOdds(oddsCache, wager, stub, oddsCacheKey);
                     switch (getRuleResult(lotteryMarkSix, stub, wager)) {
                         case WIN:
                             winningMoney += wager.getTotalStakes() * odds;
@@ -98,6 +94,27 @@ public abstract class Rule implements Runnable {
         BeanHolder.getJobTrackerService().updateEndStatus(jobId, new Date(), JobTracker.SUCCESS);
         Utils.logger.info("rule [{}] finished", lotteryMarkSixType);
 
+    }
+
+    private Double getOdds(HashMap<String, Double> oddsCache, LotteryMarkSixWager wager, LotteryMarkSixWagerStub stub, String oddsCacheKey) {
+        Double odds = oddsCache.get(oddsCacheKey);
+        if (odds == null) {
+            if (isStubNumberNeededInOdds()) {
+                odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
+            } else {
+                odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), 0, lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
+            }
+            oddsCache.put(oddsCacheKey, odds);
+        }
+        return odds;
+    }
+
+    private String generateOddsCacheKey(LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager, boolean isStubNumberNeededInOdds) {
+        String key = String.format("%s#%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType(), wager.getPanlei());
+        if (!isStubNumberNeededInOdds) {
+            key = String.format("%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getLotteryMarkSixType(), wager.getPanlei());
+        }
+        return key;
     }
 
     private boolean hasJobRun(LotteryMarkSixType lotteryMarkSixType, int lotteryIssue) {
