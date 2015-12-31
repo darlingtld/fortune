@@ -117,6 +117,16 @@ var twoFaceTypeMap={
     YESHOU: "野兽"
 };
 
+// 连尾类型表
+var jointTailTypeMap = {
+	JOINT_TAIL_2: "2尾",
+    JOINT_TAIL_3: "3尾",
+    JOINT_TAIL_4: "4尾",
+    JOINT_TAIL_NOT_2: "2尾不中",
+    JOINT_TAIL_NOT_3: "3尾不中",
+    JOINT_TAIL_NOT_4: "4尾不中"
+};
+
 var Compare = {
     getSingleOrDouble: function (ball) {
         var ballNum = parseInt(ball);
