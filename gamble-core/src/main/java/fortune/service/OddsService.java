@@ -118,25 +118,95 @@ public class OddsService {
                 LotteryMarkSixType.ZODIAC_SHE, LotteryMarkSixType.ZODIAC_MA, LotteryMarkSixType.ZODIAC_YANG,
                 LotteryMarkSixType.ZODIAC_HOU, LotteryMarkSixType.ZODIAC_JI, LotteryMarkSixType.ZODIAC_GOU,
                 LotteryMarkSixType.ZODIAC_ZHU)) {
-            LotteryOdds oddsPing = new LotteryOdds();
-            oddsPing.setGroupId(groupId);
-            oddsPing.setOdds(9);
-            oddsPing.setLotteryIssue(lotteryIssue);
-            oddsPing.setTimestamp(new Date());
-            oddsPing.setLotteryBallType(type); // 二级类型
-            oddsPing.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
-            oddsPing.setPanlei(panlei);
-            oddsList.add(oddsPing);
+//            平肖
+            LotteryOdds odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(9);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallType(type); // 二级类型
+            odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+            odds.setLotteryBallNumber(2); // 2连肖
+            odds.setPanlei(panlei);
+            oddsList.add(odds);
 
-            LotteryOdds oddsZheng = new LotteryOdds();
-            oddsZheng.setGroupId(groupId);
-            oddsZheng.setOdds(10);
-            oddsZheng.setLotteryIssue(lotteryIssue);
-            oddsZheng.setTimestamp(new Date());
-            oddsZheng.setLotteryBallType(type); // 二级类型
-            oddsZheng.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
-            oddsZheng.setPanlei(panlei);
-            oddsList.add(oddsZheng);
+            odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(10);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallType(type); // 二级类型
+            odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+            odds.setLotteryBallNumber(3); // 3连肖
+            odds.setPanlei(panlei);
+            oddsList.add(odds);
+
+            odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(11);
+            odds.setLotteryIssue(151);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallType(type); // 二级类型
+            odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+            odds.setLotteryBallNumber(4); // 4连肖
+            odds.setPanlei(panlei);
+            oddsList.add(odds);
+
+            odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(12);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallType(type); // 二级类型
+            odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_PING);
+            odds.setLotteryBallNumber(5); // 5连肖
+            odds.setPanlei(panlei);
+            oddsList.add(odds);
+
+//            正肖
+            odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(11);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallType(type); // 二级类型
+            odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+            odds.setLotteryBallNumber(2); // 2连肖
+            odds.setPanlei(panlei);
+            oddsList.add(odds);
+
+            odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(22);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallType(type); // 二级类型
+            odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+            odds.setLotteryBallNumber(3); // 3连肖
+            odds.setPanlei(panlei);
+            oddsList.add(odds);
+
+            odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(33);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallType(type); // 二级类型
+            odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+            odds.setLotteryBallNumber(4); // 4连肖
+            odds.setPanlei(panlei);
+            oddsList.add(odds);
+
+            odds = new LotteryOdds();
+            odds.setGroupId(groupId);
+            odds.setOdds(44);
+            odds.setLotteryIssue(lotteryIssue);
+            odds.setTimestamp(new Date());
+            odds.setLotteryBallType(type); // 二级类型
+            odds.setLotteryMarkSixType(LotteryMarkSixType.JOINT_ZODIAC_ZHENG);
+            odds.setLotteryBallNumber(5); // 5连肖
+            odds.setPanlei(panlei);
+            oddsList.add(odds);
         }
         return oddsList;
     }
