@@ -18,9 +18,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LotteryResultJob {
 
-    public static final int TOTAL_LOTTERY_RESULT_JOBS = 30;
+    public static final int TOTAL_LOTTERY_RESULT_JOBS = 32;
     private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 0, TimeUnit.MINUTES, new ArrayBlockingQueue<>(TOTAL_LOTTERY_RESULT_JOBS));
-
 
     @Autowired
     private RuleSPECIAL ruleSPECIAL;
@@ -84,6 +83,8 @@ public class LotteryResultJob {
     private RuleWaveRedXiao ruleWaveRedXiao;
     @Autowired
     private RuleSumZodiac ruleSumZodiac;
+    @Autowired
+    private RuleZhengBall ruleZhengBall;
 
 
     public void calculateLotteryResult() {
@@ -119,5 +120,6 @@ public class LotteryResultJob {
         threadPoolExecutor.submit(ruleWaveRedShuang);
         threadPoolExecutor.submit(ruleWaveRedXiao);
         threadPoolExecutor.submit(ruleSumZodiac);
+        threadPoolExecutor.submit(ruleZhengBall);
     }
 }
