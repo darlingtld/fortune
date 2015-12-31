@@ -25,5 +25,8 @@ public class RuleGreen extends Rule {
             return RuleResult.LOSE;
         }
     }
-
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

@@ -27,4 +27,8 @@ public class RuleWaveGreenXiao extends Rule {
         }
     }
 
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

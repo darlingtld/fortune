@@ -130,4 +130,9 @@ public class RuleZheng1to6 extends Rule {
         }
         return null;
     }
+
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

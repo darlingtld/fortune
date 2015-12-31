@@ -27,4 +27,8 @@ public class RuleSPECIAL extends Rule {
         }
     }
 
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

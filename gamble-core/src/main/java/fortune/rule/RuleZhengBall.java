@@ -30,4 +30,8 @@ public class RuleZhengBall extends Rule {
 
     }
 
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

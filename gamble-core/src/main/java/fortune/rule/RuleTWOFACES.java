@@ -103,4 +103,8 @@ public class RuleTWOFACES extends Rule {
         return RuleResult.LOSE;
     }
 
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

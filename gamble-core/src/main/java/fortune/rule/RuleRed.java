@@ -26,4 +26,8 @@ public class RuleRed extends Rule {
         }
     }
 
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

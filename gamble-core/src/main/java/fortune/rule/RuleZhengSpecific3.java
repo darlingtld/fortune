@@ -25,4 +25,8 @@ public class RuleZhengSpecific3 extends Rule {
         }
     }
 
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

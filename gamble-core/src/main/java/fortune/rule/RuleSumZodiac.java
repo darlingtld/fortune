@@ -42,4 +42,8 @@ public class RuleSumZodiac extends Rule {
 
     }
 
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

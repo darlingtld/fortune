@@ -26,4 +26,8 @@ public class RuleZodiacJi extends Rule {
         }
     }
 
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }

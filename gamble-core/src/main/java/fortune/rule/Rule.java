@@ -24,6 +24,8 @@ public abstract class Rule implements Runnable {
 
     abstract RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager);
 
+    abstract boolean isStubSplit();
+
     @Override
     public void run() {
         Utils.logger.info("rule [{}] runs...", lotteryMarkSixType);
@@ -50,23 +52,45 @@ public abstract class Rule implements Runnable {
             lotteryResult.setLotteryMarkSixWagerId(wager.getId());
 
             double winningMoney = 0;
-            for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
-                String oddsCacheKey = String.format("%s#%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType(), wager.getPanlei());
-                Double odds = oddsCache.get(oddsCacheKey);
-                if (odds == null) {
-                    odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
-                    oddsCache.put(oddsCacheKey, odds);
+            if (isStubSplit()) {
+                for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                    String oddsCacheKey = String.format("%s#%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType(), wager.getPanlei());
+                    Double odds = oddsCache.get(oddsCacheKey);
+                    if (odds == null) {
+                        odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
+                        oddsCache.put(oddsCacheKey, odds);
+                    }
+                    switch (getRuleResult(lotteryMarkSix, stub, wager)) {
+                        case WIN:
+                            winningMoney += stub.getStakes() * odds;
+                            break;
+                        case DRAW:
+                            winningMoney += stub.getStakes();
+                            break;
+                        case LOSE:
+                            break;
+                    }
                 }
-                switch (getRuleResult(lotteryMarkSix, stub, wager)) {
-                    case WIN:
-                        winningMoney += stub.getStakes() * odds;
-                        break;
-                    case DRAW:
-                        winningMoney += stub.getStakes();
-                        break;
-                    case LOSE:
-                        break;
+            } else {
+                for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                    String oddsCacheKey = String.format("%s#%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType(), wager.getPanlei());
+                    Double odds = oddsCache.get(oddsCacheKey);
+                    if (odds == null) {
+                        odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
+                        oddsCache.put(oddsCacheKey, odds);
+                    }
+                    switch (getRuleResult(lotteryMarkSix, stub, wager)) {
+                        case WIN:
+                            winningMoney += wager.getTotalStakes() * odds;
+                            break;
+                        case DRAW:
+                            winningMoney += wager.getTotalStakes();
+                            break;
+                        case LOSE:
+                            break;
+                    }
                 }
+                winningMoney = winningMoney / wager.getLotteryMarkSixWagerStubList().size();
             }
             lotteryResult.setWinningMoney(winningMoney);
             BeanHolder.getResultService().saveLotteryResult(lotteryResult);

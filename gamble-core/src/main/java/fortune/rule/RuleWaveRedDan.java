@@ -27,4 +27,8 @@ public class RuleWaveRedDan extends Rule {
         }
     }
 
+    @Override
+    boolean isStubSplit() {
+        return true;
+    }
 }
