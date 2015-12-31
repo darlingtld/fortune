@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import static fortune.pojo.RuleResult.*;
-
 /**
  * Created by tangl9 on 2015-10-28.
  */
@@ -24,7 +22,7 @@ public abstract class Rule implements Runnable {
         this.lotteryMarkSixType = lotteryMarkSixType;
     }
 
-    abstract RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub);
+    abstract RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager);
 
     @Override
     public void run() {
@@ -59,7 +57,7 @@ public abstract class Rule implements Runnable {
                     odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
                     oddsCache.put(oddsCacheKey, odds);
                 }
-                switch (getRuleResult(lotteryMarkSix, stub)) {
+                switch (getRuleResult(lotteryMarkSix, stub, wager)) {
                     case WIN:
                         winningMoney += stub.getStakes() * odds;
                         break;

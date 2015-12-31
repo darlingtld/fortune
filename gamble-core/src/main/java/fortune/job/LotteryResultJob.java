@@ -82,6 +82,8 @@ public class LotteryResultJob {
     private RuleWaveRedShuang ruleWaveRedShuang;
     @Autowired
     private RuleWaveRedXiao ruleWaveRedXiao;
+    @Autowired
+    private RuleSumZodiac ruleSumZodiac;
 
 
     public void calculateLotteryResult() {
@@ -116,5 +118,6 @@ public class LotteryResultJob {
         threadPoolExecutor.submit(ruleWaveRedDan);
         threadPoolExecutor.submit(ruleWaveRedShuang);
         threadPoolExecutor.submit(ruleWaveRedXiao);
+        threadPoolExecutor.submit(ruleSumZodiac);
     }
 }

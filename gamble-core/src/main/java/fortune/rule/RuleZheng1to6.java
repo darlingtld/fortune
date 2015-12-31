@@ -18,7 +18,7 @@ public class RuleZheng1to6 extends Rule {
     }
 
     @Override
-    RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub) {
+    RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager) {
         switch (stub.getNumber()) {
             case 1:
                 int number = lotteryMarkSix.getOne();

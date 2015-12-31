@@ -1,11 +1,7 @@
 package fortune.rule;
 
-import fortune.pojo.LotteryMarkSix;
-import fortune.pojo.LotteryMarkSixType;
-import fortune.pojo.LotteryMarkSixWagerStub;
-import fortune.pojo.RuleResult;
+import fortune.pojo.*;
 import fortune.service.BeanHolder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +20,7 @@ public class RuleTWOFACES extends Rule {
     }
 
     @Override
-    public RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub) {
+    public RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager) {
         if (lotteryMarkSix.getSpecial() == 49) {
             return RuleResult.DRAW;
         } else {

@@ -17,7 +17,7 @@ public class RuleWaveBlueDan extends Rule {
     }
 
     @Override
-    public RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub) {
+    public RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager) {
         if (lotteryMarkSix.getSpecial() == 49) {
             return RuleResult.DRAW;
         } else if (LotteryBall.valueOf("NUM_" + lotteryMarkSix.getSpecial()).getColor().equals(MarkSixColor.BLUE) && lotteryMarkSix.getSpecial() % 2 == 1) {
