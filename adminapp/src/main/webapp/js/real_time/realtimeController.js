@@ -691,7 +691,7 @@ angular.module('AdminApp')
             }
         }
 
-        $scope.goto('sum_zodiac');
+        $scope.goto('special');
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
     

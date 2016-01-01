@@ -52,6 +52,17 @@ public class OddsService {
         return oddsDao.getOdds4LotteryIssue(lotteryIssue, groupId, number, panlei);
     }
 
+    /**
+     * 获取赔率信息
+     * 
+     * @param lotteryIssue required
+     * @param groupId required
+     * @param number required, can be 0
+     * @param type required
+     * @param ballType optional
+     * @param panlei required
+     * @return
+     */
     @Transactional
     public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type, LotteryMarkSixType ballType, String panlei) {
         // TODO should be passed from outside
