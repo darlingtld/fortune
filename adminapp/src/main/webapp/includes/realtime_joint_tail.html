@@ -1,0 +1,40 @@
+
+<div class="real-time-dashboard real-time-joint-tail">
+    <div ng-repeat="col in [0,1,2,3,4,5]">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2" ng-bind="columnName[col]"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <table>
+                            <tbody>
+                                <tr ng-repeat="row in odds[col]" style="background-color:white">
+                                    <td ng-repeat="numOdds in row">
+                                        <span ng-bind="numOdds.number"></span>
+                                        <span ng-if="numOdds.number">)</span>&nbsp;
+                                        <span ng-bind="numOdds.odds" style="color: red"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" ng-bind="totalStakes[col]"></td>
+                </tr>
+                <tr ng-if="statList[col].length > 0" ng-repeat="stat in statList[col]">
+                    <td>
+                        <a ng-bind="stat.wagerContent" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{stat.lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{stat.wagerContent}}"></a>
+                    </td>
+                    <td ng-bind="stat.stakes"></td>
+                </tr>
+                <tr ng-if="statList[col].length == 0"><td colspan="2">无</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

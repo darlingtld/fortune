@@ -114,13 +114,15 @@ public enum LotteryMarkSixType {
     TWO_FACES("两面"),
     
     // 连尾
-    JOINT_TAIL_2("2尾"),
-    JOINT_TAIL_3("3尾"),
-    JOINT_TAIL_4("4尾"),
+    JOINT_TAIL("连尾"),   // 连尾类型总称
     
-    JOINT_TAIL_NOT_2("2尾不中"),
-    JOINT_TAIL_NOT_3("3尾不中"),
-    JOINT_TAIL_NOT_4("4尾不中"),
+    JOINT_TAIL_2("二尾"),
+    JOINT_TAIL_3("三尾"),
+    JOINT_TAIL_4("四尾"),
+    
+    JOINT_TAIL_NOT_2("二尾不中"),
+    JOINT_TAIL_NOT_3("三尾不中"),
+    JOINT_TAIL_NOT_4("四尾不中"),
         
     
     ////////////////////////DELETED BELOW//////////////////
@@ -312,6 +314,17 @@ public enum LotteryMarkSixType {
                 HESHUANG);
     }
     
+    public static List<LotteryMarkSixType> getRealTimeZhengSpecificList() {
+        return Arrays.asList(
+                ZHENG_SPECIFIC_1,
+                ZHENG_SPECIFIC_2,
+                ZHENG_SPECIFIC_3,
+                ZHENG_SPECIFIC_4,
+                ZHENG_SPECIFIC_5,
+                ZHENG_SPECIFIC_6
+                );
+    }
+    
     public static List<LotteryMarkSixType> getRealTimeNotList() {
         return Arrays.asList(
                 NOT_5,
@@ -322,6 +335,26 @@ public enum LotteryMarkSixType {
                 NOT_10,
                 NOT_11,
                 NOT_12);
+    }
+    
+    public static List<LotteryMarkSixType> getRealTimeJointTailList() {
+        return Arrays.asList(
+                JOINT_TAIL_2,
+                JOINT_TAIL_3,
+                JOINT_TAIL_4,
+                JOINT_TAIL_NOT_2,
+                JOINT_TAIL_NOT_3,
+                JOINT_TAIL_NOT_4
+                );
+    }
+    
+    public static List<LotteryMarkSixType> getRealTimeJointZodiacList() {
+        return Arrays.asList(
+                JOINT_ZODIAC_2,
+                JOINT_ZODIAC_3,
+                JOINT_ZODIAC_4,
+                JOINT_ZODIAC_5
+                );
     }
     
     public static List<LotteryMarkSixType> getRealTimeTwoFacesList() {
@@ -368,6 +401,7 @@ public enum LotteryMarkSixType {
                 NOT_11,
                 NOT_12,
                 JOINT_ZODIAC,
+                JOINT_TAIL,
                 ONE_ZODIAC,
                 TAIL_NUM
                 );

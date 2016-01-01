@@ -135,46 +135,28 @@ angular.module('AdminApp')
         }
 
         function renderSumZodiac() {
+            $scope.getSumZodiacName = function(number) {
+                return parseInt(number / 10);
+            };
+            
             realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], 'sum_zodiac', $scope.selectedPan.name).then(function (data) {
-                $scope.list1 = [];
-                $scope.list1.push(data.slice(0, 2).reverse());
-                $scope.list1.push(data.slice(2, 4).reverse());
-                $scope.list1.push(data.slice(4, 6).reverse());
-                $scope.list1.push(data.slice(6, 8).reverse());
-                $scope.list2 = [];
-                $scope.list2.push(data.slice(8, 10).reverse());
-                $scope.list2.push(data.slice(10, 12).reverse());
-                $scope.list2.push(data.slice(12, 14).reverse());
-                $scope.list2.push(data.slice(14, 16).reverse());
-                $scope.list3 = [];
-                $scope.list3.push(data.slice(16, 18).reverse());
-                $scope.list3.push(data.slice(18, 20).reverse());
-                $scope.list3.push(data.slice(20, 22).reverse());
-
-                $scope.transactions = [];
-                $scope.stakes = [];
-                $scope.transactions.push(data[0].transactions + data[1].transactions);
-                $scope.stakes.push(data[0].stakes + data[1].stakes);
-                $scope.transactions.push(data[2].transactions + data[3].transactions);
-                $scope.stakes.push(data[2].stakes + data[3].stakes);
-                $scope.transactions.push(data[4].transactions + data[5].transactions);
-                $scope.stakes.push(data[4].stakes + data[5].stakes);
-                $scope.transactions.push(data[6].transactions + data[7].transactions);
-                $scope.stakes.push(data[6].stakes + data[7].stakes);
-                $scope.transactions.push(data[8].transactions + data[9].transactions);
-                $scope.stakes.push(data[8].stakes + data[9].stakes);
-                $scope.transactions.push(data[10].transactions + data[11].transactions);
-                $scope.stakes.push(data[10].stakes + data[12].stakes);
-                $scope.transactions.push(data[12].transactions + data[13].transactions);
-                $scope.stakes.push(data[12].stakes + data[13].stakes);
-                $scope.transactions.push(data[14].transactions + data[15].transactions);
-                $scope.stakes.push(data[14].stakes + data[15].stakes);
-                $scope.transactions.push(data[16].transactions + data[17].transactions);
-                $scope.stakes.push(data[16].stakes + data[17].stakes);
-                $scope.transactions.push(data[18].transactions + data[19].transactions);
-                $scope.stakes.push(data[18].stakes + data[19].stakes);
-                $scope.transactions.push(data[20].transactions + data[21].transactions);
-                $scope.stakes.push(data[20].stakes + data[21].stakes);
+                $scope.sumZodiacList = [];
+                $scope.sumZodiacList[0] = [];
+                $scope.sumZodiacList[0].push(data.slice(0, 2).reverse());
+                $scope.sumZodiacList[0].push(data.slice(2, 4).reverse());
+                $scope.sumZodiacList[0].push(data.slice(4, 6).reverse());
+                $scope.sumZodiacList[0].push(data.slice(6, 8).reverse());
+                
+                $scope.sumZodiacList[1] = [];
+                $scope.sumZodiacList[1].push(data.slice(8, 10).reverse());
+                $scope.sumZodiacList[1].push(data.slice(10, 12).reverse());
+                $scope.sumZodiacList[1].push(data.slice(12, 14).reverse());
+                $scope.sumZodiacList[1].push(data.slice(14, 16).reverse());
+                
+                $scope.sumZodiacList[2] = [];
+                $scope.sumZodiacList[2].push(data.slice(16, 18).reverse());
+                $scope.sumZodiacList[2].push(data.slice(18, 20).reverse());
+                $scope.sumZodiacList[2].push(data.slice(20, 22).reverse());
             });
         }
 
@@ -444,8 +426,6 @@ angular.module('AdminApp')
         }
 
         function renderJointZodiac() {
-            $scope.notNameMap = {5: '五', 6: '六', 7: '七', 8: '八', 9: '九', 10: '十', 11: '十一', 12: '十二'};
-
             $scope.odds = {
                 jointZodiacPing: [],
                 jointZodiacZheng: []
@@ -484,7 +464,51 @@ angular.module('AdminApp')
                     $scope.totalStakesMap = totalStakesMap;
                 });
             });
-
+        }
+        
+        function renderJointTail() {
+            $scope.odds = [];
+            $scope.statList = [];
+            $scope.totalStakes = [];
+            $scope.columnName = ['二尾中','三尾中','四尾中','二尾不中','三尾不中','四不尾中'];
+            
+            var typeList = ['joint_tail_2', 'joint_tail_3', 'joint_tail_4', 'joint_tail_not_2', 'joint_tail_not_3', 'joint_tail_not_4'];
+            
+            realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
+                //TODO panlei, fix odds, quick and dirty
+                var panlei = $scope.selectedPan.name == 'ALL' ? 'A' : $scope.selectedPan.name;
+                
+                //TODO mock data
+                var tmpOdds = [];
+                for (var i = 0; i <= 9; i ++) {
+                    var odds = new Object();
+                    odds.number = i;
+                    odds.odds = 8;
+                  
+                    tmpOdds[i] = odds;
+                }
+               
+                for (var i = 0; i < typeList.length; i ++) {
+                    (function(i) {
+                        oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, typeList[i]).then(function (oddsList) {
+                            oddsList = tmpOdds;
+                            $scope.odds[i] = [];
+                            $scope.odds[i][0] = oddsList.slice(0, 3);
+                            $scope.odds[i][1] = oddsList.slice(3, 6);
+                            $scope.odds[i][2] = oddsList.slice(6, 9);
+                            $scope.odds[i][3] = [oddsList[9], {}, {}];
+                        });
+                        
+                        realtimeService.getRealTimeTransaction(sessionStorage['pgroupid'], typeList[i], $scope.selectedPan.name).then(function (statList) {
+                            $scope.totalStakes[i] = 0;
+                            for (var j = 0; j < statList.length; j ++) {
+                                $scope.totalStakes[i] += statList[j].stakes;
+                            }
+                            $scope.statList[i] = statList;
+                        });
+                    })(i);
+                }
+            });
         }
 
         function renderAll() {
@@ -621,6 +645,16 @@ angular.module('AdminApp')
                 tmpSum += $scope.transactionTotalCount.JOINT_ZODIAC_ZHENG;
                 tmpSum += $scope.transactionTotalCount.JOINT_ZODIAC_PING;
                 $scope.transactionTotalCount.JOINT_ZODIAC_TOTAL = tmpSum;
+                
+                // joint tail
+                tmpSum = 0;
+                tmpSum += $scope.transactionTotalCount.JOINT_TAIL_2;
+                tmpSum += $scope.transactionTotalCount.JOINT_TAIL_3;
+                tmpSum += $scope.transactionTotalCount.JOINT_TAIL_4;
+                tmpSum += $scope.transactionTotalCount.JOINT_TAIL_NOT_2;
+                tmpSum += $scope.transactionTotalCount.JOINT_TAIL_NOT_3;
+                tmpSum += $scope.transactionTotalCount.JOINT_TAIL_NOT_4;
+                $scope.transactionTotalCount.JOINT_TAIL_TOTAL = tmpSum;
             });
 
             switch (page) {
@@ -648,13 +682,16 @@ angular.module('AdminApp')
                 case 'joint_zodiac':
                     renderJointZodiac();
                     break;
+                case 'joint_tail':
+                    renderJointTail();
+                    break;
                 case 'all':
                     renderAll();
                     break;
             }
         }
 
-        $scope.goto('special');
+        $scope.goto('sum_zodiac');
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
     
