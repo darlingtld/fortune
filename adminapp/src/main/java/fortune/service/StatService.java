@@ -118,7 +118,6 @@ public class StatService {
             case NOT_10:
             case NOT_11:
             case NOT_12:
-                // already check panlei inside
                 return getRealTimeTransactionResult4Not(groupid, panlei, type);
             case JOINT_ZODIAC_PING:
             case JOINT_ZODIAC_ZHENG:

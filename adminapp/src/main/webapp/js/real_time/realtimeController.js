@@ -9,20 +9,20 @@ angular.module('AdminApp')
         });
 
         $scope.zodiacNames = {
-            "zodiac_shu": "鼠",
-            "zodiac_niu": "牛",
-            "zodiac_hu": "虎",
-            "zodiac_tu": "兔",
-            "zodiac_long": "龙",
-            "zodiac_she": "蛇",
-            "zodiac_ma": "马",
-            "zodiac_yang": "羊",
-            "zodiac_hou": "猴",
-            "zodiac_ji": "鸡",
-            "zodiac_gou": "狗",
-            "zodiac_zhu": "猪"
-        };
-
+                "zodiac_shu": "鼠",
+                "zodiac_niu": "牛",
+                "zodiac_hu": "虎",
+                "zodiac_tu": "兔",
+                "zodiac_long": "龙",
+                "zodiac_she": "蛇",
+                "zodiac_ma": "马",
+                "zodiac_yang": "羊",
+                "zodiac_hou": "猴",
+                "zodiac_ji": "鸡",
+                "zodiac_gou": "狗",
+                "zodiac_zhu": "猪"
+            };
+        
         $scope.pans = {
             panlei: [
                 {name: 'ALL', title: '全部'},
@@ -434,10 +434,22 @@ angular.module('AdminApp')
             realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
                 //TODO panlei, fix odds
                 var panlei = $scope.selectedPan.name == 'ALL' ? 'A' : $scope.selectedPan.name;
-                oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, 'joint_zodiac_ping').then(function (oddsList) {
-                    $scope.odds.jointZodiacPing[0] = oddsList.slice(0, 3);
-                    $scope.odds.jointZodiacPing[1] = oddsList.slice(3, 6);
-                    $scope.odds.jointZodiacPing[2] = oddsList.slice(6, 9);
+                oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, 'joint_zodiac_zheng').then(function (zhengList) {
+                    $scope.zhengOdds = zhengList[0].odds;
+                    
+                    oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, 'joint_zodiac_ping').then(function (oddsList) {
+                        //FIXME Hard Code
+                        for (var i = 0; i < oddsList.length; i ++) {
+                            if (oddsList[i].lotteryBallType == 'ZODIAC_HOU') {
+                                oddsList[i].odds = $scope.zhengOdds;
+                            }
+                        }
+                        
+                        $scope.odds.jointZodiacPing[0] = oddsList.slice(0, 3);
+                        $scope.odds.jointZodiacPing[1] = oddsList.slice(3, 6);
+                        $scope.odds.jointZodiacPing[2] = oddsList.slice(6, 9);
+                        $scope.odds.jointZodiacPing[3] = oddsList.slice(9, 12);
+                    });
                 });
 
             });
@@ -475,7 +487,7 @@ angular.module('AdminApp')
             var typeList = ['joint_tail_2', 'joint_tail_3', 'joint_tail_4', 'joint_tail_not_2', 'joint_tail_not_3', 'joint_tail_not_4'];
             
             realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
-                //TODO panlei, fix odds, quick and dirty
+                //TODO panlei, fix odds
                 var panlei = $scope.selectedPan.name == 'ALL' ? 'A' : $scope.selectedPan.name;
                 
                 //TODO mock data
@@ -567,7 +579,6 @@ angular.module('AdminApp')
             }).then(function (data) {
                 $scope.transactionTotalCount = data;
 
-                //TODO simplify this
                 // special
                 var tmpSum = 0;
                 tmpSum += $scope.transactionTotalCount.SPECIAL;
