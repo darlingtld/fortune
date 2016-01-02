@@ -281,6 +281,22 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
     			stakes=stakes.substring(0,stakes.length-1)+')';
     			return stakes;
     		}
+    	},
+    	'JOINT_TAIL': {
+    		typeName: function(wage){
+    			return jointTailTypeMap[wage.lotteryMarkSixType];
+    		},
+    		getWageHTML: function(wage){
+    			var html='', wageSubList=wage.lotteryMarkSixWagerStubList;
+    			for(var i=0;i<wageSubList.length;i++){
+    				var item=wageSubList[i];
+    				html+=item.number+' ';
+    			}
+    			return $sce.trustAsHtml(html);
+    		},
+    		getStakes: function(wage){
+    			return wage.totalStakes;
+    		}
     	}
     };
     
@@ -293,6 +309,9 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
                 	if(prefix === 'JOINT'){
                 		if(data[i].lotteryMarkSixType === 'JOINT_ZODIAC_PING' || data[i].lotteryMarkSixType === 'JOINT_ZODIAC_ZHENG'){
                 			prefix = data[i].lotteryMarkSixType;
+                		}
+                		else if(data[i].lotteryMarkSixType.indexOf("JOINT_TAIL") === 0){
+                			prefix = "JOINT_TAIL";
                 		}
                 	}
                 	var mapItem=prefixHistoryMap[prefix];

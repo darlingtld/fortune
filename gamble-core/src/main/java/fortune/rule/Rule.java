@@ -14,9 +14,9 @@ import java.util.List;
 public abstract class Rule implements Runnable {
 
 
-    private LotteryMarkSixType lotteryMarkSixType;
+    protected LotteryMarkSixType lotteryMarkSixType;
 
-    private int lotteryIssue;
+    protected int lotteryIssue;
 
     public Rule(LotteryMarkSixType lotteryMarkSixType) {
         this.lotteryMarkSixType = lotteryMarkSixType;
@@ -85,6 +85,19 @@ public abstract class Rule implements Runnable {
                                 break;
                             case LOSE:
                                 break;
+//                            连码三中二特殊处理
+                            case WIN_JOINT_3_2_ZHONG_2:
+                                winningMoney += wager.getTotalStakes() * odds;
+                                break;
+                            case WIN_JOINT_3_2_ZHONG_3:
+                                String jKey = String.format("%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), LotteryMarkSixType.JOINT_3_ALL, wager.getPanlei());
+                                Double jOdds = oddsCache.get(jKey);
+                                if (jOdds == null) {
+                                    BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), 0, LotteryMarkSixType.JOINT_3_ALL, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
+                                    oddsCache.put(jKey, jOdds);
+                                }
+                                winningMoney += wager.getTotalStakes() * jOdds;
+                                break;
                         }
                     }
                     winningMoney = winningMoney / wager.getLotteryMarkSixWagerStubList().size();
@@ -98,7 +111,7 @@ public abstract class Rule implements Runnable {
 
     }
 
-    private Double getOdds(HashMap<String, Double> oddsCache, LotteryMarkSixWager wager, LotteryMarkSixWagerStub stub, String oddsCacheKey) {
+    protected Double getOdds(HashMap<String, Double> oddsCache, LotteryMarkSixWager wager, LotteryMarkSixWagerStub stub, String oddsCacheKey) {
         Double odds = oddsCache.get(oddsCacheKey);
         if (odds == null) {
             if (isStubNumberNeededInOdds()) {
@@ -111,7 +124,7 @@ public abstract class Rule implements Runnable {
         return odds;
     }
 
-    private String generateOddsCacheKey(LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager, boolean isStubNumberNeededInOdds) {
+    protected String generateOddsCacheKey(LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager, boolean isStubNumberNeededInOdds) {
         String key = String.format("%s#%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType(), wager.getPanlei());
         if (!isStubNumberNeededInOdds) {
             key = String.format("%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getLotteryMarkSixType(), wager.getPanlei());
@@ -119,7 +132,7 @@ public abstract class Rule implements Runnable {
         return key;
     }
 
-    private boolean hasJobRun(LotteryMarkSixType lotteryMarkSixType, int lotteryIssue) {
+    protected boolean hasJobRun(LotteryMarkSixType lotteryMarkSixType, int lotteryIssue) {
         return BeanHolder.getJobTrackerService().getJobByNameAndIssue(lotteryMarkSixType.name(), lotteryIssue) != null;
     }
 }
