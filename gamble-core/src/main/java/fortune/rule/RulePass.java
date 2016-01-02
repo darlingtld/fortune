@@ -3,36 +3,47 @@ package fortune.rule;
 import common.Utils;
 import fortune.pojo.*;
 import fortune.service.BeanHolder;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Created by tangl9 on 2015-10-28.
+ * Created by tangl9 on 2015-10-26.
  */
-public abstract class Rule implements Runnable {
+//过关
+@Scope("prototype")
+@Component
+public class RulePass extends Rule {
 
-
-    protected LotteryMarkSixType lotteryMarkSixType;
-
-    protected int lotteryIssue;
-
-    public Rule(LotteryMarkSixType lotteryMarkSixType) {
-        this.lotteryMarkSixType = lotteryMarkSixType;
-    }
-
-    abstract RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager);
-
-    abstract boolean isStubSplit();
-
-    boolean isStubNumberNeededInOdds() {
-        return true;
+    public RulePass() {
+        super(LotteryMarkSixType.PASS);
     }
 
     @Override
+    public RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager) {
+        for(LotteryMarkSixWagerStub wagerStub : wager.getLotteryMarkSixWagerStubList()){
+
+        }
+        List<Integer> wagerBallList = wager.getLotteryMarkSixWagerStubList().stream().map(LotteryMarkSixWagerStub::getNumber).collect(Collectors.toList());
+        if (wagerBallList.contains(lotteryMarkSix.getOne())
+                || wagerBallList.contains(lotteryMarkSix.getTwo())
+                || wagerBallList.contains(lotteryMarkSix.getThree())
+                || wagerBallList.contains(lotteryMarkSix.getFour())
+                || wagerBallList.contains(lotteryMarkSix.getFive())
+                || wagerBallList.contains(lotteryMarkSix.getSix())
+                || wagerBallList.contains(lotteryMarkSix.getSpecial())) {
+            return RuleResult.LOSE;
+        } else {
+            return RuleResult.WIN;
+        }
+    }
+    @Override
     public void run() {
-        Utils.logger.info("rule [{}] runs...", lotteryMarkSixType);
+        Utils.logger.info("rule [{}] runs...", super.lotteryMarkSixType);
 //        check whether this job has run
         lotteryIssue = BeanHolder.getLotteryService().getLatestLotteryIssue();
         if (hasJobRun(lotteryMarkSixType, lotteryIssue)) {
@@ -111,28 +122,13 @@ public abstract class Rule implements Runnable {
 
     }
 
-    protected Double getOdds(HashMap<String, Double> oddsCache, LotteryMarkSixWager wager, LotteryMarkSixWagerStub stub, String oddsCacheKey) {
-        Double odds = oddsCache.get(oddsCacheKey);
-        if (odds == null) {
-            if (isStubNumberNeededInOdds()) {
-                odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), stub.getNumber(), lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
-            } else {
-                odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), 0, lotteryMarkSixType, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
-            }
-            oddsCache.put(oddsCacheKey, odds);
-        }
-        return odds;
+    @Override
+    boolean isStubSplit() {
+        return false;
     }
 
-    protected String generateOddsCacheKey(LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager, boolean isStubNumberNeededInOdds) {
-        String key = String.format("%s#%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getNumber(), stub.getLotteryMarkSixType(), wager.getPanlei());
-        if (!isStubNumberNeededInOdds) {
-            key = String.format("%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), stub.getLotteryMarkSixType(), wager.getPanlei());
-        }
-        return key;
-    }
-
-    protected boolean hasJobRun(LotteryMarkSixType lotteryMarkSixType, int lotteryIssue) {
-        return BeanHolder.getJobTrackerService().getJobByNameAndIssue(lotteryMarkSixType.name(), lotteryIssue) != null;
+    @Override
+    boolean isStubNumberNeededInOdds() {
+        return false;
     }
 }
