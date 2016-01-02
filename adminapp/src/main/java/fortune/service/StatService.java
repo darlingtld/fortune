@@ -130,7 +130,7 @@ public class StatService {
             case JOINT_TAIL_NOT_4:
                 return getRealTimeTransactionResult4JointTail(groupid, panlei, type);
             default:
-                return null;
+                return new ArrayList<>();
         }
     }
 
