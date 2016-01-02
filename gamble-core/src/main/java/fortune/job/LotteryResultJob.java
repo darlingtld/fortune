@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LotteryResultJob {
 
-    public static final int TOTAL_LOTTERY_RESULT_JOBS = 38;
+    public static final int TOTAL_LOTTERY_RESULT_JOBS = 39;
     private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 0, TimeUnit.MINUTES, new ArrayBlockingQueue<>(TOTAL_LOTTERY_RESULT_JOBS));
 
     @Autowired
@@ -104,43 +104,43 @@ public class LotteryResultJob {
     public void calculateLotteryResult() {
         Utils.logger.info("start to calculate lottery result at {}", Utils.yyyyMMddHHmmss2Format(new Date()));
         threadPoolExecutor.submit(ruleSPECIAL);
-        threadPoolExecutor.submit(ruleZheng1to6);
-        threadPoolExecutor.submit(ruleTWOFACES);
-        threadPoolExecutor.submit(ruleZodiacShu);
-        threadPoolExecutor.submit(ruleZodiacNiu);
-        threadPoolExecutor.submit(ruleZodiacHu);
-        threadPoolExecutor.submit(ruleZodiacTu);
-        threadPoolExecutor.submit(ruleZodiacLong);
-        threadPoolExecutor.submit(ruleZodiacShe);
-        threadPoolExecutor.submit(ruleZodiacMa);
-        threadPoolExecutor.submit(ruleZodiacYang);
-        threadPoolExecutor.submit(ruleZodiacHou);
-        threadPoolExecutor.submit(ruleZodiacJi);
-        threadPoolExecutor.submit(ruleZodiacGou);
-        threadPoolExecutor.submit(ruleZodiacZhu);
-        threadPoolExecutor.submit(ruleRed);
-        threadPoolExecutor.submit(ruleGreen);
-        threadPoolExecutor.submit(ruleBlue);
-        threadPoolExecutor.submit(ruleWaveBlueDa);
-        threadPoolExecutor.submit(ruleWaveBlueDan);
-        threadPoolExecutor.submit(ruleWaveBlueShuang);
-        threadPoolExecutor.submit(ruleWaveBlueXiao);
-        threadPoolExecutor.submit(ruleWaveGreenDa);
-        threadPoolExecutor.submit(ruleWaveGreenDan);
-        threadPoolExecutor.submit(ruleWaveGreenShuang);
-        threadPoolExecutor.submit(ruleWaveGreenXiao);
-        threadPoolExecutor.submit(ruleWaveRedDa);
-        threadPoolExecutor.submit(ruleWaveRedDan);
-        threadPoolExecutor.submit(ruleWaveRedShuang);
-        threadPoolExecutor.submit(ruleWaveRedXiao);
-        threadPoolExecutor.submit(ruleSumZodiac);
-        threadPoolExecutor.submit(ruleZhengBall);
-        threadPoolExecutor.submit(ruleZhengSpecific1);
-        threadPoolExecutor.submit(ruleZhengSpecific2);
-        threadPoolExecutor.submit(ruleZhengSpecific3);
-        threadPoolExecutor.submit(ruleZhengSpecific4);
-        threadPoolExecutor.submit(ruleZhengSpecific5);
-        threadPoolExecutor.submit(ruleZhengSpecific6);
-        threadPoolExecutor.submit(ruleJoint3All);
+//        threadPoolExecutor.submit(ruleTWOFACES);
+//        threadPoolExecutor.submit(ruleZheng1to6);
+//        threadPoolExecutor.submit(ruleZodiacShu);
+//        threadPoolExecutor.submit(ruleZodiacNiu);
+//        threadPoolExecutor.submit(ruleZodiacHu);
+//        threadPoolExecutor.submit(ruleZodiacTu);
+//        threadPoolExecutor.submit(ruleZodiacLong);
+//        threadPoolExecutor.submit(ruleZodiacShe);
+//        threadPoolExecutor.submit(ruleZodiacMa);
+//        threadPoolExecutor.submit(ruleZodiacYang);
+//        threadPoolExecutor.submit(ruleZodiacHou);
+//        threadPoolExecutor.submit(ruleZodiacJi);
+//        threadPoolExecutor.submit(ruleZodiacGou);
+//        threadPoolExecutor.submit(ruleZodiacZhu);
+//        threadPoolExecutor.submit(ruleRed);
+//        threadPoolExecutor.submit(ruleGreen);
+//        threadPoolExecutor.submit(ruleBlue);
+//        threadPoolExecutor.submit(ruleWaveBlueDa);
+//        threadPoolExecutor.submit(ruleWaveBlueDan);
+//        threadPoolExecutor.submit(ruleWaveBlueShuang);
+//        threadPoolExecutor.submit(ruleWaveBlueXiao);
+//        threadPoolExecutor.submit(ruleWaveGreenDa);
+//        threadPoolExecutor.submit(ruleWaveGreenDan);
+//        threadPoolExecutor.submit(ruleWaveGreenShuang);
+//        threadPoolExecutor.submit(ruleWaveGreenXiao);
+//        threadPoolExecutor.submit(ruleWaveRedDa);
+//        threadPoolExecutor.submit(ruleWaveRedDan);
+//        threadPoolExecutor.submit(ruleWaveRedShuang);
+//        threadPoolExecutor.submit(ruleWaveRedXiao);
+//        threadPoolExecutor.submit(ruleSumZodiac);
+//        threadPoolExecutor.submit(ruleZhengBall);
+//        threadPoolExecutor.submit(ruleZhengSpecific1);
+//        threadPoolExecutor.submit(ruleZhengSpecific2);
+//        threadPoolExecutor.submit(ruleZhengSpecific3);
+//        threadPoolExecutor.submit(ruleZhengSpecific4);
+//        threadPoolExecutor.submit(ruleZhengSpecific5);
+//        threadPoolExecutor.submit(ruleZhengSpecific6);
+//        threadPoolExecutor.submit(ruleJoint3All);
     }
 }

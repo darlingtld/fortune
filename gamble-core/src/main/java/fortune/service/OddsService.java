@@ -54,21 +54,17 @@ public class OddsService {
 
     /**
      * 获取赔率信息
-     * 
+     *
      * @param lotteryIssue required
-     * @param groupId required
-     * @param number required, can be 0
-     * @param type required
-     * @param ballType optional
-     * @param panlei required
+     * @param groupId      required
+     * @param number       required, can be 0
+     * @param type         required
+     * @param ballType     optional
+     * @param panlei       required
      * @return
      */
     @Transactional
     public LotteryOdds getOdds(int lotteryIssue, String groupId, int number, LotteryMarkSixType type, LotteryMarkSixType ballType, String panlei) {
-        // TODO should be passed from outside
-        if (type.equals(LotteryMarkSixType.ZHENG_1_6)) {
-            number = 0;
-        }
         Utils.logger.info("get odds for lottery issue {} of group id {} of ball {} of type {} of ball type {} of panlei {}", lotteryIssue, groupId, number, type, ballType, panlei);
         return oddsDao.getOdds(lotteryIssue, groupId, number, type, ballType, panlei);
     }
@@ -118,6 +114,30 @@ public class OddsService {
         oddsList.addAll(generateTwoFaceLotteryOdds(groupId, lotteryIssue, panlei));
 //        连肖赔率
         oddsList.addAll(generateJointZodiacLotteryOdds(groupId, lotteryIssue, panlei));
+//        连尾赔率
+        oddsList.addAll(generateJointTailLotteryOdds(groupId, lotteryIssue, panlei));
+        return oddsList;
+    }
+
+    //    生成连尾赔率
+    private List<LotteryOdds> generateJointTailLotteryOdds(String groupId, int lotteryIssue, String panlei) {
+        List<LotteryOdds> oddsList = new ArrayList<>();
+        for (LotteryMarkSixType type : Arrays.asList(LotteryMarkSixType.JOINT_TAIL_2,
+                LotteryMarkSixType.JOINT_TAIL_3, LotteryMarkSixType.JOINT_TAIL_4,
+                LotteryMarkSixType.JOINT_TAIL_NOT_2, LotteryMarkSixType.JOINT_TAIL_NOT_3,
+                LotteryMarkSixType.JOINT_TAIL_NOT_4)) {
+            for (int ball : Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)) {
+                LotteryOdds odds = new LotteryOdds();
+                odds.setGroupId(groupId);
+                odds.setOdds(12);
+                odds.setLotteryIssue(lotteryIssue);
+                odds.setTimestamp(new Date());
+                odds.setPanlei(panlei);
+                odds.setLotteryMarkSixType(type);
+                odds.setLotteryBallNumber(ball);
+                oddsList.add(odds);
+            }
+        }
         return oddsList;
     }
 

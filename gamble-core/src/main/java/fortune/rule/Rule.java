@@ -43,53 +43,55 @@ public abstract class Rule implements Runnable {
         int jobId = BeanHolder.getJobTrackerService().save(jobTracker);
 //        get all wagers for this issue
         List<LotteryMarkSixWager> wagerList = BeanHolder.getWagerService().getLotteryMarkSixWagerListByType(lotteryIssue, lotteryMarkSixType);
+        if (!wagerList.isEmpty()) {
 //        run against rules
-        LotteryMarkSix lotteryMarkSix = BeanHolder.getLotteryService().getLotteryMarkSix(lotteryIssue);
-        HashMap<String, Double> oddsCache = new HashMap<>();
-        for (LotteryMarkSixWager wager : wagerList) {
-            Utils.logger.debug(wager.toString());
-            LotteryResult lotteryResult = new LotteryResult();
-            lotteryResult.setUserId(wager.getUserId());
-            lotteryResult.setGroupId(wager.getPgroupId());
-            lotteryResult.setPanlei(wager.getPanlei());
-            lotteryResult.setLotteryIssue(lotteryIssue);
-            lotteryResult.setLotteryMarkSixWagerId(wager.getId());
+            LotteryMarkSix lotteryMarkSix = BeanHolder.getLotteryService().getLotteryMarkSix(lotteryIssue);
+            HashMap<String, Double> oddsCache = new HashMap<>();
+            for (LotteryMarkSixWager wager : wagerList) {
+                Utils.logger.debug(wager.toString());
+                LotteryResult lotteryResult = new LotteryResult();
+                lotteryResult.setUserId(wager.getUserId());
+                lotteryResult.setGroupId(wager.getPgroupId());
+                lotteryResult.setPanlei(wager.getPanlei());
+                lotteryResult.setLotteryIssue(lotteryIssue);
+                lotteryResult.setLotteryMarkSixWagerId(wager.getId());
 
-            double winningMoney = 0;
-            if (isStubSplit()) {
-                for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
-                    String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
-                    Double odds = getOdds(oddsCache, wager, stub, oddsCacheKey);
-                    switch (getRuleResult(lotteryMarkSix, stub, wager)) {
-                        case WIN:
-                            winningMoney += stub.getStakes() * odds;
-                            break;
-                        case DRAW:
-                            winningMoney += stub.getStakes();
-                            break;
-                        case LOSE:
-                            break;
+                double winningMoney = 0;
+                if (isStubSplit()) {
+                    for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                        String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
+                        Double odds = getOdds(oddsCache, wager, stub, oddsCacheKey);
+                        switch (getRuleResult(lotteryMarkSix, stub, wager)) {
+                            case WIN:
+                                winningMoney += stub.getStakes() * odds;
+                                break;
+                            case DRAW:
+                                winningMoney += stub.getStakes();
+                                break;
+                            case LOSE:
+                                break;
+                        }
                     }
-                }
-            } else {
-                for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
-                    String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
-                    Double odds = getOdds(oddsCache, wager, stub, oddsCacheKey);
-                    switch (getRuleResult(lotteryMarkSix, stub, wager)) {
-                        case WIN:
-                            winningMoney += wager.getTotalStakes() * odds;
-                            break;
-                        case DRAW:
-                            winningMoney += wager.getTotalStakes();
-                            break;
-                        case LOSE:
-                            break;
+                } else {
+                    for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                        String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
+                        Double odds = getOdds(oddsCache, wager, stub, oddsCacheKey);
+                        switch (getRuleResult(lotteryMarkSix, stub, wager)) {
+                            case WIN:
+                                winningMoney += wager.getTotalStakes() * odds;
+                                break;
+                            case DRAW:
+                                winningMoney += wager.getTotalStakes();
+                                break;
+                            case LOSE:
+                                break;
+                        }
                     }
+                    winningMoney = winningMoney / wager.getLotteryMarkSixWagerStubList().size();
                 }
-                winningMoney = winningMoney / wager.getLotteryMarkSixWagerStubList().size();
+                lotteryResult.setWinningMoney(winningMoney);
+                BeanHolder.getResultService().saveLotteryResult(lotteryResult);
             }
-            lotteryResult.setWinningMoney(winningMoney);
-            BeanHolder.getResultService().saveLotteryResult(lotteryResult);
         }
         BeanHolder.getJobTrackerService().updateEndStatus(jobId, new Date(), JobTracker.SUCCESS);
         Utils.logger.info("rule [{}] finished", lotteryMarkSixType);
