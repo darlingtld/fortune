@@ -490,20 +490,9 @@ angular.module('AdminApp')
                 //TODO panlei, fix odds
                 var panlei = $scope.selectedPan.name == 'ALL' ? 'A' : $scope.selectedPan.name;
                 
-                //TODO mock data
-                var tmpOdds = [];
-                for (var i = 0; i <= 9; i ++) {
-                    var odds = new Object();
-                    odds.number = i;
-                    odds.odds = 8;
-                  
-                    tmpOdds[i] = odds;
-                }
-               
                 for (var i = 0; i < typeList.length; i ++) {
                     (function(i) {
                         oddsService.getOddsList(data.issue, sessionStorage['pgroupid'], panlei, typeList[i]).then(function (oddsList) {
-                            oddsList = tmpOdds;
                             $scope.odds[i] = [];
                             $scope.odds[i][0] = oddsList.slice(0, 3);
                             $scope.odds[i][1] = oddsList.slice(3, 6);
