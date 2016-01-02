@@ -14,8 +14,8 @@
                             <tbody>
                                 <tr ng-repeat="row in odds[col]" style="background-color:white">
                                     <td ng-repeat="numOdds in row">
-                                        <span ng-bind="numOdds.number"></span>
-                                        <span ng-if="numOdds.number">)</span>&nbsp;
+                                        <span ng-bind="numOdds.lotteryBallNumber"></span>
+                                        <span ng-if="numOdds.lotteryBallNumber">)</span>&nbsp;
                                         <span ng-bind="numOdds.odds" style="color: red"></span>
                                     </td>
                                 </tr>
