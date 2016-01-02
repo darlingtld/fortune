@@ -1,5 +1,6 @@
 package fortune.rule;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import common.Utils;
 import fortune.pojo.*;
 import fortune.service.BeanHolder;
@@ -23,24 +24,12 @@ public class RulePass extends Rule {
         super(LotteryMarkSixType.PASS);
     }
 
+    //    not applicable to pass ball
     @Override
     public RuleResult getRuleResult(LotteryMarkSix lotteryMarkSix, LotteryMarkSixWagerStub stub, LotteryMarkSixWager wager) {
-        for(LotteryMarkSixWagerStub wagerStub : wager.getLotteryMarkSixWagerStubList()){
-
-        }
-        List<Integer> wagerBallList = wager.getLotteryMarkSixWagerStubList().stream().map(LotteryMarkSixWagerStub::getNumber).collect(Collectors.toList());
-        if (wagerBallList.contains(lotteryMarkSix.getOne())
-                || wagerBallList.contains(lotteryMarkSix.getTwo())
-                || wagerBallList.contains(lotteryMarkSix.getThree())
-                || wagerBallList.contains(lotteryMarkSix.getFour())
-                || wagerBallList.contains(lotteryMarkSix.getFive())
-                || wagerBallList.contains(lotteryMarkSix.getSix())
-                || wagerBallList.contains(lotteryMarkSix.getSpecial())) {
-            return RuleResult.LOSE;
-        } else {
-            return RuleResult.WIN;
-        }
+        return null;
     }
+
     @Override
     public void run() {
         Utils.logger.info("rule [{}] runs...", super.lotteryMarkSixType);
@@ -68,51 +57,36 @@ public class RulePass extends Rule {
                 lotteryResult.setLotteryMarkSixWagerId(wager.getId());
 
                 double winningMoney = 0;
-                if (isStubSplit()) {
-                    for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
-                        String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
-                        Double odds = getOdds(oddsCache, wager, stub, oddsCacheKey);
-                        switch (getRuleResult(lotteryMarkSix, stub, wager)) {
-                            case WIN:
-                                winningMoney += stub.getStakes() * odds;
-                                break;
-                            case DRAW:
-                                winningMoney += stub.getStakes();
-                                break;
-                            case LOSE:
-                                break;
-                        }
+                AtomicDouble accumulatedOdds = new AtomicDouble(1.0);
+                for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
+                    String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
+                    Double odds = oddsCache.get(oddsCacheKey);
+                    if (odds == null) {
+                        odds = BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), 0, stub.getLotteryMarkSixType(), null, wager.getPanlei()).getOdds();
+                        oddsCache.put(oddsCacheKey, odds);
                     }
-                } else {
-                    for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
-                        String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
-                        Double odds = getOdds(oddsCache, wager, stub, oddsCacheKey);
-                        switch (getRuleResult(lotteryMarkSix, stub, wager)) {
-                            case WIN:
-                                winningMoney += wager.getTotalStakes() * odds;
-                                break;
-                            case DRAW:
-                                winningMoney += wager.getTotalStakes();
-                                break;
-                            case LOSE:
-                                break;
-//                            连码三中二特殊处理
-                            case WIN_JOINT_3_2_ZHONG_2:
-                                winningMoney += wager.getTotalStakes() * odds;
-                                break;
-                            case WIN_JOINT_3_2_ZHONG_3:
-                                String jKey = String.format("%s#%s#%s#%s", wager.getLotteryIssue(), wager.getPgroupId(), LotteryMarkSixType.JOINT_3_ALL, wager.getPanlei());
-                                Double jOdds = oddsCache.get(jKey);
-                                if (jOdds == null) {
-                                    BeanHolder.getOddsService().getOdds(lotteryIssue, wager.getPgroupId(), 0, LotteryMarkSixType.JOINT_3_ALL, stub.getLotteryMarkSixType(), wager.getPanlei()).getOdds();
-                                    oddsCache.put(jKey, jOdds);
-                                }
-                                winningMoney += wager.getTotalStakes() * jOdds;
-                                break;
-                        }
+                    switch (stub.getNumber()) {
+                        case 1:
+                            process(stub.getLotteryMarkSixType(), lotteryMarkSix.getOne(), accumulatedOdds, odds);
+                            break;
+                        case 2:
+                            process(stub.getLotteryMarkSixType(), lotteryMarkSix.getTwo(), accumulatedOdds, odds);
+                            break;
+                        case 3:
+                            process(stub.getLotteryMarkSixType(), lotteryMarkSix.getThree(), accumulatedOdds, odds);
+                            break;
+                        case 4:
+                            process(stub.getLotteryMarkSixType(), lotteryMarkSix.getFour(), accumulatedOdds, odds);
+                            break;
+                        case 5:
+                            process(stub.getLotteryMarkSixType(), lotteryMarkSix.getFive(), accumulatedOdds, odds);
+                            break;
+                        case 6:
+                            process(stub.getLotteryMarkSixType(), lotteryMarkSix.getSix(), accumulatedOdds, odds);
+                            break;
                     }
-                    winningMoney = winningMoney / wager.getLotteryMarkSixWagerStubList().size();
                 }
+                winningMoney = wager.getTotalStakes() * accumulatedOdds.doubleValue();
                 lotteryResult.setWinningMoney(winningMoney);
                 BeanHolder.getResultService().saveLotteryResult(lotteryResult);
             }
@@ -120,6 +94,60 @@ public class RulePass extends Rule {
         BeanHolder.getJobTrackerService().updateEndStatus(jobId, new Date(), JobTracker.SUCCESS);
         Utils.logger.info("rule [{}] finished", lotteryMarkSixType);
 
+    }
+
+    private void process(LotteryMarkSixType lotteryMarkSixType, int number, AtomicDouble accumulatedOdds, Double odds) {
+        switch (lotteryMarkSixType) {
+            case PASS_DAN:
+                if (number % 2 == 1) {
+                    accumulatedOdds.set(accumulatedOdds.doubleValue() * odds);
+                } else {
+                    accumulatedOdds.set(0);
+                }
+                break;
+            case PASS_SHUANG:
+                if (number == 0) {
+                    accumulatedOdds.set(accumulatedOdds.doubleValue() * odds);
+                } else {
+                    accumulatedOdds.set(0);
+                }
+                break;
+            case PASS_DA:
+                if (number >= 25) {
+                    accumulatedOdds.set(accumulatedOdds.doubleValue() * odds);
+                } else {
+                    accumulatedOdds.set(0);
+                }
+                break;
+            case PASS_XIAO:
+                if (number <= 24) {
+                    accumulatedOdds.set(accumulatedOdds.doubleValue() * odds);
+                } else {
+                    accumulatedOdds.set(0);
+                }
+                break;
+            case PASS_RED:
+                if (LotteryBall.valueOf("NUM_" + number).getColor().equals(MarkSixColor.RED)) {
+                    accumulatedOdds.set(accumulatedOdds.doubleValue() * odds);
+                } else {
+                    accumulatedOdds.set(0);
+                }
+                break;
+            case PASS_BLUE:
+                if (LotteryBall.valueOf("NUM_" + number).getColor().equals(MarkSixColor.BLUE)) {
+                    accumulatedOdds.set(accumulatedOdds.doubleValue() * odds);
+                } else {
+                    accumulatedOdds.set(0);
+                }
+                break;
+            case PASS_GREEN:
+                if (LotteryBall.valueOf("NUM_" + number).getColor().equals(MarkSixColor.GREEN)) {
+                    accumulatedOdds.set(accumulatedOdds.doubleValue() * odds);
+                } else {
+                    accumulatedOdds.set(0);
+                }
+                break;
+        }
     }
 
     @Override

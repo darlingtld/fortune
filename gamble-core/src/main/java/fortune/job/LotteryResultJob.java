@@ -123,6 +123,12 @@ public class LotteryResultJob {
     private RuleNot11 ruleNot11;
     @Autowired
     private RuleNot12 ruleNot12;
+    @Autowired
+    private RulePass rulePass;
+    @Autowired
+    private RuleOneZodiac ruleOneZodiac;
+    @Autowired
+    private RuleTailNum ruleTailNum;
 
 
     public void calculateLotteryResult() {
@@ -178,5 +184,8 @@ public class LotteryResultJob {
         threadPoolExecutor.submit(ruleNot10);
         threadPoolExecutor.submit(ruleNot11);
         threadPoolExecutor.submit(ruleNot12);
+        threadPoolExecutor.submit(rulePass);
+        threadPoolExecutor.submit(ruleOneZodiac);
+        threadPoolExecutor.submit(ruleTailNum);
     }
 }
