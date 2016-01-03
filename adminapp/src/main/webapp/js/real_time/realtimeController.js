@@ -524,7 +524,7 @@ angular.module('AdminApp')
             }
 
             $scope.goto = function (page) {
-                $scope.page = 'includes/realtime_' + page + '.html';
+                $scope.page = 'includes/realtime/' + page + '.html';
                 $scope.pageType = page;
 
                 if (event != undefined) {
