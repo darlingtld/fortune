@@ -316,12 +316,6 @@ angular.module('AdminApp')
                     for (var i = 0; i < data.length; i++) {
                         $scope.stats.joint3AllTransactions += data[i].transactions;
                         $scope.stats.joint3AllStakes += data[i].stakes;
-
-                        // build string for wager numbers
-                        var allNum = new String(data[i].number);
-                        if (allNum.length == 5)
-                            allNum = '0' + allNum;
-                        data[i].numStr = allNum.substring(0, 2) + ', ' + allNum.substring(2, 4) + ', ' + allNum.substring(4, 6);
                     }
 
                     $scope.joint3AllList = data;
@@ -331,12 +325,6 @@ angular.module('AdminApp')
                     for (var i = 0; i < data.length; i++) {
                         $scope.stats.joint32Transactions += data[i].transactions;
                         $scope.stats.joint32Stakes += data[i].stakes;
-
-                        // build string for wager numbers
-                        var allNum = new String(data[i].number);
-                        if (allNum.length == 5)
-                            allNum = '0' + allNum;
-                        data[i].numStr = allNum.substring(0, 2) + ', ' + allNum.substring(2, 4) + ', ' + allNum.substring(4, 6);
                     }
 
                     $scope.joint32List = data;
@@ -346,12 +334,6 @@ angular.module('AdminApp')
                     for (var i = 0; i < data.length; i++) {
                         $scope.stats.joint2AllTransactions += data[i].transactions;
                         $scope.stats.joint2AllStakes += data[i].stakes;
-
-                        // build string for wager numbers
-                        var allNum = new String(data[i].number);
-                        if (allNum.length == 3)
-                            allNum = '0' + allNum;
-                        data[i].numStr = allNum.substring(0, 2) + ', ' + allNum.substring(2, 4);
                     }
 
                     $scope.joint2AllList = data;
@@ -361,12 +343,6 @@ angular.module('AdminApp')
                     for (var i = 0; i < data.length; i++) {
                         $scope.stats.joint2SpecialTransactions += data[i].transactions;
                         $scope.stats.joint2SpecialStakes += data[i].stakes;
-
-                        // build string for wager numbers
-                        var allNum = new String(data[i].number);
-                        if (allNum.length == 3)
-                            allNum = '0' + allNum;
-                        data[i].numStr = allNum.substring(0, 2) + ', ' + allNum.substring(2, 4);
                     }
 
                     $scope.joint2SpecialList = data;
@@ -376,12 +352,6 @@ angular.module('AdminApp')
                     for (var i = 0; i < data.length; i++) {
                         $scope.stats.jointSpecialTransactions += data[i].transactions;
                         $scope.stats.jointSpecialStakes += data[i].stakes;
-
-                        // build string for wager numbers
-                        var allNum = new String(data[i].number);
-                        if (allNum.length == 3)
-                            allNum = '0' + allNum;
-                        data[i].numStr = allNum.substring(0, 2) + ', ' + allNum.substring(2, 4);
                     }
 
                     $scope.jointSpecialList = data;

@@ -10,9 +10,9 @@
                 <tr><td colspan="2" ng-bind="stats.joint3AllTransactions"></td></tr>
                 
                 <tr ng-if="joint3AllList.length > 0" ng-repeat="rt in joint3AllList">
-                    <td ng-bind="rt.numStr"></td>
+                    <td ng-bind="rt.wagerContent"></td>
                     <td>
-                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_3_all/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{stat.wagerContent}}"><span
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_3_all/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{rt.wagerContent}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>
@@ -39,9 +39,9 @@
                 </tr>
                 
                 <tr ng-if="joint32List.length > 0" ng-repeat="rt in joint32List">
-                    <td ng-bind="rt.numStr"></td>
+                    <td ng-bind="rt.wagerContent"></td>
                     <td>
-                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_3_2/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{stat.wagerContent}}"><span
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_3_2/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{rt.wagerContent}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>
@@ -62,9 +62,9 @@
                 </tr>
                 
                 <tr ng-if="joint2AllList.length > 0" ng-repeat="rt in joint2AllList">
-                    <td ng-bind="rt.numStr"></td>
+                    <td ng-bind="rt.wagerContent"></td>
                     <td>
-                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_2_all/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{stat.wagerContent}}"><span
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_2_all/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{rt.wagerContent}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>
@@ -91,9 +91,9 @@
                 </tr>
                 
                 <tr ng-if="joint2SpecialList.length > 0" ng-repeat="rt in joint2SpecialList">
-                    <td ng-bind="rt.numStr"></td>
+                    <td ng-bind="rt.wagerContent"></td>
                     <td>
-                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_2_special/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{stat.wagerContent}}"><span
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_2_special/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{rt.wagerContent}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>
@@ -114,9 +114,9 @@
                 </tr>
                 
                 <tr ng-if="jointSpecialList.length > 0" ng-repeat="rt in jointSpecialList">
-                    <td ng-bind="rt.numStr"></td>
+                    <td ng-bind="rt.wagerContent"></td>
                     <td>
-                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_special/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{stat.wagerContent}}"><span
+                        <a href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/joint_special/issue/{{lotteryMarkSixInfo.issue}}/ball/0?content={{rt.wagerContent}}"><span
                                 ng-bind="rt.transactions"></span></a>
                     </td>
                 </tr>

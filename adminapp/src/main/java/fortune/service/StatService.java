@@ -1118,38 +1118,39 @@ public class StatService {
             wagerList.addAll(wagerService.getLotteryMarkSixWagerList(type, groupid, panlei, lotteryIssue, null));
         }
         
-        LinkedHashMap<Integer, RealtimeStat> realTimeStatHashMap = new LinkedHashMap<>();
+        LinkedHashMap<String, RealtimeStat> realTimeStatHashMap = new LinkedHashMap<>();
         for (LotteryMarkSixWager wager : wagerList) {
             if (wager.getLotteryMarkSixType().equals(type)) {
                 List<LotteryMarkSixWagerStub> wagerStubList = wager.getLotteryMarkSixWagerStubList();
                 
-                int wagerNum = 0;
+                String wagerContent = "";
                 if (type.equals(JOINT_3_ALL) || type.equals(JOINT_3_2)) {
                     int num1 = wagerStubList.get(0).getNumber();
                     int num2 = wagerStubList.get(1).getNumber();
                     int num3 = wagerStubList.get(2).getNumber();
-                    wagerNum = num1 * 10000 + num2 * 100 + num3;    // 12, 16, 29 -> 121629   1, 2, 3 -> 10203
+                    wagerContent = String.format("%s,%s,%s", genNumberStr(num1), genNumberStr(num2), genNumberStr(num3));
                 
                 } else if (type.equals(JOINT_2_ALL) || type.equals(JOINT_2_SPECIAL) || type.equals(JOINT_SPECIAL)) {
                     int num1 = wagerStubList.get(0).getNumber();
                     int num2 = wagerStubList.get(1).getNumber();
-                    wagerNum = num1 * 100 + num2;    // 12, 16 -> 1216
+                    wagerContent = String.format("%s,%s", genNumberStr(num1), genNumberStr(num2));
                 }
                 
-                if (realTimeStatHashMap.containsKey(wagerNum)) {
-                    realTimeStatHashMap.get(wagerNum).addStakes(wager.getTotalStakes());
-                    realTimeStatHashMap.get(wagerNum).addTransactions(1);
+                if (realTimeStatHashMap.containsKey(wagerContent)) {
+                    realTimeStatHashMap.get(wagerContent).addStakes(wager.getTotalStakes());
+                    realTimeStatHashMap.get(wagerContent).addTransactions(1);
                 } else {
                     RealtimeStat realtimeStat = new RealtimeStat();
                     realtimeStat.setGroupId(groupid);
-                    realtimeStat.setNumber(wagerNum);
+                    realtimeStat.setNumber(0);
                     realtimeStat.setBalance(0);
                     realtimeStat.setStakes(wager.getTotalStakes());
                     realtimeStat.setOdds(odds);
                     realtimeStat.setTransactions(1);
+                    realtimeStat.setWagerContent(wagerContent);
                     realtimeStat.setLotteryMarkSixType(type.name());
                     realtimeStat.setLotteryMarkSixTypeName(type.getType());
-                    realTimeStatHashMap.put(wagerNum, realtimeStat);
+                    realTimeStatHashMap.put(wagerContent, realtimeStat);
                 }
                 
             }
