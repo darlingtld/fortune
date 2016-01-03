@@ -47,11 +47,14 @@ public class StatController {
      * @param groupId
      * @return
      */
-    @RequestMapping(value = "realtime/transaction_result/{type}/groupid/{groupid}/pan/{panlei}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<RealtimeStat> getRealTimeTransactionResult(@PathVariable("type") String type, @PathVariable("groupid") String groupId, @PathVariable("panlei") String panlei) {
-        return statService.getRealTimeTransactionResult(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase());
+    @RequestMapping(value = "realtime/transaction_result/{type}/groupid/{groupid}/pan/{panlei}/issue/{issue}", method = RequestMethod.GET)
+    public @ResponseBody List<RealtimeStat> getRealTimeTransactionResult(
+            @PathVariable("type") String type,
+            @PathVariable("groupid") String groupId, 
+            @PathVariable("panlei") String panlei,
+            @PathVariable("issue") int issue) {
+        return statService.getRealTimeTransactionResult(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId,
+                panlei.toUpperCase(), issue);
     }
     
     /**
@@ -62,12 +65,13 @@ public class StatController {
      * @param top
      * @return
      */
-    @RequestMapping(value = "realtime/transaction_result/groupid/{groupid}/pan/{panlei}/not_top/{top}", method = RequestMethod.GET)
+    @RequestMapping(value = "realtime/transaction_result/groupid/{groupid}/pan/{panlei}/issue/{issue}/not_top/{top}", method = RequestMethod.GET)
     public @ResponseBody List<List<RealtimeStat>> getNotTopStats(
             @PathVariable("groupid") String groupId, 
             @PathVariable("panlei") String panlei,
+            @PathVariable("issue") int issue,
             @PathVariable("top") int top) {
-        return statService.getRealTimeTransactionResult4NotTop(groupId, panlei.toUpperCase(), top);
+        return statService.getRealTimeTransactionResult4NotTop(groupId, panlei.toUpperCase(), issue, top);
     }
 
     /**

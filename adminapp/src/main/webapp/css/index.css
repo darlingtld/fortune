@@ -31,6 +31,11 @@
     width: 600px;
 }
 
+.lottery-issue-link {
+    cursor: pointer;
+    color: #334DB7;
+}
+
 .real-time-dashboard {
     display: flex;
     justify-content: center;

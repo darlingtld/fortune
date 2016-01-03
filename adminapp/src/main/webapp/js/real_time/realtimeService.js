@@ -10,10 +10,26 @@ angular.module('AdminApp')
             });
             return deferred.promise;
         };
-
-        this.getRealTimeTransaction = function (groupid, type, panlei) {
+        
+        this.getLatestLotteryMarkSixIssue = function () {
             var deferred = $q.defer();
-            $http.get('stat/realtime/transaction_result/' + type + '/groupid/' + groupid + '/pan/' + panlei).success(function (data) {
+            $http.get('lottery/latest_lottery_issue').success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+        
+        this.getLotteryMarkSixInfo = function (issue) {
+            var deferred = $q.defer();
+            $http.get('lottery/lottery_issue/' + issue).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+
+        this.getRealTimeTransaction = function (groupid, type, panlei, issue) {
+            var deferred = $q.defer();
+            $http.get('stat/realtime/transaction_result/' + type + '/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue).success(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;
@@ -55,9 +71,9 @@ angular.module('AdminApp')
             return deferred.promise;
         };
         
-        this.getRealTimeTransactionNotTop = function (groupid, panlei, top) {
+        this.getRealTimeTransactionNotTop = function (groupid, panlei, issue, top) {
             var deferred = $q.defer();
-            $http.get('stat/realtime/transaction_result/groupid/' + groupid + '/pan/' + panlei + '/not_top/' + top).success(function (data) {
+            $http.get('stat/realtime/transaction_result/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/not_top/' + top).success(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;

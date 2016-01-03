@@ -62,11 +62,11 @@ public class StatService {
         statDao.saveLotteryMarkSixStat(stat);
     }
 
-    public List<List<RealtimeStat>> getRealTimeTransactionResult4NotTop(String groupid, String panlei, int top) {
+    public List<List<RealtimeStat>> getRealTimeTransactionResult4NotTop(String groupid, String panlei, int issue, int top) {
         List<List<RealtimeStat>> resultList = Lists.newArrayList();
         
         getRealTimeNotList().stream().forEach(type -> {
-            List<RealtimeStat> statList = getRealTimeTransactionResult4Not(groupid, panlei, type);
+            List<RealtimeStat> statList = getRealTimeTransactionResult4Not(groupid, panlei, type, issue);
             //FIXME order by 'remark' desc
             Collections.sort(statList, (stat1, stat2) -> (int)(stat2.getStakes() - stat1.getStakes()));
             int end = statList.size() > top ? top : statList.size();
@@ -77,39 +77,39 @@ public class StatService {
     }
     
     @Transactional
-    public List<RealtimeStat> getRealTimeTransactionResult(LotteryMarkSixType type, String groupid, String panlei) {
+    public List<RealtimeStat> getRealTimeTransactionResult(LotteryMarkSixType type, String groupid, String panlei, int issue) {
         switch (type) {
             case SPECIAL:
-                return getRealTimeTransactionResult4Special(groupid, panlei);
+                return getRealTimeTransactionResult4Special(groupid, panlei, issue);
             case TWO_FACES:
-                return getRealTimeTransactionResult4TwoFaces(groupid, panlei);
+                return getRealTimeTransactionResult4TwoFaces(groupid, panlei, issue);
             case ZODIAC:
             case HALF_WAVE:
             case COLOR:
-                return getRealTimeTransactionResultByType(groupid, panlei, type);
+                return getRealTimeTransactionResultByType(groupid, panlei, type, issue);
             case SUM_ZODIAC:
-                return getRealTimeTransactionResult4SumZodiac(groupid, panlei);
+                return getRealTimeTransactionResult4SumZodiac(groupid, panlei, issue);
             case ZHENG_BALL:
-                return getRealTimeTransactionResult4ZhengBall(groupid, panlei);
+                return getRealTimeTransactionResult4ZhengBall(groupid, panlei, issue);
             case ZHENG_1_6:
-                return getRealTimeTransactionResult4Zheng1To6(groupid, panlei);
+                return getRealTimeTransactionResult4Zheng1To6(groupid, panlei, issue);
             case ZHENG_SPECIFIC_1:
             case ZHENG_SPECIFIC_2:
             case ZHENG_SPECIFIC_3:
             case ZHENG_SPECIFIC_4:
             case ZHENG_SPECIFIC_5:
             case ZHENG_SPECIFIC_6:
-                return getRealTimeTransactionResult4ZhengSpecific(groupid, panlei, type);
+                return getRealTimeTransactionResult4ZhengSpecific(groupid, panlei, type, issue);
             case ONE_ZODIAC:
-                return getRealTimeTransactionResult4OneZodiac(groupid, panlei);
+                return getRealTimeTransactionResult4OneZodiac(groupid, panlei, issue);
             case TAIL_NUM:
-                return getRealTimeTransactionResult4TailNum(groupid, panlei);
+                return getRealTimeTransactionResult4TailNum(groupid, panlei, issue);
             case JOINT_3_ALL:
             case JOINT_3_2:
             case JOINT_2_ALL:
             case JOINT_2_SPECIAL:
             case JOINT_SPECIAL:
-                return getRealTimeTransactionResult4Joint(groupid, panlei, type);
+                return getRealTimeTransactionResult4Joint(groupid, panlei, type, issue);
             case NOT_5:
             case NOT_6:
             case NOT_7:
@@ -118,17 +118,17 @@ public class StatService {
             case NOT_10:
             case NOT_11:
             case NOT_12:
-                return getRealTimeTransactionResult4Not(groupid, panlei, type);
+                return getRealTimeTransactionResult4Not(groupid, panlei, type, issue);
             case JOINT_ZODIAC_PING:
             case JOINT_ZODIAC_ZHENG:
-                return getRealTimeTransactionResult4JointZodiac(groupid, panlei, type);
+                return getRealTimeTransactionResult4JointZodiac(groupid, panlei, type, issue);
             case JOINT_TAIL_2:
             case JOINT_TAIL_3:
             case JOINT_TAIL_4:
             case JOINT_TAIL_NOT_2:
             case JOINT_TAIL_NOT_3:
             case JOINT_TAIL_NOT_4:
-                return getRealTimeTransactionResult4JointTail(groupid, panlei, type);
+                return getRealTimeTransactionResult4JointTail(groupid, panlei, type, issue);
             default:
                 return new ArrayList<>();
         }
@@ -522,11 +522,10 @@ public class StatService {
     }
     
     @Transactional
-    private List<RealtimeStat> getRealTimeTransactionResult4Special(String groupid, String panlei) {
+    private List<RealtimeStat> getRealTimeTransactionResult4Special(String groupid, String panlei, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type special", groupid);
         
         HashMap<Integer, RealtimeStat> statMap = new HashMap<>();
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
 
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
         List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupid, SPECIAL.name(), pan4Odds);
@@ -582,11 +581,9 @@ public class StatService {
         return realtimeStatList;
     }
 
-    private List<RealtimeStat> getRealTimeTransactionResult4TwoFaces(String groupid, String panlei) {
+    private List<RealtimeStat> getRealTimeTransactionResult4TwoFaces(String groupid, String panlei, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for two faces", groupid);
 
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-        
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
         List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupid, TWO_FACES.name(), pan4Odds);
         HashMap<LotteryMarkSixType, Double> oddsMap = new HashMap<>();
@@ -659,10 +656,9 @@ public class StatService {
      * @param lotteryType
      * @return
      */
-    private List<RealtimeStat> getRealTimeTransactionResultByType(String groupid, String panlei, LotteryMarkSixType lotteryType) {
+    private List<RealtimeStat> getRealTimeTransactionResultByType(String groupid, String panlei, LotteryMarkSixType lotteryType, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for half wave", groupid);
 
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
         
         List<LotteryMarkSixType> allTypeList = new ArrayList<>();
@@ -718,10 +714,9 @@ public class StatService {
         return realtimeStatList;
     }
     
-    private List<RealtimeStat> getRealTimeTransactionResult4SumZodiac(String groupid, String panlei) {
+    private List<RealtimeStat> getRealTimeTransactionResult4SumZodiac(String groupid, String panlei, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type sum zodiac", groupid);
         HashMap<Integer, RealtimeStat> realtimeStatHashMap = new HashMap<>();
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
         
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
@@ -781,10 +776,9 @@ public class StatService {
         return realtimeStatList;
     }
     
-    private List<RealtimeStat> getRealTimeTransactionResult4ZhengBall(String groupid, String panlei) {
+    private List<RealtimeStat> getRealTimeTransactionResult4ZhengBall(String groupid, String panlei, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type zheng ball", groupid);
         HashMap<Integer, RealtimeStat> realTimeStatMap = new HashMap<>();
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
 
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
@@ -842,10 +836,9 @@ public class StatService {
         return realtimeStatList;
     }
 
-    private List<RealtimeStat> getRealTimeTransactionResult4ZhengSpecific(String groupid, String panlei, LotteryMarkSixType type) {
+    private List<RealtimeStat> getRealTimeTransactionResult4ZhengSpecific(String groupid, String panlei, LotteryMarkSixType type, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type zheng ball", groupid);
         HashMap<Integer, RealtimeStat> realTimeStatHashMap4Number = new HashMap<>();
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
 
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
@@ -899,9 +892,8 @@ public class StatService {
         return realtimeStatList;
     }
 
-    private List<RealtimeStat> getRealTimeTransactionResult4Zheng1To6(String groupid, String panlei) {
+    private List<RealtimeStat> getRealTimeTransactionResult4Zheng1To6(String groupid, String panlei, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type zheng 1 - 6", groupid);
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
 
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
@@ -979,9 +971,8 @@ public class StatService {
         return realtimeStatList;
     }
 
-    private List<RealtimeStat> getRealTimeTransactionResult4OneZodiac(String groupid, String panlei) {
+    private List<RealtimeStat> getRealTimeTransactionResult4OneZodiac(String groupid, String panlei, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type one zodiac", groupid);
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
         
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
@@ -1043,9 +1034,8 @@ public class StatService {
         return realtimeStatList;
     }
 
-    private List<RealtimeStat> getRealTimeTransactionResult4TailNum(String groupid, String panlei) {
+    private List<RealtimeStat> getRealTimeTransactionResult4TailNum(String groupid, String panlei, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type tail number", groupid);
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
         
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
@@ -1109,9 +1099,8 @@ public class StatService {
         return realtimeStatList;
     }
 
-    private List<RealtimeStat> getRealTimeTransactionResult4Joint(String groupid, String panlei, LotteryMarkSixType type) {
+    private List<RealtimeStat> getRealTimeTransactionResult4Joint(String groupid, String panlei, LotteryMarkSixType type, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type {}", groupid, type.name());
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
         
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
@@ -1171,11 +1160,9 @@ public class StatService {
         return realtimeStatList;
     }
     
-    private List<RealtimeStat> getRealTimeTransactionResult4Not(String groupid, String panlei, LotteryMarkSixType type) {
+    private List<RealtimeStat> getRealTimeTransactionResult4Not(String groupid, String panlei, LotteryMarkSixType type, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type {}", groupid, type.name());
 
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-        
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
         List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupid, type.name(), pan4Odds);
@@ -1226,11 +1213,9 @@ public class StatService {
         return realtimeStatList;
     }    
 
-    private List<RealtimeStat> getRealTimeTransactionResult4JointZodiac(String groupid, String panlei, LotteryMarkSixType type) {
+    private List<RealtimeStat> getRealTimeTransactionResult4JointZodiac(String groupid, String panlei, LotteryMarkSixType type, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type {}", groupid, type.name());
 
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-        
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         //TODO odds for each zodiac
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
@@ -1291,11 +1276,9 @@ public class StatService {
         return realtimeStatList;
     }    
     
-    private List<RealtimeStat> getRealTimeTransactionResult4JointTail(String groupid, String panlei, LotteryMarkSixType type) {
+    private List<RealtimeStat> getRealTimeTransactionResult4JointTail(String groupid, String panlei, LotteryMarkSixType type, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for type {}", groupid, type.name());
 
-        int lotteryIssue = lotteryService.getNextLotteryMarkSixInfo().getIssue();
-        
         //TODO determine odds if panlei is 'ALL', currently use panlei 'A'
         String pan4Odds = isPanleiAll(panlei) ? "A" : panlei;
         List<LotteryOdds> oddsList = oddsService.getOdds4LotteryIssueByType(lotteryIssue, groupid, type.name(), pan4Odds);
