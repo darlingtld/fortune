@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LotteryResultJob {
 
-    public static final int TOTAL_LOTTERY_RESULT_JOBS = 56;
+    public static final int TOTAL_LOTTERY_RESULT_JOBS = 62;
     private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 0, TimeUnit.MINUTES, new ArrayBlockingQueue<>(TOTAL_LOTTERY_RESULT_JOBS));
 
     @Autowired
@@ -133,7 +133,18 @@ public class LotteryResultJob {
     private RuleJointZodiacPing ruleJointZodiacPing;
     @Autowired
     private RuleJointZodiacZheng ruleJointZodiacZheng;
-
+    @Autowired
+    private RuleJointTail2 ruleJointTail2;
+    @Autowired
+    private RuleJointTail3 ruleJointTail3;
+    @Autowired
+    private RuleJointTail4 ruleJointTail4;
+    @Autowired
+    private RuleJointTailNot2 ruleJointTailNot2;
+    @Autowired
+    private RuleJointTailNot3 ruleJointTailNot3;
+    @Autowired
+    private RuleJointTailNot4 ruleJointTailNot4;
 
     public void calculateLotteryResult() {
         Utils.logger.info("start to calculate lottery result at {}", Utils.yyyyMMddHHmmss2Format(new Date()));
@@ -193,5 +204,11 @@ public class LotteryResultJob {
         threadPoolExecutor.submit(ruleTailNum);
         threadPoolExecutor.submit(ruleJointZodiacPing);
         threadPoolExecutor.submit(ruleJointZodiacZheng);
+        threadPoolExecutor.submit(ruleJointTail2);
+        threadPoolExecutor.submit(ruleJointTail3);
+        threadPoolExecutor.submit(ruleJointTail4);
+        threadPoolExecutor.submit(ruleJointTailNot2);
+        threadPoolExecutor.submit(ruleJointTailNot3);
+        threadPoolExecutor.submit(ruleJointTailNot4);
     }
 }

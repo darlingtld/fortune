@@ -7,17 +7,17 @@ import org.springframework.stereotype.Component;
 /**
  * Created by tangl9 on 2015-10-26.
  */
-//连尾 二尾中
+//连尾 三尾不中
 @Scope("prototype")
 @Component
-public class RuleJointTail2 extends RuleJointTailParent {
+public class RuleJointTailNot3 extends RuleJointTailNotParent {
 
-    public RuleJointTail2() {
-        super(LotteryMarkSixType.JOINT_TAIL_2);
+    public RuleJointTailNot3() {
+        super(LotteryMarkSixType.JOINT_TAIL_NOT_3);
     }
 
     @Override
     public int getJointTailNumber() {
-        return 2;
+        return 3;
     }
 }
