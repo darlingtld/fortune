@@ -133,9 +133,9 @@ app.service("commonService", function ($q, $http) {
                 scope.wageError = "下注的注数必须为正整数！";
                 return false;
             }
-            if(typeof scope.otherParams.jointZodiacType === "undefined"){
-            	scope.wageError = "请选择连肖类型！";
-            	return false;
+            if (typeof scope.otherParams.jointZodiacType === "undefined") {
+                scope.wageError = "请选择连肖类型！";
+                return false;
             }
             var len = wage.lotteryMarkSixWagerStubList.length;
             if (len == 0) {
@@ -143,7 +143,7 @@ app.service("commonService", function ($q, $http) {
                 return false;
             }
             if (len != parseInt(scope.otherParams.jointZodiacType)) {
-                scope.wageError = scope.otherParams.jointZodiacType+"连肖请选择"+scope.otherParams.jointZodiacType+"个生肖下注！";
+                scope.wageError = scope.otherParams.jointZodiacType + "连肖请选择" + scope.otherParams.jointZodiacType + "个生肖下注！";
                 return false;
             }
             return true;
@@ -153,9 +153,9 @@ app.service("commonService", function ($q, $http) {
                 scope.wageError = "下注的注数必须为正整数！";
                 return false;
             }
-            if(typeof scope.otherParams.jointTailType === "undefined"){
-            	scope.wageError = "请选择连尾类型！";
-            	return false;
+            if (typeof scope.otherParams.jointTailType === "undefined") {
+                scope.wageError = "请选择连尾类型！";
+                return false;
             }
             var len = wage.lotteryMarkSixWagerStubList.length;
             if (len <= 2) {
@@ -692,7 +692,7 @@ app.controller("IndexController", function ($scope, $http, commonService,
                     jointZodiacZhengOddsMap[odds.lotteryBallNumber + "#" + odds.lotteryBallType] = odds.odds;
                 }
                 else if (odds.lotteryMarkSixType.indexOf("JOINT_TAIL_") == 0) {
-                	jointTailOddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
+                    jointTailOddsMap[odds.lotteryMarkSixType + "#" + odds.lotteryBallNumber] = odds.odds;
                 }
                 else if (odds.lotteryMarkSixType.indexOf("JOINT_") == 0) {
                     jointOddsMap[odds.lotteryMarkSixType] = odds.odds;
@@ -827,7 +827,7 @@ app.controller("IndexController", function ($scope, $http, commonService,
         }
         return false;
     };
-    
+
     // 连尾的选择类型函数
     $scope.chooseJointTail = function ($event, tail) {
         var checkbox = $event.target;
@@ -1377,11 +1377,11 @@ app.controller("IndexController", function ($scope, $http, commonService,
             }
         }
         // 连尾下注
-        else if ($scope.selectedIndex == 13){
-        	var lotteryMarkSixWagerStubList = [];
+        else if ($scope.selectedIndex == 13) {
+            var lotteryMarkSixWagerStubList = [];
             for (var i = 0; i < $scope.jointTailList.length; i++) {
                 lotteryMarkSixWagerStubList.push({
-                	number: parseInt($scope.jointTailList[i])
+                    number: parseInt($scope.jointTailList[i])
                 });
             }
             // 组装下注对象
@@ -1407,7 +1407,7 @@ app.controller("IndexController", function ($scope, $http, commonService,
                 commonService.wage(wager, $scope);
             }
         }
-        	
+
     };
 
     // 快选
@@ -1511,4 +1511,13 @@ app.controller("IndexController", function ($scope, $http, commonService,
             }
         }
     };
+});
+
+app.filter('issueProcessor', function () {
+    return function (issue) {
+        if (issue != null) {
+            issue = issue.toString().substr(4);
+            return parseInt(issue);
+        }
+    }
 });

@@ -103,3 +103,12 @@ reportsApp.controller("ReportsController", function ($scope, $http) {
         return '';
     };
 });
+
+reportsApp.filter('issueProcessor', function () {
+    return function (issue) {
+        if (issue != null) {
+            issue = issue.toString().substr(4);
+            return parseInt(issue);
+        }
+    }
+});

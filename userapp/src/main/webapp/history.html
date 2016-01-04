@@ -39,7 +39,7 @@
             <th>(大小)</th>
         </tr>
         <tr ng-repeat="lotteryMarkSix in lotteryMarkSixList">
-            <td ng-bind="lotteryMarkSix.issue"></td>
+            <td ng-bind="lotteryMarkSix.issue | issueProcessor"></td>
             <td ng-bind="lotteryMarkSix.timestamp | chineseWeek"></td>
             <td ng-bind="lotteryMarkSix.timestamp | date : 'yyyy-MM-dd'"></td>
             <td>

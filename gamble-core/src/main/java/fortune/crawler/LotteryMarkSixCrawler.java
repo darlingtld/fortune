@@ -46,7 +46,7 @@ public class LotteryMarkSixCrawler {
 
 //                save to database
                 LotteryMarkSix lotteryMarkSix = new LotteryMarkSix();
-                lotteryMarkSix.setIssue(issue);
+                lotteryMarkSix.setIssue(Integer.parseInt(year + Utils.formatNumber000(issue)));
                 lotteryMarkSix.setOne(one);
                 lotteryMarkSix.setTwo(two);
                 lotteryMarkSix.setThree(three);
@@ -55,7 +55,7 @@ public class LotteryMarkSixCrawler {
                 lotteryMarkSix.setSix(six);
                 lotteryMarkSix.setSpecial(special);
                 lotteryMarkSix.setTimestamp(date);
-                if (lotteryService.getLotteryMarkSix(issue) == null) {
+                if (lotteryService.getLotteryMarkSix(Integer.parseInt(year + Utils.formatNumber000(issue))) == null) {
                     lotteryService.saveLotteryMarkSix(lotteryMarkSix);
                 }
 

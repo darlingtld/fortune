@@ -20,7 +20,7 @@
 			<td><span
 				ng-bind="stat.lotteryMarkSix.timestamp | date : 'yyyy-MM-dd'"></span></td>
 			<td><span ng-bind="stat.lotteryMarkSix.timestamp | chineseWeek"></span></td>
-			<td><span ng-bind="stat.lotteryMarkSix.issue"></span></td>
+			<td><span ng-bind="stat.lotteryMarkSix.issue | issueProcessor"></span></td>
 			<td><span class="ball ball{{stat.lotteryMarkSix.one}}"
 				ng-bind="stat.lotteryMarkSix.one"></span>&nbsp; <span
 				class="ball ball{{stat.lotteryMarkSix.two}}"

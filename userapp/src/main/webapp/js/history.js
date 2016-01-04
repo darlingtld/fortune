@@ -114,4 +114,11 @@ historyApp.controller("HistoryController", function ($scope, $http) {
             return '蓝';
         }
     };
+}).filter('issueProcessor', function () {
+    return function (issue) {
+        if (issue != null) {
+            issue = issue.toString().substr(4);
+            return parseInt(issue);
+        }
+    }
 });

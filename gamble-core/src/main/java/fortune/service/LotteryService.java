@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalField;
@@ -73,11 +74,25 @@ public class LotteryService {
 
     @Transactional
     public NextLotteryMarkSixInfo getNextLotteryMarkSixInfo() {
-//        TODO
         Utils.logger.info("get next lottery mark six info");
         NextLotteryMarkSixInfo nextLotteryMarkSixInfo = new NextLotteryMarkSixInfo();
-        nextLotteryMarkSixInfo.setIssue(getLatestLotteryIssue() + 1);
-        nextLotteryMarkSixInfo.setDate(new Date());
+        int latestIssue = getLatestLotteryIssue();
+        nextLotteryMarkSixInfo.setIssue(latestIssue + 1);
+        LotteryMarkSix lotteryMarkSix = getLotteryMarkSix(latestIssue);
+        Instant instant = Instant.ofEpochMilli(lotteryMarkSix.getTimestamp().getTime());
+        LocalDateTime thatTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        if (thatTime.getMonthValue() == 12 && thatTime.getDayOfMonth() >= 29) {
+            if (thatTime.getDayOfMonth() >= 29) {
+                if (thatTime.getDayOfMonth() >= 30 || thatTime.getDayOfWeek().getValue() == 6) {
+                    nextLotteryMarkSixInfo.setIssue(Integer.parseInt((thatTime.getYear() + 1) + Utils.formatNumber000(1)));
+                }
+            }
+        }
+        LocalDateTime nextDrawTime = thatTime.plusDays(1);
+        do {
+            nextDrawTime = nextDrawTime.plusDays(1);
+        } while (nextDrawTime.getDayOfWeek().getValue() % 2 != 0);
+        nextLotteryMarkSixInfo.setDate(Date.from(nextDrawTime.atZone(ZoneId.systemDefault()).toInstant()));
         return nextLotteryMarkSixInfo;
     }
 

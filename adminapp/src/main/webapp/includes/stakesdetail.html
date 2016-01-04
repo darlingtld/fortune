@@ -21,7 +21,7 @@
                 <span style="color:green" ng-bind="wager.tuishui"></span></td>
             <td>
                 <span ng-bind="wager.panlei"></span>盘 / 
-                <span ng-bind="wager.issue"></span>期 / 
+                <span ng-bind="wager.issue | issueProcessor"></span>期 /
                 <span style="color:green" ng-bind="wager.openTs | date : 'yyyy-MM-dd'"></span>
             </td>
             <td ng-bind="wager.wageContent"></td>

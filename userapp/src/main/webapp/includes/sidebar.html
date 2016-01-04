@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td>下注期数：</td>
-                <td><span ng-bind="nextLottery.issue"></span></td>
+                <td><span ng-bind="nextLottery.issue | issueProcessor"></span></td>
             </tr>
             <tr>
                 <td>开奖日期：</td>

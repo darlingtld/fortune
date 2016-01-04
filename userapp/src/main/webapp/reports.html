@@ -56,7 +56,7 @@
         </tr>
         <tr ng-repeat="userStat in userStatList">
             <td ng-bind='userStat.openTs | date : "yyyy-MM-dd"'></td>
-            <td ng-bind="userStat.issue"></td>
+            <td ng-bind="userStat.issue | issueProcessor"></td>
             <td ng-bind="userStat.stakes"></td>
             <td ng-bind="userStat.validStakes"></td>
             <td ng-bind="userStat.tuishui"></td>

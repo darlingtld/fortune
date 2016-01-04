@@ -13,9 +13,11 @@
 <div class="section">
     <div class="issue_area">
         <span>代理商：</span>
-        <select ng-model="selectedPGroup" ng-change="changePGroupAndIssue()" ng-options="pg.name for pg in user.pGroupList track by pg.id"></select>
+        <select ng-model="selectedPGroup" ng-change="changePGroupAndIssue()"
+                ng-options="pg.name for pg in user.pGroupList track by pg.id"></select>
         <span>期数：</span>
-        <select ng-model="selectedIssue" ng-change="changePGroupAndIssue()" ng-options="issue for issue in lotteryIssues"></select>
+        <select ng-model="selectedIssue" ng-change="changePGroupAndIssue()"
+                ng-options="issue.name for issue in lotteryIssues track by issue.value"></select>
     </div>
     <table>
         <thead>

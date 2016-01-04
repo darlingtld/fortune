@@ -1,7 +1,7 @@
 <div class="real-time-info-area">
     <div class="real-time-header">
         <span><a ng-click="gotoLottery(lotteryMarkSixInfo.issue - 1)" class="lottery-issue-link">上一期</a></span>
-        <span>开奖期数：<strong ng-bind="lotteryMarkSixInfo.issue"></strong></span>
+        <span>开奖期数：<strong ng-bind="lotteryMarkSixInfo.issue | issueProcessor"></strong></span>
         <span>开奖日：<strong ng-bind="lotteryMarkSixInfo.date | date : 'yyyy-MM-dd'"></strong></span>
         <span ng-show="lotteryMarkSixInfo.issue < nextLotteryIssue">
             <a ng-click="gotoLottery(lotteryMarkSixInfo.issue + 1)" class="lottery-issue-link">下一期</a>
