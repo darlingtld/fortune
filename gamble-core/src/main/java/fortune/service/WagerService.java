@@ -51,11 +51,37 @@ public class WagerService {
         }
         // modify used credit account
         User user = userService.getUserById(lotteryMarkSixWager.getUserId());
+        if (user.getUsedCreditAccount() + lotteryMarkSixWager.getTotalStakes() > user.getCreditAccount()) {
+            throw new ArithmeticException("额度不足！");
+        }
         user.setUsedCreditAccount(user.getUsedCreditAccount() + lotteryMarkSixWager.getTotalStakes());
         userService.updateAccount(user);
 
         wagerDao.saveLotteryMarkSixWager(lotteryMarkSixWager);
 
+    }
+
+    @Transactional
+    public void saveLotteryMarkSixWager(List<LotteryMarkSixWager> lotteryMarkSixWagerList) {
+        Utils.logger.info("save lottery mark six wager list ");
+        double totalStakes = 0;
+        for (LotteryMarkSixWager lotteryMarkSixWager : lotteryMarkSixWagerList) {
+            lotteryMarkSixWager.setLotteryIssue(lotteryService.getNextLotteryMarkSixInfo().getIssue());
+            if (lotteryMarkSixWager.getLotteryMarkSixWagerStubList().size() > 0 && lotteryMarkSixWager.getTotalStakes() < 1) {
+                for (LotteryMarkSixWagerStub stub : lotteryMarkSixWager.getLotteryMarkSixWagerStubList()) {
+                    totalStakes += stub.getStakes();
+                }
+            } else {
+                totalStakes += lotteryMarkSixWager.getTotalStakes();
+            }
+
+        }
+        User user = userService.getUserById(lotteryMarkSixWagerList.get(0).getUserId());
+        if (user.getUsedCreditAccount() + totalStakes > user.getCreditAccount()) {
+            throw new ArithmeticException("额度不足！");
+        } else {
+            lotteryMarkSixWagerList.forEach(this::saveLotteryMarkSixWager);
+        }
     }
 
     @Transactional
@@ -123,7 +149,7 @@ public class WagerService {
         Utils.logger.info("get lottery mark six wager list of type {} lottery issue {},group id{}, number {}, panlei {}", type.getType(), issue, groupId, number, panlei);
         return wagerDao.getLotteryMarkSixWagerList(type, groupId, panlei, issue, number);
     }
-    
+
     /**
      * Get wager list by specific <tt>type</tt>, <tt>groupId</tt>, <tt>panlei</tt>, <tt>issue</tt>, <tt>ballType</tt>. <br>
      * Note: <tt>ballType</tt> is optional.

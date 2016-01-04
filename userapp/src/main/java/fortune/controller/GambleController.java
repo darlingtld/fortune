@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @Scope("prototype")
@@ -61,9 +62,15 @@ public class GambleController {
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
             return;
         }
+        try {
+            wagerService.saveLotteryMarkSixWager(lotteryMarkSixWager);
+        } catch (ArithmeticException e) {
+            Utils.logger.debug(e.getMessage());
+            response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        }
         String trace = String.format("wage on %s [pan %s]", pGroupService.getGroupById(lotteryMarkSixWager.getPgroupId()).getName(), lotteryMarkSixWager.getPanlei());
         actionTraceService.save(userService.getUserById(lotteryMarkSixWager.getUserId()).getUsername(), trace, request);
-        wagerService.saveLotteryMarkSixWager(lotteryMarkSixWager);
     }
 
     @RequestMapping(value = "wages", method = RequestMethod.POST, headers = "content-type=application/json")
@@ -75,9 +82,14 @@ public class GambleController {
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
             return;
         }
-        for (LotteryMarkSixWager wager : lotteryMarkSixWagers) {
-            wagerService.saveLotteryMarkSixWager(wager);
+        try {
+            wagerService.saveLotteryMarkSixWager(Arrays.asList(lotteryMarkSixWagers));
+        } catch (ArithmeticException e) {
+            Utils.logger.debug(e.getMessage());
+            response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
         }
+
     }
 
     /**

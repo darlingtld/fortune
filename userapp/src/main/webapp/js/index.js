@@ -39,7 +39,11 @@ app.service("commonService", function ($q, $http) {
                 scope.reset();
             });
         }).error(function (data, status, headers) {
-            alert('下注失败');
+            if (status == 417) {
+                alert('额度不足');
+            } else {
+                alert('下注失败');
+            }
         });
     };
     // 多个下注
@@ -53,7 +57,12 @@ app.service("commonService", function ($q, $http) {
                 scope.reset();
             });
         }).error(function (data, status, headers) {
-            alert('下注失败');
+            if (status == 417) {
+                alert('额度不足');
+            } else {
+                alert('下注失败');
+            }
+
         });
     };
     // 下注校验
