@@ -6,6 +6,7 @@ import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
 import fortune.pojo.PGroup;
 import fortune.pojo.PeopleStatus;
+import fortune.pojo.Role;
 import fortune.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ public class PGroupService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserService userService;
+
     @Transactional
     public PGroup getGroupById(String id) {
         Utils.logger.info("get pGroup by id {}", id);
@@ -36,7 +40,7 @@ public class PGroupService {
     }
 
     @Transactional
-    public boolean createGroup(PGroup pGroup) {
+    public void createGroup(PGroup pGroup) {
         Utils.logger.info("create pGroup {}", pGroup);
         // 插入管理员
         User admin = pGroup.getAdmin();
@@ -44,16 +48,13 @@ public class PGroupService {
         // 一个管理员只能管理一个pgroup
         PGroup adminGroup = pGroupDao.getGroupByAdminUserName(admin.getUsername());
         User existedUser = userDao.getUserByUsername(admin.getUsername());
-        if (adminGroup == null) {
-            if (existedUser == null) {
-                userDao.createUser(admin);
-            }
+        if (adminGroup == null && existedUser == null) {
+            userService.createUser(admin);
             // 插入pgroup
             pGroup.setAdmin(userDao.getUserByUsername(admin.getUsername()));
             pGroupDao.createGroup(pGroup);
-            return true;
         } else {
-            return false;
+            throw new RuntimeException("代理商或用户已存在");
         }
     }
 
@@ -75,6 +76,10 @@ public class PGroupService {
             user.setpGroupList(Arrays.asList(pGroup));
             user.setPassword(PasswordEncryptUtil.encrypt(user.getPassword()));
             userDao.createUser(user);
+        }
+//        用户是否为一个管理员
+        else if (existedUser.getRoleList().contains(Role.GROUP_ADMIN)) {
+            throw new RuntimeException("用户为管理员，无法添加");
         }
         // 更新用户的pgroup列表
         else if (!isUserInUserList(user, userList)) {
@@ -123,8 +128,8 @@ public class PGroupService {
                 tempGroup.setName(parentPGroup.getName());
                 user.setpGroupList(Arrays.asList(tempGroup));
                 user.setCanDelete(canDelete);
-                User creditUser=userDao.getUserById(user.getId());
-                if(creditUser!=null){
+                User creditUser = userDao.getUserById(user.getId());
+                if (creditUser != null) {
                     user.setUsedCreditAccount(creditUser.getUsedCreditAccount()); // 信用额度以user表中的为准 
                     user.setCreditAccount(creditUser.getCreditAccount());
                 }
