@@ -1,4 +1,4 @@
-package service;
+package serviceTest;
 
 import fortune.pojo.PGroup;
 import fortune.pojo.User;

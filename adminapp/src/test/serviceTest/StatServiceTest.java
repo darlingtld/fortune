@@ -1,4 +1,4 @@
-package service;
+package serviceTest;
 
 import fortune.pojo.*;
 import fortune.service.LotteryService;
