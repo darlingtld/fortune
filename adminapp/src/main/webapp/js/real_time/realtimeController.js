@@ -5,22 +5,44 @@ angular.module('AdminApp')
     .controller('realtimeController', function ($rootScope, $scope, $interval, realtimeService, oddsService) {
         $rootScope.menu = 1;
         realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
+            
+            realtimeService.getAllLotteyMarkSix().then(function(data) {
+                $scope.issueList = [];
+                for (var i = data.length - 1; i >= 0; i --) {
+                    $scope.issueList.push(data[i].issue);
+                }
+                if ($scope.issueList.length > 0) {
+                    $scope.firstLotteryIssue = $scope.issueList[0];
+                }
+            });
+            
             $scope.lotteryMarkSixInfo = data;
             $scope.nextLotteryIssue = data.issue;
             $scope.nextLotteryDate = data.date;
             
-            $scope.gotoLottery = function(issue) {
-                if (issue == $scope.nextLotteryIssue) {
+            $scope.gotoNextLottery = function(issue) {
+                if (issue == $scope.issueList[$scope.issueList.length - 1]) {
                     $scope.lotteryMarkSixInfo.issue = $scope.nextLotteryIssue;
                     $scope.lotteryMarkSixInfo.date = $scope.nextLotteryDate;
                     $scope.goto($scope.pageType);
                 } else {
-                    realtimeService.getLotteryMarkSixInfo(issue).then(function (data) {
+                    var nextIssue = $scope.issueList[$scope.issueList.indexOf(issue) + 1];
+                    realtimeService.getLotteryMarkSixInfo(nextIssue).then(function (data) {
                         $scope.lotteryMarkSixInfo.issue = data.issue;
                         $scope.lotteryMarkSixInfo.date = data.timestamp;
                         $scope.goto($scope.pageType);
                     });
                 }
+            }
+            
+            $scope.gotoLastLottery = function(issue) {
+                var lastIssue = 
+                    issue == $scope.nextLotteryIssue ? $scope.issueList[$scope.issueList.length - 1] : $scope.issueList[$scope.issueList.indexOf(issue) - 1];
+                realtimeService.getLotteryMarkSixInfo(lastIssue).then(function (data) {
+                    $scope.lotteryMarkSixInfo.issue = data.issue;
+                    $scope.lotteryMarkSixInfo.date = data.timestamp;
+                    $scope.goto($scope.pageType);
+                });
             }
             
             $scope.zodiacNames = {

@@ -19,6 +19,14 @@ angular.module('AdminApp')
             return deferred.promise;
         };
         
+        this.getAllLotteyMarkSix = function() {
+            var deferred = $q.defer();
+            $http.get('lottery/all').success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        }
+        
         this.getLotteryMarkSixInfo = function (issue) {
             var deferred = $q.defer();
             $http.get('lottery/lottery_issue/' + issue).success(function (data) {
