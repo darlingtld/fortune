@@ -120,6 +120,18 @@ public class LotteryController {
     }
 
     /**
+     * 获取最新一期开奖结果
+     *
+     * @return
+     */
+    @RequestMapping(value = "lottery_issue/last", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    LotteryMarkSix getLastLotteryMarkSix() {
+        return lotteryService.getLotteryMarkSix(lotteryService.getLatestLotteryIssue());
+    }
+
+    /**
      * 获取最新一期的开奖期数
      *
      * @param

@@ -8,6 +8,9 @@ historyApp.controller("HistoryController", function ($scope, $http) {
         $scope.platformName = data.name;
         $scope.corpName = data.corp;
     });
+    $http.get('lottery/lottery_issue/last').success(function (data) {
+        $scope.lastLotteryMarkSix = data;
+    });
     $scope.user = {
         username: sessionStorage["username"]
     }

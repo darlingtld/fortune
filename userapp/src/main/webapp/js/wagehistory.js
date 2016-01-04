@@ -14,6 +14,9 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
         $scope.platformName = data.name;
         $scope.corpName = data.corp;
     });
+    $http.get('lottery/lottery_issue/last').success(function (data) {
+        $scope.lastLotteryMarkSix = data;
+    });
     $http.get('user/' + sessionStorage["userid"]).success(function (data) {
         $scope.user = data;
         $scope.selectedPGroup = $scope.user.pGroupList[0];

@@ -623,6 +623,9 @@ app.controller("IndexController", function ($scope, $http, commonService,
         $scope.platformName = data.name;
         $scope.corpName = data.corp;
     });
+    $http.get('lottery/lottery_issue/last').success(function (data) {
+        $scope.lastLotteryMarkSix = data;
+    });
     $scope.goTab = function (index) {
         $scope.selectedIndex = index;
         $scope.reset();

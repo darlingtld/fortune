@@ -91,6 +91,21 @@ body {
     line-height: 40px;
 }
 
+.menu_lottery_info {
+    float: right;
+    color: white;
+    line-height: 40px;
+    margin-right: 10px;
+}
+
+.menu_lottery_info span {
+    float: left;
+}
+
+.menu_lottery_info .ball {
+    margin-top: 8px;
+}
+
 .menu_user_info > a {
     cursor: pointer;
     color: white;

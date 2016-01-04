@@ -11,6 +11,9 @@ reportsApp.controller("ReportsController", function ($scope, $http) {
         $scope.platformName = data.name;
         $scope.corpName = data.corp;
     });
+    $http.get('lottery/lottery_issue/last').success(function (data) {
+        $scope.lastLotteryMarkSix = data;
+    });
     $scope.query = function () {
         var toDate = $scope.toDate == undefined ? $scope.maxDate : $scope.toDate;
         $http.get('report/userid/' + sessionStorage['userid'] + '/from/' + $scope.fromDate + '/to/' + toDate).success(function (data) {

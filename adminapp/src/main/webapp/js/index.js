@@ -17,6 +17,9 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
             var currentTime = new Date();
             $scope.nowTime = currentTime;
         }, 1000);
+        $http.get('lottery/lottery_issue/last').success(function (data) {
+            $scope.lastLotteryMarkSix = data;
+        })
     }).config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/accounts', {
             controller: 'accountsController',

@@ -28,5 +28,16 @@
         <li class="menu_user_info">
             欢迎您，<span ng-bind="user.username"></span>！<a href="login.html">[登出]</a>
         </li>
+        <li class="menu_lottery_info">
+            <span ng-bind="lastLotteryMarkSix.issue | issueProcessor"></span><span>期：</span>
+            <span class="ball {{colorMap[lastLotteryMarkSix.one]}}" ng-bind="lastLotteryMarkSix.one"></span>
+            <span class="ball {{colorMap[lastLotteryMarkSix.two]}}" ng-bind="lastLotteryMarkSix.two"></span>
+            <span class="ball {{colorMap[lastLotteryMarkSix.three]}}" ng-bind="lastLotteryMarkSix.three"></span>
+            <span class="ball {{colorMap[lastLotteryMarkSix.four]}}" ng-bind="lastLotteryMarkSix.four"></span>
+            <span class="ball {{colorMap[lastLotteryMarkSix.five]}}" ng-bind="lastLotteryMarkSix.five"></span>
+            <span class="ball {{colorMap[lastLotteryMarkSix.six]}}" ng-bind="lastLotteryMarkSix.six"></span>
+            <span>特</span>
+            <span class="ball {{colorMap[lastLotteryMarkSix.special]}}" ng-bind="lastLotteryMarkSix.special"></span>
+        </li>
     </ul>
 </div>
