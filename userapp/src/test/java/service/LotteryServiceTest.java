@@ -121,4 +121,10 @@ public class LotteryServiceTest {
         System.out.println(zodiacList.get(index));
 
     }
+
+    @Test
+    public void getNextLotteryInfo() {
+        NextLotteryMarkSixInfo nextLotteryMarkSixInfo = lotteryService.getNextLotteryMarkSixInfo();
+        System.out.println(String.format("next issue : %s, date : %s", nextLotteryMarkSixInfo.getIssue(), nextLotteryMarkSixInfo.getDate()));
+    }
 }

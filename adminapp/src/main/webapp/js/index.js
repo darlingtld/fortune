@@ -11,6 +11,7 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
         }
         $http.get('common/platform_name').success(function (data) {
             $scope.platformName = data.name;
+            $scope.corpName = data.corp;
         })
         $interval(function () {
             var currentTime = new Date();
