@@ -13,102 +13,111 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "user")
 public class User {
-	@Id
-	private String id;
-	private String username;
-	private String password;
-	private List<Role> roleList = new ArrayList<>();
-	private List<PGroup> pGroupList = new ArrayList<>();
-	private double creditAccount;
-	private double usedCreditAccount;
-	private Date lastLoginTime;
-	private PeopleStatus status = PeopleStatus.ENABLED;
-	private boolean canDelete;
+    @Id
+    private String id;
+    private String username;
+    private String password;
+    private List<Role> roleList = new ArrayList<>();
+    private List<PGroup> pGroupList = new ArrayList<>();
+    private double creditAccount;
+    private double usedCreditAccount;
+    private Date lastLoginTime;
+    private PeopleStatus status = PeopleStatus.ENABLED;
+    private boolean canDelete;
+    private String createdByPgroupId;
 
-	public double getCreditAccount() {
-		return creditAccount;
-	}
+    public String getCreatedByPgroupId() {
+        return createdByPgroupId;
+    }
 
-	public void setCreditAccount(double creditAccount) {
-		this.creditAccount = creditAccount;
-	}
+    public void setCreatedByPgroupId(String createdByPgroupId) {
+        this.createdByPgroupId = createdByPgroupId;
+    }
 
-	public double getUsedCreditAccount() {
-		return usedCreditAccount;
-	}
+    public double getCreditAccount() {
+        return creditAccount;
+    }
 
-	public void setUsedCreditAccount(double usedCreditAccount) {
-		this.usedCreditAccount = usedCreditAccount;
-	}
+    public void setCreditAccount(double creditAccount) {
+        this.creditAccount = creditAccount;
+    }
 
-	public List<PGroup> getpGroupList() {
-		return pGroupList;
-	}
+    public double getUsedCreditAccount() {
+        return usedCreditAccount;
+    }
 
-	public void setpGroupList(List<PGroup> pGroupList) {
-		this.pGroupList = pGroupList;
-	}
+    public void setUsedCreditAccount(double usedCreditAccount) {
+        this.usedCreditAccount = usedCreditAccount;
+    }
 
-	public Date getLastLoginTime() {
-		return lastLoginTime;
-	}
+    public List<PGroup> getpGroupList() {
+        return pGroupList;
+    }
 
-	public void setLastLoginTime(Date lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
+    public void setpGroupList(List<PGroup> pGroupList) {
+        this.pGroupList = pGroupList;
+    }
 
-	public List<Role> getRoleList() {
-		return roleList;
-	}
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
 
-	public void setRoleList(List<Role> roleList) {
-		this.roleList = roleList;
-	}
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public List<Role> getRoleList() {
+        return roleList;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public PeopleStatus getStatus() {
-		return status;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setStatus(PeopleStatus status) {
-		this.status = status;
-	}
-	
-	public boolean isCanDelete() {
-		return canDelete;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setCanDelete(boolean canDelete) {
-		this.canDelete = canDelete;
-	}
+    public PeopleStatus getStatus() {
+        return status;
+    }
 
-	@Override
-	public String toString() {
-		return "User{" + "id='" + id + '\'' + ", username='" + username + '\'' + ", password='" + password + '\''
-				+ ", roleList=" + roleList + ", pGroupList=" + pGroupList + ", creditAccount=" + creditAccount
-				+ ", usedCreditAccount=" + usedCreditAccount + ", lastLoginTime=" + lastLoginTime + '}';
-	}
+    public void setStatus(PeopleStatus status) {
+        this.status = status;
+    }
+
+    public boolean isCanDelete() {
+        return canDelete;
+    }
+
+    public void setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id='" + id + '\'' + ", username='" + username + '\'' + ", password='" + password + '\''
+                + ", roleList=" + roleList + ", pGroupList=" + pGroupList + ", creditAccount=" + creditAccount
+                + ", usedCreditAccount=" + usedCreditAccount + ", lastLoginTime=" + lastLoginTime + '}';
+    }
 }

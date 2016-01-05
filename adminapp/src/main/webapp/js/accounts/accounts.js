@@ -35,9 +35,17 @@ angular.module('AdminApp').
                                             user.creditAccount + "</td><td>" + user.usedCreditAccount + "</td>";
                                         if (user.canDelete) {
                                             userDeleteMap[user.id] = true;
-                                            html += (user.status == "ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='" + user.id + "'>禁用</a>" : "<td><a href='javascript:;' class='btn enable_operate' data-id='" + user.id + "'>启用</a>") +
-                                                "<a href='javascript:;' class='red_btn delete_operate' data-id='" + user.id + "'>删除</a>" +
-                                                "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "'/><a href='javascript:;' class='btn credit_setting' data-id='" + user.id + "'>设置额度</a></td></tr>";
+                                            if (user.createdByPgroupId == sessionStorage["pgroupid"]) {
+                                                html += (user.status == "ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='" + user.id + "'>禁用</a>" : "<td><a href='javascript:;' class='btn enable_operate' data-id='" + user.id + "'>启用</a>") +
+                                                    "<a href='javascript:;' class='red_btn delete_operate' data-id='" + user.id + "'>删除</a>" +
+                                                    "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "'/><a href='javascript:;' class='btn credit_setting' data-id='" + user.id + "'>设置额度</a></td></tr>";
+
+                                            } else {
+                                                html += (user.status == "ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='" + user.id + "'>禁用</a>" : "<td><a href='javascript:;' class='btn enable_operate' data-id='" + user.id + "'>启用</a>") +
+                                                    "<a href='javascript:;' class='red_btn delete_operate' data-id='" + user.id + "'>删除</a>" +
+                                                    "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "' disabled/></td></tr>";
+
+                                            }
                                         }
                                         else {
                                             html += "<td>--</td></tr>";
@@ -123,7 +131,7 @@ angular.module('AdminApp').
                 $("body").on("click", "#add_user", function () {
                     if ($("#account_tree .pgroup.selected").length > 0) {
                         $(".dialog_title").html("增加新的用户");
-                        $(".dialog_body").html("<label for='user_name_input'>用户名称：</label><input type='text' id='user_name_input'/><br/><br/><label for='user_pwd_input'>密码：</label><input type='password' id='user_pwd_input'/><br/><br/><label for='user_repwd_input'>确认密码：</label><input type='password' id='user_repwd_input'/>");
+                        $(".dialog_body").html("<label for='user_name_input'>用户名称：</label><input type='text' id='user_name_input'/><br/><br/><label for='user_pwd_input'>密码：</label><input type='password' id='user_pwd_input'/><br/><br/><label for='user_repwd_input'>确认密码：</label><input type='password' id='user_repwd_input'/><br/><br/>如果该用户不存在，则该用户将会使用此次设定的用户名和密码登录。否则仍然使用原先的密码。");
                         $(".dialog").show();
                     }
                     else {

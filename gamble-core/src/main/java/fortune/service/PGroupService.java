@@ -79,6 +79,7 @@ public class PGroupService {
         if (existedUser == null) {
             user.setpGroupList(Arrays.asList(pGroup));
             user.setPassword(PasswordEncryptUtil.encrypt(user.getPassword()));
+            user.setCreatedByPgroupId(pGroupId);
             userDao.createUser(user);
         }
 //        用户是否为一个管理员
