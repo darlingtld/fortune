@@ -95,11 +95,11 @@ public class WagerDao {
         }
         return wagerList;
     }
-    
+
     //TODO code can be reused in getLotteryMarkSixWagerList()
     public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, String panlei, int issue, LotteryMarkSixType ballType) {
         Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei)));
-        
+
         if (ballType != null) {
             List<LotteryMarkSixWager> wagerList = new ArrayList<>();
             List<LotteryMarkSixWager> tmpwagerList = mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
@@ -115,5 +115,10 @@ public class WagerDao {
         } else {
             return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
         }
+    }
+
+    public void deleteLotteryMarkSixWager(String pGroupId, String userId) {
+        Query query = new Query(Criteria.where("pgroupId").is(pGroupId).andOperator(Criteria.where("userId").is(userId)));
+        mongoTemplate.findAndRemove(query, LotteryMarkSixWager.class);
     }
 }

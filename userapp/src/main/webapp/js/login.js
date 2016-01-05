@@ -18,6 +18,8 @@ loginApp.controller("LoginController", function ($scope, $http) {
             //alert(headers("message"))
             if (status == 417) {
                 alert("验证码错误")
+            } else if (status == 403) {
+                alert("登录错误\n可能原因：\n1.用户名或密码错误\n2.用户被禁用");
             }
         });
     };

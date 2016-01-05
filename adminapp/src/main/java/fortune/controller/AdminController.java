@@ -74,8 +74,16 @@ public class AdminController {
             response.setStatus(HttpStatus.SC_EXPECTATION_FAILED);
             return null;
         }
-        actionTraceService.save(username, "admin login", request);
-        return userService.adminLogin(username, password);
+        PGroup pGroup;
+        try {
+            pGroup = userService.adminLogin(username, password);
+            actionTraceService.save(username, "admin login", request);
+        } catch(Exception e){
+            response.setHeader(Utils.HEADER_MESSAGE, new String(e.getMessage().getBytes("utf-8"), "iso-8859-1"));
+            response.setStatus(HttpStatus.SC_FORBIDDEN);
+            return null;
+        }
+        return pGroup;
     }
 
 }

@@ -47,7 +47,14 @@ public class UserController {
             response.setStatus(org.apache.http.HttpStatus.SC_EXPECTATION_FAILED);
             return null;
         }
+        User user = userService.login(loginStub.getString("name"), loginStub.getString("password"));
+        if (user == null) {
+            response.setHeader(Utils.HEADER_MESSAGE, new String("用户名或密码错误".getBytes("utf-8"), "iso-8859-1"));
+            response.setStatus(org.apache.http.HttpStatus.SC_FORBIDDEN);
+            return null;
+        }
         actionTraceService.save(loginStub.getString("name"), "user login", request);
-        return userService.login(loginStub.getString("name"), loginStub.getString("password"));
+
+        return user;
     }
 }

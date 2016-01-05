@@ -96,11 +96,11 @@ public class PGroupController {
         pGroupService.deletePGroup(pgroupId, adminName);
     }
 
-    @RequestMapping(value = "delete/user/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "{pGroupId}/delete/user/{userId}", method = RequestMethod.POST)
     public
     @ResponseBody
-    void deleteUser(@PathVariable("userId") String userId) {
-        pGroupService.deleteUserByID(userId);
+    void deleteUser(@PathVariable("pGroupId") String pGroupId, @PathVariable("userId") String userId) {
+        pGroupService.deleteUserByID(pGroupId, userId);
     }
 
     @RequestMapping(value = "enable/user/{userId}", method = RequestMethod.POST)

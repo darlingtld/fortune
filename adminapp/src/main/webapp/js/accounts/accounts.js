@@ -132,6 +132,9 @@ angular.module('AdminApp').
                 });
 
                 $("body").on("click", "#delete_user", function () {
+                    if (!confirm("确认删除")) {
+                        return;
+                    }
                     if ($("#account_tree p.selected").length == 0) {
                         return false;
                     }
@@ -144,7 +147,7 @@ angular.module('AdminApp').
                     }
                     // 删除用户
                     else {
-                        $.post("pgroup/delete/user/" + $("#account_tree p.selected").attr("data-id"), function () {
+                        $.post("pgroup/" + sessionStorage["pgroupid"] + "/delete/user/" + $("#account_tree p.selected").attr("data-id"), function () {
                             alert("删除成功");
                             initState();
                         });
@@ -152,13 +155,19 @@ angular.module('AdminApp').
                 });
 
                 $("body").on("click", ".delete_operate", function () {
-                    $.post("pgroup/delete/user/" + $(this).attr("data-id"), function () {
+                    if (!confirm("确认删除")) {
+                        return;
+                    }
+                    $.post("pgroup/delete/" + sessionStorage["pgroupid"] + "/user/" + $(this).attr("data-id"), function () {
                         alert("删除成功");
                         initState();
                     });
                 });
 
                 $("body").on("click", ".enable_operate", function () {
+                    if (!confirm("确认启用")) {
+                        return;
+                    }
                     $.post("pgroup/enable/user/" + $(this).attr("data-id"), function () {
                         alert("启用成功");
                         initState();
@@ -166,6 +175,9 @@ angular.module('AdminApp').
                 });
 
                 $("body").on("click", ".disable_operate", function () {
+                    if (!confirm("确认禁用")) {
+                        return;
+                    }
                     $.post("pgroup/disable/user/" + $(this).attr("data-id"), function () {
                         alert("禁用成功");
                         initState();

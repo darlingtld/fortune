@@ -4,6 +4,7 @@ import com.alibaba.druid.util.StringUtils;
 import common.Utils;
 import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
+import fortune.dao.WagerDao;
 import fortune.pojo.PGroup;
 import fortune.pojo.PeopleStatus;
 import fortune.pojo.Role;
@@ -32,6 +33,9 @@ public class PGroupService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private WagerDao wagerDao;
 
     @Transactional
     public PGroup getGroupById(String id) {
@@ -162,24 +166,32 @@ public class PGroupService {
         }
     }
 
-    public void deleteUserByID(String userId) {
+    public void deleteUserByID(String pGroupId, String userId) {
         // 需要删除代理商下的userList
         User user = userDao.getUserById(userId);
         List<PGroup> pgroupList = user.getpGroupList();
         for (PGroup pgroup : pgroupList) {
-            String id = pgroup.getId();
-            PGroup pgroupDetails = pGroupDao.getGroupById(id);
-            List<User> userList = pgroupDetails.getUserList();
-            for (int i = 0; i < userList.size(); i++) {
-                if (userList.get(i).getId().equals(userId)) {
-                    userList.remove(i);
-                    break;
-                }
+            if (pgroup.getId().equals(pGroupId)) {
+                pgroupList.remove(pgroup);
+                break;
             }
-            pGroupDao.updatePGroup(pgroupDetails);
         }
-        // 删除用户
-        userDao.deleteUserByID(userId);
+        user.setpGroupList(pgroupList);
+        PGroup thisPGroup = pGroupDao.getGroupById(pGroupId);
+        List<User> userList = thisPGroup.getUserList();
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getId().equals(userId)) {
+                userList.remove(i);
+                break;
+            }
+        }
+        pGroupDao.updatePGroup(thisPGroup);
+//        删除该用户在该代理商的下注记录
+        wagerDao.deleteLotteryMarkSixWager(pGroupId, userId);
+        if (user.getpGroupList().isEmpty()) {
+            // 删除用户
+            userDao.deleteUserByID(userId);
+        }
     }
 
     public void updateUserStatusByID(String userId, PeopleStatus status) {

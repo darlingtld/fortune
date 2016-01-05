@@ -20,6 +20,8 @@ loginApp.controller("LoginController", function ($scope, $http) {
             //alert(headers("message"))
             if (status == 417) {
                 alert("验证码错误")
+            } else if (status == 403) {
+                alert("用户名或密码错误");
             }
         });
     };
