@@ -658,6 +658,9 @@ app.controller("IndexController", function ($scope, $http, commonService,
         $scope.otherParams = {};
         $scope.wageError = undefined;
         $scope.selectedPan = "A";
+        $scope.otherParams.jointTailType = "JOINT_TAIL_2";
+        $scope.otherParams.jointZodiacType = 2;
+        $scope.otherParams.zhengSpecificNum = 1;
     };
 
     // 秋色
