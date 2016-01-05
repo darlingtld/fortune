@@ -45,6 +45,9 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
         }).when('/stakesdetail/groupid/:groupid/pan/:panlei/:type/issue/:issue/ball/:number', {
             controller: 'stakesDetailController',
             templateUrl: 'includes/stakesdetail.html'
+        }).when('/stakesdetail/user/:userid/groupid/:groupid/issue/:issue', {
+            controller: 'stakesDetailController',
+            templateUrl: 'includes/stakesdetail.html'
         }).otherwise({
             redirectTo: '/realtime'
         });

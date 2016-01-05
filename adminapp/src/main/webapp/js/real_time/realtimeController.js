@@ -688,16 +688,25 @@ angular.module('AdminApp')
         });
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
-    
-        realtimeService.getStakesDetail(
-            $routeParams.type,
-            $routeParams.groupid,
-            $routeParams.panlei,
-            $routeParams.issue,
-            $routeParams.subtype,
-            $routeParams.number,
-            $routeParams.content,
-            $routeParams.isAll).then(function (data) {
+        $scope.groupId = sessionStorage['pgroupid'];
+        
+        if ($routeParams.userid) {
+            realtimeService.getStakesDetailByUser($routeParams.userid, $routeParams.groupid, $routeParams.issue).then(function (data) {
                 $scope.wagerList = data;
-        });
+                $scope.userLinkEnabled = false;
+            });
+        } else {
+            realtimeService.getStakesDetail(
+                $routeParams.type,
+                $routeParams.groupid,
+                $routeParams.panlei,
+                $routeParams.issue,
+                $routeParams.subtype,
+                $routeParams.number,
+                $routeParams.content,
+                $routeParams.isAll).then(function (data) {
+                    $scope.wagerList = data;
+                    $scope.userLinkEnabled = true;
+            });
+        }
 })

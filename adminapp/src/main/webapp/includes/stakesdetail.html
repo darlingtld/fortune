@@ -17,7 +17,8 @@
         <tr ng-repeat="wager in wagerList">
             <td ng-bind="wager.ts | date : 'yyyy-MM-dd HH:mm:ss'"></td>
             <td>
-                <a href="javascript:void(0)" ng-bind="wager.user.username"></a> / 
+                <a ng-if="userLinkEnabled" href="#/stakesdetail/user/{{wager.user.id}}/groupid/{{groupId}}/issue/{{wager.issue}}" ng-bind="wager.user.username"></a>
+                <span ng-if="!userLinkEnabled" ng-bind="wager.user.username"></span> / 
                 <span style="color:green" ng-bind="wager.tuishui"></span></td>
             <td>
                 <span ng-bind="wager.panlei"></span>盘 / 

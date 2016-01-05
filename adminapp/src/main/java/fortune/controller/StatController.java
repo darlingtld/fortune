@@ -1,9 +1,7 @@
 package fortune.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import fortune.pojo.*;
-import fortune.service.StatService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.alibaba.fastjson.JSONObject;
+
+import fortune.pojo.LotteryMarkSixGroupStat;
+import fortune.pojo.LotteryMarkSixType;
+import fortune.pojo.RealTimeWager;
+import fortune.pojo.RealtimeStat;
+import fortune.service.StatService;
 
 /**
  * Created by tangl9 on 2015-10-14.
@@ -130,6 +134,14 @@ public class StatController {
             @PathVariable("panlei") String panlei,
             @PathVariable("issue") int issue) {
         return statService.getAllStakeDetail4Type(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase(), issue);
+    }
+ 
+    @RequestMapping(value = "realtime/stake_detail/{user}/groupid/{groupid}/issue/{issue}", method = RequestMethod.GET)
+    public @ResponseBody List<RealTimeWager> getAllStakeDetail4User(
+            @PathVariable("user") String userId,
+            @PathVariable("groupid") String groupId, 
+            @PathVariable("issue") int issue) {
+        return statService.getAllStakeDetail4User(userId, groupId, issue);
     }
     
 }
