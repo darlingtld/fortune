@@ -46,13 +46,14 @@ public class UserServiceTest {
 
     @Test
     public void createGroup() {
-        List<String> groupNames = Arrays.asList("上海", "北京", "香港", "台湾");
-        for (String groupName : groupNames) {
-            PGroup PGroup = new PGroup();
-            PGroup.setName(groupName);
-            PGroup.setAdmin(userService.getUserByUsername("user1"));
-            pGroupService.createGroup(PGroup);
-        }
+        User user = new User();
+        user.setUsername("root");
+        user.setPassword("123456");
+        user.setRoleList(Arrays.asList(Role.GROUP_ADMIN));
+        PGroup PGroup = new PGroup();
+        PGroup.setName("上海");
+        PGroup.setAdmin(user);
+        pGroupService.createGroup(PGroup);
     }
 
     @Test
