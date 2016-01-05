@@ -92,4 +92,7 @@ public class UserDao {
 		mongoTemplate.updateFirst(query, update, User.class);
 	}
 
+	public void deleteUserByUserName(String username) {
+		mongoTemplate.remove(new Query(Criteria.where("username").is(username)), User.class);
+	}
 }

@@ -46,6 +46,9 @@ public class PGroupService {
     @Transactional
     public void createGroup(PGroup pGroup) {
         Utils.logger.info("create pGroup {}", pGroup);
+        if (pGroupDao.getPGroupByName(pGroup.getName()) != null) {
+            throw new RuntimeException("代理商或用户已存在");
+        }
         // 插入管理员
         User admin = pGroup.getAdmin();
         admin.setPassword(PasswordEncryptUtil.encrypt(admin.getPassword()));
@@ -53,7 +56,7 @@ public class PGroupService {
         PGroup adminGroup = pGroupDao.getGroupByAdminUserName(admin.getUsername());
         User existedUser = userDao.getUserByUsername(admin.getUsername());
         if (adminGroup == null && existedUser == null) {
-            userService.createUser(admin);
+            userDao.createUser(admin);
             // 插入pgroup
             pGroup.setAdmin(userDao.getUserByUsername(admin.getUsername()));
             pGroupDao.createGroup(pGroup);
@@ -163,7 +166,9 @@ public class PGroupService {
 
     public void deletePGroup(String pgroupId, String adminName) {
         if (canDeletePGroup(pgroupId, adminName)) {
+            String pgroupAdminId = getGroupById(pgroupId).getAdmin().getId();
             pGroupDao.deletePGroupByID(pgroupId);
+            userDao.deleteUserByID(pgroupAdminId);
         }
     }
 
