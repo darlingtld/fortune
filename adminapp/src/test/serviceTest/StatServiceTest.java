@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -73,5 +74,11 @@ public class StatServiceTest {
         for (LotteryMarkSixWager wager : list) {
             System.out.println(wager);
         }
+    }
+
+    @Test
+    public void getPredictList(){
+        List<HashMap<Integer, Double>> mapList= statService.predictNextLotteryMarkSix();
+        System.out.println(mapList);
     }
 }
