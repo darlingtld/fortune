@@ -58,17 +58,19 @@
             <td ng-bind="lotteryMarkSix.one+lotteryMarkSix.two+lotteryMarkSix.three+lotteryMarkSix.four+lotteryMarkSix.five+lotteryMarkSix.six+lotteryMarkSix.special"></td>
             <td ng-bind="lotteryMarkSix.one+lotteryMarkSix.two+lotteryMarkSix.three+lotteryMarkSix.four+lotteryMarkSix.five+lotteryMarkSix.six+lotteryMarkSix.special | danShuang"></td>
             <td ng-bind="lotteryMarkSix.one+lotteryMarkSix.two+lotteryMarkSix.three+lotteryMarkSix.four+lotteryMarkSix.five+lotteryMarkSix.six+lotteryMarkSix.special | daXiao"></td>
-            <td ng-bind="lotteryMarkSix.special | zodiac"></td>
+            <td ng-bind="lotteryMarkSix.special | zodiac : lotteryMarkSix.timestamp"></td>
             <td ng-bind="lotteryMarkSix.special | heDanShuang"></td>
             <td ng-bind="lotteryMarkSix.special | heDaXiao"></td>
-            <td><span ng-bind="lotteryMarkSix.one | zodiac"></span>
-                <span ng-bind="lotteryMarkSix.two | zodiac"></span>
-                <span ng-bind="lotteryMarkSix.three | zodiac"></span>
-                <span ng-bind="lotteryMarkSix.four | zodiac"></span>
-                <span ng-bind="lotteryMarkSix.five | zodiac"></span>
-                <span ng-bind="lotteryMarkSix.six | zodiac"></span>
-                <span ng-bind="lotteryMarkSix.special | zodiac"></span></td>
-            <td class="color_td {{colorMap[lotteryMarkSix.special]}}" ng-bind="colorMap[lotteryMarkSix.special] | wave"></td>
+            <td><span ng-bind="lotteryMarkSix.one | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.two | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.three | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.four | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.five | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.six | zodiac: lotteryMarkSix.timestamp"></span>
+                <!--<span ng-bind="lotteryMarkSix.special | zodiac"></span>-->
+            </td>
+            <td class="color_td {{colorMap[lotteryMarkSix.special]}}"
+                ng-bind="colorMap[lotteryMarkSix.special] | wave"></td>
         </tr>
     </table>
     <div class="pagination-area">
@@ -82,6 +84,7 @@
 <script src="js/lib/angular.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="js/common/lottery_algorithms.js"></script>
+<script src="js/common/LunarSolarConverter.js"></script>
 <script src="js/history.js"></script>
 </body>
 </html>

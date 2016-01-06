@@ -13,4 +13,14 @@ rulesApp.controller("RulesController", function ($scope, $http) {
     $http.get('lottery/lottery_issue/last').success(function (data) {
         $scope.lastLotteryMarkSix = data;
     });
+    $scope.colorMap = colorMap;
+});
+
+rulesApp.filter('issueProcessor', function () {
+    return function (issue) {
+        if (issue != null) {
+            issue = issue.toString().substr(4);
+            return parseInt(issue);
+        }
+    }
 });

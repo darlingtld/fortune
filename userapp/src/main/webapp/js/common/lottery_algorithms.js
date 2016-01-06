@@ -51,17 +51,17 @@ var colorMap = {
 };
 
 // 连码类型表
-var jointTypeMap={
-	"JOINT_3_ALL": "三全中",
-	"JOINT_3_2": "三中二",
-	"JOINT_2_ALL": "二全中",
-	"JOINT_2_SPECIAL": "二中特",
-	"JOINT_SPECIAL": "特串"	
+var jointTypeMap = {
+    "JOINT_3_ALL": "三全中",
+    "JOINT_3_2": "三中二",
+    "JOINT_2_ALL": "二全中",
+    "JOINT_2_SPECIAL": "二中特",
+    "JOINT_SPECIAL": "特串"
 };
 
 // 过关类型表
-var passTypeMap={
-	"PASS_DAN": "过关单", 
+var passTypeMap = {
+    "PASS_DAN": "过关单",
     "PASS_SHUANG": "过关双",
     "PASS_DA": "过关大",
     "PASS_XIAO": "过关小",
@@ -71,37 +71,37 @@ var passTypeMap={
 };
 
 // 正码类型表
-var zhengTypeMap={
-	"DAN": "单",
-	"SHUANG": "双",
-	"DA": "大",
-	"XIAO": "小",
-	"HEDAN": "合单",
-	"HESHUANG": "合双",
-	"RED": "红波",
-	"GREEN": "绿波",
-	"BLUE": "蓝波"
+var zhengTypeMap = {
+    "DAN": "单",
+    "SHUANG": "双",
+    "DA": "大",
+    "XIAO": "小",
+    "HEDAN": "合单",
+    "HESHUANG": "合双",
+    "RED": "红波",
+    "GREEN": "绿波",
+    "BLUE": "蓝波"
 };
 
 // 生肖类型表
-var zodiacTypeMap={
-	"ZODIAC_SHU": "鼠",
-	"ZODIAC_NIU": "牛",
-	"ZODIAC_HU": "虎",
-	"ZODIAC_TU": "兔",
-	"ZODIAC_LONG": "龙",
-	"ZODIAC_SHE": "蛇",
-	"ZODIAC_MA": "马",
-	"ZODIAC_YANG": "羊",
-	"ZODIAC_HOU": "猴",
-	"ZODIAC_JI": "鸡",
-	"ZODIAC_GOU": "狗",
-	"ZODIAC_ZHU": "猪"
+var zodiacTypeMap = {
+    "ZODIAC_SHU": "鼠",
+    "ZODIAC_NIU": "牛",
+    "ZODIAC_HU": "虎",
+    "ZODIAC_TU": "兔",
+    "ZODIAC_LONG": "龙",
+    "ZODIAC_SHE": "蛇",
+    "ZODIAC_MA": "马",
+    "ZODIAC_YANG": "羊",
+    "ZODIAC_HOU": "猴",
+    "ZODIAC_JI": "鸡",
+    "ZODIAC_GOU": "狗",
+    "ZODIAC_ZHU": "猪"
 };
 
 // 两面类型表
-var twoFaceTypeMap={
-	DAN: "特单",
+var twoFaceTypeMap = {
+    DAN: "特单",
     SHUANG: "特双",
     DA: "特大",
     XIAO: "特小",
@@ -119,7 +119,7 @@ var twoFaceTypeMap={
 
 // 连尾类型表
 var jointTailTypeMap = {
-	JOINT_TAIL_2: "2尾",
+    JOINT_TAIL_2: "2尾",
     JOINT_TAIL_3: "3尾",
     JOINT_TAIL_4: "4尾",
     JOINT_TAIL_NOT_2: "2尾不中",
@@ -245,7 +245,7 @@ var Zodiac = {
     }],
 
     getBallsByName: function (name) {
-        var date = new Date(), year = date.getFullYear(), currentIndex = (year - 2008) % 12, index = -1, balls = [];
+        var year = this.getLunarDate(new Date()).lunarYear, currentIndex = (year - 2008) % 12, index = -1, balls = [];
         for (var i = 0; i < this.zodiacMap.length; i++) {
             if (this.zodiacMap[i].name == name) {
                 index = i;
@@ -270,9 +270,15 @@ var Zodiac = {
         return balls;
     },
 
-    getNameByBall: function (ball) {
-        var ballNum = parseInt(ball), date = new Date(), year = date
-            .getFullYear(), currentIndex = (year - 2008) % 12;
+    getNameByBall: function (ball, lotteryDate) {
+        //农历年计算
+        var date = new Date();
+        if (lotteryDate != null) {
+            date = new Date(lotteryDate);
+        }
+        var year = this.getLunarDate(date).lunarYear;
+
+        var ballNum = parseInt(ball), currentIndex = (year - 2008) % 12;
         for (var start = 1, i = currentIndex; i >= 0; i--, start++) {
             var value = start, name = this.zodiacMap[i].name;
             for (; ;) {
@@ -376,5 +382,15 @@ var Zodiac = {
             }
         }
         return balls;
+    },
+
+    getLunarDate: function (solarDate) {
+        var date = solarDate;
+        var converter = new LunarSolarConverter();
+        var solar = new Solar();
+        solar.solarYear = date.getFullYear();
+        solar.solarMonth = date.getMonth() + 1;
+        solar.solarDay = date.getDate();
+        return converter.SolarToLunar(solar);
     }
 };

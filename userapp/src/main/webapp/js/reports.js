@@ -14,6 +14,7 @@ reportsApp.controller("ReportsController", function ($scope, $http) {
     $http.get('lottery/lottery_issue/last').success(function (data) {
         $scope.lastLotteryMarkSix = data;
     });
+    $scope.colorMap = colorMap;
     $scope.query = function () {
         var toDate = $scope.toDate == undefined ? $scope.maxDate : $scope.toDate;
         $http.get('report/userid/' + sessionStorage['userid'] + '/from/' + $scope.fromDate + '/to/' + toDate).success(function (data) {

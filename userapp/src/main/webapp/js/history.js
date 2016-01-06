@@ -83,8 +83,8 @@ historyApp.controller("HistoryController", function ($scope, $http) {
 
     };
 }).filter('zodiac', function () {
-    return function (input) {
-        return Zodiac.getNameByBall(input);
+    return function (input, param) {
+        return Zodiac.getNameByBall(input, param);
 
     };
 }).filter('heDanShuang', function () {
