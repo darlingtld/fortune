@@ -19,7 +19,21 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
         $interval(function () {
             var currentTime = new Date();
             $scope.nowTime = currentTime;
+
         }, 1000);
+        $http.get('lottery/next_lottery_mark_six_info').success(function(data){
+            var drawTime = new Date(data.date);
+            $interval(function () {
+                var now = new Date();
+                var distance = (drawTime.getTime() - now.getTime()) / 1000;
+                if (distance >= 0) {
+                    var hour = parseInt(distance / 3600);
+                    var minute = parseInt((distance % 3600) / 60);
+                    var second = parseInt(((distance % 3600) % 60));
+                    $scope.time2Draw = hour + "小时" + minute + "分" + second + "秒";
+                }
+            }, 1000);
+        })
         $http.get('lottery/lottery_issue/last').success(function (data) {
             $scope.lastLotteryMarkSix = data;
         })

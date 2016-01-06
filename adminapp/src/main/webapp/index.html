@@ -14,7 +14,8 @@
 <body ng-controller="indexController">
 <div class="nav" ng-include="'includes/nav.html'"></div>
 <div class="clock">
-    香港时间：<span ng-bind="nowTime | date : 'yyyy年MM月dd日 HH:mm:ss'"></span>
+    香港时间：<span ng-bind="nowTime | date : 'yyyy年MM月dd日 HH:mm:ss'" style="margin-right: 20px"></span>
+    距离开奖：<span ng-bind="time2Draw"></span>
 </div>
 <div class="section">
     <ng-view></ng-view>
