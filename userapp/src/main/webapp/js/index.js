@@ -632,6 +632,9 @@ app.controller("IndexController", function ($scope, $http, commonService,
         $scope.platformName = data.name;
         $scope.corpName = data.corp;
     });
+    $http.get('common/platform_period').success(function (data) {
+        $scope.wagePeriod = data.wage_period;
+    });
     $http.get('lottery/lottery_issue/last').success(function (data) {
         $scope.lastLotteryMarkSix = data;
     });

@@ -3,10 +3,7 @@ package fortune.controller;
 import common.Utils;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryMarkSixWager;
-import fortune.service.ActionTraceService;
-import fortune.service.PGroupService;
-import fortune.service.UserService;
-import fortune.service.WagerService;
+import fortune.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -37,6 +34,9 @@ public class GambleController {
     @Autowired
     private PGroupService pGroupService;
 
+    @Autowired
+    private CommonService commonService;
+
     /**
      * 玩家按数字下注
      * LotteryMarkSixWager里面有个type属性，见LotteryMarkSixType类
@@ -62,6 +62,11 @@ public class GambleController {
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
             return;
         }
+        if (!commonService.getPlatformPeriod().isWagePeriod()) {
+            response.setHeader(Utils.HEADER_MESSAGE, "现在不是下注时间段");
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+            return;
+        }
         try {
             wagerService.saveLotteryMarkSixWager(lotteryMarkSixWager);
         } catch (ArithmeticException e) {
@@ -80,6 +85,11 @@ public class GambleController {
         if (result.hasErrors()) {
             response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+            return;
+        }
+        if (!commonService.getPlatformPeriod().isWagePeriod()) {
+            response.setHeader(Utils.HEADER_MESSAGE, "现在不是下注时间段");
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
             return;
         }
         try {

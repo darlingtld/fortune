@@ -12,7 +12,10 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
         $http.get('common/platform_name').success(function (data) {
             $scope.platformName = data.name;
             $scope.corpName = data.corp;
-        })
+        });
+        $http.get('common/platform_period').success(function (data) {
+            $scope.setOddsPeriod = data.set_odds_period;
+        });
         $interval(function () {
             var currentTime = new Date();
             $scope.nowTime = currentTime;

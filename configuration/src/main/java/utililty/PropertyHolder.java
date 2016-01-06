@@ -36,5 +36,10 @@ public class PropertyHolder {
     public static final String THRIFT_ADMIN_HOST = prop.getProperty("thrift.adminapp.host");
     public static final Integer THRIFT_ADMIN_PORT = Integer.parseInt(prop.getProperty("thrift.adminapp.port"));
     public static final Integer THRIFT_TIMEOUT = Integer.parseInt(prop.getProperty("thrift.timeout"));
+    public static final String[] GAMBLE_WAGE_WEEKDAYS = prop.getProperty("gamble.wage.weekday").split(",");
+    public static final Integer GAMBLE_WAGE_HOUR_START = Integer.parseInt(prop.getProperty("gamble.wage.hour.start"));
+    public static final Integer GAMBLE_WAGE_MINUTE_START = Integer.parseInt(prop.getProperty("gamble.wage.minute.start"));
+    public static final Integer GAMBLE_WAGE_HOUR_END = Integer.parseInt(prop.getProperty("gamble.wage.hour.end"));
+    public static final Integer GAMBLE_WAGE_MINUTE_END = Integer.parseInt(prop.getProperty("gamble.wage.minute.end"));
 
 }

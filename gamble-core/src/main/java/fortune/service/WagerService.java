@@ -32,6 +32,9 @@ public class WagerService {
     @Autowired
     private LotteryDao lotteryDao;
 
+    @Autowired
+    private CommonService commonService;
+
     @Transactional
     public LotteryMarkSixWager getLotteryMarkSixWager(String lotteryMarkSixWagerId) {
         Utils.logger.info("get lottery mark six wager id {}", lotteryMarkSixWagerId);
@@ -41,6 +44,7 @@ public class WagerService {
     @Transactional
     public void saveLotteryMarkSixWager(LotteryMarkSixWager lotteryMarkSixWager) {
         Utils.logger.info("save lottery mark six wager {}", lotteryMarkSixWager);
+
         lotteryMarkSixWager.setLotteryIssue(lotteryService.getNextLotteryMarkSixInfo().getIssue());
         if (lotteryMarkSixWager.getLotteryMarkSixWagerStubList().size() > 0 && lotteryMarkSixWager.getTotalStakes() < 1) {
             double totalStakes = 0;

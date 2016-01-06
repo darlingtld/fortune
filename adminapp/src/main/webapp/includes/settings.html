@@ -1,4 +1,7 @@
 <div>
+    <div class="alert alert-warning" ng-show="!setOddsPeriod">
+        <strong>用户下注中~</strong> 当前时间段无法修改赔率
+    </div>
     <div class="form-group">
         <label>盘类：</label>
         <select class="form-control panlei" ng-model="selectedPan" ng-init="selectedPan=pans.panlei[0]"
@@ -63,9 +66,14 @@
             <div class="modal-body">
                 <input class="form-control" placeholder="请输入赔率" ng-model="oddsToChange"/>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" ng-show="setOddsPeriod">
                 <button class="btn btn-success" ng-click="changeOdds()">保存</button>
                 <button class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+            <div class="modal-footer" ng-show="!setOddsPeriod">
+                <div class="alert alert-warning" ng-show="!setOddsPeriod">
+                    <strong>用户下注中~</strong> 当前时间段无法修改赔率
+                </div>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@ package fortune.controller;
 import com.alibaba.fastjson.JSONObject;
 import common.Utils;
 import fortune.pojo.LotteryOdds;
+import fortune.service.CommonService;
 import fortune.service.OddsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -26,6 +27,9 @@ public class OddsController {
     @Autowired
     private OddsService oddsService;
 
+    @Autowired
+    private CommonService commonService;
+
     /**
      * 设置赔率
      * 如果设置了type类型，在中奖判断时，会忽略number的情况
@@ -43,6 +47,11 @@ public class OddsController {
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
             return;
         }
+        if (!commonService.getPlatformPeriod().isSettingOddsPeriod()) {
+            response.setHeader(Utils.HEADER_MESSAGE, "现在不是赔率设置时间段");
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+            return;
+        }
         oddsService.saveOdds(odds);
     }
 
@@ -55,6 +64,11 @@ public class OddsController {
     LotteryOdds changeOddsById(@RequestBody JSONObject oddsStub, HttpServletResponse response) {
         String oddsId = oddsStub.getString("oddsId");
         double odds = oddsStub.getDouble("odds");
+        if (!commonService.getPlatformPeriod().isSettingOddsPeriod()) {
+            response.setHeader(Utils.HEADER_MESSAGE, "现在不是赔率设置时间段");
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+            return null;
+        }
         return oddsService.changeOdds(oddsId, odds);
     }
 
