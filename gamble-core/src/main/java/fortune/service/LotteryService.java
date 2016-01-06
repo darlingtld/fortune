@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import common.Utils;
 import fortune.dao.LotteryDao;
-import fortune.pojo.LotteryMarkSix;
-import fortune.pojo.LotteryMarkSixType;
-import fortune.pojo.NextLotteryMarkSixInfo;
+import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -108,7 +106,12 @@ public class LotteryService {
         Instant instant = lotteryMarkSix.getTimestamp().toInstant();
         ZoneId zone = ZoneId.systemDefault();
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
-        int currentYear = localDateTime.getYear();
+        Solar solar = new Solar();
+        solar.solarYear = localDateTime.getYear();
+        solar.solarMonth = localDateTime.getMonthValue();
+        solar.solarDay = localDateTime.getDayOfMonth();
+        Lunar lunar = LunarSolarConverter.SolarToLunar(solar);
+        int currentLunarYear = lunar.lunarYear;
         int baseYear = 2015;
         int number = special % 12;
         List<LotteryMarkSixType> zodiacList = new ArrayList<>();
@@ -124,7 +127,7 @@ public class LotteryService {
         zodiacList.add(LotteryMarkSixType.ZODIAC_LONG);
         zodiacList.add(LotteryMarkSixType.ZODIAC_SHE);
         zodiacList.add(LotteryMarkSixType.ZODIAC_MA);
-        int index = (currentYear - baseYear - number + 1) >= 0 ? (currentYear - baseYear - number + 1) : 12 + (currentYear - baseYear - number + 1);
+        int index = (currentLunarYear - baseYear - number + 1) >= 0 ? (currentLunarYear - baseYear - number + 1) : 12 + (currentLunarYear - baseYear - number + 1);
         return zodiacList.get(index);
     }
 }
