@@ -14,7 +14,7 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
             $scope.corpName = data.corp;
         });
         $http.get('common/platform_period').success(function (data) {
-            $scope.setOddsPeriod = data.set_odds_period;
+            $scope.setOddsPeriod = data.setOddsPeriod;
         });
         $interval(function () {
             var currentTime = new Date();

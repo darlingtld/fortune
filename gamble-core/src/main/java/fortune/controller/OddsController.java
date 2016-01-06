@@ -47,7 +47,7 @@ public class OddsController {
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
             return;
         }
-        if (!commonService.getPlatformPeriod().isSettingOddsPeriod()) {
+        if (!commonService.getPlatformPeriod().isSetOddsPeriod()) {
             response.setHeader(Utils.HEADER_MESSAGE, "现在不是赔率设置时间段");
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
             return;
@@ -64,7 +64,7 @@ public class OddsController {
     LotteryOdds changeOddsById(@RequestBody JSONObject oddsStub, HttpServletResponse response) {
         String oddsId = oddsStub.getString("oddsId");
         double odds = oddsStub.getDouble("odds");
-        if (!commonService.getPlatformPeriod().isSettingOddsPeriod()) {
+        if (!commonService.getPlatformPeriod().isSetOddsPeriod()) {
             response.setHeader(Utils.HEADER_MESSAGE, "现在不是赔率设置时间段");
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
             return null;
