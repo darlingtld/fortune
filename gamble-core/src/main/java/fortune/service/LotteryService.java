@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import utililty.PropertyHolder;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -86,11 +87,19 @@ public class LotteryService {
                 }
             }
         }
-        LocalDateTime nextDrawTime = thatTime.plusDays(1);
+        String[] gambleWeekDays = PropertyHolder.GAMBLE_WAGE_WEEKDAYS;
+        List<Integer> weekDaysIntValue = new ArrayList<>();
+        for (String day : gambleWeekDays) {
+            weekDaysIntValue.add(Integer.parseInt(day));
+        }
+        thatTime = thatTime.plusDays(1);
+        LocalDateTime nextDrawTime = LocalDateTime.of(thatTime.getYear(), thatTime.getMonth(), thatTime.getDayOfMonth(), PropertyHolder.LOTTERY_DRAW_HOUR, PropertyHolder.LOTTERY_DRAW_MINUTE);
         do {
             nextDrawTime = nextDrawTime.plusDays(1);
-        } while (nextDrawTime.getDayOfWeek().getValue() % 2 != 0);
+        } while (!weekDaysIntValue.contains(nextDrawTime.getDayOfWeek().getValue()));
         nextLotteryMarkSixInfo.setDate(Date.from(nextDrawTime.atZone(ZoneId.systemDefault()).toInstant()));
+        LocalDateTime nextWageTime=LocalDateTime.of(nextDrawTime.getYear(), nextDrawTime.getMonth(),nextDrawTime.getDayOfMonth(), PropertyHolder.GAMBLE_WAGE_HOUR_START, PropertyHolder.GAMBLE_WAGE_MINUTE_START);
+        nextLotteryMarkSixInfo.setWageDate(Date.from(nextWageTime.atZone(ZoneId.systemDefault()).toInstant()));
         return nextLotteryMarkSixInfo;
     }
 

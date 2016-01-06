@@ -618,7 +618,7 @@ app.service("jointTailService", function ($q, $http, $sce) {
     };
 });
 
-app.controller("IndexController", function ($scope, $http, commonService,
+app.controller("IndexController", function ($scope, $http, $interval, commonService,
                                             zodiacService, tailBallService, halfWaveService, sumZodiacService, zhengBallService,
                                             jointBallService, notBallService, passBallService, zodiacTailService,
                                             jointZodiacService, twoFacesService, jointTailService) {
@@ -634,7 +634,9 @@ app.controller("IndexController", function ($scope, $http, commonService,
     });
     $http.get('common/platform_period').success(function (data) {
         $scope.wagePeriod = data.wagePeriod;
+
     });
+
     $http.get('lottery/lottery_issue/last').success(function (data) {
         $scope.lastLotteryMarkSix = data;
     });
@@ -781,6 +783,19 @@ app.controller("IndexController", function ($scope, $http, commonService,
     }).then(function (data) {
         $scope.nextLottery = data;
         $scope.refreshLotteryList();
+        if (!$scope.wagePeriod) {
+            var drawTime = new Date($scope.nextLottery.wageDate);
+            $interval(function () {
+                var now = new Date();
+                var distance = (drawTime.getTime() - now.getTime()) / 1000;
+                if (distance >= 0) {
+                    var hour = parseInt(distance / 3600);
+                    var minute = parseInt((distance % 3600) / 60);
+                    var second = parseInt(((distance % 3600) % 60));
+                    $scope.time2Wage = hour + "小时" + minute + "分" + second + "秒";
+                }
+            }, 1000);
+        }
     });
 
     // 合码的选择类型函数

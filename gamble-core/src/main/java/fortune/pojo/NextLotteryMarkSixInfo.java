@@ -9,6 +9,24 @@ public class NextLotteryMarkSixInfo {
 
     private int issue;
     private Date date;
+    private Date wageDate;
+
+    public Date getWageDate() {
+        return wageDate;
+    }
+
+    public void setWageDate(Date wageDate) {
+        this.wageDate = wageDate;
+    }
+
+    @Override
+    public String toString() {
+        return "NextLotteryMarkSixInfo{" +
+                "issue=" + issue +
+                ", date=" + date +
+                ", wageDate=" + wageDate +
+                '}';
+    }
 
     public int getIssue() {
         return issue;
@@ -26,11 +44,4 @@ public class NextLotteryMarkSixInfo {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "NextLotteryMarkSixInfo{" +
-                "issue=" + issue +
-                ", date=" + date +
-                '}';
-    }
 }
