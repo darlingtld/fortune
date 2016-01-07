@@ -1,0 +1,46 @@
+<table>
+	<tr>
+		<th>类型</th>
+		<th>退水</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>退水</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>退水</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>退水</th>
+		<th>操作</th>
+	</tr>
+	<tr>
+		<td>三全中</td>
+		<td ng-bind="tuishuiMap['JOINT_3_ALL'].tuishui" id="{{tuishuiMap['JOINT_3_ALL'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['JOINT_3_ALL'].id, tuishuiMap['JOINT_3_ALL'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td>三中二</td>
+		<td ng-bind="tuishuiMap['JOINT_3_2'].tuishui" id="{{tuishuiMap['JOINT_3_2'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['JOINT_3_2'].id, tuishuiMap['JOINT_3_2'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td>二全中</td>
+		<td ng-bind="tuishuiMap['JOINT_2_ALL'].tuishui" id="{{tuishuiMap['JOINT_2_ALL'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['JOINT_2_ALL'].id, tuishuiMap['JOINT_2_ALL'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td>二中特</td>
+		<td ng-bind="tuishuiMap['JOINT_2_SPECIAL'].tuishui" id="{{tuishuiMap['JOINT_2_SPECIAL'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['JOINT_2_SPECIAL'].id, tuishuiMap['JOINT_2_SPECIAL'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+	</tr>
+	<tr>
+		<td>特串</td>
+		<td ng-bind="tuishuiMap['JOINT_SPECIAL'].tuishui" id="{{tuishuiMap['JOINT_SPECIAL'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['JOINT_SPECIAL'].id, tuishuiMap['JOINT_SPECIAL'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td colspan="9"></td>
+	</tr>
+</table>

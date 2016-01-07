@@ -1,0 +1,106 @@
+<table>
+	<tr>
+		<th>半波</th>
+		<th>退水</th>
+		<th>操作</th>
+		<th>半波</th>
+		<th>退水</th>
+		<th>操作</th>
+		<th>半波</th>
+		<th>退水</th>
+		<th>操作</th>
+		<th>半波</th>
+		<th>退水</th>
+		<th>操作</th>
+	</tr>
+	<tr>
+		<td>红单</td>
+		<td ng-bind="tuishuiMap['WAVE_RED_DAN'].tuishui" id="{{tuishuiMap['WAVE_RED_DAN'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_RED_DAN'].id, tuishuiMap['WAVE_RED_DAN'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+        <td>红双</td>
+		<td ng-bind="tuishuiMap['WAVE_RED_SHUANG'].tuishui" id="{{tuishuiMap['WAVE_RED_SHUANG'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_RED_SHUANG'].id, tuishuiMap['WAVE_RED_SHUANG'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+        <td>红大</td>
+		<td ng-bind="tuishuiMap['WAVE_RED_DA'].tuishui" id="{{tuishuiMap['WAVE_RED_DA'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_RED_DA'].id, tuishuiMap['WAVE_RED_DA'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+        <td>红小</td>
+		<td ng-bind="tuishuiMap['WAVE_RED_XIAO'].tuishui" id="{{tuishuiMap['WAVE_RED_XIAO'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_RED_XIAO'].id, tuishuiMap['WAVE_RED_XIAO'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+	</tr>
+	<tr>
+		<td>蓝单</td>
+		<td ng-bind="tuishuiMap['WAVE_BLUE_DAN'].tuishui" id="{{tuishuiMap['WAVE_BLUE_DAN'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_BLUE_DAN'].id, tuishuiMap['WAVE_BLUE_DAN'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+        <td>蓝双</td>
+		<td ng-bind="tuishuiMap['WAVE_BLUE_SHUANG'].tuishui" id="{{tuishuiMap['WAVE_BLUE_SHUANG'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_BLUE_SHUANG'].id, tuishuiMap['WAVE_BLUE_SHUANG'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+        <td>蓝大</td>
+		<td ng-bind="tuishuiMap['WAVE_BLUE_DA'].tuishui" id="{{tuishuiMap['WAVE_BLUE_DA'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_BLUE_DA'].id, tuishuiMap['WAVE_BLUE_DA'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+        <td>蓝小</td>
+		<td ng-bind="tuishuiMap['WAVE_BLUE_XIAO'].tuishui" id="{{tuishuiMap['WAVE_BLUE_XIAO'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_BLUE_XIAO'].id, tuishuiMap['WAVE_BLUE_XIAO'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+	</tr>
+	<tr>
+		<td>绿单</td>
+		<td ng-bind="tuishuiMap['WAVE_GREEN_DAN'].tuishui" id="{{tuishuiMap['WAVE_GREEN_DAN'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_GREEN_DAN'].id, tuishuiMap['WAVE_GREEN_DAN'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+        <td>绿双</td>
+		<td ng-bind="tuishuiMap['WAVE_GREEN_SHUANG'].tuishui" id="{{tuishuiMap['WAVE_GREEN_SHUANG'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_GREEN_SHUANG'].id, tuishuiMap['WAVE_GREEN_SHUANG'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+        <td>绿大</td>
+		<td ng-bind="tuishuiMap['WAVE_GREEN_DA'].tuishui" id="{{tuishuiMap['WAVE_GREEN_DA'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_GREEN_DA'].id, tuishuiMap['WAVE_GREEN_DA'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+        <td>绿小</td>
+		<td ng-bind="tuishuiMap['WAVE_GREEN_XIAO'].tuishui" id="{{tuishuiMap['WAVE_GREEN_XIAO'].id}}"></td>
+		<td>
+            <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['WAVE_GREEN_XIAO'].id, tuishuiMap['WAVE_GREEN_XIAO'].tuishui)" data-toggle="modal"
+                    data-target="#tuishuiDialog">修改
+            </button>
+        </td>
+	</tr>
+</table>

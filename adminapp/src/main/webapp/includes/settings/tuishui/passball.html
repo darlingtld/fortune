@@ -1,0 +1,56 @@
+<table>
+	<tr>
+		<th>类型</th>
+		<th>退水</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>退水</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>退水</th>
+		<th>操作</th>
+		<th>类型</th>
+		<th>退水</th>
+		<th>操作</th>
+	</tr>
+	<tr>
+		<td>过关单</td>
+		<td ng-bind="tuishuiMap['PASS_DAN'].tuishui" id="{{tuishuiMap['PASS_DAN'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['PASS_DAN'].id, tuishuiMap['PASS_DAN'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td>过关双</td>
+		<td ng-bind="tuishuiMap['PASS_SHUANG'].tuishui" id="{{tuishuiMap['PASS_SHUANG'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['PASS_SHUANG'].id, tuishuiMap['PASS_SHUANG'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td>过关大</td>
+		<td ng-bind="tuishuiMap['PASS_DA'].tuishui" id="{{tuishuiMap['PASS_DA'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['PASS_DA'].id, tuishuiMap['PASS_DA'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td>过关小</td>
+		<td ng-bind="tuishuiMap['PASS_XIAO'].tuishui" id="{{tuishuiMap['PASS_XIAO'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['PASS_XIAO'].id, tuishuiMap['PASS_XIAO'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+	</tr>
+	<tr>
+		<td>过关红</td>
+		<td ng-bind="tuishuiMap['PASS_RED'].tuishui" id="{{tuishuiMap['PASS_RED'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['PASS_RED'].id, tuishuiMap['PASS_RED'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td>过关绿</td>
+		<td ng-bind="tuishuiMap['PASS_GREEN'].tuishui" id="{{tuishuiMap['PASS_GREEN'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['PASS_GREEN'].id, tuishuiMap['PASS_GREEN'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td>过关蓝</td>
+		<td ng-bind="tuishuiMap['PASS_BLUE'].tuishui" id="{{tuishuiMap['PASS_BLUE'].id}}"></td>
+		<td>
+			<button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['PASS_BLUE'].id, tuishuiMap['PASS_BLUE'].tuishui)" data-toggle="modal" data-target="#tuishuiDialog">修改</button>
+		</td>
+		<td colspan="3"></td>
+	</tr>
+</table>

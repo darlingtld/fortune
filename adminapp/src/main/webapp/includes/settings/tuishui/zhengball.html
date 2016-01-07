@@ -1,0 +1,112 @@
+<div class="real-time-dashboard lottery-special-number">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>退水</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ball in [1,2,3,4,5,6,7,8,9,10]">
+                <td><span ng-bind="ball" class="ball ball{{ball}}"></span></td>
+                <td ng-bind="tuishuiMap['ZHENG_BALL#'+ball].tuishui" id="{{tuishuiMap['ZHENG_BALL#'+ball].id}}"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['ZHENG_BALL#'+ball].id, tuishuiMap['ZHENG_BALL#'+ball].tuishui)" data-toggle="modal"
+                            data-target="#tuishuiDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>退水</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ball in [11,12,13,14,15,16,17,18,19,20]">
+                <td><span ng-bind="ball" class="ball ball{{ball}}"></span></td>
+                <td ng-bind="tuishuiMap['ZHENG_BALL#'+ball].tuishui" id="{{tuishuiMap['ZHENG_BALL#'+ball].id}}"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['ZHENG_BALL#'+ball].id, tuishuiMap['ZHENG_BALL#'+ball].tuishui)" data-toggle="modal"
+                            data-target="#tuishuiDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>退水</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ball in [21,22,23,24,25,26,27,28,29,30]">
+                <td><span ng-bind="ball" class="ball ball{{ball}}"></span></td>
+                <td ng-bind="tuishuiMap['ZHENG_BALL#'+ball].tuishui" id="{{tuishuiMap['ZHENG_BALL#'+ball].id}}"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['ZHENG_BALL#'+ball].id, tuishuiMap['ZHENG_BALL#'+ball].tuishui)" data-toggle="modal"
+                            data-target="#tuishuiDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>退水</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ball in [31,32,33,34,35,36,37,38,39,40]">
+                <td><span ng-bind="ball" class="ball ball{{ball}}"></span></td>
+                <td ng-bind="tuishuiMap['ZHENG_BALL#'+ball].tuishui" id="{{tuishuiMap['ZHENG_BALL#'+ball].id}}"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['ZHENG_BALL#'+ball].id, tuishuiMap['ZHENG_BALL#'+ball].tuishui)" data-toggle="modal"
+                            data-target="#tuishuiDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>号码</th>
+                <th>退水</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ball in [41,42,43,44,45,46,47,48,49]">
+                <td><span ng-bind="ball" class="ball ball{{ball}}"></span></td>
+                <td ng-bind="tuishuiMap['ZHENG_BALL#'+ball].tuishui" id="{{tuishuiMap['ZHENG_BALL#'+ball].id}}"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishuiMap['ZHENG_BALL#'+ball].id, tuishuiMap['ZHENG_BALL#'+ball].tuishui)" data-toggle="modal"
+                            data-target="#tuishuiDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
