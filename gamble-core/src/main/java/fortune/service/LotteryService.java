@@ -98,7 +98,7 @@ public class LotteryService {
             nextDrawTime = nextDrawTime.plusDays(1);
         } while (!weekDaysIntValue.contains(nextDrawTime.getDayOfWeek().getValue()));
         nextLotteryMarkSixInfo.setDate(Date.from(nextDrawTime.atZone(ZoneId.systemDefault()).toInstant()));
-        LocalDateTime nextWageTime=LocalDateTime.of(nextDrawTime.getYear(), nextDrawTime.getMonth(),nextDrawTime.getDayOfMonth(), PropertyHolder.GAMBLE_WAGE_HOUR_START, PropertyHolder.GAMBLE_WAGE_MINUTE_START);
+        LocalDateTime nextWageTime = LocalDateTime.of(nextDrawTime.getYear(), nextDrawTime.getMonth(), nextDrawTime.getDayOfMonth(), PropertyHolder.GAMBLE_WAGE_HOUR_START, PropertyHolder.GAMBLE_WAGE_MINUTE_START);
         nextLotteryMarkSixInfo.setWageDate(Date.from(nextWageTime.atZone(ZoneId.systemDefault()).toInstant()));
         return nextLotteryMarkSixInfo;
     }
@@ -111,10 +111,15 @@ public class LotteryService {
 
     @Transactional
     public LotteryMarkSixType getZodiac(int lotteryIssue, int special) {
-        LotteryMarkSix lotteryMarkSix = getLotteryMarkSix(lotteryIssue);
-        Instant instant = lotteryMarkSix.getTimestamp().toInstant();
-        ZoneId zone = ZoneId.systemDefault();
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalDateTime localDateTime;
+        if (lotteryIssue == 0) {
+            localDateTime = LocalDateTime.now();
+        } else {
+            LotteryMarkSix lotteryMarkSix = getLotteryMarkSix(lotteryIssue);
+            Instant instant = lotteryMarkSix.getTimestamp().toInstant();
+            ZoneId zone = ZoneId.systemDefault();
+            localDateTime = LocalDateTime.ofInstant(instant, zone);
+        }
         Solar solar = new Solar();
         solar.solarYear = localDateTime.getYear();
         solar.solarMonth = localDateTime.getMonthValue();

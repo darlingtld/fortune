@@ -1,5 +1,7 @@
 package fortune.pojo;
 
+import java.util.List;
+
 /**
  * Created by lingda on 2015/11/9.
  */
@@ -14,6 +16,15 @@ public class RealtimeStat {
     private String lotteryMarkSixType;
     private String lotteryMarkSixTypeName;
     private String wagerContent;
+    private List<List<LotteryMarkSixType>> subLotteryMarkSixTypeList4Wager;
+
+    public List<List<LotteryMarkSixType>> getSubLotteryMarkSixTypeList4Wager() {
+        return subLotteryMarkSixTypeList4Wager;
+    }
+
+    public void setSubLotteryMarkSixTypeList4Wager(List<List<LotteryMarkSixType>> subLotteryMarkSixTypeList4Wager) {
+        this.subLotteryMarkSixTypeList4Wager = subLotteryMarkSixTypeList4Wager;
+    }
 
     @Override
     public String toString() {

@@ -1,10 +1,7 @@
 package serviceTest;
 
 import fortune.pojo.*;
-import fortune.service.LotteryService;
-import fortune.service.PGroupService;
-import fortune.service.StatService;
-import fortune.service.WagerService;
+import fortune.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,9 @@ public class StatServiceTest {
 
     @Autowired
     private WagerService wagerService;
+
+    @Autowired
+    private PredictionService predictionService;
 
     @Test
     public void getLotteryMarkSixStatList() {
@@ -78,7 +78,7 @@ public class StatServiceTest {
 
     @Test
     public void getPredictList(){
-        List<HashMap<Integer, Double>> mapList= statService.predictNextLotteryMarkSix();
+        List<HashMap<Integer, Double>> mapList= predictionService.predictNextLotteryMarkSix();
         System.out.println(mapList);
     }
 }

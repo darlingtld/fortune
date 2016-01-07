@@ -15,12 +15,13 @@
                 <td><span ng-bind="rt.number" class="ball ball{{rt.number}}"></span></td>
                 <td ng-bind="rt.transactions"></td>
                 <td>
-                    <a ng-show="rt.stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/special/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
+                    <a ng-show="rt.stakes > 0"
+                       href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/special/issue/{{lotteryMarkSixInfo.issue}}/ball/{{rt.number}}"><span
                             ng-bind="rt.stakes"></span></a>
                     <span ng-show="rt.stakes == 0">0</span>
                 </td>
                 <td ng-bind="rt.odds"></td>
-                <td ng-bind="rt.balance"></td>
+                <td ng-bind="rt.balance" ng-class="{'text-danger':rt.balance<0, 'text-success':rt.balance>0}"></td>
             </tr>
             </tbody>
         </table>
@@ -47,16 +48,18 @@
                 <td><span ng-bind="twoFacesNameMap[key]" class="type"></span></td>
                 <td ng-bind="twoFacesMap[key].transactions"></td>
                 <td>
-                    <a ng-show="twoFacesMap[key].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/two_faces/issue/{{lotteryMarkSixInfo.issue}}/ball/0?subtype={{twoFacesMap[key].lotteryMarkSixType}}"><span
+                    <a ng-show="twoFacesMap[key].stakes > 0"
+                       href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/two_faces/issue/{{lotteryMarkSixInfo.issue}}/ball/0?subtype={{twoFacesMap[key].lotteryMarkSixType}}"><span
                             ng-bind="twoFacesMap[key].stakes"></span></a>
                     <span ng-show="twoFacesMap[key].stakes == 0">0</span>
                 </td>
                 <td ng-bind="twoFacesMap[key].odds"></td>
-                <td ng-bind="twoFacesMap[key].balance"></td>
+                <td ng-bind="twoFacesMap[key].balance" ng-class="{'text-danger':twoFacesMap[key].balance<0, 'text-success':twoFacesMap[key].balance>0}"></td>
             </tr>
             <tr>
                 <td>合计</td>
-                <td><strong ng-bind="twoFacesMap[subs[0]].transactions + twoFacesMap[subs[1]].transactions"></strong></td>
+                <td><strong ng-bind="twoFacesMap[subs[0]].transactions + twoFacesMap[subs[1]].transactions"></strong>
+                </td>
                 <td><strong ng-bind="twoFacesMap[subs[0]].stakes + twoFacesMap[subs[1]].stakes"></strong></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
@@ -83,17 +86,18 @@
                 <td><span ng-bind="rt.lotteryMarkSixTypeName" class="type"></span></td>
                 <td ng-bind="rt.transactions"></td>
                 <td>
-                    <a ng-show="rt.stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{rt.lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0"><span
+                    <a ng-show="rt.stakes > 0"
+                       href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{rt.lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0"><span
                             ng-bind="rt.stakes"></span></a>
                     <span ng-show="rt.stakes == 0">0</span>
                 </td>
                 <td ng-bind="rt.odds"></td>
-                <td ng-bind="rt.balance"></td>
+                <td ng-bind="rt.balance"  ng-class="{'text-danger':rt.balance<0, 'text-success':rt.balance>0}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div style="margin-left: 10px">
         <table>
             <thead>
@@ -110,17 +114,22 @@
                 <td><span ng-bind="twoFacesNameMap[key]" class="type"></span></td>
                 <td ng-bind="twoFacesMap[key].transactions"></td>
                 <td>
-                    <a ng-show="twoFacesMap[key].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/two_faces/issue/{{lotteryMarkSixInfo.issue}}/ball/0?subtype={{twoFacesMap[key].lotteryMarkSixType}}"><span
+                    <a ng-show="twoFacesMap[key].stakes > 0"
+                       href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/two_faces/issue/{{lotteryMarkSixInfo.issue}}/ball/0?subtype={{twoFacesMap[key].lotteryMarkSixType}}"><span
                             ng-bind="twoFacesMap[key].stakes"></span></a>
                     <span ng-show="twoFacesMap[key].stakes == 0">0</span>
                 </td>
                 <td ng-bind="twoFacesMap[key].odds"></td>
-                <td ng-bind="twoFacesMap[key].balance"></td>
+                <td ng-bind="twoFacesMap[key].balance" ng-class="{'text-danger':twoFacesMap[key].balance<0, 'text-success':twoFacesMap[key].balance>0}"></td>
             </tr>
             <tr>
                 <td>合计</td>
-                <td><strong ng-bind="twoFacesMap[animalTypeKeyList[0]].transactions + twoFacesMap[animalTypeKeyList[1]].transactions"></strong></td>
-                <td><strong ng-bind="twoFacesMap[animalTypeKeyList[0]].stakes + twoFacesMap[animalTypeKeyList[1]].stakes"></strong></td>
+                <td><strong
+                        ng-bind="twoFacesMap[animalTypeKeyList[0]].transactions + twoFacesMap[animalTypeKeyList[1]].transactions"></strong>
+                </td>
+                <td><strong
+                        ng-bind="twoFacesMap[animalTypeKeyList[0]].stakes + twoFacesMap[animalTypeKeyList[1]].stakes"></strong>
+                </td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
@@ -149,17 +158,18 @@
                 <td><span ng-bind="halfWaveList[color][col].lotteryMarkSixTypeName" class="type"></span></td>
                 <td ng-bind="halfWaveList[color][col].transactions"></td>
                 <td>
-                    <a ng-show="halfWaveList[color][col].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{halfWaveList[color][col].lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0"><span
+                    <a ng-show="halfWaveList[color][col].stakes > 0"
+                       href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{halfWaveList[color][col].lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0"><span
                             ng-bind="halfWaveList[color][col].stakes"></span></a>
                     <span ng-show="halfWaveList[color][col].stakes == 0">0</span>
                 </td>
                 <td ng-bind="halfWaveList[color][col].odds"></td>
-                <td ng-bind="halfWaveList[color][col].balance"></td>
+                <td ng-bind="halfWaveList[color][col].balance" ng-class="{'text-danger':halfWaveList[color][col].balance<0, 'text-success':halfWaveList[color][col].balance>0}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div style="margin-left: 10px">
         <table>
             <thead>
@@ -176,17 +186,22 @@
                 <td><span ng-bind="'特' + twoFacesNameMap[key]" class="type"></span></td>
                 <td ng-bind="twoFacesMap[key].transactions"></td>
                 <td>
-                    <a ng-show="twoFacesMap[key].stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/two_faces/issue/{{lotteryMarkSixInfo.issue}}/ball/0?subtype={{twoFacesMap[key].lotteryMarkSixType}}"><span
+                    <a ng-show="twoFacesMap[key].stakes > 0"
+                       href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/two_faces/issue/{{lotteryMarkSixInfo.issue}}/ball/0?subtype={{twoFacesMap[key].lotteryMarkSixType}}"><span
                             ng-bind="twoFacesMap[key].stakes"></span></a>
                     <span ng-show="twoFacesMap[key].stakes == 0">0</span>
                 </td>
                 <td ng-bind="twoFacesMap[key].odds"></td>
-                <td ng-bind="twoFacesMap[key].balance"></td>
+                <td ng-bind="twoFacesMap[key].balance" ng-class="{'text-danger':twoFacesMap[key].balance<0, 'text-success':twoFacesMap[key].balance>0}"></td>
             </tr>
             <tr>
                 <td>合计</td>
-                <td><strong ng-bind="twoFacesMap[weidaKeyList[0]].transactions + twoFacesMap[weidaKeyList[1]].transactions"></strong></td>
-                <td><strong ng-bind="twoFacesMap[weidaKeyList[0]].stakes + twoFacesMap[weidaKeyList[1]].stakes"></strong></td>
+                <td><strong
+                        ng-bind="twoFacesMap[weidaKeyList[0]].transactions + twoFacesMap[weidaKeyList[1]].transactions"></strong>
+                </td>
+                <td><strong
+                        ng-bind="twoFacesMap[weidaKeyList[0]].stakes + twoFacesMap[weidaKeyList[1]].stakes"></strong>
+                </td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
@@ -214,13 +229,14 @@
             <tr ng-repeat="rt in colorList">
                 <td><span ng-bind="rt.lotteryMarkSixTypeName" class="type"></span></td>
                 <td ng-bind="rt.transactions"></td>
-                 <td>
-                    <a ng-show="rt.stakes > 0" href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{rt.lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0"><span
+                <td>
+                    <a ng-show="rt.stakes > 0"
+                       href="#/stakesdetail/groupid/{{groupid}}/pan/{{selectedPan.name}}/{{rt.lotteryMarkSixType}}/issue/{{lotteryMarkSixInfo.issue}}/ball/0"><span
                             ng-bind="rt.stakes"></span></a>
                     <span ng-show="rt.stakes == 0">0</span>
                 </td>
                 <td ng-bind="rt.odds"></td>
-                <td ng-bind="rt.balance"></td>
+                <td ng-bind="rt.balance" ng-class="{'text-danger':rt.balance<0, 'text-success':rt.balance>0}"></td>
             </tr>
             <tr>
                 <td>合计</td>
@@ -232,7 +248,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <div style="margin-left: 10px">
         <table>
             <thead>

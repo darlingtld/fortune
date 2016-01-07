@@ -44,6 +44,9 @@ public class StatService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PredictionService predictionService;
+
     @Transactional
     public List<LotteryMarkSixGroupStat> getLotteryMarkSixStat(String groupid, int from, int count) {
         Utils.logger.info("get lottery mark six stat for group id {} from {}, count {}", groupid, from, count);
@@ -683,9 +686,13 @@ public class StatService {
             }
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(statMap.values().iterator());
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getBalance() - o1.getBalance()));
+
+        predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.SPECIAL, lotteryIssue);
+
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
         return realtimeStatList;
     }
+
 
     private List<RealtimeStat> getRealTimeTransactionResult4TwoFaces(String groupid, String panlei, int lotteryIssue) {
         Utils.logger.info("get real time transaction result of group id {} for two faces", groupid);
@@ -748,6 +755,8 @@ public class StatService {
         });
 
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(statMap.values().iterator());
+        predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.TWO_FACES, lotteryIssue);
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
         return realtimeStatList;
     }
 
@@ -817,6 +826,9 @@ public class StatService {
             realtimeStatList.add(realtimeStat);
         });
 
+        predictionService.predictBalance(realtimeStatList, lotteryType, lotteryIssue);
+
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
         return realtimeStatList;
     }
 
@@ -849,6 +861,7 @@ public class StatService {
                     RealtimeStat stat = realtimeStatHashMap.get(stub.getNumber());
                     stat.addStakes(stub.getStakes());
                     stat.addTransactions(1);
+                    stat.getSubLotteryMarkSixTypeList4Wager().add(wager.getSubLotteryMarkSixTypes());
                 } else {
                     RealtimeStat stat = new RealtimeStat();
                     stat.setGroupId(groupid);
@@ -858,6 +871,7 @@ public class StatService {
                     stat.setTransactions(1);
                     stat.setBalance(0);
                     stat.setOdds(oddsMap4Sumzodiac.get(stub.getNumber()));
+                    stat.setSubLotteryMarkSixTypeList4Wager(Arrays.asList(wager.getSubLotteryMarkSixTypes()));
                     realtimeStatHashMap.put(stub.getNumber(), stat);
                 }
             }
@@ -878,6 +892,7 @@ public class StatService {
             }
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realtimeStatHashMap.values().iterator());
+        predictionService.predictBalance(realtimeStatList, SUM_ZODIAC, lotteryIssue);
         Collections.sort(realtimeStatList, (o1, o2) -> o1.getNumber() - o2.getNumber());
         return realtimeStatList;
     }
@@ -915,6 +930,7 @@ public class StatService {
                     RealtimeStat realtimeStat = new RealtimeStat();
                     realtimeStat.setGroupId(groupid);
                     realtimeStat.setNumber(stub.getNumber());
+                    realtimeStat.setLotteryMarkSixType(wager.getLotteryMarkSixType().name());
                     realtimeStat.setBalance(0);
                     realtimeStat.setStakes(stub.getStakes());
                     realtimeStat.setOdds(oddsMap.get(stub.getNumber()));
@@ -932,13 +948,15 @@ public class StatService {
                 realtimeStat.setNumber(number);
                 realtimeStat.setBalance(0);
                 realtimeStat.setStakes(0);
+                realtimeStat.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_BALL.name());
                 realtimeStat.setOdds(oddsMap.get(number));
                 realtimeStat.setTransactions(0);
                 realTimeStatMap.put(number, realtimeStat);
             }
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatMap.values().iterator());
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getBalance() - o1.getBalance()));
+        predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.ZHENG_BALL, lotteryIssue);
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
         return realtimeStatList;
     }
 
@@ -1025,7 +1043,7 @@ public class StatService {
             List<LotteryMarkSixWagerStub> wagerStubList = wager.getLotteryMarkSixWagerStubList();
             for (LotteryMarkSixWagerStub stub : wagerStubList) {
                 if (!realTimeStatMap.containsKey(stub.getNumber())) {
-                    realTimeStatMap.put(stub.getNumber(), new HashMap<LotteryMarkSixType, RealtimeStat>());
+                    realTimeStatMap.put(stub.getNumber(), new HashMap<>());
                 }
 
                 HashMap<LotteryMarkSixType, RealtimeStat> subMap = realTimeStatMap.get(stub.getNumber());
@@ -1073,7 +1091,7 @@ public class StatService {
         for (int i = 1; i <= 6; i++) {
             realtimeStatList.addAll(Lists.newArrayList(realTimeStatMap.get(i).values().iterator()));
         }
-
+        predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.ZHENG_1_6, lotteryIssue);
         return realtimeStatList;
     }
 
@@ -2407,29 +2425,6 @@ public class StatService {
 
     private boolean isPanleiAll(String panlei) {
         return "ALL".equalsIgnoreCase(panlei);
-    }
-
-    @Transactional
-    public List<HashMap<Integer, Double>> predictNextLotteryMarkSix() {
-        List<HashMap<Integer, Double>> predictList= new ArrayList<>();
-        List<LotteryMarkSix> lotteryMarkSixList = lotteryService.getLotteryMarkSixByPagination(0, 50);
-        double totalScore = 10000.0;
-        int nextId = lotteryMarkSixList.get(0).getId();
-        HashMap<Integer, Double> specialMap = new HashMap<>();
-        for (int i = 1; i <= 49; i++) {
-            specialMap.put(i, totalScore);
-        }
-        for (LotteryMarkSix lotteryMarkSix : lotteryMarkSixList) {
-            double score = specialMap.get(lotteryMarkSix.getSpecial());
-            score -= lotteryMarkSix.getId();
-            specialMap.put(lotteryMarkSix.getSpecial(), score);
-        }
-        for (Integer key : specialMap.keySet()) {
-            specialMap.put(key, specialMap.get(key) / (totalScore - nextId / 2));
-        }
-        predictList.add(specialMap);
-        return predictList;
-
     }
 
 }
