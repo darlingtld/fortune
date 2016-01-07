@@ -1,78 +1,174 @@
-<div>
-    <div class="alert alert-warning" ng-show="!setOddsPeriod">
-        <strong>用户下注中~</strong> 当前时间段无法修改赔率
-    </div>
-    <div class="form-group">
-        <label>盘类：</label>
-        <select class="form-control panlei" ng-model="selectedPan" ng-init="selectedPan=pans.panlei[0]"
-                ng-options="pan.title for pan in pans.panlei track by pan.name"
-                ng-change="getOdds()"></select>
-    </div>
-
-    <uib-tabset justified="false">
-        <uib-tab heading="特码">
-            <div ng-include="'includes/settings/special.html'"></div>
-        </uib-tab>
-        <uib-tab heading="两面">
-            <div ng-include="'includes/settings/two_faces.html'"></div>
-        </uib-tab>
-        <uib-tab heading="生肖色波">
-            <div ng-include="'includes/settings/zodiac.html'"></div>
-        </uib-tab>
-        <uib-tab heading="半波">
-            <div ng-include="'includes/settings/halfwaves.html'"></div>
-        </uib-tab>
-        <uib-tab heading="合肖">
-            <div ng-include="'includes/settings/sumzodiac.html'"></div>
-        </uib-tab>
-        <uib-tab heading="正码">
-            <div ng-include="'includes/settings/zhengball.html'"></div>
-        </uib-tab>
-        <uib-tab heading="正码1~6">
-            <div ng-include="'includes/settings/zheng16.html'"></div>
-        </uib-tab>
-        <uib-tab heading="正码特">
-            <div ng-include="'includes/settings/zhengspecial.html'"></div>
-        </uib-tab>
-        <uib-tab heading="连码">
-            <div ng-include="'includes/settings/jointball.html'"></div>
-        </uib-tab>
-        <uib-tab heading="自选不中">
-            <div ng-include="'includes/settings/notball.html'"></div>
-        </uib-tab>
-        <uib-tab heading="过关">
-            <div ng-include="'includes/settings/passball.html'"></div>
-        </uib-tab>
-        <uib-tab heading="一肖尾数">
-            <div ng-include="'includes/settings/zodiactail.html'"></div>
-        </uib-tab>
-        <uib-tab heading="连肖">
-            <div ng-include="'includes/settings/jointzodiac.html'"></div>
-        </uib-tab>
-        <uib-tab heading="连尾">
-            <div ng-include="'includes/settings/jointtail.html'"></div>
-        </uib-tab>
-    </uib-tabset>
+<div class="form-group">
+    <label>设置：</label>
+    <select class="form-control panlei" ng-model="selectedType" ng-init="selectedType = settingType[0]"
+            ng-options="type.name for type in settingType track by type.id"
+            ng-change="gotoPage(selectedType.id)"></select>
 </div>
 
-<div id="oddsDialog" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">×</a>
+<div ng-if="curPage == 'odds'">
+    <div>
+        <div class="alert alert-warning" ng-show="!setOddsPeriod">
+            <strong>用户下注中~</strong> 当前时间段无法修改赔率
+        </div>
+        <div class="form-group">
+            <label>盘类：</label>
+            <select class="form-control panlei" ng-model="model.selectedPan" ng-init="selectedPan=pans.panlei[0]"
+                    ng-options="pan.title for pan in pans.panlei track by pan.name"
+                    ng-change="getOdds()"></select>
+        </div>
+    
+        <uib-tabset justified="false">
+            <uib-tab heading="特码">
+                <div ng-include="'includes/settings/odds/special.html'"></div>
+            </uib-tab>
+            <uib-tab heading="两面">
+                <div ng-include="'includes/settings/odds/two_faces.html'"></div>
+            </uib-tab>
+            <uib-tab heading="生肖色波">
+                <div ng-include="'includes/settings/odds/zodiac.html'"></div>
+            </uib-tab>
+            <uib-tab heading="半波">
+                <div ng-include="'includes/settings/odds/halfwaves.html'"></div>
+            </uib-tab>
+            <uib-tab heading="合肖">
+                <div ng-include="'includes/settings/odds/sumzodiac.html'"></div>
+            </uib-tab>
+            <uib-tab heading="正码">
+                <div ng-include="'includes/settings/odds/zhengball.html'"></div>
+            </uib-tab>
+            <uib-tab heading="正码1~6">
+                <div ng-include="'includes/settings/odds/zheng16.html'"></div>
+            </uib-tab>
+            <uib-tab heading="正码特">
+                <div ng-include="'includes/settings/odds/zhengspecial.html'"></div>
+            </uib-tab>
+            <uib-tab heading="连码">
+                <div ng-include="'includes/settings/odds/jointball.html'"></div>
+            </uib-tab>
+            <uib-tab heading="自选不中">
+                <div ng-include="'includes/settings/odds/notball.html'"></div>
+            </uib-tab>
+            <uib-tab heading="过关">
+                <div ng-include="'includes/settings/odds/passball.html'"></div>
+            </uib-tab>
+            <uib-tab heading="一肖尾数">
+                <div ng-include="'includes/settings/odds/zodiactail.html'"></div>
+            </uib-tab>
+            <uib-tab heading="连肖">
+                <div ng-include="'includes/settings/odds/jointzodiac.html'"></div>
+            </uib-tab>
+            <uib-tab heading="连尾">
+                <div ng-include="'includes/settings/odds/jointtail.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    
+    <div id="oddsDialog" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+    
+                    <h3 class="title">修改</h3>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" placeholder="请输入赔率" ng-model="model.oddsToChange"/>
+                </div>
+                <div class="modal-footer" ng-show="setOddsPeriod">
+                    <button class="btn btn-success" ng-click="changeOdds()">保存</button>
+                    <button class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+                <div class="modal-footer" ng-show="!setOddsPeriod">
+                    <div class="alert alert-warning" ng-show="!setOddsPeriod">
+                        <strong>用户下注中~</strong> 当前时间段无法修改赔率
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <h3 class="title">修改</h3>
-            </div>
-            <div class="modal-body">
-                <input class="form-control" placeholder="请输入赔率" ng-model="oddsToChange"/>
-            </div>
-            <div class="modal-footer" ng-show="setOddsPeriod">
-                <button class="btn btn-success" ng-click="changeOdds()">保存</button>
-                <button class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-            <div class="modal-footer" ng-show="!setOddsPeriod">
-                <div class="alert alert-warning" ng-show="!setOddsPeriod">
-                    <strong>用户下注中~</strong> 当前时间段无法修改赔率
+<div ng-if="curPage == 'tuishui'">
+    <div>
+        <div class="alert alert-warning" ng-show="!setOddsPeriod">
+            <strong>用户下注中~</strong> 当前时间段无法修改退水
+        </div>
+        <div class="form-group">
+            <label>盘类：</label>
+            <select class="form-control panlei" ng-model="model.selectedPan" ng-init="selectedPan=pans.panlei[0]"
+                    ng-options="pan.title for pan in pans.panlei track by pan.name"
+                    ng-change="getTuishui()"></select>
+            <label style="margin-left:20px">用户：</label>
+            <select class="form-control panlei" ng-model="model.selectedUser" ng-init="selectedUser = model.userList[0]"
+                    ng-options="user.username for user in model.userList track by user.id"
+                    ng-change="getTuishui()"></select>
+        </div>
+    
+        <uib-tabset justified="false">
+            <uib-tab heading="特码">
+                <div ng-include="'includes/settings/tuishui/special.html'"></div>
+            </uib-tab>
+            <uib-tab heading="两面">
+                <div ng-include="'includes/settings/tuishui/two_faces.html'"></div>
+            </uib-tab>
+            <uib-tab heading="生肖色波">
+                <div ng-include="'includes/settings/tuishui/zodiac.html'"></div>
+            </uib-tab>
+            <uib-tab heading="半波">
+                <div ng-include="'includes/settings/tuishui/halfwaves.html'"></div>
+            </uib-tab>
+            <uib-tab heading="合肖">
+                <div ng-include="'includes/settings/tuishui/sumzodiac.html'"></div>
+            </uib-tab>
+            <uib-tab heading="正码">
+                <div ng-include="'includes/settings/tuishui/zhengball.html'"></div>
+            </uib-tab>
+            <uib-tab heading="正码1~6">
+                <div ng-include="'includes/settings/tuishui/zheng16.html'"></div>
+            </uib-tab>
+            <uib-tab heading="正码特">
+                <div ng-include="'includes/settings/tuishui/zhengspecial.html'"></div>
+            </uib-tab>
+            <uib-tab heading="连码">
+                <div ng-include="'includes/settings/tuishui/jointball.html'"></div>
+            </uib-tab>
+            <uib-tab heading="自选不中">
+                <div ng-include="'includes/settings/tuishui/notball.html'"></div>
+            </uib-tab>
+            <uib-tab heading="过关">
+                <div ng-include="'includes/settings/tuishui/passball.html'"></div>
+            </uib-tab>
+            <uib-tab heading="一肖尾数">
+                <div ng-include="'includes/settings/tuishui/zodiactail.html'"></div>
+            </uib-tab>
+            <uib-tab heading="连肖">
+                <div ng-include="'includes/settings/tuishui/jointzodiac.html'"></div>
+            </uib-tab>
+            <uib-tab heading="连尾">
+                <div ng-include="'includes/settings/tuishui/jointtail.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    
+    <div id="tuishuiDialog" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+    
+                    <h3 class="title">修改</h3>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" placeholder="请输入退水" ng-model="model.tuishuiToChange"/>
+                </div>
+                <div class="modal-footer" ng-show="setOddsPeriod">
+                    <button class="btn btn-success" ng-click="changeTuishui()">保存</button>
+                    <button class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+                <div class="modal-footer" ng-show="!setOddsPeriod">
+                    <div class="alert alert-warning" ng-show="!setOddsPeriod">
+                        <strong>用户下注中~</strong> 当前时间段无法修改赔率
+                    </div>
                 </div>
             </div>
         </div>
