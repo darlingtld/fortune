@@ -861,6 +861,7 @@ public class StatService {
                     RealtimeStat stat = realtimeStatHashMap.get(stub.getNumber());
                     stat.addStakes(stub.getStakes());
                     stat.addTransactions(1);
+                    stat.getSubLotteryMarkSixTypeList4Wager().add(wager.getSubLotteryMarkSixTypes());
                 } else {
                     RealtimeStat stat = new RealtimeStat();
                     stat.setGroupId(groupid);
@@ -870,6 +871,7 @@ public class StatService {
                     stat.setTransactions(1);
                     stat.setBalance(0);
                     stat.setOdds(oddsMap4Sumzodiac.get(stub.getNumber()));
+                    stat.setSubLotteryMarkSixTypeList4Wager(Arrays.asList(wager.getSubLotteryMarkSixTypes()));
                     realtimeStatHashMap.put(stub.getNumber(), stat);
                 }
             }
@@ -890,6 +892,7 @@ public class StatService {
             }
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realtimeStatHashMap.values().iterator());
+        predictionService.predictBalance(realtimeStatList, SUM_ZODIAC, lotteryIssue);
         Collections.sort(realtimeStatList, (o1, o2) -> o1.getNumber() - o2.getNumber());
         return realtimeStatList;
     }

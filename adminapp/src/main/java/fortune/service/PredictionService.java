@@ -117,6 +117,9 @@ public class PredictionService {
             case COLOR:
                 doBalanceColor(realtimeStatList, forecastSpecial(), issue);
                 break;
+            case SUM_ZODIAC:
+                doBalanceSumZodiac(realtimeStatList, forecastSpecial(), issue);
+                break;
             default:
                 break;
         }
@@ -411,6 +414,32 @@ public class PredictionService {
                     break;
             }
             stat.setBalance(score / count > 1 ? -balance : balance);
+        }
+    }
+
+    private void doBalanceSumZodiac(List<RealtimeStat> realtimeStatList, HashMap<Integer, Double> numberMap, int issue) {
+        for (RealtimeStat stat : realtimeStatList) {
+            double score = 0;
+            int count = 0;
+            double balance = stat.getStakes() * stat.getOdds();
+            if (stat.getSubLotteryMarkSixTypeList4Wager() == null) {
+                continue;
+            } else {
+                for (List<LotteryMarkSixType> subTypeList : stat.getSubLotteryMarkSixTypeList4Wager()) {
+                    for (LotteryMarkSixType type : subTypeList) {
+                        for (int i = 1; i <= 49; i++) {
+                            LotteryMarkSixType zodiac = BeanHolder.getLotteryService().getZodiac(0, i);
+                            if (type.equals(zodiac)) {
+                                score += numberMap.get(i);
+                                count++;
+                            }
+                        }
+                    }
+
+                }
+                balance = stat.getNumber() % 2 == 1 ? balance : -balance;
+                stat.setBalance(score / count > 1 ? -balance : balance);
+            }
         }
     }
 }
