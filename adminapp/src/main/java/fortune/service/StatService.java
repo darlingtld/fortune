@@ -930,6 +930,7 @@ public class StatService {
                     RealtimeStat realtimeStat = new RealtimeStat();
                     realtimeStat.setGroupId(groupid);
                     realtimeStat.setNumber(stub.getNumber());
+                    realtimeStat.setLotteryMarkSixType(wager.getLotteryMarkSixType().name());
                     realtimeStat.setBalance(0);
                     realtimeStat.setStakes(stub.getStakes());
                     realtimeStat.setOdds(oddsMap.get(stub.getNumber()));
@@ -947,13 +948,15 @@ public class StatService {
                 realtimeStat.setNumber(number);
                 realtimeStat.setBalance(0);
                 realtimeStat.setStakes(0);
+                realtimeStat.setLotteryMarkSixType(LotteryMarkSixType.ZHENG_BALL.name());
                 realtimeStat.setOdds(oddsMap.get(number));
                 realtimeStat.setTransactions(0);
                 realTimeStatMap.put(number, realtimeStat);
             }
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatMap.values().iterator());
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getBalance() - o1.getBalance()));
+        predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.ZHENG_BALL, lotteryIssue);
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
         return realtimeStatList;
     }
 
@@ -1040,7 +1043,7 @@ public class StatService {
             List<LotteryMarkSixWagerStub> wagerStubList = wager.getLotteryMarkSixWagerStubList();
             for (LotteryMarkSixWagerStub stub : wagerStubList) {
                 if (!realTimeStatMap.containsKey(stub.getNumber())) {
-                    realTimeStatMap.put(stub.getNumber(), new HashMap<LotteryMarkSixType, RealtimeStat>());
+                    realTimeStatMap.put(stub.getNumber(), new HashMap<>());
                 }
 
                 HashMap<LotteryMarkSixType, RealtimeStat> subMap = realTimeStatMap.get(stub.getNumber());
@@ -1088,7 +1091,7 @@ public class StatService {
         for (int i = 1; i <= 6; i++) {
             realtimeStatList.addAll(Lists.newArrayList(realTimeStatMap.get(i).values().iterator()));
         }
-
+        predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.ZHENG_1_6, lotteryIssue);
         return realtimeStatList;
     }
 

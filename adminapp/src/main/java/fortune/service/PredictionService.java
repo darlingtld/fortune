@@ -120,10 +120,124 @@ public class PredictionService {
             case SUM_ZODIAC:
                 doBalanceSumZodiac(realtimeStatList, forecastSpecial(), issue);
                 break;
+            case ZHENG_BALL:
+                doBalanceZhengBall(realtimeStatList, null, issue);
+                break;
+            case ZHENG_1_6:
+                doBalanceZheng16(realtimeStatList, null, issue);
+                break;
             default:
                 break;
         }
 
+    }
+
+    private void doBalanceZheng16(List<RealtimeStat> realtimeStatList, HashMap map, int issue) {
+        List<HashMap<Integer, Double>> numberMap = predictNextLotteryMarkSix();
+        for (RealtimeStat stat : realtimeStatList) {
+            double score = 0;
+            int count = 0;
+            double balance = stat.getStakes() * stat.getOdds();
+            if (stat.getLotteryMarkSixType().equals(LotteryMarkSixType.DA.getType())) {
+                for (int i = 1; i <= 49; i++) {
+                    if (i >= 25) {
+                        for (int j = 0; j < 6; j++) {
+                            score += numberMap.get(j).get(i);
+                            count++;
+                        }
+                    }
+                }
+            } else if (stat.getLotteryMarkSixType().equals(LotteryMarkSixType.XIAO.getType())) {
+                for (int i = 1; i <= 49; i++) {
+                    if (i <= 24) {
+                        for (int j = 0; j < 6; j++) {
+                            score += numberMap.get(j).get(i);
+                            count++;
+                        }
+                    }
+                }
+            } else if (stat.getLotteryMarkSixType().equals(LotteryMarkSixType.DAN.getType())) {
+                for (int i = 1; i <= 49; i++) {
+                    if (i % 2 == 1) {
+                        for (int j = 0; j < 6; j++) {
+                            score += numberMap.get(j).get(i);
+                            count++;
+                        }
+                    }
+                }
+            } else if (stat.getLotteryMarkSixType().equals(LotteryMarkSixType.SHUANG.getType())) {
+                for (int i = 1; i <= 49; i++) {
+                    if (i % 2 == 0) {
+                        for (int j = 0; j < 6; j++) {
+                            score += numberMap.get(j).get(i);
+                            count++;
+                        }
+                    }
+                }
+            } else if (stat.getLotteryMarkSixType().equals(LotteryMarkSixType.RED.getType())) {
+                for (int i = 1; i <= 49; i++) {
+                    if (LotteryBall.valueOf("NUM_" + i).getColor().equals(MarkSixColor.RED)) {
+                        for (int j = 0; j < 6; j++) {
+                            score += numberMap.get(j).get(i);
+                            count++;
+                        }
+                    }
+                }
+            } else if (stat.getLotteryMarkSixType().equals(LotteryMarkSixType.GREEN.getType())) {
+                for (int i = 1; i <= 49; i++) {
+                    if (LotteryBall.valueOf("NUM_" + i).getColor().equals(MarkSixColor.GREEN)) {
+                        for (int j = 0; j < 6; j++) {
+                            score += numberMap.get(j).get(i);
+                            count++;
+                        }
+                    }
+                }
+            } else if (stat.getLotteryMarkSixType().equals(LotteryMarkSixType.BLUE.getType())) {
+                for (int i = 1; i <= 49; i++) {
+                    if (LotteryBall.valueOf("NUM_" + i).getColor().equals(MarkSixColor.BLUE)) {
+                        for (int j = 0; j < 6; j++) {
+                            score += numberMap.get(j).get(i);
+                            count++;
+                        }
+                    }
+                }
+            } else if (stat.getLotteryMarkSixType().equals(LotteryMarkSixType.HEDAN.getType())) {
+                for (int i = 1; i <= 49; i++) {
+                    if ((i / 10 + i % 10) % 2 == 1) {
+                        for (int j = 0; j < 6; j++) {
+                            score += numberMap.get(j).get(i);
+                            count++;
+                        }
+                    }
+                }
+            } else if (stat.getLotteryMarkSixType().equals(LotteryMarkSixType.HESHUANG.getType())) {
+                for (int i = 1; i <= 49; i++) {
+                    if ((i / 10 + i % 10) % 2 == 0) {
+                        for (int j = 0; j < 6; j++) {
+                            score += numberMap.get(j).get(i);
+                            count++;
+                        }
+                    }
+                }
+            }
+            stat.setBalance(score / count > 1 ? -balance : balance);
+
+        }
+    }
+
+    private void doBalanceZhengBall(List<RealtimeStat> realtimeStatList, HashMap map, int issue) {
+        List<HashMap<Integer, Double>> numberMap = predictNextLotteryMarkSix();
+        for (RealtimeStat stat : realtimeStatList) {
+            double score = 0;
+            int count = 0;
+            double balance = stat.getStakes() * stat.getOdds();
+            for (int j = 0; j < 6; j++) {
+                score += numberMap.get(j).get(stat.getNumber());
+                count++;
+            }
+            stat.setBalance(score / count > 1 ? -balance : balance);
+
+        }
     }
 
     private void doBalanceTwoFaces(List<RealtimeStat> realtimeStatList, HashMap<Integer, Double> numberMap, int issue) {
