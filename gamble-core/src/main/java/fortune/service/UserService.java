@@ -66,6 +66,7 @@ public class UserService {
                 } else {
                     user.setLastLoginTime(new Date());
                     userDao.updateUser(user);
+                    userDao.updateLastLoginTime(user);
                     return user;
                 }
             }
