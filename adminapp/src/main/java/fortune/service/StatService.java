@@ -689,7 +689,7 @@ public class StatService {
 
         predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.SPECIAL, lotteryIssue);
 
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getBalance()));
         return realtimeStatList;
     }
 
@@ -756,7 +756,7 @@ public class StatService {
 
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(statMap.values().iterator());
         predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.TWO_FACES, lotteryIssue);
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getBalance()));
         return realtimeStatList;
     }
 
@@ -828,7 +828,7 @@ public class StatService {
 
         predictionService.predictBalance(realtimeStatList, lotteryType, lotteryIssue);
 
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getBalance()));
         return realtimeStatList;
     }
 
@@ -956,7 +956,7 @@ public class StatService {
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatMap.values().iterator());
         predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.ZHENG_BALL, lotteryIssue);
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getBalance()));
         return realtimeStatList;
     }
 
@@ -1012,7 +1012,7 @@ public class StatService {
             }
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatHashMap4Number.values().iterator());
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getBalance() - o1.getBalance()));
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getBalance()));
         return realtimeStatList;
     }
 
