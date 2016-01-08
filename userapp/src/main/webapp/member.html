@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/member.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <title>member</title>
+</head>
+<body ng-app="memberApp" ng-controller="MemberController">
+<div class="nav" ng-include="'includes/nav.html'"></div>
+<div class="section">
+    <div class="issue_area">
+        <span>代理商：</span>
+        <select ng-model="selectedPGroup" ng-change="changePGroup()"
+                ng-options="pg.name for pg in user.pGroupList track by pg.id"></select>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>会员账号</th>
+            <th>信用额度</th>
+            <th>已用额度</th>
+            <th>上次登录</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td ng-bind="user.username"></td>
+            <td ng-bind="user.creditAccount"></td>
+            <td ng-bind="user.usedCreditAccount"></td>
+            <td ng-bind="user.lastLoginTime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
+            <td>
+                <button class="btn btn-warning">修改密码</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th>类型</th>
+            <th>A盘退水</th>
+            <th>B盘退水</th>
+            <th>C盘退水</th>
+            <th>D盘退水</th>
+            <th>单注限额</th>
+            <th>单项限额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="ts in tuishuiList">
+            <td ng-bind="ts.lotteryMarkSixType"></td>
+            <td ng-bind="ts.tuishuiA"></td>
+            <td ng-bind="ts.tuishuiB"></td>
+            <td ng-bind="ts.tuishuiC"></td>
+            <td ng-bind="ts.tuishuiD"></td>
+            <td class="text-danger">*</td>
+            <td class="text-danger">*</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-include="'includes/foot.html'"></div>
+<script src="js/lib/angular.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="js/common/lottery_algorithms.js"></script>
+<script src="js/common/LunarSolarConverter.js"></script>
+<script src="js/member.js"></script>
+</body>
+</html>
