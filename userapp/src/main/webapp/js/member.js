@@ -56,6 +56,25 @@ memberApp.controller("MemberController", function ($scope, $http, $q) {
         return deferred.promise;
     };
 
+    $scope.changePass = function () {
+        if ($scope.newPass.trim() == "" && $scope.newPass != $scope.newPass2) {
+            alert("密码不一致");
+            return;
+        } else {
+            $http.post('user/change_pass', {
+                userid: $scope.user.id,
+                originalPass: $scope.originalPass,
+                newPass: $scope.newPass,
+                newPass2: $scope.newPass2
+            }).success(function () {
+                alert("修改密码成功");
+                $('a.close').click();
+            }).error(function () {
+                alert("原始密码错误");
+            })
+        }
+    }
+
 });
 
 memberApp.filter('issueProcessor', function () {

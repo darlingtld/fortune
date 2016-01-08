@@ -4,8 +4,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/member.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/member.css">
     <title>会员</title>
 </head>
 <body ng-app="memberApp" ng-controller="MemberController">
@@ -33,7 +33,7 @@
             <td ng-bind="user.usedCreditAccount"></td>
             <td ng-bind="user.lastLoginTime | date : 'yyyy-MM-dd HH:mm:ss'"></td>
             <td>
-                <button class="btn btn-warning">修改密码</button>
+                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#changePassDialog">修改密码</button>
             </td>
         </tr>
         </tbody>
@@ -64,8 +64,31 @@
     </table>
 </div>
 <div ng-include="'includes/foot.html'"></div>
+
+<div id="changePassDialog" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+
+                <h3 class="title">修改</h3>
+            </div>
+            <div class="modal-body">
+                <input type="password" class="form-control" placeholder="请输入原始密码" ng-model="originalPass"/>
+                <input type="password" class="form-control" placeholder="请输入新密码" ng-model="newPass"/>
+                <input type="password" class="form-control" placeholder="请重新输入密码" ng-model="newPass2"/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="changePass()">保存</button>
+                <button class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="js/lib/angular.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="js/common/lottery_algorithms.js"></script>
 <script src="js/common/LunarSolarConverter.js"></script>
 <script src="js/member.js"></script>

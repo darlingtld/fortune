@@ -125,4 +125,10 @@ public class UserService {
     public void sanitize(User user) {
         user.setpGroupList(null);
     }
+
+    @Transactional
+    public User changePass(User user, String newPass) {
+        user.setPassword(PasswordEncryptUtil.encrypt(newPass));
+        return userDao.updatePassword(user);
+    }
 }

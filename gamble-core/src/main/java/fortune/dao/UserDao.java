@@ -95,4 +95,11 @@ public class UserDao {
 	public void deleteUserByUserName(String username) {
 		mongoTemplate.remove(new Query(Criteria.where("username").is(username)), User.class);
 	}
+
+	public User updatePassword(User user) {
+		Query query = new Query(Criteria.where("id").is(user.getId()));
+		Update update = new Update();
+		update.set("password", new Date());
+		return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
+	}
 }

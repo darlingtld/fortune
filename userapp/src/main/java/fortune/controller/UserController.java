@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import password.PasswordEncryptUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,5 +57,26 @@ public class UserController {
         actionTraceService.save(loginStub.getString("name"), "user login", request);
 
         return user;
+    }
+
+    @RequestMapping(value = "change_pass", method = RequestMethod.POST, headers = "content-type=application/json")
+    public
+    @ResponseBody
+    User changePassword(@RequestBody JSONObject jsonObject, HttpServletResponse response) throws UnsupportedEncodingException {
+        User user = userService.getUserById(jsonObject.getString("userid"));
+        String originalPass = jsonObject.getString("originalPass");
+        if (!PasswordEncryptUtil.matches(originalPass, user.getPassword())) {
+            response.setHeader(Utils.HEADER_MESSAGE, new String("原始密码不符".getBytes("utf-8"), "iso-8859-1"));
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        }
+        String newPass = jsonObject.getString("newPass");
+        String newPass2 = jsonObject.getString("newPass2");
+        if (!newPass.equals(newPass2)) {
+            response.setHeader(Utils.HEADER_MESSAGE, new String("两次密码不匹配".getBytes("utf-8"), "iso-8859-1"));
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+            return user;
+        } else {
+            return userService.changePass(user, newPass);
+        }
     }
 }
