@@ -66,6 +66,7 @@ public class UserService {
                 } else {
                     user.setLastLoginTime(new Date());
                     userDao.updateUser(user);
+                    userDao.updateLastLoginTime(user);
                     return user;
                 }
             }
@@ -123,5 +124,11 @@ public class UserService {
 
     public void sanitize(User user) {
         user.setpGroupList(null);
+    }
+
+    @Transactional
+    public User changePass(User user, String newPass) {
+        user.setPassword(PasswordEncryptUtil.encrypt(newPass));
+        return userDao.updatePassword(user);
     }
 }

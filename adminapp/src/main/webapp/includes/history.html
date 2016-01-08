@@ -1,0 +1,69 @@
+<div class="section">
+    <table>
+        <tr>
+            <th rowspan="2">期数</th>
+            <th rowspan="2">星期</th>
+            <th rowspan="2">日期</th>
+            <th rowspan="2">彩球号码</th>
+            <th>特</th>
+            <th>特</th>
+            <th>特</th>
+            <th rowspan="2">总分</th>
+            <th>总</th>
+            <th>总</th>
+            <th rowspan="2">生肖</th>
+            <th>合</th>
+            <th>合</th>
+            <th rowspan="2">一肖</th>
+            <th rowspan="2">波段</th>
+        </tr>
+        <tr class="th_two">
+            <th>(单双)</th>
+            <th>(大小)</th>
+            <th>(大中小)</th>
+            <th>(单双)</th>
+            <th>(大小)</th>
+            <th>(单双)</th>
+            <th>(大小)</th>
+        </tr>
+        <tr ng-repeat="lotteryMarkSix in lotteryMarkSixList">
+            <td ng-bind="lotteryMarkSix.issue | issueProcessor"></td>
+            <td ng-bind="lotteryMarkSix.timestamp | chineseWeek"></td>
+            <td ng-bind="lotteryMarkSix.timestamp | date : 'yyyy-MM-dd'"></td>
+            <td>
+                <div class="{{colorMap[lotteryMarkSix.one]}} ball" ng-bind="lotteryMarkSix.one"></div>
+                <div class="{{colorMap[lotteryMarkSix.two]}} ball" ng-bind="lotteryMarkSix.two"></div>
+                <div class="{{colorMap[lotteryMarkSix.three]}} ball" ng-bind="lotteryMarkSix.three"></div>
+                <div class="{{colorMap[lotteryMarkSix.four]}} ball" ng-bind="lotteryMarkSix.four"></div>
+                <div class="{{colorMap[lotteryMarkSix.five]}} ball" ng-bind="lotteryMarkSix.five"></div>
+                <div class="{{colorMap[lotteryMarkSix.six]}} ball" ng-bind="lotteryMarkSix.six"></div>
+                <div class="{{colorMap[lotteryMarkSix.special]}} ball" ng-bind="lotteryMarkSix.special"
+                     style="margin-left: 20px"></div>
+            </td>
+            <td ng-bind="lotteryMarkSix.special | specialDanShuang"></td>
+            <td ng-bind="lotteryMarkSix.special | specialDaXiao"></td>
+            <td ng-bind="lotteryMarkSix.special | specialDaZhongXiao"></td>
+            <td ng-bind="lotteryMarkSix.one+lotteryMarkSix.two+lotteryMarkSix.three+lotteryMarkSix.four+lotteryMarkSix.five+lotteryMarkSix.six+lotteryMarkSix.special"></td>
+            <td ng-bind="lotteryMarkSix.one+lotteryMarkSix.two+lotteryMarkSix.three+lotteryMarkSix.four+lotteryMarkSix.five+lotteryMarkSix.six+lotteryMarkSix.special | danShuang"></td>
+            <td ng-bind="lotteryMarkSix.one+lotteryMarkSix.two+lotteryMarkSix.three+lotteryMarkSix.four+lotteryMarkSix.five+lotteryMarkSix.six+lotteryMarkSix.special | daXiao"></td>
+            <td ng-bind="lotteryMarkSix.special | zodiac : lotteryMarkSix.timestamp"></td>
+            <td ng-bind="lotteryMarkSix.special | heDanShuang"></td>
+            <td ng-bind="lotteryMarkSix.special | heDaXiao"></td>
+            <td><span ng-bind="lotteryMarkSix.one | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.two | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.three | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.four | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.five | zodiac: lotteryMarkSix.timestamp"></span>
+                <span ng-bind="lotteryMarkSix.six | zodiac: lotteryMarkSix.timestamp"></span>
+            </td>
+            <td class="color_td {{colorMap[lotteryMarkSix.special]}}"
+                ng-bind="colorMap[lotteryMarkSix.special] | wave"></td>
+        </tr>
+    </table>
+    <div class="pagination-area">
+        <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-md"
+                        items-per-page="itemsPerPage" ng-change="pageChanged()" previous-text="&lsaquo;"
+                        next-text="&rsaquo;" first-text="&laquo;"
+                        last-text="&raquo;"></uib-pagination>
+    </div>
+</div>

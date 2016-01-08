@@ -287,12 +287,11 @@ angular.module('AdminApp')
                     }
 
                     $scope.tailNumList = [];
-                    $scope.tailNumList[0] = data.slice(1, 3);   // start from 1
-                    $scope.tailNumList[1] = data.slice(3, 5);
-                    $scope.tailNumList[2] = data.slice(5, 7);
-                    $scope.tailNumList[3] = data.slice(7, 9);
-                    $scope.tailNumList[4] = data.slice(9, 10);
-                    $scope.tailNumList[4].push(data[0]);
+                    $scope.tailNumList[0] = data.slice(0, 2);
+                    $scope.tailNumList[1] = data.slice(2, 4);
+                    $scope.tailNumList[2] = data.slice(4, 6);
+                    $scope.tailNumList[3] = data.slice(6, 8);
+                    $scope.tailNumList[4] = data.slice(8, 10);
                 });
             }
 

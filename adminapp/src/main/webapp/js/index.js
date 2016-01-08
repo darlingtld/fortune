@@ -53,6 +53,9 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
         }).when('/withdraw', {
             controller: 'withdrawController',
             templateUrl: 'includes/withdraw.html'
+        }).when('/history', {
+            controller: 'historyController',
+            templateUrl: 'includes/history.html'
         }).when('/settings', {
             controller: 'settingsController',
             templateUrl: 'includes/settings.html'

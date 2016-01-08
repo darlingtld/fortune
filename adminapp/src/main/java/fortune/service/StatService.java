@@ -689,7 +689,7 @@ public class StatService {
 
         predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.SPECIAL, lotteryIssue);
 
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getStakes()));
         return realtimeStatList;
     }
 
@@ -756,7 +756,7 @@ public class StatService {
 
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(statMap.values().iterator());
         predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.TWO_FACES, lotteryIssue);
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getStakes()));
         return realtimeStatList;
     }
 
@@ -828,7 +828,7 @@ public class StatService {
 
         predictionService.predictBalance(realtimeStatList, lotteryType, lotteryIssue);
 
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getStakes()));
         return realtimeStatList;
     }
 
@@ -893,7 +893,7 @@ public class StatService {
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realtimeStatHashMap.values().iterator());
         predictionService.predictBalance(realtimeStatList, SUM_ZODIAC, lotteryIssue);
-        Collections.sort(realtimeStatList, (o1, o2) -> o1.getNumber() - o2.getNumber());
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getStakes()));
         return realtimeStatList;
     }
 
@@ -956,7 +956,7 @@ public class StatService {
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatMap.values().iterator());
         predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.ZHENG_BALL, lotteryIssue);
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o1.getBalance() - o2.getBalance()));
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getStakes()));
         return realtimeStatList;
     }
 
@@ -1012,7 +1012,8 @@ public class StatService {
             }
         }
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatHashMap4Number.values().iterator());
-        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getBalance() - o1.getBalance()));
+        predictionService.predictBalance(realtimeStatList, type, lotteryIssue);
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getStakes()));
         return realtimeStatList;
     }
 
@@ -1092,6 +1093,7 @@ public class StatService {
             realtimeStatList.addAll(Lists.newArrayList(realTimeStatMap.get(i).values().iterator()));
         }
         predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.ZHENG_1_6, lotteryIssue);
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getStakes()));
         return realtimeStatList;
     }
 
@@ -1154,7 +1156,8 @@ public class StatService {
         });
 
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatMap.values().iterator());
-        Collections.sort(realtimeStatList, (o1, o2) -> o1.getNumber() - o2.getNumber());
+        predictionService.predictBalance(realtimeStatList, LotteryMarkSixType.ONE_ZODIAC, lotteryIssue);
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getStakes()));
         return realtimeStatList;
     }
 
@@ -1219,7 +1222,8 @@ public class StatService {
         }
 
         List<RealtimeStat> realtimeStatList = Lists.newArrayList(realTimeStatHashMap4TailNum.values().iterator());
-        Collections.sort(realtimeStatList, (o1, o2) -> o1.getNumber() - o2.getNumber());
+        predictionService.predictBalance(realtimeStatList, TAIL_NUM, lotteryIssue);
+        Collections.sort(realtimeStatList, (o1, o2) -> (int) (o2.getStakes() - o1.getStakes()));
         return realtimeStatList;
     }
 
