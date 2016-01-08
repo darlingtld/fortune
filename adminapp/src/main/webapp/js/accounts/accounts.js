@@ -202,6 +202,7 @@ angular.module('AdminApp').
                         $.post("pgroup/credit_setting/user/" + $(this).attr("data-id") + "/" + credit_input.val(), function () {
                             alert("额度设置成功");
                             initState();
+                            return;
                         });
                     }
                 });

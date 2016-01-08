@@ -41,7 +41,7 @@
                     <span ng-show="rt.stakes == 0">0</span>            
                 </td>
                 <td ng-bind="rt.odds"></td>
-                <td ng-bind="rt.balance"></td>
+                <td ng-bind="rt.balance" ng-class="{'text-danger':rt.balance<0, 'text-success':rt.balance>0}"></td>
             </tr>
             </tbody>
         </table>

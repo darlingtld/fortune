@@ -36,6 +36,9 @@ public class CommonService {
             platformPeriod.setWagePeriod(false);
             platformPeriod.setSetOddsPeriod(true);
         }
+//        for test purpose
+        platformPeriod.setWagePeriod(true);
+        platformPeriod.setSetOddsPeriod(true);
         return platformPeriod;
     }
 }

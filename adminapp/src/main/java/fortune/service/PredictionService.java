@@ -126,10 +126,87 @@ public class PredictionService {
             case ZHENG_1_6:
                 doBalanceZheng16(realtimeStatList, null, issue);
                 break;
+            case ZHENG_SPECIFIC_1:
+            case ZHENG_SPECIFIC_2:
+            case ZHENG_SPECIFIC_3:
+            case ZHENG_SPECIFIC_4:
+            case ZHENG_SPECIFIC_5:
+            case ZHENG_SPECIFIC_6:
+                doBalanceZhengSpecific(realtimeStatList, type, issue);
+                break;
+            case ONE_ZODIAC:
+                doBalanceOneZodiac(realtimeStatList, issue);
+                break;
+            case TAIL_NUM:
+                doBalanceTailNum(realtimeStatList, issue);
+                break;
             default:
                 break;
         }
 
+    }
+
+    private void doBalanceTailNum(List<RealtimeStat> realtimeStatList, int issue) {
+        List<HashMap<Integer, Double>> numberMap = predictNextLotteryMarkSix();
+        HashMap<Integer, Double> tailNumStatMap = new HashMap<>();
+        for (int i = 1; i <= 49; i++) {
+            double score = 0;
+            for (int j = 0; j < 7; j++) {
+                score += numberMap.get(j).get(i);
+            }
+            Integer tailNum = i % 10;
+            Double prevScore = tailNumStatMap.get(tailNum);
+            if (prevScore != null) {
+                tailNumStatMap.put(tailNum, prevScore + score);
+            } else {
+                tailNumStatMap.put(tailNum, score);
+            }
+        }
+        for (RealtimeStat stat : realtimeStatList) {
+            double balance = stat.getStakes() * stat.getOdds();
+            if (tailNumStatMap.get(stat.getNumber()) / (49 * 7) > 1) {
+                stat.setBalance(-balance);
+            } else {
+                stat.setBalance(balance);
+            }
+        }
+    }
+
+    private void doBalanceOneZodiac(List<RealtimeStat> realtimeStatList, int issue) {
+        List<HashMap<Integer, Double>> numberMap = predictNextLotteryMarkSix();
+        HashMap<LotteryMarkSixType, Double> zodiacStatMap = new HashMap<>();
+        for (int i = 1; i <= 49; i++) {
+            double score = 0;
+            for (int j = 0; j < 7; j++) {
+                score += numberMap.get(j).get(i);
+            }
+            LotteryMarkSixType thisZodiac = lotteryService.getZodiac(0, i);
+            Double prevScore = zodiacStatMap.get(thisZodiac);
+            if (prevScore != null) {
+                zodiacStatMap.put(thisZodiac, prevScore + score);
+            } else {
+                zodiacStatMap.put(thisZodiac, score);
+            }
+        }
+        for (RealtimeStat stat : realtimeStatList) {
+            double balance = stat.getStakes() * stat.getOdds();
+            if (zodiacStatMap.get(LotteryMarkSixType.valueOf(stat.getLotteryMarkSixType().toUpperCase())) / (49 * 7) > 1) {
+                stat.setBalance(-balance);
+            } else {
+                stat.setBalance(balance);
+            }
+        }
+
+    }
+
+    private void doBalanceZhengSpecific(List<RealtimeStat> realtimeStatList, LotteryMarkSixType type, int issue) {
+        HashMap<Integer, Double> numberMap = predictNextLotteryMarkSix().get(Integer.parseInt(String.valueOf(type.toString().charAt(type.toString().length() - 1))) - 1);
+        for (RealtimeStat stat : realtimeStatList) {
+            double score = numberMap.get(stat.getNumber());
+            int count = 1;
+            double balance = stat.getStakes() * stat.getOdds();
+            stat.setBalance(score / count > 1 ? -balance : balance);
+        }
     }
 
     private void doBalanceZheng16(List<RealtimeStat> realtimeStatList, HashMap map, int issue) {
