@@ -197,6 +197,6 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
     
     $scope.zodiacTypeMap = zodiacTypeMap;
 
-    $scope.gotoPage('tuishui');
+    $scope.gotoPage('odds');
 
 })
