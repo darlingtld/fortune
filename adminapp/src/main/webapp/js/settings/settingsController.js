@@ -6,13 +6,6 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
     $rootScope.menu = 6;
     
     $scope.gotoPage = function (page) {
-        var ele = $(event.target);
-        if (ele.siblings().length == 0) {
-            ele = ele.parent();
-        }
-        ele.siblings().removeClass('setting-type-active');
-        ele.addClass('setting-type-active');
-        
         $scope.curPage = page;
         switch (page) {
             case 'odds':
@@ -197,6 +190,6 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
     
     $scope.zodiacTypeMap = zodiacTypeMap;
 
-    $scope.gotoPage('tuishui');
+    $scope.gotoPage('odds');
 
 })
