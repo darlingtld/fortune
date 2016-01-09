@@ -102,60 +102,15 @@ controller('settingsController', function ($rootScope, $scope, $http, realtimeSe
     /* ------------ Tuishui -------------- */
     
     $scope.getTuishui = function () {
-        $http.get("tuishui/user/" + $scope.model.selectedUser.id + "/group/" + sessionStorage['pgroupid'] + "/pan/" + $scope.model.selectedPan.name).success(function (data) {
-            $scope.specialTuishui = [], $scope.tuishuiMap = {};
-            for (var i = 0; i < data.length; i++) {
-                var tuishui = data[i];
-                if (tuishui.lotteryMarkSixType == "SPECIAL") {
-                    $scope.specialTuishui.push(tuishui);
-                }
-                else if (tuishui.lotteryMarkSixType == "BLUE" || tuishui.lotteryMarkSixType == "RED" || tuishui.lotteryMarkSixType == "GREEN") {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType.indexOf("ZODIAC_") == 0) {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType.indexOf("WAVE_") == 0) {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType == "SUM_ZODIAC") {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType + "#" + tuishui.lotteryBallNumber] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType == "ZHENG_BALL") {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType + "#" + tuishui.lotteryBallNumber] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType == "ZHENG_1_6") {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType + "#" + tuishui.lotteryBallType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType.indexOf("ZHENG_SPECIFIC_") == 0) {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType == "JOINT_ZODIAC_PING" || tuishui.lotteryMarkSixType == "JOINT_ZODIAC_ZHENG") {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType+"#"+tuishui.lotteryBallNumber+"#"+tuishui.lotteryBallType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType.indexOf("JOINT_TAIL_") == 0){
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType+"#"+tuishui.lotteryBallNumber] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType.indexOf("JOINT_") == 0) {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType.indexOf("NOT_") == 0) {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType.indexOf("PASS_") == 0) {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType == "ONE_ZODIAC") {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType + "#" + tuishui.lotteryBallType] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType == "TAIL_NUM") {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType + "#" + tuishui.lotteryBallNumber] = tuishui;
-                }
-                else if (tuishui.lotteryMarkSixType == "TWO_FACES") {
-                    $scope.tuishuiMap[tuishui.lotteryMarkSixType + "#" + tuishui.lotteryBallType] = tuishui;
-                }
-            }
-        });
+        $scope.panleiList = ["A", "B", "C", "D"];
+        $scope.tuishuiList = [];
+        for (var panIndex = 0; panIndex < $scope.panleiList.length; panIndex ++) {
+            (function(panIndex) {
+                $http.get("tuishui/user/" + $scope.model.selectedUser.id + "/group/" + sessionStorage['pgroupid'] + "/pan/" + $scope.panleiList[panIndex]).success(function (data) {
+                    $scope.tuishuiList[panIndex] = data;
+                });
+            })(panIndex);
+        }
     };
     
     $scope.markTuishui = function (tuishuiId, tuishuiToChange) {

@@ -94,60 +94,12 @@
             <strong>用户下注中~</strong> 当前时间段无法修改退水
         </div>
         <div class="form-group">
-            <label>盘类：</label>
-            <select class="form-control panlei" ng-model="model.selectedPan" ng-init="selectedPan=pans.panlei[0]"
-                    ng-options="pan.title for pan in pans.panlei track by pan.name"
-                    ng-change="getTuishui()"></select>
-            <label style="margin-left:20px">用户：</label>
+            <label>用户：</label>
             <select class="form-control panlei" ng-model="model.selectedUser" ng-init="selectedUser = model.userList[0]"
                     ng-options="user.username for user in model.userList track by user.id"
                     ng-change="getTuishui()"></select>
         </div>
-    
-        <uib-tabset justified="false">
-            <uib-tab heading="特码">
-                <div ng-include="'includes/settings/tuishui/special.html'"></div>
-            </uib-tab>
-            <uib-tab heading="两面">
-                <div ng-include="'includes/settings/tuishui/two_faces.html'"></div>
-            </uib-tab>
-            <uib-tab heading="生肖色波">
-                <div ng-include="'includes/settings/tuishui/zodiac.html'"></div>
-            </uib-tab>
-            <uib-tab heading="半波">
-                <div ng-include="'includes/settings/tuishui/halfwaves.html'"></div>
-            </uib-tab>
-            <uib-tab heading="合肖">
-                <div ng-include="'includes/settings/tuishui/sumzodiac.html'"></div>
-            </uib-tab>
-            <uib-tab heading="正码">
-                <div ng-include="'includes/settings/tuishui/zhengball.html'"></div>
-            </uib-tab>
-            <uib-tab heading="正码1~6">
-                <div ng-include="'includes/settings/tuishui/zheng16.html'"></div>
-            </uib-tab>
-            <uib-tab heading="正码特">
-                <div ng-include="'includes/settings/tuishui/zhengspecial.html'"></div>
-            </uib-tab>
-            <uib-tab heading="连码">
-                <div ng-include="'includes/settings/tuishui/jointball.html'"></div>
-            </uib-tab>
-            <uib-tab heading="自选不中">
-                <div ng-include="'includes/settings/tuishui/notball.html'"></div>
-            </uib-tab>
-            <uib-tab heading="过关">
-                <div ng-include="'includes/settings/tuishui/passball.html'"></div>
-            </uib-tab>
-            <uib-tab heading="一肖尾数">
-                <div ng-include="'includes/settings/tuishui/zodiactail.html'"></div>
-            </uib-tab>
-            <uib-tab heading="连肖">
-                <div ng-include="'includes/settings/tuishui/jointzodiac.html'"></div>
-            </uib-tab>
-            <uib-tab heading="连尾">
-                <div ng-include="'includes/settings/tuishui/jointtail.html'"></div>
-            </uib-tab>
-        </uib-tabset>
+        <div ng-include="'includes/settings/tuishui.html'"></div>
     </div>
     
     <div id="tuishuiDialog" class="modal fade" role="dialog">

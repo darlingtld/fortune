@@ -38,7 +38,7 @@ memberApp.controller("MemberController", function ($scope, $http, $q) {
             $scope.tuishuiListD = data;
             for (var i = 0; i < $scope.tuishuiListA.length; i++) {
                 $scope.tuishuiList.push({
-                    lotteryMarkSixType: $scope.tuishuiListA[i].lotteryMarkSixType,
+                    lotteryTypeName: $scope.tuishuiListA[i].lotteryTypeName,
                     tuishuiA: $scope.tuishuiListA[i].tuishui,
                     tuishuiB: $scope.tuishuiListB[i].tuishui,
                     tuishuiC: $scope.tuishuiListC[i].tuishui,

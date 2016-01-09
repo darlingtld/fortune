@@ -1,7 +1,5 @@
 package serviceTest;
 
-import java.util.Date;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +8,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import fortune.dao.TuishuiDao;
-import fortune.pojo.LotteryMarkSixType;
-import fortune.pojo.LotteryTuishui;
 import fortune.service.TuishuiService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,6 +23,7 @@ public class TuishuiTest {
     
     @Test
     public void testPopulateTuishui() {
+        tuishuiDao.removeAll();
         tuishuiService.populateTuishui();
     }
     

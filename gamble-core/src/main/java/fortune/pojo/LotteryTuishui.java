@@ -3,6 +3,7 @@ package fortune.pojo;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -30,34 +31,20 @@ public class LotteryTuishui {
     @NotNull
     private Date timestamp = new Date();
     
-    private int lotteryBallNumber;
-
     // 一级类型
     private LotteryMarkSixType lotteryMarkSixType;
     
     // 二级类型，如正码1～6下的子类型，一肖下的生肖，连肖下面的生肖
-    private LotteryMarkSixType lotteryBallType; // (名字不改了)
-
-    public LotteryTuishui() {}
-
-    public LotteryTuishui(int lotteryBallNumber, LotteryMarkSixType lotteryBallType, double tuishui, String groupId, String userId, 
-                       Date timestamp, LotteryMarkSixType lotteryMarkSixType, String panlei) {
-        this.userId = userId;
-        this.lotteryBallNumber = lotteryBallNumber;
-        this.lotteryBallType = lotteryBallType;
-        this.tuishui = tuishui;
-        this.groupId = groupId;
-        this.timestamp = timestamp;
-        this.lotteryMarkSixType = lotteryMarkSixType;
-        this.panlei = panlei;
-    }
+    private LotteryMarkSixType lotteryBallType;
+    
+    @Transient
+    private String lotteryTypeName;
 
     @Override
     public String toString() {
         return "LotteryTuishui{" +
                 "id='" + id + '\'' +
                 ", userId=" + userId +
-                ", lotteryBallNumber=" + lotteryBallNumber +
                 ", tuishui=" + tuishui +
                 ", groupId='" + groupId + '\'' +
                 ", panlei='" + panlei + '\'' +
@@ -81,14 +68,6 @@ public class LotteryTuishui {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public int getLotteryBallNumber() {
-        return lotteryBallNumber;
-    }
-
-    public void setLotteryBallNumber(int lotteryBallNumber) {
-        this.lotteryBallNumber = lotteryBallNumber;
     }
 
     public double getTuishui() {
@@ -137,5 +116,13 @@ public class LotteryTuishui {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+    
+    public String getLotteryTypeName() {
+        return lotteryTypeName;
+    }
+
+    public void setLotteryTypeName(String lotteryTypeName) {
+        this.lotteryTypeName = lotteryTypeName;
     }
 }

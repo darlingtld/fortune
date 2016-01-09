@@ -41,38 +41,8 @@ public class TuishuiDao {
 
     public List<LotteryTuishui> getTuishui4User(String userId, String groupId, String panlei) {
         Query query = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("panlei").is(panlei)));
-        return mongoTemplate.find(query, LotteryTuishui.class);
-    }
-
-    public LotteryTuishui getTuishui4LotteryIssue(String userId, String groupId, int number, String panlei) {
-        Query query = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("panlei").is(panlei)));
-        return mongoTemplate.findOne(query, LotteryTuishui.class);
-    }
-
-    public LotteryTuishui getTuishui(String userId, String groupId, int number, LotteryMarkSixType type, LotteryMarkSixType ballType, String panlei) {
-        Criteria criteria = null;
-        if (ballType != null) {
-            criteria = Criteria.where("userId").is(userId).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei), Criteria.where("lotteryBallType").is(ballType));
-        } else {
-            criteria = Criteria.where("userId").is(userId).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryBallNumber").is(number), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei));
-        }
-        Query query = new Query(criteria);
-        return mongoTemplate.findOne(query, LotteryTuishui.class);
-    }
-
-    public LotteryTuishui getTuishui4LotteryIssueByBallType(String userId, String groupId, String lotteryMarkSixType, String panlei, String ballType) {
-        Query query = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType), Criteria.where("panlei").is(panlei), Criteria.where("lotteryBallType").is(ballType)));
-        return mongoTemplate.findOne(query, LotteryTuishui.class);
-    }
-
-    public List<LotteryTuishui> getTuishui4LotteryIssueByType(String userId, String groupId, String lotteryMarkSixType, String panlei) {
-        Query query = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("lotteryMarkSixType").is(lotteryMarkSixType), Criteria.where("panlei").is(panlei)));
-        return mongoTemplate.find(query, LotteryTuishui.class);
-    }
-
-    public List<LotteryTuishui> getTuishui4LotteryIssue(int issue, String panlei) {
-        Query query = new Query(Criteria.where("userId").is(issue).andOperator(Criteria.where("panlei").is(panlei)));
-        return mongoTemplate.find(query, LotteryTuishui.class);
+        List<LotteryTuishui> tuishuiList = mongoTemplate.find(query, LotteryTuishui.class);
+        return tuishuiList;
     }
 
     public LotteryTuishui changeTuishui(String tuishuiId, double tuishui) {

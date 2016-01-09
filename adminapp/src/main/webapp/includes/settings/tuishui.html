@@ -1,0 +1,23 @@
+<div class="settings-tuishui-board">
+    <div ng-repeat="subList in tuishuiList">
+        <table>
+            <thead>
+            <tr>
+                <th ng-if="$index == 0" style="width:150px">项目</th>
+                <th colspan="2" style="width:200px">{{panleiList[$index]}} 盘退水</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="tuishui in subList">
+                <td ng-if="$parent.$index == 0" ng-bind="tuishui.lotteryTypeName"></td>
+                <td ng-bind="tuishui.tuishui" id="{{tuishui.id}}"></td>
+                <td>
+                    <button class="btn btn-danger btn-sm" ng-click="markTuishui(tuishui.id, tuishui.tuishui)" data-toggle="modal"
+                            data-target="#tuishuiDialog">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
