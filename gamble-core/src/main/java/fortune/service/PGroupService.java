@@ -192,6 +192,8 @@ public class PGroupService {
             }
         }
         pGroupDao.updatePGroup(thisPGroup);
+//        删除用户端的代理商
+        userDao.updateUser(user);
 //        删除该用户在该代理商的下注记录
         wagerDao.deleteLotteryMarkSixWager(pGroupId, userId);
         if (user.getpGroupList().isEmpty()) {
