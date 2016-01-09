@@ -11,6 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.List;
+
 /**
  * Created by tangl9 on 2015-11-20.
  */
@@ -26,9 +28,16 @@ public class PGroupServiceTest {
     private UserService userService;
 
     @Test
-    public void changeAdmin(){
+    public void changeAdmin() {
         User user = userService.getUserByUsername("user4");
         PGroup pGroup = pGroupService.getPGroupByName("台湾");
         pGroupService.changeAdmin(pGroup, user);
+    }
+
+    @Test
+    public void deleteUser() {
+        User user = userService.getUserByUsername("user2");
+        PGroup pGroup = pGroupService.getPGroupByName("taipei");
+        pGroupService.deleteUserByID(pGroup.getId(), user.getId());
     }
 }
