@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import fortune.dao.TuishuiDao;
 import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,9 @@ public class StatService {
 
     @Autowired
     private PredictionService predictionService;
+
+    @Autowired
+    private TuishuiService tuishuiService;
 
     @Transactional
     public List<LotteryMarkSixGroupStat> getLotteryMarkSixStat(String groupid, int from, int count) {
@@ -364,7 +368,7 @@ public class StatService {
                         RealTimeWager realTimeWager = new RealTimeWager();
                         realTimeWager.setTs(wager.getTimestamp());
                         realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                        realTimeWager.setTuishui(0);
+                        realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, wager.getPanlei(), wager.getLotteryMarkSixType()).getTuishui());
                         realTimeWager.setPanlei(wager.getPanlei());
                         realTimeWager.setIssue(wager.getLotteryIssue());
                         LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -403,7 +407,7 @@ public class StatService {
                     RealTimeWager realTimeWager = new RealTimeWager();
                     realTimeWager.setTs(wager.getTimestamp());
                     realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                    realTimeWager.setTuishui(0);
+                    realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, wager.getPanlei(), wager.getLotteryMarkSixType()).getTuishui());
                     realTimeWager.setPanlei(wager.getPanlei());
                     realTimeWager.setIssue(wager.getLotteryIssue());
                     LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1468,7 +1472,7 @@ public class StatService {
             RealTimeWager realTimeWager = new RealTimeWager();
             realTimeWager.setTs(wager.getTimestamp());
             realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-            realTimeWager.setTuishui(0);
+            realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, LotteryMarkSixType.SPECIAL).getTuishui());
             realTimeWager.setPanlei(wager.getPanlei());
             realTimeWager.setIssue(wager.getLotteryIssue());
             LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1501,7 +1505,7 @@ public class StatService {
             RealTimeWager realTimeWager = new RealTimeWager();
             realTimeWager.setTs(wager.getTimestamp());
             realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-            realTimeWager.setTuishui(0);
+            realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, LotteryMarkSixType.SUM_ZODIAC).getTuishui());
             realTimeWager.setPanlei(wager.getPanlei());
             realTimeWager.setIssue(wager.getLotteryIssue());
             LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1538,7 +1542,7 @@ public class StatService {
                     RealTimeWager realTimeWager = new RealTimeWager();
                     realTimeWager.setTs(wager.getTimestamp());
                     realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                    realTimeWager.setTuishui(0);
+                    realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, LotteryMarkSixType.ZHENG_BALL).getTuishui());
                     realTimeWager.setPanlei(wager.getPanlei());
                     realTimeWager.setIssue(wager.getLotteryIssue());
                     LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1572,7 +1576,7 @@ public class StatService {
                     RealTimeWager realTimeWager = new RealTimeWager();
                     realTimeWager.setTs(wager.getTimestamp());
                     realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                    realTimeWager.setTuishui(0);
+                    realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, LotteryMarkSixType.ZHENG_SPECIFIC).getTuishui());
                     realTimeWager.setPanlei(wager.getPanlei());
                     realTimeWager.setIssue(wager.getLotteryIssue());
                     LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1606,7 +1610,7 @@ public class StatService {
                     RealTimeWager realTimeWager = new RealTimeWager();
                     realTimeWager.setTs(wager.getTimestamp());
                     realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                    realTimeWager.setTuishui(0);
+                    realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, LotteryMarkSixType.TAIL_NUM).getTuishui());
                     realTimeWager.setPanlei(wager.getPanlei());
                     realTimeWager.setIssue(wager.getLotteryIssue());
                     LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1653,7 +1657,7 @@ public class StatService {
                     RealTimeWager realTimeWager = new RealTimeWager();
                     realTimeWager.setTs(wager.getTimestamp());
                     realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                    realTimeWager.setTuishui(0);
+                    realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, LotteryMarkSixType.ZHENG_1_6).getTuishui());
                     realTimeWager.setPanlei(wager.getPanlei());
                     realTimeWager.setIssue(wager.getLotteryIssue());
                     LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1684,7 +1688,7 @@ public class StatService {
             RealTimeWager realTimeWager = new RealTimeWager();
             realTimeWager.setTs(wager.getTimestamp());
             realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-            realTimeWager.setTuishui(0);
+            realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, type).getTuishui());
             realTimeWager.setPanlei(wager.getPanlei());
             realTimeWager.setIssue(wager.getLotteryIssue());
             LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1718,7 +1722,7 @@ public class StatService {
             RealTimeWager realTimeWager = new RealTimeWager();
             realTimeWager.setTs(wager.getTimestamp());
             realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-            realTimeWager.setTuishui(0);
+            realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, type).getTuishui());
             realTimeWager.setPanlei(wager.getPanlei());
             realTimeWager.setIssue(wager.getLotteryIssue());
             LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1757,7 +1761,7 @@ public class StatService {
                 RealTimeWager realTimeWager = new RealTimeWager();
                 realTimeWager.setTs(wager.getTimestamp());
                 realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                realTimeWager.setTuishui(0);
+                realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, type).getTuishui());
                 realTimeWager.setPanlei(wager.getPanlei());
                 realTimeWager.setIssue(wager.getLotteryIssue());
                 LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1800,7 +1804,7 @@ public class StatService {
                 RealTimeWager realTimeWager = new RealTimeWager();
                 realTimeWager.setTs(wager.getTimestamp());
                 realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                realTimeWager.setTuishui(0);
+                realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, type).getTuishui());
                 realTimeWager.setPanlei(wager.getPanlei());
                 realTimeWager.setIssue(wager.getLotteryIssue());
                 LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1853,7 +1857,7 @@ public class StatService {
                     RealTimeWager realTimeWager = new RealTimeWager();
                     realTimeWager.setTs(wager.getTimestamp());
                     realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                    realTimeWager.setTuishui(0);
+                    realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, type).getTuishui());
                     realTimeWager.setPanlei(wager.getPanlei());
                     realTimeWager.setIssue(wager.getLotteryIssue());
                     LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -1907,7 +1911,7 @@ public class StatService {
                 RealTimeWager realTimeWager = new RealTimeWager();
                 realTimeWager.setTs(wager.getTimestamp());
                 realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                realTimeWager.setTuishui(0);
+                realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, type).getTuishui());
                 realTimeWager.setPanlei(wager.getPanlei());
                 realTimeWager.setIssue(wager.getLotteryIssue());
                 LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -2134,7 +2138,7 @@ public class StatService {
                 RealTimeWager realTimeWager = new RealTimeWager();
                 realTimeWager.setTs(wager.getTimestamp());
                 realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                realTimeWager.setTuishui(0);
+                realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, LotteryMarkSixType.SPECIAL).getTuishui());
                 realTimeWager.setPanlei(wager.getPanlei());
                 realTimeWager.setIssue(wager.getLotteryIssue());
                 LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -2165,7 +2169,7 @@ public class StatService {
                 RealTimeWager realTimeWager = new RealTimeWager();
                 realTimeWager.setTs(wager.getTimestamp());
                 realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                realTimeWager.setTuishui(0);
+                realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, LotteryMarkSixType.SUM_ZODIAC).getTuishui());
                 realTimeWager.setPanlei(wager.getPanlei());
                 realTimeWager.setIssue(wager.getLotteryIssue());
                 LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
@@ -2206,7 +2210,7 @@ public class StatService {
                 RealTimeWager realTimeWager = new RealTimeWager();
                 realTimeWager.setTs(wager.getTimestamp());
                 realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                realTimeWager.setTuishui(0);
+                realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), groupId, panlei, type).getTuishui());
                 realTimeWager.setPanlei(wager.getPanlei());
                 realTimeWager.setIssue(wager.getLotteryIssue());
                 LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());

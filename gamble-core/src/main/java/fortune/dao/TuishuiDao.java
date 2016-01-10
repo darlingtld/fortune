@@ -34,7 +34,7 @@ public class TuishuiDao {
     public List<LotteryTuishui> getAll() {
         return mongoTemplate.findAll(LotteryTuishui.class);
     }
-    
+
     public void removeAll() {
         mongoTemplate.remove(new Query(), "lottery_tuishui");
     }
@@ -50,5 +50,10 @@ public class TuishuiDao {
         Update update = new Update();
         update.set("tuishui", tuishui);
         return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), LotteryTuishui.class);
+    }
+
+    public LotteryTuishui getTuishui4UserOfType(String userId, String groupId, String panlei, LotteryMarkSixType type) {
+        Query query = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("groupId").is(groupId), Criteria.where("panlei").is(panlei), Criteria.where("lotteryMarkSixType").is(type)));
+        return mongoTemplate.findOne(query, LotteryTuishui.class);
     }
 }
