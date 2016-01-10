@@ -249,6 +249,10 @@ input[type=text], input[type=password] {
     margin-top: 10px;
 }
 
+.color-red {
+    color: red;   
+}
+
 .panlei {
     display: inline-block;
     width: 10%;

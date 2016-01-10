@@ -44,6 +44,9 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
         }).when('/result', {
             controller: 'resultController',
             templateUrl: 'includes/result.html'
+        }).when('/resultdetail', {
+            controller: 'resultDetailController',
+            templateUrl: 'includes/resultdetail.html'
         }).when('/rules', {
             controller: 'rulesController',
             templateUrl: 'includes/rules.html'

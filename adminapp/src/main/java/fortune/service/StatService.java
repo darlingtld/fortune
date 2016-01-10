@@ -56,6 +56,13 @@ public class StatService {
         Utils.logger.info("get lottery mark six stat for group id {} from {}, count {}", groupid, from, count);
         return statDao.getLotteryMarkSixStat(groupid, from, count);
     }
+    
+    @Transactional
+    public List<LotteryMarkSixGroupStat> getStatSummaryByDateRange(String groupid, String start, String end) {
+        Utils.logger.info("get lottery mark six stat for group id {} from {} to {}", groupid, start, end);
+        List<LotteryMarkSixGroupStat> statList = statDao.getStatsOfAllSubGroup(groupid, start, end);
+        return statList;
+    }
 
     @Transactional
     public void saveLotteryMarkSixStat(LotteryMarkSixGroupStat stat) {

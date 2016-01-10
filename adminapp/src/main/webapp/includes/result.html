@@ -1,4 +1,43 @@
-<table>
+<div class="panel result-select-board">
+    <div class="form-group result-select-group">
+        <label>大股东</label> 
+        <select class="form-control" ng-model="selectedUser"
+            ng-options="user.username for user in userList track by user.id"></select>
+    </div>
+    
+    <div class="form-group result-select-group">
+        <label>报表种类</label>
+        <select class="form-control" ng-model="selectedType" ng-init="selectedType = resultTypeList[0]"
+            ng-options="rt.title for rt in resultTypeList track by rt.name"></select>
+        <label>选项</label> 
+        <select class="form-control" ng-model="selectedOption" ng-init="selectedOption = resultOptionList[0]"
+            ng-options="opt.title for opt in resultOptionList track by opt.name"></select>
+        <input type="checkbox" ng-model="needStatistics" />
+        <span>统计贡献额</span><span class="color-red">（速度较慢）</span>
+    </div>
+    
+    <div class="form-group result-select-group">
+        <label>下注类别</label> 
+        <select class="form-control" ng-model="wagerType"
+            ng-options="wt.title for wt in wagerTypeList track by wt.name"></select>
+    </div>
+    
+    <div class="form-group result-select-group">
+        <label>浏览日期</label> 
+        <input type="radio" ng-model="dateType" ng-click="setCurDate()" value="0"/> 
+        <span>本日帐<span class="color-red">（报帐日{{curDate | date : 'yyyy-MM-dd'}}）</span></span>
+        <input type="radio" ng-model="dateType" value="1"/>
+        <span>历史帐<span class="color-red">（已颁奖）</span></span>
+        <input ng-show="dateType == 1" ng-model="dateStart" type="text" class="form-control" placeholder="起始时间" />
+        <input ng-show="dateType == 1" ng-model="dateEnd" type="text" class="form-control" placeholder="结束时间" />
+    </div>
+    
+    <div class="form-group result-select-group">
+        <a href="#resultdetail?pageType=0&userId={{selectedUser.id}}&start={{dateStart}}&end={{dateEnd}}"><button class="btn btn-default" >搜寻</button></a>
+    </div>
+</div>
+
+<table ng-hide="true">
 	<thead>
 		<tr>
 			<th>日期</th>

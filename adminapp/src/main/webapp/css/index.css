@@ -134,3 +134,42 @@
     display: flex;
     justify-content: center;
 }
+
+.result-select-board {
+    background-color: #D9EDF7;
+    padding: 15px;
+    border-radius: 15px;
+    overflow: auto;
+}
+
+.result-select-group > select {
+    display: inline-block;
+    width: 10%;
+}
+
+.result-select-group > input[type=text] {
+    display: inline-block;
+    width: 10%;
+}
+
+.result-select-group button {
+    margin-left: 2%;
+    background-color: white !important;
+    color: #000 !important;
+    border: 1px solid #CCC !important;
+}
+
+.result-select-group button:hover {
+    color: #000 !important;
+    background-color: #EEE !important;
+}
+
+.result-select-group > input[type=checkbox] {
+    margin-left: 6%;
+}
+
+.result-select-group > label {
+    text-align: right;
+    padding-right: 10px;
+    width: 8%;
+}

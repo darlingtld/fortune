@@ -44,6 +44,14 @@ public class StatController {
     List<LotteryMarkSixGroupStat> getLotteryMarkSixPagination(@PathVariable("groupid") String groupid, @PathVariable("from") int from, @PathVariable("count") int count) {
         return statService.getLotteryMarkSixStat(groupid, from, count);
     }
+    
+    /**
+     * 根据日期范围获取某个代理商下所有子代理商的开奖统计信息
+     */
+    @RequestMapping(value = "summary/groupid/{groupid}/date_start/{start}/date_end/{end}", method = RequestMethod.GET)
+    public @ResponseBody List<LotteryMarkSixGroupStat> getStatSummaryByDateRange(@PathVariable("groupid") String groupid, @PathVariable("start") String start, @PathVariable("end") String end) {
+        return statService.getStatSummaryByDateRange(groupid, start, end);
+    }
 
     /**
      * 获取代理商实时统计信息(实时注单)
