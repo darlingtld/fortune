@@ -80,6 +80,9 @@ public class LotteryService {
         LotteryMarkSix lotteryMarkSix = getLotteryMarkSix(latestIssue);
         Instant instant = Instant.ofEpochMilli(lotteryMarkSix.getTimestamp().getTime());
         LocalDateTime thatTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        if (thatTime.isBefore(LocalDateTime.now())) {
+            thatTime = LocalDateTime.now();
+        }
         if (thatTime.getMonthValue() == 12 && thatTime.getDayOfMonth() >= 29) {
             if (thatTime.getDayOfMonth() >= 29) {
                 if (thatTime.getDayOfMonth() >= 30 || thatTime.getDayOfWeek().getValue() == 6) {
