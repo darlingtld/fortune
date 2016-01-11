@@ -33,6 +33,9 @@ public class PGroupService {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired 
+    private TuishuiService tuishuiService;
 
     @Autowired
     private WagerDao wagerDao;
@@ -103,6 +106,9 @@ public class PGroupService {
         userList.add(user);
         pGroup.setUserList(userList);
         pGroupDao.updatePGroup(pGroup);
+        
+        // 为用户生成默认退水
+        tuishuiService.populateTuishui(user.getId(), pGroupId);
     }
 
     private boolean isUserInUserList(User user, List<User> userList) {
@@ -196,6 +202,10 @@ public class PGroupService {
         userDao.updateUser(user);
 //        删除该用户在该代理商的下注记录
         wagerDao.deleteLotteryMarkSixWager(pGroupId, userId);
+        
+        // 删除退水
+        tuishuiService.removeTuishui(userId, pGroupId);
+        
         if (user.getpGroupList().isEmpty()) {
             // 删除用户
             userDao.deleteUserByID(userId);

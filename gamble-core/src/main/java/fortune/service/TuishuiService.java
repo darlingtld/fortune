@@ -31,30 +31,33 @@ public class TuishuiService {
     @Autowired
     private PGroupService pGroupService;
 
-    public void populateTuishui() {
+    public void populateTuishui4AllUser() {
         for (PGroup pGroup : pGroupService.getGroupAll()) {
             for (User user : pGroup.getUserList()) {
-                List<LotteryTuishui> existedList = new ArrayList<>();
-                for (String panlei : Arrays.asList("A", "B", "C", "D")) {
-                    existedList.addAll(getTuishui4User(user.getId(), pGroup.getId(), panlei));
-                }
-
-                HashMap<String, LotteryTuishui> existedMap = new HashMap<>();
-                for (LotteryTuishui tuishui : existedList) {
-                    existedMap.put(getTuishuiKey(tuishui), tuishui);
-                }
-
-                List<LotteryTuishui> missingList = generateTuishuiDefault(user.getId(), pGroup.getId()).stream()
-                        .filter(tuishui -> !existedMap.containsKey(getTuishuiKey(tuishui)))
-                        .collect(Collectors.toList());
-
-                for (LotteryTuishui tuishui : missingList) {
-                    saveTuishui(tuishui);
-                }
+                populateTuishui(user.getId(), pGroup.getId());
             }
         }
+        Utils.logger.info("Populating default tuishui for all users finished");
+    }
+    
+    public void populateTuishui(String userId, String groupId) {
+        List<LotteryTuishui> existedList = new ArrayList<>();
+        for (String panlei : Arrays.asList("A", "B", "C", "D")) {
+            existedList.addAll(getTuishui4User(userId, groupId, panlei));
+        }
 
-        Utils.logger.info("Populating default tuishui finished");
+        HashMap<String, LotteryTuishui> existedMap = new HashMap<>();
+        for (LotteryTuishui tuishui : existedList) {
+            existedMap.put(getTuishuiKey(tuishui), tuishui);
+        }
+
+        List<LotteryTuishui> missingList = generateTuishuiDefault(userId, groupId).stream()
+                .filter(tuishui -> !existedMap.containsKey(getTuishuiKey(tuishui)))
+                .collect(Collectors.toList());
+
+        for (LotteryTuishui tuishui : missingList) {
+            saveTuishui(tuishui);
+        }
     }
 
     private String getTuishuiKey(LotteryTuishui tuishui) {
@@ -71,6 +74,12 @@ public class TuishuiService {
     public void saveTuishui(LotteryTuishui tuishui) {
         Utils.logger.info("save tuishui");
         tuishuiDao.saveTuishui(tuishui);
+    }
+    
+    @Transactional
+    public void removeTuishui(String userId, String groupId) {
+        Utils.logger.info("remove tuishui");
+        tuishuiDao.remove(userId, groupId);
     }
 
     @Transactional
@@ -94,7 +103,12 @@ public class TuishuiService {
     public LotteryTuishui getTuishui4UserOfType(String userId, String groupId, String panlei, LotteryMarkSixType type) {
         Utils.logger.info("get tuishui for user {} of group id {} of panlei {} of type {}", userId, groupId, panlei, type);
         return tuishuiDao.getTuishui4UserOfType(userId, groupId, panlei, type);
-
+    }
+    
+    @Transactional
+    public LotteryTuishui changeTuishui(String tuishuiId, double tuishui) {
+        Utils.logger.info("change tuishui of tuishui id {} to tuishui {}", tuishuiId, tuishui);
+        return tuishuiDao.changeTuishui(tuishuiId, tuishui);
     }
 
     public List<LotteryTuishui> generateTuishuiDefault(String userId, String groupId) {
@@ -471,9 +485,4 @@ public class TuishuiService {
         return tuishuiList;
     }
 
-    @Transactional
-    public LotteryTuishui changeTuishui(String tuishuiId, double tuishui) {
-        Utils.logger.info("change tuishui of tuishui id {} to tuishui {}", tuishuiId, tuishui);
-        return tuishuiDao.changeTuishui(tuishuiId, tuishui);
-    }
 }

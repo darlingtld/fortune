@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryTuishui;
+import fortune.pojo.PGroup;
 
 /**
  * Created by jason on 2015-01-06.
@@ -36,7 +37,11 @@ public class TuishuiDao {
     }
 
     public void removeAll() {
-        mongoTemplate.remove(new Query(), "lottery_tuishui");
+        mongoTemplate.remove(new Query(), LotteryTuishui.class);
+    }
+    
+    public void remove(String userId, String groupId) {
+        mongoTemplate.remove(new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("groupId").is(groupId))), LotteryTuishui.class);
     }
 
     public List<LotteryTuishui> getTuishui4User(String userId, String groupId, String panlei) {
