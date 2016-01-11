@@ -34,10 +34,8 @@ public class LotteryMarkSix {
     @NotNull
     @Column(name = "special")
     private int special;
-    @NotNull
     @Column(name = "issue")
     private int issue;
-    @NotNull
     @Column(name = "timestamp")
     private Date timestamp = new Date();
 

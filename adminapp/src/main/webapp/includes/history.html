@@ -1,4 +1,7 @@
 <div class="section">
+    <button class="btn btn-success btn-sm pull-right" style="margin-top: -30px;margin-bottom: 5px" data-toggle="modal"
+            data-target="#drawDialog">手动开奖
+    </button>
     <table>
         <tr>
             <th rowspan="2">期数</th>
@@ -65,5 +68,34 @@
                         items-per-page="itemsPerPage" ng-change="pageChanged()" previous-text="&lsaquo;"
                         next-text="&rsaquo;" first-text="&laquo;"
                         last-text="&raquo;"></uib-pagination>
+    </div>
+</div>
+<div id="drawDialog" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+
+                <h3 class="title">手动开奖</h3>
+            </div>
+            <div class="modal-body">
+                正码1：<input class="form-control" placeholder="请输入第1个号码" ng-model="draw.one"/>
+                正码2：<input class="form-control" placeholder="请输入第2个号码" ng-model="draw.two"/>
+                正码3：<input class="form-control" placeholder="请输入第3个号码" ng-model="draw.three"/>
+                正码4：<input class="form-control" placeholder="请输入第4个号码" ng-model="draw.four"/>
+                正码5：<input class="form-control" placeholder="请输入第5个号码" ng-model="draw.five"/>
+                正码6：<input class="form-control" placeholder="请输入第6个号码" ng-model="draw.six"/>
+                特码 ：<input class="form-control" placeholder="请输入特码" ng-model="draw.special"/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="fakeDraw()">保存</button>
+                <button class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+            <div class="modal-footer">
+                <div class="alert alert-danger">
+                    <strong>手动开奖后，系统会进行结算，需要等待五分钟。结算期间的任何操作均无效~</strong>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -6,6 +6,7 @@ import common.Utils;
 import fortune.dao.LotteryDao;
 import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,10 +40,36 @@ public class LotteryService {
         return lotteryDao.getLotteryMarkSix(lotteryIssue);
     }
 
+    @CacheEvict(value = "fortune", allEntries = true)
     @Transactional
     public void saveLotteryMarkSix(LotteryMarkSix lotteryMarkSix) {
         Utils.logger.info("save lottery mark six");
-        lotteryDao.saveLotteryMarkSix(lotteryMarkSix);
+        try {
+            HashSet<Integer> numberSet = new HashSet<>();
+            numberSet.add(lotteryMarkSix.getOne());
+            numberSet.add(lotteryMarkSix.getTwo());
+            numberSet.add(lotteryMarkSix.getThree());
+            numberSet.add(lotteryMarkSix.getFour());
+            numberSet.add(lotteryMarkSix.getFive());
+            numberSet.add(lotteryMarkSix.getSix());
+            numberSet.add(lotteryMarkSix.getSpecial());
+            if (numberSet.size() != 7) {
+                throw new RuntimeException("开奖号码有重复");
+            }
+            for (Integer number : numberSet) {
+                if (number > 49) {
+                    throw new RuntimeException("开奖号码超过最大号码49");
+                }
+            }
+            NextLotteryMarkSixInfo nextLotteryMarkSixInfo = getNextLotteryMarkSixInfo();
+            if (lotteryMarkSix.getIssue() == 0) {
+                lotteryMarkSix.setIssue(nextLotteryMarkSixInfo.getIssue());
+            }
+
+            lotteryDao.saveLotteryMarkSix(lotteryMarkSix);
+        } catch (Exception e) {
+            throw new RuntimeException("保存六合彩出错");
+        }
     }
 
     public JSONArray getLotteryMarkSixType() {
@@ -80,9 +107,6 @@ public class LotteryService {
         LotteryMarkSix lotteryMarkSix = getLotteryMarkSix(latestIssue);
         Instant instant = Instant.ofEpochMilli(lotteryMarkSix.getTimestamp().getTime());
         LocalDateTime thatTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-        if (thatTime.isBefore(LocalDateTime.now())) {
-            thatTime = LocalDateTime.now();
-        }
         if (thatTime.getMonthValue() == 12 && thatTime.getDayOfMonth() >= 29) {
             if (thatTime.getDayOfMonth() >= 29) {
                 if (thatTime.getDayOfMonth() >= 30 || thatTime.getDayOfWeek().getValue() == 6) {
@@ -97,9 +121,10 @@ public class LotteryService {
         }
         thatTime = thatTime.plusDays(1);
         LocalDateTime nextDrawTime = LocalDateTime.of(thatTime.getYear(), thatTime.getMonth(), thatTime.getDayOfMonth(), PropertyHolder.LOTTERY_DRAW_HOUR, PropertyHolder.LOTTERY_DRAW_MINUTE);
-        do {
+
+        while (!weekDaysIntValue.contains(nextDrawTime.getDayOfWeek().getValue()) || nextDrawTime.isBefore(LocalDateTime.now())){
             nextDrawTime = nextDrawTime.plusDays(1);
-        } while (!weekDaysIntValue.contains(nextDrawTime.getDayOfWeek().getValue()));
+        }
         nextLotteryMarkSixInfo.setDate(Date.from(nextDrawTime.atZone(ZoneId.systemDefault()).toInstant()));
         LocalDateTime nextWageTime = LocalDateTime.of(nextDrawTime.getYear(), nextDrawTime.getMonth(), nextDrawTime.getDayOfMonth(), PropertyHolder.GAMBLE_WAGE_HOUR_START, PropertyHolder.GAMBLE_WAGE_MINUTE_START);
         nextLotteryMarkSixInfo.setWageDate(Date.from(nextWageTime.atZone(ZoneId.systemDefault()).toInstant()));

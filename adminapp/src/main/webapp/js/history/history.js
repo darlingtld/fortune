@@ -37,6 +37,17 @@ angular.module("AdminApp")
             })
         }
 
+        $scope.draw={};
+        $scope.fakeDraw = function () {
+            $http.post('lottery/save', $scope.draw).success(function(){
+                alert("手动开奖成功！")
+                $('a.close').click();
+                location.reload();
+            }).error(function(){
+                alert("错误！请检查填写号码是否正确！");
+            })
+        }
+
     }).filter('chineseWeek', function () {
         return function (input) {
             return "日一二三四五六".charAt(new Date(input).getDay())
