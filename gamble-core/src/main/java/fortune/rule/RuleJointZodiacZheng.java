@@ -47,6 +47,7 @@ public class RuleJointZodiacZheng extends Rule {
             LotteryMarkSix lotteryMarkSix = BeanHolder.getLotteryService().getLotteryMarkSix(lotteryIssue);
             HashMap<String, Double> oddsCache = new HashMap<>();
             for (LotteryMarkSixWager wager : wagerList) {
+                LotteryTuishui tuishui = BeanHolder.getTuishuiService().getTuishui4UserOfType(wager.getUserId(), wager.getPgroupId(), wager.getPanlei(), wager.getLotteryMarkSixType());
                 Utils.logger.debug(wager.toString());
                 LotteryResult lotteryResult = new LotteryResult();
                 lotteryResult.setUserId(wager.getUserId());
@@ -55,7 +56,8 @@ public class RuleJointZodiacZheng extends Rule {
                 lotteryResult.setLotteryIssue(lotteryIssue);
                 lotteryResult.setLotteryMarkSixWagerId(wager.getId());
 
-                double winningMoney;
+                double winningMoney=0;
+                double tuishuiMoney=0;
                 List<LotteryMarkSixType> typeList = Arrays.asList(
                         BeanHolder.getLotteryService().getZodiac(wager.getLotteryIssue(), lotteryMarkSix.getOne()),
                         BeanHolder.getLotteryService().getZodiac(wager.getLotteryIssue(), lotteryMarkSix.getTwo()),
@@ -82,8 +84,13 @@ public class RuleJointZodiacZheng extends Rule {
                     }
 
                 }
-                winningMoney = wager.getTotalStakes() * accumulatedOdds.doubleValue();
+                if (accumulatedOdds.doubleValue() < 0.1) {
+                    tuishuiMoney = wager.getTotalStakes() * tuishui.getTuishui() / 100;
+                } else {
+                    winningMoney = wager.getTotalStakes() * accumulatedOdds.doubleValue();
+                }
                 lotteryResult.setWinningMoney(winningMoney);
+                lotteryResult.setTuishui(tuishuiMoney);
                 BeanHolder.getResultService().saveLotteryResult(lotteryResult);
             }
         }

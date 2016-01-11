@@ -57,17 +57,17 @@
         <tr ng-repeat="userStat in userStatList">
             <td ng-bind='userStat.openTs | date : "yyyy-MM-dd"'></td>
             <td ng-bind="userStat.issue | issueProcessor"></td>
-            <td ng-bind="userStat.stakes"></td>
-            <td ng-bind="userStat.validStakes"></td>
-            <td ng-bind="userStat.tuishui"></td>
-            <td ng-bind="userStat.result"></td>
+            <td ng-bind="userStat.stakes | number : 2"></td>
+            <td ng-bind="userStat.validStakes | number : 2"></td>
+            <td ng-bind="userStat.tuishui | number : 2"></td>
+            <td ng-bind="userStat.result | number : 2"></td>
         </tr>
         <tr class="sum_row">
             <th colspan="2" style="text-align: center;">合计</th>
-            <th ng-bind="stakesTotal"></th>
-            <th ng-bind="validStakesTotal"></th>
-            <th ng-bind="tuishuiTotal"></th>
-            <th ng-bind="resultTotal"></th>
+            <th ng-bind="stakesTotal  | number : 2"></th>
+            <th ng-bind="validStakesTotal  | number : 2"></th>
+            <th ng-bind="tuishuiTotal  | number : 2"></th>
+            <th ng-bind="resultTotal | number : 2"></th>
         </tr>
     </table>
 </div>

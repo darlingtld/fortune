@@ -3,6 +3,7 @@ package fortune.rule;
 import common.Utils;
 import fortune.pojo.*;
 import fortune.service.BeanHolder;
+import fortune.service.TuishuiService;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -49,6 +50,7 @@ public abstract class Rule implements Runnable {
             HashMap<String, Double> oddsCache = new HashMap<>();
             for (LotteryMarkSixWager wager : wagerList) {
                 Utils.logger.debug(wager.toString());
+                LotteryTuishui tuishui = BeanHolder.getTuishuiService().getTuishui4UserOfType(wager.getUserId(), wager.getPgroupId(), wager.getPanlei(), wager.getLotteryMarkSixType());
                 LotteryResult lotteryResult = new LotteryResult();
                 lotteryResult.setUserId(wager.getUserId());
                 lotteryResult.setGroupId(wager.getPgroupId());
@@ -57,6 +59,7 @@ public abstract class Rule implements Runnable {
                 lotteryResult.setLotteryMarkSixWagerId(wager.getId());
 
                 double winningMoney = 0;
+                double tuishuiMoney=0;
                 if (isStubSplit()) {
                     for (LotteryMarkSixWagerStub stub : wager.getLotteryMarkSixWagerStubList()) {
                         String oddsCacheKey = generateOddsCacheKey(stub, wager, isStubNumberNeededInOdds());
@@ -69,6 +72,7 @@ public abstract class Rule implements Runnable {
                                 winningMoney += stub.getStakes();
                                 break;
                             case LOSE:
+                                tuishuiMoney += stub.getStakes() * tuishui.getTuishui() / 100;
                                 break;
                         }
                     }
@@ -84,6 +88,7 @@ public abstract class Rule implements Runnable {
                                 winningMoney += wager.getTotalStakes();
                                 break;
                             case LOSE:
+                                tuishuiMoney += stub.getStakes() * tuishui.getTuishui() / 100;
                                 break;
 //                            连码三中二特殊处理
                             case WIN_JOINT_3_2_ZHONG_2:
@@ -103,6 +108,7 @@ public abstract class Rule implements Runnable {
                     winningMoney = winningMoney / wager.getLotteryMarkSixWagerStubList().size();
                 }
                 lotteryResult.setWinningMoney(winningMoney);
+                lotteryResult.setTuishui(tuishuiMoney);
                 BeanHolder.getResultService().saveLotteryResult(lotteryResult);
             }
         }
@@ -135,4 +141,5 @@ public abstract class Rule implements Runnable {
     protected boolean hasJobRun(LotteryMarkSixType lotteryMarkSixType, int lotteryIssue) {
         return BeanHolder.getJobTrackerService().getJobByNameAndIssue(lotteryMarkSixType.name(), lotteryIssue) != null;
     }
+
 }

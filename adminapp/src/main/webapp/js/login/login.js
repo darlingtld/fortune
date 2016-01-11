@@ -12,6 +12,7 @@ loginApp.controller("LoginController", function ($scope, $http) {
                 sessionStorage["userid"] = response.admin.id;
                 sessionStorage["pgroupid"] = response.id;
                 sessionStorage["pgroupname"] = response.name;
+                sessionStorage["parentpgroupid"] = response.parentPGroupID;
                 document.location.href = "index.html";
             } else {
                 $scope.isError = true;

@@ -18,6 +18,7 @@ public class LotteryResult {
     private String panlei;
     private int lotteryIssue;
     private double winningMoney;
+    private double tuishui;
     private String lotteryMarkSixWagerId;
 
     @Override
@@ -29,8 +30,17 @@ public class LotteryResult {
                 ", panlei='" + panlei + '\'' +
                 ", lotteryIssue=" + lotteryIssue +
                 ", winningMoney=" + winningMoney +
+                ", tuishui=" + tuishui +
                 ", lotteryMarkSixWagerId='" + lotteryMarkSixWagerId + '\'' +
                 '}';
+    }
+
+    public double getTuishui() {
+        return tuishui;
+    }
+
+    public void setTuishui(double tuishui) {
+        this.tuishui = tuishui;
     }
 
     public String getPanlei() {

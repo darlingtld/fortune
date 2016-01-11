@@ -243,7 +243,7 @@ angular.module('AdminApp').
                             success: function () {
                                 $(".dialog").hide();
                                 initState();
-                                alert("新增代理商成功！");
+                                alert("新增代理商成功！新的代理商将在下期中正式启用！");
                             },
                             error: function () {
                                 alert("代理商或管理员已存在，请重新输入");

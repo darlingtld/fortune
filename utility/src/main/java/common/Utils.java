@@ -22,6 +22,11 @@ public class Utils {
         return sdf.format(date);
     }
 
+    public static String yyyyMMdd2Format(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
+    }
+
     public static String formatNumber000(Object number) {
         return df.format(number);
     }

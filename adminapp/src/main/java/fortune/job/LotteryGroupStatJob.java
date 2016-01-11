@@ -62,8 +62,8 @@ public class LotteryGroupStatJob {
             for (LotteryResult lotteryResult : lotteryResultList) {
                 LotteryMarkSixWager wager = wagerService.getLotteryMarkSixWager(lotteryResult.getLotteryMarkSixWagerId());
                 totalStakes += wager.getTotalStakes();
-                userResult += lotteryResult.getWinningMoney() - wager.getTotalStakes();
-                pgroupResult += wager.getTotalStakes() - lotteryResult.getWinningMoney();
+                userResult += lotteryResult.getWinningMoney() + lotteryResult.getTuishui() - wager.getTotalStakes();
+                pgroupResult += wager.getTotalStakes() - lotteryResult.getWinningMoney() - lotteryResult.getTuishui();
 
                 //// TODO: 2015-11-26  
             }

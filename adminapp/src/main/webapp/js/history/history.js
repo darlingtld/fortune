@@ -37,13 +37,14 @@ angular.module("AdminApp")
             })
         }
 
-        $scope.draw={};
+        $scope.isRoot = sessionStorage['parentpgroupid'] == 'null';
+        $scope.draw = {};
         $scope.fakeDraw = function () {
-            $http.post('lottery/save', $scope.draw).success(function(){
+            $http.post('lottery/save/pgroupid/'+sessionStorage["pgroupid"], $scope.draw).success(function () {
                 alert("手动开奖成功！")
                 $('a.close').click();
                 location.reload();
-            }).error(function(){
+            }).error(function () {
                 alert("错误！请检查填写号码是否正确！");
             })
         }

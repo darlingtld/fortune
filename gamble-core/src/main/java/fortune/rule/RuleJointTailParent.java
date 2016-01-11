@@ -55,6 +55,7 @@ public abstract class RuleJointTailParent extends Rule {
             );
             HashMap<String, Double> oddsCache = new HashMap<>();
             for (LotteryMarkSixWager wager : wagerList) {
+                LotteryTuishui tuishui = BeanHolder.getTuishuiService().getTuishui4UserOfType(wager.getUserId(), wager.getPgroupId(), wager.getPanlei(), wager.getLotteryMarkSixType());
                 String oddsCacheKey = generateOddsCacheKey(wager.getLotteryMarkSixWagerStubList().get(0), wager, isStubNumberNeededInOdds());
                 Double odds = getOdds(oddsCache, wager, wager.getLotteryMarkSixWagerStubList().get(0), oddsCacheKey);
                 Utils.logger.debug(wager.toString());
@@ -66,6 +67,7 @@ public abstract class RuleJointTailParent extends Rule {
                 lotteryResult.setLotteryMarkSixWagerId(wager.getId());
 
                 double winningMoney = 0;
+                double tuishuiMoney=0;
                 int[] array = new int[wager.getLotteryMarkSixWagerStubList().size()];
                 for (int i = 0; i < wager.getLotteryMarkSixWagerStubList().size(); i++) {
                     array[i] = wager.getLotteryMarkSixWagerStubList().get(i).getNumber();
@@ -73,11 +75,16 @@ public abstract class RuleJointTailParent extends Rule {
                 List<List<Integer>> wagerStubCombinationList = Combinator.getCombinationList(array, getJointTailNumber());
                 for (List<Integer> combination : wagerStubCombinationList) {
                     if (tailList.containsAll(combination)) {
+//                        win
                         winningMoney += wager.getTotalStakes() / wagerStubCombinationList.size() * odds;
+                    } else {
+//                        lose
+                        tuishuiMoney += wager.getTotalStakes() * tuishui.getTuishui() / 100;
                     }
                 }
 
                 lotteryResult.setWinningMoney(winningMoney);
+                lotteryResult.setTuishui(tuishuiMoney);
                 BeanHolder.getResultService().saveLotteryResult(lotteryResult);
             }
         }
@@ -85,6 +92,7 @@ public abstract class RuleJointTailParent extends Rule {
         Utils.logger.info("rule [{}] finished", lotteryMarkSixType);
 
     }
+
     @Override
     boolean isStubSplit() {
         return false;

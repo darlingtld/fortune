@@ -53,6 +53,7 @@ public abstract class RuleJointTailNotParent extends Rule {
             );
             HashMap<String, Double> oddsCache = new HashMap<>();
             for (LotteryMarkSixWager wager : wagerList) {
+                LotteryTuishui tuishui = BeanHolder.getTuishuiService().getTuishui4UserOfType(wager.getUserId(), wager.getPgroupId(), wager.getPanlei(), wager.getLotteryMarkSixType());
                 String oddsCacheKey = generateOddsCacheKey(wager.getLotteryMarkSixWagerStubList().get(0), wager, isStubNumberNeededInOdds());
                 Double odds = getOdds(oddsCache, wager, wager.getLotteryMarkSixWagerStubList().get(0), oddsCacheKey);
                 Utils.logger.debug(wager.toString());
@@ -64,6 +65,7 @@ public abstract class RuleJointTailNotParent extends Rule {
                 lotteryResult.setLotteryMarkSixWagerId(wager.getId());
 
                 double winningMoney = 0;
+                double tuishuiMoney = 0;
                 int[] array = new int[wager.getLotteryMarkSixWagerStubList().size()];
                 for (int i = 0; i < wager.getLotteryMarkSixWagerStubList().size(); i++) {
                     array[i] = wager.getLotteryMarkSixWagerStubList().get(i).getNumber();
@@ -79,10 +81,13 @@ public abstract class RuleJointTailNotParent extends Rule {
                     }
                     if (isWin) {
                         winningMoney += wager.getTotalStakes() / wagerStubCombinationList.size() * odds;
+                    } else {
+                        tuishuiMoney += wager.getTotalStakes() * tuishui.getTuishui() / 100;
                     }
                 }
 
                 lotteryResult.setWinningMoney(winningMoney);
+                lotteryResult.setTuishui(tuishuiMoney);
                 BeanHolder.getResultService().saveLotteryResult(lotteryResult);
             }
         }

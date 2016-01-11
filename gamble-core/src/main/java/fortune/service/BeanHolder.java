@@ -27,6 +27,9 @@ public class BeanHolder {
     @Autowired
     private JobTrackerService jobTrackerService;
 
+    @Autowired
+    private TuishuiService tuishuiService;
+
     private static BeanHolder beanHolder;
 
     public BeanHolder() {
@@ -55,5 +58,9 @@ public class BeanHolder {
 
     public static JobTrackerService getJobTrackerService() {
         return beanHolder.jobTrackerService;
+    }
+
+    public static TuishuiService getTuishuiService() {
+        return beanHolder.tuishuiService;
     }
 }

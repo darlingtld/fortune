@@ -61,12 +61,13 @@ public class LotteryUserStatJob {
             List<LotteryResult> lotteryResultList = resultService.getLotteryResult4LotteryIssueAndUser(lotteryIssue, user.getId());
             double totalStakes = 0;
             double validStakes = 0;
-            double tuishiStakes = 0;
+            double tuishui = 0;
             double result = 0;
             for (LotteryResult lotteryResult : lotteryResultList) {
                 LotteryMarkSixWager wager = wagerService.getLotteryMarkSixWager(lotteryResult.getLotteryMarkSixWagerId());
                 totalStakes += wager.getTotalStakes();
                 result += lotteryResult.getWinningMoney();
+                tuishui+=lotteryResult.getTuishui();
             }
             validStakes = totalStakes;
             LotteryMarkSixUserStat lotteryMarkSixUserStat = new LotteryMarkSixUserStat();
@@ -75,7 +76,7 @@ public class LotteryUserStatJob {
             lotteryMarkSixUserStat.setUserId(user.getId());
             lotteryMarkSixUserStat.setStakes(totalStakes);
             lotteryMarkSixUserStat.setValidStakes(validStakes);
-            lotteryMarkSixUserStat.setTuishui(tuishiStakes);
+            lotteryMarkSixUserStat.setTuishui(tuishui);
             lotteryMarkSixUserStat.setResult(result);
             statService.saveLotteryMarkSixStat(lotteryMarkSixUserStat);
         }

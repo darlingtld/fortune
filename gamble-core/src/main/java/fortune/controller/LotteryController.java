@@ -7,6 +7,7 @@ import fortune.pojo.LotteryBall;
 import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.NextLotteryMarkSixInfo;
 import fortune.service.LotteryService;
+import fortune.service.PGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,9 @@ public class LotteryController {
 
     @Autowired
     private LotteryService lotteryService;
+
+    @Autowired
+    private PGroupService pGroupService;
 
     /**
      * 获取所有的开奖结果
@@ -65,16 +69,21 @@ public class LotteryController {
      * @param result
      * @param response
      */
-    @RequestMapping(value = "save", method = RequestMethod.POST, headers = "content-type=application/json")
+    @RequestMapping(value = "save/pgroupid/{pgroupid}", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    void saveLotteryMarkSix(@RequestBody @Valid LotteryMarkSix lotteryMarkSix, BindingResult result, HttpServletResponse response) {
+    void saveLotteryMarkSix(@RequestBody @Valid LotteryMarkSix lotteryMarkSix, @PathVariable("pgroupid") String pgroupId, BindingResult result, HttpServletResponse response) {
         if (result.hasErrors()) {
             response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
             return;
         }
-        lotteryService.saveLotteryMarkSix(lotteryMarkSix);
+        if (pGroupService.getGroupById(pgroupId).getParentPGroupID() == null) {
+            lotteryService.saveLotteryMarkSix(lotteryMarkSix);
+        } else {
+            response.setHeader(Utils.HEADER_MESSAGE, "没有权限手动开奖");
+            response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+        }
     }
 
     /**
