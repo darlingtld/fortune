@@ -376,7 +376,7 @@ public enum LotteryMarkSixType {
                 );
     }
     
-    public static List<LotteryMarkSixType> getTypeList4AllStats() {
+    public static List<LotteryMarkSixType> getTopTypeList() {
         return Arrays.asList(
                 SPECIAL,
                 TWO_FACES,
@@ -406,4 +406,5 @@ public enum LotteryMarkSixType {
                 TAIL_NUM
                 );
     }
+    
 }

@@ -97,6 +97,19 @@ public class LotteryController {
     JSONArray getLotteryMarkSixType() {
         return lotteryService.getLotteryMarkSixType();
     }
+    
+    /**
+     * 获取所有的博彩大类
+     *
+     * @return
+     */
+    @RequestMapping(value = "top_type", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONArray getLotteryMarkSixTopType() {
+        return lotteryService.getLotteryMarkSixTopType();
+    }
+    
 
     /**
      * 根据球的数字获取球的颜色

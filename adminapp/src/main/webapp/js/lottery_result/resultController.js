@@ -21,13 +21,19 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     
     $scope.setCurDate();
     
+    resultService.getTopTypeList().then(function (data) {
+       $scope.wagerTypeList = data;
+       $scope.wagerTypeList.splice(0, 0, {name: 'ALL', title: '全部'});
+       $scope.selectedWagerType = $scope.wagerTypeList[0];
+    });
+    
     resultService.getLotteryMarkSixStatList().then(function (data) {
         $scope.lotteryMarkSixGroupStatList = data;
     });
     
-    resultService.getUserList().then(function(data) {
-       $scope.userList = data.userList;
-       $scope.selectedUser = data.userList[0];
+    resultService.getSubGroupList().then(function(data) {
+       $scope.subGroupList = data;
+       $scope.selectedSubGroup = data[0];
     });
     
 }).filter('chineseWeek', function () {
@@ -47,23 +53,8 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     $scope.end = $routeParams.end;
     
     if ($scope.pageType == 0) {
-        // 大股东报表
-        
         resultService.getStatSummaryByDateRange(sessionStorage['pgroupid'], $routeParams.start, $routeParams.end).then(function(data) {
-            //FIXME mock data
-            $scope.summaryList = [];
-            $scope.summaryList[0] = {
-                username: $routeParams.userId,
-                transactions: 1234,
-                stakes: 213242,
-                memberResult: -123323,
-                groupResult: -23454,
-                groupIncome: -23421,
-                shoufei: 2343,
-                shoufeiResult: -32423,
-                zongjian: 0,
-                companyResult: -23432
-            }
+            $scope.summaryList = data;
         });
         
     } else if ($scope.pageType == 1) {

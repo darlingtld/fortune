@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.persistence.Column;
+
 import fortune.dao.TuishuiDao;
 import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.AtomicDouble;
 
 import common.Utils;
+import fortune.dao.PGroupDao;
 import fortune.dao.StatDao;
 
 /**
@@ -32,6 +35,9 @@ import fortune.dao.StatDao;
 public class StatService {
     @Autowired
     private StatDao statDao;
+    
+    @Autowired
+    private PGroupDao groupDao;
 
     @Autowired
     private WagerService wagerService;
@@ -59,9 +65,40 @@ public class StatService {
     
     @Transactional
     public List<LotteryMarkSixGroupStat> getStatSummaryByDateRange(String groupid, String start, String end) {
-        Utils.logger.info("get lottery mark six stat for group id {} from {} to {}", groupid, start, end);
-        List<LotteryMarkSixGroupStat> statList = statDao.getStatsOfAllSubGroup(groupid, start, end);
-        return statList;
+        Utils.logger.info("get stat summary for group id {} from {} to {}", groupid, start, end);
+        List<LotteryMarkSixGroupStat> resultList = new ArrayList<>();
+        
+        List<PGroup> groupList = groupDao.getPGroupsByParentID(groupid);
+        for (PGroup subGroup : groupList) {
+            List<LotteryMarkSixGroupStat> statList = statDao.getStatSummaryOfGroup(subGroup.getId(), start, end);
+
+            double totalStakes = 0.0;
+            double userResult = 0.0;
+            double pgroupResult = 0.0;
+            double zoufeiStakes = 0.0;
+            double zoufeiResult = 0.0;
+            double pgroupTotalResult = 0.0;
+            for (LotteryMarkSixGroupStat stat : statList) {
+                totalStakes += stat.getTotalStakes();
+                userResult += stat.getUserResult();
+                pgroupResult += stat.getPgroupResult();
+                zoufeiStakes += stat.getZoufeiStakes();
+                zoufeiResult += stat.getZoufeiResult();
+                pgroupTotalResult += pgroupTotalResult;
+            }
+            
+            LotteryMarkSixGroupStat sumStat = new LotteryMarkSixGroupStat();
+            sumStat.setPgroupId(subGroup.getId());
+            sumStat.setTotalStakes(totalStakes);
+            sumStat.setUserResult(userResult);
+            sumStat.setPgroupResult(pgroupResult);
+            sumStat.setZoufeiStakes(zoufeiStakes);
+            sumStat.setZoufeiResult(zoufeiResult);
+            sumStat.setPgroupTotalResult(pgroupTotalResult);
+            resultList.add(sumStat);
+        }
+        
+        return resultList;
     }
 
     @Transactional
@@ -2027,7 +2064,7 @@ public class StatService {
         // initialize count map for all types
         Map<LotteryMarkSixType, AtomicInteger> transactionMap = new HashMap<>();
         Map<LotteryMarkSixType, AtomicDouble> stakesMap = new HashMap<>();
-        getTypeList4AllStats().stream().forEach(type -> {
+        getTopTypeList().stream().forEach(type -> {
             transactionMap.put(type, new AtomicInteger(0));
             stakesMap.put(type, new AtomicDouble(0));
         });
@@ -2125,7 +2162,7 @@ public class StatService {
         }
 
         List<RealtimeStat> statsList = Lists.newArrayList();
-        getTypeList4AllStats().stream().forEach(type -> {
+        getTopTypeList().stream().forEach(type -> {
             RealtimeStat stat = new RealtimeStat();
             stat.setLotteryMarkSixType(type.name());
             stat.setLotteryMarkSixTypeName(type.getType());

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 
-import fortune.pojo.LotteryMarkSixGroupStat;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.RealTimeWager;
 import fortune.pojo.RealtimeStat;
@@ -29,29 +28,6 @@ public class StatController {
 
     @Autowired
     private StatService statService;
-
-    /**
-     * 分页获取某个代理商的历史开奖结果，输赢
-     *
-     * @param groupid
-     * @param from
-     * @param count
-     * @return
-     */
-    @RequestMapping(value = "lottery_mark_six/groupid/{groupid}/from/{from}/count/{count}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<LotteryMarkSixGroupStat> getLotteryMarkSixPagination(@PathVariable("groupid") String groupid, @PathVariable("from") int from, @PathVariable("count") int count) {
-        return statService.getLotteryMarkSixStat(groupid, from, count);
-    }
-    
-    /**
-     * 根据日期范围获取某个代理商下所有子代理商的开奖统计信息
-     */
-    @RequestMapping(value = "summary/groupid/{groupid}/date_start/{start}/date_end/{end}", method = RequestMethod.GET)
-    public @ResponseBody List<LotteryMarkSixGroupStat> getStatSummaryByDateRange(@PathVariable("groupid") String groupid, @PathVariable("start") String start, @PathVariable("end") String end) {
-        return statService.getStatSummaryByDateRange(groupid, start, end);
-    }
 
     /**
      * 获取代理商实时统计信息(实时注单)

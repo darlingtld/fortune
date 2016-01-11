@@ -1,13 +1,13 @@
 package fortune.dao;
 
-import fortune.pojo.LotteryMarkSixGroupStat;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import fortune.pojo.LotteryMarkSixGroupStat;
 
 /**
  * Created by tangl9 on 2015-11-03.
@@ -17,8 +17,7 @@ public class StatDao {
 
     @Autowired
     private SessionFactory sessionFactory;
-
-
+    
     public List<LotteryMarkSixGroupStat> getLotteryMarkSixStat(String groupid, int from, int count) {
         Query query = sessionFactory.getCurrentSession().createQuery(String.format("from LotteryMarkSixGroupStat where pgroupId = '%s' order by lotteryMarkSix.issue desc", groupid));
         query.setFirstResult(from);
@@ -26,9 +25,10 @@ public class StatDao {
         return query.list();
     }
     
-    public List<LotteryMarkSixGroupStat> getStatsOfAllSubGroup(String groupid, String start, String end) {
-        //FIXME 查找所有属于该group的所有下一级group的统计信息
-        return new ArrayList<>();
+    public List<LotteryMarkSixGroupStat> getStatSummaryOfGroup(String groupid, String start, String end) {
+        String sql = "from LotteryMarkSixGroupStat stat where pgroupId = '%s' and stat.lotteryMarkSix.timestamp >= '%s' and stat.lotteryMarkSix.timestamp <= '%s'";
+        Query query = sessionFactory.getCurrentSession().createQuery(String.format(sql, groupid, start, end));
+        return query.list();
     }
 
     public void saveLotteryMarkSixStat(LotteryMarkSixGroupStat stat) {

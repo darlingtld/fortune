@@ -84,6 +84,18 @@ public class LotteryService {
         }
         return jsonArray;
     }
+    
+    public JSONArray getLotteryMarkSixTopType() {
+        Utils.logger.info("get lottery mark six top type");
+        JSONArray jsonArray = new JSONArray();
+        LotteryMarkSixType.getTopTypeList().stream().forEach(type -> {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", type.toString());
+            jsonObject.put("title", type.getType());
+            jsonArray.add(jsonObject);
+        });
+        return jsonArray;
+    }
 
     @Transactional
     public int getLatestLotteryIssue() {
