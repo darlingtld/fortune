@@ -2,26 +2,26 @@
     <div class="form-group result-select-group">
         <label>代理商</label> 
         <select class="form-control" ng-model="selectedSubGroup"
-            ng-options="group.name for group in subGroupList track by group.id"></select>
+                ng-options="group.name for group in subGroupList track by group.id"></select>
     </div>
-    
+
     <div class="form-group result-select-group">
         <label>报表种类</label>
-        <select class="form-control" ng-model="selectedType" ng-init="selectedType = reportTypeList[0]"
-            ng-options="rt.title for rt in reportTypeList track by rt.name"></select>
+        <select class="form-control" ng-model="selectedType" ng-init="selectedType = resultTypeList[0]"
+                ng-options="rt.title for rt in resultTypeList track by rt.name"></select>
         <label>选项</label>
-        <select class="form-control" ng-model="selectedOption" ng-init="selectedOption = reportOptionList[0]"
-            ng-options="opt.title for opt in reportOptionList track by opt.name"></select>
-        <input type="checkbox" ng-model="needStatistics" />
+        <select class="form-control" ng-model="selectedOption" ng-init="selectedOption = resultOptionList[0]"
+                ng-options="opt.title for opt in resultOptionList track by opt.name"></select>
+        <input type="checkbox" ng-model="needStatistics"/>
         <span>统计贡献额</span><span class="color-red">（速度较慢）</span>
     </div>
-    
+
     <div class="form-group result-select-group">
         <label>下注类别</label>
         <select class="form-control" ng-model="selectedWagerType"
-            ng-options="wt.title for wt in wagerTypeList track by wt.name"></select>
+                ng-options="wt.title for wt in wagerTypeList track by wt.name"></select>
     </div>
-    
+
     <div class="form-group result-select-group">
         <label>浏览日期</label> 
         <input type="radio" ng-model="reportDateType" ng-click="setCurDate()" value="0"/> 
@@ -50,7 +50,7 @@
             <span><a ng-click="setTimeRange(4)">本月</a></span>
         </div>
     </div>
-    
+
     <div class="form-group result-select-group">
         <a href="#resultdetail?parentGroupId={{parentGroupId}}&subGroupId={{selectedSubGroup.id}}&reportType={{selectedType.name}}&wagerType={{selectedWagerType.name}}&reportDateType={{reportDateType}}&start={{getDateStr(dateStart)}}&end={{getDateStr(dateEnd)}}">
         <button class="btn btn-default">搜寻</button></a>
@@ -58,49 +58,49 @@
 </div>
 
 <table ng-hide="true">
-	<thead>
-		<tr>
-			<th>日期</th>
-			<th>星期</th>
-			<th>期数</th>
-			<th>搅珠结果</th>
-			<th>特别号</th>
-			<th>下注金额</th>
-			<th>会员结果</th>
-			<th>公司结果</th>
-			<th>走飞金额</th>
-			<th>走飞结果</th>
-			<th>公司总计</th>
-			<th>备注</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="stat in lotteryMarkSixGroupStatList">
-			<td><span
-				ng-bind="stat.lotteryMarkSix.timestamp | date : 'yyyy-MM-dd'"></span></td>
-			<td><span ng-bind="stat.lotteryMarkSix.timestamp | chineseWeek"></span></td>
-			<td><span ng-bind="stat.lotteryMarkSix.issue | issueProcessor"></span></td>
-			<td><span class="ball ball{{stat.lotteryMarkSix.one}}"
-				ng-bind="stat.lotteryMarkSix.one"></span>&nbsp; <span
-				class="ball ball{{stat.lotteryMarkSix.two}}"
-				ng-bind="stat.lotteryMarkSix.two"></span>&nbsp; <span
-				class="ball ball{{stat.lotteryMarkSix.three}}"
-				ng-bind="stat.lotteryMarkSix.three"></span>&nbsp; <span
-				class="ball ball{{stat.lotteryMarkSix.four}}"
-				ng-bind="stat.lotteryMarkSix.four"></span>&nbsp; <span
-				class="ball ball{{stat.lotteryMarkSix.five}}"
-				ng-bind="stat.lotteryMarkSix.five"></span>&nbsp; <span
-				class="ball ball{{stat.lotteryMarkSix.six}}"
-				ng-bind="stat.lotteryMarkSix.six"></span></td>
-			<td><span class="ball ball{{stat.lotteryMarkSix.special}}"
-				ng-bind="stat.lotteryMarkSix.special"></span></td>
-			<td><span ng-bind="stat.totalStakes | currency: '￥'"></span></td>
-			<td><span ng-bind="stat.userResult | currency: '￥'"></span></td>
-			<td><span ng-bind="stat.pgroupResult | currency: '￥'"></span></td>
-			<td><span ng-bind="stat.zoufeiStakes | currency: '￥'"></span></td>
-			<td><span ng-bind="stat.zoufeiResult | currency: '￥'"></span></td>
-			<td><span ng-bind="stat.pgroupTotalResult | currency: '￥'"></span></td>
-			<td><span ng-bind="stat.remark"></span></td>
-		</tr>
-	</tbody>
+    <thead>
+    <tr>
+        <th>日期</th>
+        <th>星期</th>
+        <th>期数</th>
+        <th>搅珠结果</th>
+        <th>特别号</th>
+        <th>下注金额</th>
+        <th>会员结果</th>
+        <th>公司结果</th>
+        <th>走飞金额</th>
+        <th>走飞结果</th>
+        <th>公司总计</th>
+        <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="stat in lotteryMarkSixGroupStatList">
+        <td><span
+                ng-bind="stat.lotteryMarkSix.timestamp | date : 'yyyy-MM-dd'"></span></td>
+        <td><span ng-bind="stat.lotteryMarkSix.timestamp | chineseWeek"></span></td>
+        <td><span ng-bind="stat.lotteryMarkSix.issue | issueProcessor"></span></td>
+        <td><span class="ball ball{{stat.lotteryMarkSix.one}}"
+                  ng-bind="stat.lotteryMarkSix.one"></span>&nbsp; <span
+                class="ball ball{{stat.lotteryMarkSix.two}}"
+                ng-bind="stat.lotteryMarkSix.two"></span>&nbsp; <span
+                class="ball ball{{stat.lotteryMarkSix.three}}"
+                ng-bind="stat.lotteryMarkSix.three"></span>&nbsp; <span
+                class="ball ball{{stat.lotteryMarkSix.four}}"
+                ng-bind="stat.lotteryMarkSix.four"></span>&nbsp; <span
+                class="ball ball{{stat.lotteryMarkSix.five}}"
+                ng-bind="stat.lotteryMarkSix.five"></span>&nbsp; <span
+                class="ball ball{{stat.lotteryMarkSix.six}}"
+                ng-bind="stat.lotteryMarkSix.six"></span></td>
+        <td><span class="ball ball{{stat.lotteryMarkSix.special}}"
+                  ng-bind="stat.lotteryMarkSix.special"></span></td>
+        <td><span ng-bind="stat.totalStakes | currency: '￥'"></span></td>
+        <td><span ng-bind="stat.userResult | currency: '￥'"></span></td>
+        <td><span ng-bind="stat.pgroupResult | currency: '￥'"></span></td>
+        <td><span ng-bind="stat.zoufeiStakes | currency: '￥'"></span></td>
+        <td><span ng-bind="stat.zoufeiResult | currency: '￥'"></span></td>
+        <td><span ng-bind="stat.pgroupTotalResult | currency: '￥'"></span></td>
+        <td><span ng-bind="stat.remark"></span></td>
+    </tr>
+    </tbody>
 </table>

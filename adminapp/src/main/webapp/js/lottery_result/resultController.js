@@ -119,7 +119,7 @@ controller('resultController', function ($scope, $rootScope, resultService) {
                 }
             }
         });
-        
+       
         resultService.getUserSummary($routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data) {
             $scope.userSummaryList = data;
             
@@ -140,8 +140,5 @@ controller('resultController', function ($scope, $rootScope, resultService) {
             $scope.summaryList = data;
         });
     }
-    
-    
-    
     
 });
