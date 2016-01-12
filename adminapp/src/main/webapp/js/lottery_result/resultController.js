@@ -4,20 +4,68 @@
 angular.module("AdminApp").
 controller('resultController', function ($scope, $rootScope, resultService) {
     $rootScope.menu = 3;
+    $scope.parentGroupId = sessionStorage['pgroupid'];
     
     $scope.formats = ['yyyy年MM月dd日', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
     
-    $scope.resultTypeList = [{name: '0', title: '总帐'}, {name: '1', title: '分类帐'}];
-    $scope.resultOptionList = [{name: '0', title: '全部'}, {name: '1', title: '上缴'}, {name: '2', title: '赢分'}];
+    $scope.reportTypeList = [{name: 'ALL', title: '总帐'}, {name: 'SUB', title: '分类帐'}];
+    $scope.reportOptionList = [{name: 'ALL', title: '全部'}, {name: 'SHANGJIAO', title: '上缴'}, {name: 'YINGFEN', title: '赢分'}];
     $scope.curDate = new Date();
-    $scope.dateType = 0;
+    $scope.reportDateType = 0;
         
     $scope.setCurDate = function() {
-        var dateStr = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-        $scope.dateStart = dateStr;
-        $scope.dateEnd = dateStr;
+        $scope.dateStart = new Date();
+        $scope.dateEnd = new Date();
     };
+    
+    $scope.getDateStr = function(time) {
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        return time.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (date < 10 ? '0' : '') + date;
+    }
+    
+    function addDay(time, days) {
+        var t = new Date(time);
+        t.setDate(t.getDate() + days);
+        return t;
+    }
+    
+    $scope.setTimeRange = function(type) {
+        var start, end;
+        var now = new Date();
+        now.setHours(0);
+        now.setMinutes(0);
+        now.setSeconds(0);
+        now.setMilliseconds(0);
+        
+        switch (type) {
+            case 0: // 昨日
+                start = addDay(now, -1);
+                end = start;
+                break;
+            case 1: // 上周
+                var nowDayOfWeek = (now.getDay() == 0) ? 7 : now.getDay() - 1;
+                start = addDay(now, -nowDayOfWeek - 7);
+                end = addDay(start, 6);
+                break;
+            case 2: // 本周
+                var nowDayOfWeek = (now.getDay() == 0) ? 7 : now.getDay() - 1;
+                start = addDay(now, -nowDayOfWeek);
+                end = addDay(start, 6);
+                break;
+            case 3: // 上月
+                start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                end = addDay(new Date(now.getFullYear(), now.getMonth(), 1), -1);
+                break;
+            case 4: // 本月
+                start = new Date(now.getFullYear(), now.getMonth(), 1);
+                end = now;
+                break;
+        }
+        $scope.dateStart = start;
+        $scope.dateEnd = end;
+    }
     
     $scope.setCurDate();
     
@@ -33,6 +81,7 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     
     resultService.getSubGroupList().then(function(data) {
        $scope.subGroupList = data;
+       $scope.subGroupList.splice(0, 0, {id: 'ALL', name: '全部'});
        $scope.selectedSubGroup = data[0];
     });
     
@@ -46,35 +95,53 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     }
     
 }).controller('resultDetailController', function ($scope, $rootScope, $routeParams, resultService) {
-    $scope.pageType = $routeParams.pageType;
+    $scope.reportDateType = $routeParams.reportDateType;
+    $scope.reportType = $routeParams.reportType;
     $scope.curDate = new Date();
-    $scope.userId = $routeParams.userId;
+    $scope.parentGroupId = $routeParams.parentGroupId;
     $scope.start = $routeParams.start;
     $scope.end = $routeParams.end;
     
-    if ($scope.pageType == 0) {
-        resultService.getStatSummaryByDateRange(sessionStorage['pgroupid'], $routeParams.start, $routeParams.end).then(function(data) {
-            $scope.summaryList = data;
-        });
-        
-    } else if ($scope.pageType == 1) {
-        // 代理商报表
-        resultService.getStatSummaryByDateRange($routeParams.userId, $routeParams.start, $routeParams.end).then(function(data) {
-            //FIXME mock data
-            $scope.summaryList = [];
-            $scope.summaryList[0] = {
-                username: $routeParams.userId,
-                transactions: 1234,
-                stakes: 213242,
-                memberResult: -123323,
-                groupResult: -23454,
-                groupIncome: -23421,
-                shoufei: 2343,
-                shoufeiResult: -32423,
-                zongjian: 0,
-                companyResult: -23432
+    $scope.groupSummaryList = [];
+    $scope.userSummaryList = [];
+    
+    if ($scope.reportType == 'ALL') {
+        resultService.getSubGroupSummary($routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data) {
+            var subGroupId = $routeParams.subGroupId;
+            if (subGroupId == 'ALL') {
+                $scope.groupSummaryList = data;
+            } else {
+                for (var i = 0; i < data.length; i ++) {
+                    if (data[i].pgroupId == subGroupId) {
+                        $scope.groupSummaryList.push(data[i]);
+                        break;
+                    }
+                }
             }
         });
+        
+        resultService.getUserSummary($routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data) {
+            $scope.userSummaryList = data;
+            
+            $scope.userStakesTotal = 0;
+            $scope.userValidStakesTotal = 0;
+            $scope.userTuishuiTotal = 0;
+            $scope.userResultTotal = 0;
+            $scope.userSummaryList.forEach(function (ele) {
+                $scope.userStakesTotal += ele.stakes;
+                $scope.userValidStakesTotal += ele.validStakes;
+                $scope.userTuishuiTotal += ele.tuishui;
+                $scope.userResultTotal += ele.result;
+            })
+        });
+        
+    } else {
+        resultService.getSummary4AllType($routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data) {
+            $scope.summaryList = data;
+        });
     }
+    
+    
+    
     
 });

@@ -1,39 +1,59 @@
 <div class="panel result-select-board">
     <div class="form-group result-select-group">
-        <label>大股东</label> 
+        <label>代理商</label> 
         <select class="form-control" ng-model="selectedSubGroup"
             ng-options="group.name for group in subGroupList track by group.id"></select>
     </div>
     
     <div class="form-group result-select-group">
         <label>报表种类</label>
-        <select class="form-control" ng-model="selectedType" ng-init="selectedType = resultTypeList[0]"
-            ng-options="rt.title for rt in resultTypeList track by rt.name"></select>
-        <label>选项</label> 
-        <select class="form-control" ng-model="selectedOption" ng-init="selectedOption = resultOptionList[0]"
-            ng-options="opt.title for opt in resultOptionList track by opt.name"></select>
+        <select class="form-control" ng-model="selectedType" ng-init="selectedType = reportTypeList[0]"
+            ng-options="rt.title for rt in reportTypeList track by rt.name"></select>
+        <label>选项</label>
+        <select class="form-control" ng-model="selectedOption" ng-init="selectedOption = reportOptionList[0]"
+            ng-options="opt.title for opt in reportOptionList track by opt.name"></select>
         <input type="checkbox" ng-model="needStatistics" />
         <span>统计贡献额</span><span class="color-red">（速度较慢）</span>
     </div>
     
     <div class="form-group result-select-group">
-        <label>下注类别</label> 
+        <label>下注类别</label>
         <select class="form-control" ng-model="selectedWagerType"
             ng-options="wt.title for wt in wagerTypeList track by wt.name"></select>
     </div>
     
     <div class="form-group result-select-group">
         <label>浏览日期</label> 
-        <input type="radio" ng-model="dateType" ng-click="setCurDate()" value="0"/> 
+        <input type="radio" ng-model="reportDateType" ng-click="setCurDate()" value="0"/> 
         <span>本日帐<span class="color-red">（报帐日{{curDate | date : 'yyyy-MM-dd'}}）</span></span>
-        <input type="radio" ng-model="dateType" value="1"/>
+        <input type="radio" ng-model="reportDateType" value="1"/>
         <span>历史帐<span class="color-red">（已颁奖）</span></span>
-        <input ng-show="dateType == 1" ng-model="dateStart" type="text" class="form-control" placeholder="起始时间" />
-        <input ng-show="dateType == 1" ng-model="dateEnd" type="text" class="form-control" placeholder="结束时间" />
+        <div ng-show="reportDateType == 1" class="row history-result-datepicker">
+            <div class="input-group">
+                <span class="input-group-addon">起始时间：</span>
+                <input type="date" class="form-control" uib-datepicker-popup ng-model="dateStart"
+                       is-open="popup1.opened"
+                       datepicker-options="dateOptions"
+                       ng-required="true" close-text="Close"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">结束时间：</span>
+                <input type="date" class="form-control" uib-datepicker-popup ng-model="dateEnd"
+                       is-open="popup2.opened"
+                       datepicker-options="dateOptions"
+                       ng-required="true" close-text="Close"/>
+            </div>
+            <span><a ng-click="setTimeRange(0)">昨日</a></span>
+            <span><a ng-click="setTimeRange(1)">上周</a></span>
+            <span><a ng-click="setTimeRange(2)">本周</a></span>
+            <span><a ng-click="setTimeRange(3)">上月</a></span>
+            <span><a ng-click="setTimeRange(4)">本月</a></span>
+        </div>
     </div>
     
     <div class="form-group result-select-group">
-        <a href="#resultdetail?pageType=0&userId={{selectedUser.id}}&start={{dateStart}}&end={{dateEnd}}"><button class="btn btn-default" >搜寻</button></a>
+        <a href="#resultdetail?parentGroupId={{parentGroupId}}&subGroupId={{selectedSubGroup.id}}&reportType={{selectedType.name}}&wagerType={{selectedWagerType.name}}&reportDateType={{reportDateType}}&start={{getDateStr(dateStart)}}&end={{getDateStr(dateEnd)}}">
+        <button class="btn btn-default">搜寻</button></a>
     </div>
 </div>
 

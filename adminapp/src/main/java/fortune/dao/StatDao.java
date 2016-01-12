@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fortune.pojo.LotteryMarkSixGroupStat;
+import fortune.pojo.LotteryMarkSixUserStat;
 
 /**
  * Created by tangl9 on 2015-11-03.
@@ -29,6 +30,10 @@ public class StatDao {
         String sql = "from LotteryMarkSixGroupStat stat where pgroupId = '%s' and stat.lotteryMarkSix.timestamp >= '%s' and stat.lotteryMarkSix.timestamp <= '%s'";
         Query query = sessionFactory.getCurrentSession().createQuery(String.format(sql, groupid, start, end));
         return query.list();
+    }
+    
+    public List<LotteryMarkSixUserStat> getLotteryMarkSixUserStatList(String userId, String start, String end) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from LotteryMarkSixUserStat where userId='%s' and openTs >= '%s' and openTs <='%s' order by issue desc", userId, start, end)).list();
     }
 
     public void saveLotteryMarkSixStat(LotteryMarkSixGroupStat stat) {

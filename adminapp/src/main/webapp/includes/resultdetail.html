@@ -1,112 +1,68 @@
-<div ng-if="pageType == 0">
-    <p class="alert alert-warning">
+<div>
+    <p ng-if="reportDateType == 1" class="alert alert-warning">
         请注意: <span class="color-red">历史帐仅提供已结算数据报表</span>, 若日期区间含本日({{curDate | date : 'yyyy-MM-dd'}}), 
         且<span class="color-red">该日帐未结算时以本日帐报表为准</span> (时时彩结算时间为昱日0300後)
     </p>
     
-    <table>
+    <table ng-if="groupSummaryList.length > 0">
         <thead>
-            <tr><th colspan="10">六合彩</th></tr>
+            <tr><th colspan="8">代理商报表</th></tr>
             <tr>
-                <th>大股东帐号名称</th>
-                <th>笔数</th>
+                <th>帐号名称</th>
                 <th>下注金额</th>
-                <th>会员结果</th>
-                <th>大股东结果</th>
-                <th>大股东交收</th>
-                <th>收飞</th>
-                <th>收飞结果</th>
-                <th>总监</th>
-                <th>公司结果</th>
+    			<th>会员结果</th>
+    			<th>公司结果</th>
+    			<th>走飞金额</th>
+    			<th>走飞结果</th>
+    			<th>公司总计</th>
+                <th>备注</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="summary in summaryList">
-                <td ng-bind="summary.pgroupId"></td>
-                <td>0</td>
+            <tr ng-repeat="summary in groupSummaryList">
+                <td ng-bind="summary.pgroup.name"></td>
                 <td>
-                    <a ng-bind="summary.totalStakes" href="#resultdetail?pageType=1&userId={{summary.pgroupId}}&start={{start}}&end={{end}}"></a>
+                    <a ng-bind="summary.totalStakes | currency: '￥'" href="#reportdetail?parentGroupId={{summary.pgroup.id}}&start={{start}}&end={{end}}"></a>
                 </td>
-                <td ng-class="{true: 'color-red'}[summary.userResult < 0]" ng-bind="summary.userResult"></td>
-                <td ng-class="{true: 'color-red'}[summary.pgroupTotalResult < 0]" ng-bind="summary.pgroupTotalResult"></td>
-                <td ng-class="{true: 'color-red'}[summary.groupIncome < 0]">0</td>
-                <td ng-class="{true: 'color-red'}[summary.zoufeiStakes < 0]" ng-bind="summary.zoufeiStakes"></td>
-                <td ng-class="{true: 'color-red'}[summary.zoufeiResult < 0]" ng-bind="summary.zoufeiResult"></td>
-                <td>0</td>
-                <td ng-class="{true: 'color-red'}[summary.companyResult < 0]">0</td>
+                <td><span ng-bind="summary.userResult | currency: '￥'"></span></td>
+                <td><span ng-bind="summary.pgroupResult | currency: '￥'"></span></td>
+                <td><span ng-bind="summary.zoufeiStakes | currency: '￥'"></span></td>
+                <td><span ng-bind="summary.zoufeiResult | currency: '￥'"></span></td>
+                <td><span ng-bind="summary.pgroupTotalResult | currency: '￥'"></span></td>
+                <td><span ng-bind="summary.remark"></span></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table ng-if="userSummaryList.length > 0">
+        <thead>
+            <tr><th colspan="5">直属会员报表</th></tr>
+            <tr>
+                <th>帐号名称</th>
+                <th>下注金额</th>
+                <th>有效投注</th>
+                <th>退水</th>
+                <th>结果</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="summary in userSummaryList">
+                <td ng-bind="summary.user.username"></td>
+                <td>
+                    <a ng-bind="summary.stakes | currency: '￥'" href="#"></a>
+                </td>
+                <td ng-bind="summary.validStakes | currency: '￥'"></td>
+                <td ng-bind="summary.tuishui | currency: '￥'"></td>
+                <td ng-bind="summary.result | currency: '￥'"></td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">合计</th>
+                <th ng-bind="userStakesTotal  | currency: '￥'"></th>
+                <th ng-bind="userValidStakesTotal  | currency: '￥'"></th>
+                <th ng-bind="userTuishuiTotal  | currency: '￥'"></th>
+                <th ng-bind="userResultTotal | currency: '￥'"></th>
             </tr>
         </tbody>
     </table>
 </div>
 
-<div ng-if="pageType == 1">
-    <p class="alert alert-warning">
-        请注意: <span class="color-red">历史帐仅提供已结算数据报表</span>, 若日期区间含本日({{curDate | date : 'yyyy-MM-dd'}}), 
-        且<span class="color-red">该日帐未结算时以本日帐报表为准</span> (时时彩结算时间为昱日0300後)
-    </p>
-    
-    <table>
-        <thead>
-            <tr><th colspan="16">六合彩</th></tr>
-            <tr>
-                <th rowspan="2">股东帐号名称</th>
-                <th rowspan="2">笔数</th>
-                <th rowspan="2">下注金额</th>
-                <th rowspan="2">会员结果</th>
-                <th rowspan="2">股东交收</th>
-                <th colspan="5">大股东</th>
-                <th colspan="4">大股东收飞</th>
-                <th rowspan="2">总结果</th>
-                <th rowspan="2">大股东交收</th>
-            </tr>
-            <tr>
-                <th>退水</th>
-                <th>倍差</th>
-                <th>金额</th>
-                <th>占成</th>
-                <th>结果</th>
-                <th>收飞</th>
-                <th>退水</th>
-                <th>倍差</th>
-                <th>结果</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="summary in summaryList">
-                <td ng-bind="summary.username"></td>
-                <td ng-bind="summary.transactions"></td>
-                <td>
-                    <a ng-bind="summary.stakes" href="#resultdetail?pageType=1&userId={{userId}}&start={{start}}&end={{end}}"></a>
-                </td>
-                <td ng-class="{true: 'color-red'}[summary.memberResult < 0]" ng-bind="summary.memberResult"></td>
-                <td ng-class="{true: 'color-red'}[summary.groupResult < 0]" ng-bind="summary.groupResult"></td>
-                <td ng-class="{true: 'color-red'}[summary.groupIncome < 0]" ng-bind="summary.groupIncome"></td>
-                <td>12334</td>
-                <td>12334</td>
-                <td>12334</td>
-                <td>12334</td>
-                <td>12334</td>
-                <td>12334</td>
-                <td>12334</td>
-                <td>12334</td>
-                <td>12334</td>
-                <td>12334</td>
-            </tr>
-            <tr>
-                <td colspan="10" rowspan="2">六合彩 大股东 走飞及总结果</td>
-                <td>走飞金额</td>
-                <td>走飞退水</td>
-                <td colspan="2">走飞结果</td>
-                <td>大股东结果（总计）</td>
-                <td>公司结果（总计）</td>
-            </tr>
-            <tr>
-                <td>20439</td>
-                <td>2657</td>
-                <td colspan="2">5290</td>
-                <td>57817</td>
-                <td>33606</td>
-            </tr>
-        </tbody>
-    </table>
-</div>

@@ -58,50 +58,6 @@ public class StatService {
     private TuishuiService tuishuiService;
 
     @Transactional
-    public List<LotteryMarkSixGroupStat> getLotteryMarkSixStat(String groupid, int from, int count) {
-        Utils.logger.info("get lottery mark six stat for group id {} from {}, count {}", groupid, from, count);
-        return statDao.getLotteryMarkSixStat(groupid, from, count);
-    }
-    
-    @Transactional
-    public List<LotteryMarkSixGroupStat> getStatSummaryByDateRange(String groupid, String start, String end) {
-        Utils.logger.info("get stat summary for group id {} from {} to {}", groupid, start, end);
-        List<LotteryMarkSixGroupStat> resultList = new ArrayList<>();
-        
-        List<PGroup> groupList = groupDao.getPGroupsByParentID(groupid);
-        for (PGroup subGroup : groupList) {
-            List<LotteryMarkSixGroupStat> statList = statDao.getStatSummaryOfGroup(subGroup.getId(), start, end);
-
-            double totalStakes = 0.0;
-            double userResult = 0.0;
-            double pgroupResult = 0.0;
-            double zoufeiStakes = 0.0;
-            double zoufeiResult = 0.0;
-            double pgroupTotalResult = 0.0;
-            for (LotteryMarkSixGroupStat stat : statList) {
-                totalStakes += stat.getTotalStakes();
-                userResult += stat.getUserResult();
-                pgroupResult += stat.getPgroupResult();
-                zoufeiStakes += stat.getZoufeiStakes();
-                zoufeiResult += stat.getZoufeiResult();
-                pgroupTotalResult += pgroupTotalResult;
-            }
-            
-            LotteryMarkSixGroupStat sumStat = new LotteryMarkSixGroupStat();
-            sumStat.setPgroupId(subGroup.getId());
-            sumStat.setTotalStakes(totalStakes);
-            sumStat.setUserResult(userResult);
-            sumStat.setPgroupResult(pgroupResult);
-            sumStat.setZoufeiStakes(zoufeiStakes);
-            sumStat.setZoufeiResult(zoufeiResult);
-            sumStat.setPgroupTotalResult(pgroupTotalResult);
-            resultList.add(sumStat);
-        }
-        
-        return resultList;
-    }
-
-    @Transactional
     public void saveLotteryMarkSixStat(LotteryMarkSixGroupStat stat) {
         Utils.logger.info("save lottery mark six group stat", stat);
         statDao.saveLotteryMarkSixStat(stat);

@@ -142,14 +142,15 @@
     overflow: auto;
 }
 
-.result-select-group > select {
+.result-select-group select {
     display: inline-block;
     width: 10%;
 }
 
-.result-select-group > input[type=text] {
+.result-select-group input[type=text] {
     display: inline-block;
-    width: 10%;
+    text-align: center;
+    width: 8%;
 }
 
 .result-select-group button {
@@ -164,12 +165,30 @@
     background-color: #EEE !important;
 }
 
-.result-select-group > input[type=checkbox] {
+.result-select-group input[type=checkbox] {
     margin-left: 6%;
 }
 
-.result-select-group > label {
+.result-select-group a {
+    cursor: pointer;
+}
+
+.result-select-group label {
     text-align: right;
     padding-right: 10px;
     width: 8%;
+}
+
+.history-result-datepicker {
+    display: inline-block;
+}
+
+.history-result-datepicker > div{
+    width: 150px;
+    float: left;
+    margin: -5px 10px 0 10px;
+}
+
+.history-result-datepicker input{
+    width: 150px !important;
 }

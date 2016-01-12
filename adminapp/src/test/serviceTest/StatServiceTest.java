@@ -26,6 +26,9 @@ public class StatServiceTest {
 
     @Autowired
     private LotteryService lotteryService;
+    
+    @Autowired
+    private AdminReportService adminReportService;
 
     @Autowired
     private PGroupService pGroupService;
@@ -41,7 +44,7 @@ public class StatServiceTest {
         String pgroupId = "56395fa0e7081d3714335213";
         int from = 0;
         int count = 10;
-        List<LotteryMarkSixGroupStat> lotteryMarkSixGroupStatList = statService.getLotteryMarkSixStat(pgroupId, from, count);
+        List<LotteryMarkSixGroupStat> lotteryMarkSixGroupStatList = adminReportService.getLotteryMarkSixStat(pgroupId, from, count);
         lotteryMarkSixGroupStatList.forEach(System.out::println);
     }
 
