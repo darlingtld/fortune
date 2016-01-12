@@ -7,11 +7,11 @@
 
     <div class="form-group result-select-group">
         <label>报表种类</label>
-        <select class="form-control" ng-model="selectedType" ng-init="selectedType = resultTypeList[0]"
-                ng-options="rt.title for rt in resultTypeList track by rt.name"></select>
+        <select class="form-control" ng-model="selectedType" ng-init="selectedType = reportTypeList[0]"
+                ng-options="rt.title for rt in reportTypeList track by rt.name"></select>
         <label>选项</label>
-        <select class="form-control" ng-model="selectedOption" ng-init="selectedOption = resultOptionList[0]"
-                ng-options="opt.title for opt in resultOptionList track by opt.name"></select>
+        <select class="form-control" ng-model="selectedOption" ng-init="selectedOption = reportOptionList[0]"
+                ng-options="opt.title for opt in reportOptionList track by opt.name"></select>
         <input type="checkbox" ng-model="needStatistics"/>
         <span>统计贡献额</span><span class="color-red">（速度较慢）</span>
     </div>
