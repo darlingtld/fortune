@@ -135,9 +135,9 @@ controller('resultController', function ($scope, $rootScope, resultService) {
             })
         });
         
-    } else {
-        resultService.getSummary4AllType($routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data) {
-            $scope.summaryList = data;
+    } else {  // 分类账
+        resultService.getSummary4Type($routeParams.wagerType, $routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data) {
+            $scope.wagerTypeReportList = data;
         });
     }
     

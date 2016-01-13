@@ -37,9 +37,6 @@ public class StatService {
     private StatDao statDao;
     
     @Autowired
-    private PGroupDao groupDao;
-
-    @Autowired
     private WagerService wagerService;
 
     @Autowired
@@ -2020,7 +2017,7 @@ public class StatService {
         // initialize count map for all types
         Map<LotteryMarkSixType, AtomicInteger> transactionMap = new HashMap<>();
         Map<LotteryMarkSixType, AtomicDouble> stakesMap = new HashMap<>();
-        getTopTypeList().stream().forEach(type -> {
+        getWagerTypeList().stream().forEach(type -> {
             transactionMap.put(type, new AtomicInteger(0));
             stakesMap.put(type, new AtomicDouble(0));
         });
@@ -2118,7 +2115,7 @@ public class StatService {
         }
 
         List<RealtimeStat> statsList = Lists.newArrayList();
-        getTopTypeList().stream().forEach(type -> {
+        getWagerTypeList().stream().forEach(type -> {
             RealtimeStat stat = new RealtimeStat();
             stat.setLotteryMarkSixType(type.name());
             stat.setLotteryMarkSixTypeName(type.getType());

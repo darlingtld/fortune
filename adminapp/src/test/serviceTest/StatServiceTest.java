@@ -1,7 +1,9 @@
 package serviceTest;
 
-import fortune.pojo.*;
-import fortune.service.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import fortune.pojo.LotteryMarkSix;
+import fortune.pojo.LotteryMarkSixGroupStat;
+import fortune.pojo.LotteryMarkSixType;
+import fortune.pojo.LotteryMarkSixWager;
+import fortune.pojo.PGroup;
+import fortune.service.AdminReportService;
+import fortune.service.LotteryService;
+import fortune.service.PGroupService;
+import fortune.service.PredictionService;
+import fortune.service.StatService;
+import fortune.service.WagerService;
 
 /**
  * Created by tangl9 on 2015-10-16.

@@ -28,9 +28,9 @@ service('resultService', function ($q, $http) {
         return deferred.promise;
     }
     
-    this.getSummary4AllType = function (groupId, start, end) {
+    this.getSummary4Type = function (type, groupId, start, end) {
         var deferred = $q.defer();
-        $http.get('report/group/summary/alltype/groupid/' + groupId + '/date_start/' + start + '/date_end/' + end).success(function (data) {
+        $http.get('report/group/summary/type/' + type + '/groupid/' + groupId + '/date_start/' + start + '/date_end/' + end).success(function (data) {
             deferred.resolve(data);
         });
         return deferred.promise;

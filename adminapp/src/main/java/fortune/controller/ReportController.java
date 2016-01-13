@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import fortune.pojo.AdminReport;
 import fortune.pojo.LotteryMarkSixGroupStat;
 import fortune.pojo.LotteryMarkSixUserStat;
 import fortune.service.AdminReportService;
@@ -51,9 +52,17 @@ public class ReportController {
     /**
      * 根据日期范围获取某个代理商的所有注单类型的报表信息
      */
-    @RequestMapping(value = "group/summary/alltype/groupid/{groupid}/date_start/{start}/date_end/{end}", method = RequestMethod.GET)
-    public @ResponseBody List<LotteryMarkSixGroupStat> getSummary4AllType(@PathVariable("groupid") String groupid, @PathVariable("start") String start, @PathVariable("end") String end) {
-        return adminReportService.getSummary4AllType(groupid, start, end);
+    @RequestMapping(value = "group/summary/type/{type}/groupid/{groupid}/date_start/{start}/date_end/{end}", method = RequestMethod.GET)
+    public @ResponseBody List<AdminReport> getSummary4Type(
+            @PathVariable("type") String type,
+            @PathVariable("groupid") String groupid, 
+            @PathVariable("start") String start, 
+            @PathVariable("end") String end) {
+        if ("ALL".equalsIgnoreCase(type)) {
+            return adminReportService.getSummary4AllType(groupid, start, end);
+        } else {
+            return adminReportService.getSummary4Type(type, groupid, start, end);
+        }
     }
     
     /**

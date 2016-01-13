@@ -1,6 +1,7 @@
 package fortune.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import common.Utils;
+import fortune.dao.LotteryDao;
+import fortune.dao.LotteryResultDao;
 import fortune.dao.PGroupDao;
 import fortune.dao.StatDao;
+import fortune.pojo.AdminReport;
+import fortune.pojo.LotteryMarkSix;
 import fortune.pojo.LotteryMarkSixGroupStat;
 import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryMarkSixUserStat;
+import fortune.pojo.LotteryMarkSixWager;
+import fortune.pojo.LotteryResult;
 import fortune.pojo.PGroup;
 import fortune.pojo.User;
+import fortune.util.CommonUtils;
 
 @Service
 public class AdminReportService {
@@ -24,6 +32,18 @@ public class AdminReportService {
     
     @Autowired
     PGroupDao groupDao;
+    
+    @Autowired
+    WagerService wagerService;
+    
+    @Autowired
+    LotteryResultDao lotteryResultDao;
+    
+    @Autowired
+    LotteryDao lotteryDao;
+    
+    @Autowired
+    ResultService resultService;
 
     @Transactional
     public List<LotteryMarkSixGroupStat> getLotteryMarkSixStat(String groupid, int from, int count) {
@@ -71,19 +91,49 @@ public class AdminReportService {
     }
     
     @Transactional
-    public List<LotteryMarkSixGroupStat> getSummary4AllType(String groupid, String start, String end) {
-        Utils.logger.info("get stat summary for sub type for group id {} from {} to {}", groupid, start, end);
-        //FIXME 获取某个group在该时间范围内的所有类型的注单统计信息
-        
-        return null;
+    public List<AdminReport> getSummary4AllType(String groupid, String start, String end) {
+        List<AdminReport> reportList = new ArrayList<>();
+        LotteryMarkSixType.getWagerTypeList().stream().forEach(type -> {
+            reportList.addAll(getSummary4Type(type.name(), groupid, start, end));
+        });
+        return reportList;
     }
     
     @Transactional
-    public List<LotteryMarkSixGroupStat> getSummary4Type(String groupid, LotteryMarkSixType type, String start, String end) {
-        Utils.logger.info("get stat summary for sub type for group id {} from {} to {}", groupid, start, end);
-        //FIXME 获取某个group在该时间范围内的某个类型的注单统计信息
+    public List<AdminReport> getSummary4Type(String type, String groupid, String start, String end) {
+        Utils.logger.info("get admin report for type {} for group id {} from {} to {}", type, groupid, start, end);
         
-        return null;
+        int totalTransactions = 0;
+        double totalStakes = 0.0;
+        double totalUserResult = 0.0;
+        
+        PGroup group = groupDao.getGroupById(groupid);
+        LotteryMarkSixType wagerType = LotteryMarkSixType.valueOf(type);
+        
+        List<LotteryMarkSix> lotteryList = lotteryDao.getLotteryMarkSixByTimeRange(start, end);
+        for (LotteryMarkSix lottery : lotteryList) {
+            int issue = lottery.getIssue();
+            
+            List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(wagerType, groupid, "ALL", issue, null);
+            for (LotteryMarkSixWager wager : wagerList) {
+                totalTransactions += CommonUtils.getTransactionsOfWager(wager);
+                totalStakes += wager.getTotalStakes();
+            }
+            
+            LotteryResult userResult = lotteryResultDao.calSumResult4WagerList(wagerList);
+            totalUserResult += userResult != null ? userResult.getWinningMoney() : 0;
+        }
+        
+        AdminReport report = new AdminReport();
+        report.setPgroupId(groupid);
+        report.setTotalTransactions(totalTransactions);
+        report.setTotalStakes(totalStakes);
+        report.setUserResult(totalUserResult);
+        report.setPgroup(group);
+        report.setWagerType(wagerType);
+        report.setWagerTypeName(wagerType.getType());
+        
+        return Arrays.asList(report);
     }
     
     @Transactional

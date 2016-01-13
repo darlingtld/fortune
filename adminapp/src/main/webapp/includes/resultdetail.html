@@ -64,5 +64,35 @@
             </tr>
         </tbody>
     </table>
+    
+    <table ng-if="wagerTypeReportList.length > 0">
+        <thead>
+            <tr><th colspan="8">六合彩</th></tr>
+            <tr>
+                <th>下注种类</th>
+                <th>笔数</th>
+                <th>下注金额</th>
+                <th>会员结果</th>
+                <th>公司结果</th>
+                <th>走飞金额</th>
+                <th>走飞结果</th>
+                <th>公司总计</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="report in wagerTypeReportList">
+                <td ng-bind="report.wagerTypeName"></td>
+                <td ng-bind="report.totalTransactions"></td>
+                <td>
+                    <a ng-bind="report.totalStakes | currency: '￥'" href=""></a>
+                </td>
+                <td><span ng-bind="report.userResult | currency: '￥'"></span></td>
+                <td><span ng-bind="report.pgroupResult | currency: '￥'"></span></td>
+                <td><span ng-bind="report.zoufeiStakes | currency: '￥'"></span></td>
+                <td><span ng-bind="report.zoufeiResult | currency: '￥'"></span></td>
+                <td><span ng-bind="report.pgroupTotalResult | currency: '￥'"></span></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
