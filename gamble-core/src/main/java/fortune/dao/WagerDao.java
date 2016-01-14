@@ -98,7 +98,13 @@ public class WagerDao {
 
     //TODO code can be reused in getLotteryMarkSixWagerList()
     public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, String panlei, int issue, LotteryMarkSixType ballType) {
-        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei)));
+        Query searchWagerQuery = null;
+        
+        if ("ALL".equalsIgnoreCase(panlei)) {
+            searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(type)));
+        } else {
+            searchWagerQuery = new Query(Criteria.where("lotteryIssue").is(issue).andOperator(Criteria.where("pgroupId").is(groupId), Criteria.where("lotteryMarkSixType").is(type), Criteria.where("panlei").is(panlei)));
+        }
 
         if (ballType != null) {
             List<LotteryMarkSixWager> wagerList = new ArrayList<>();

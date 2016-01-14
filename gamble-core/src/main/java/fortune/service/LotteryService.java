@@ -88,7 +88,7 @@ public class LotteryService {
     public JSONArray getLotteryMarkSixTopType() {
         Utils.logger.info("get lottery mark six top type");
         JSONArray jsonArray = new JSONArray();
-        LotteryMarkSixType.getTopTypeList().stream().forEach(type -> {
+        LotteryMarkSixType.getWagerTypeList().stream().forEach(type -> {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("name", type.toString());
             jsonObject.put("title", type.getType());

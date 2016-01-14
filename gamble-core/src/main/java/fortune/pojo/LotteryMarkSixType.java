@@ -376,7 +376,7 @@ public enum LotteryMarkSixType {
                 );
     }
     
-    public static List<LotteryMarkSixType> getTopTypeList() {
+    public static List<LotteryMarkSixType> getWagerTypeList() {
         return Arrays.asList(
                 SPECIAL,
                 TWO_FACES,

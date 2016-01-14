@@ -156,11 +156,15 @@ public class WagerService {
 
     /**
      * Get wager list by specific <tt>type</tt>, <tt>groupId</tt>, <tt>panlei</tt>, <tt>issue</tt>, <tt>ballType</tt>. <br>
-     * Note: <tt>ballType</tt> is optional.
+     * Note: <br> 
+     *  - <tt>ballType</tt> is optional. <br>
+     *  - <tt>panlei</tt> can be "ALL" <br>
+     * 
      */
     @Transactional
     public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, String panlei, int issue, LotteryMarkSixType ballType) {
         Utils.logger.info("get lottery mark six wager list of type {} lottery issue {},group id{}, panlei {}", type.getType(), issue, groupId, panlei);
         return wagerDao.getLotteryMarkSixWagerList(type, groupId, panlei, issue, ballType);
     }
+    
 }
