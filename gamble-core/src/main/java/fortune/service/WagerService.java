@@ -32,9 +32,6 @@ public class WagerService {
     @Autowired
     private LotteryDao lotteryDao;
 
-    @Autowired
-    private CommonService commonService;
-
     @Transactional
     public LotteryMarkSixWager getLotteryMarkSixWager(String lotteryMarkSixWagerId) {
         Utils.logger.info("get lottery mark six wager id {}", lotteryMarkSixWagerId);

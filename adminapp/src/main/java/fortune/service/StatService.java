@@ -1,6 +1,33 @@
 package fortune.service;
 
-import static fortune.pojo.LotteryMarkSixType.*;
+import static fortune.pojo.LotteryMarkSixType.COLOR;
+import static fortune.pojo.LotteryMarkSixType.HALF_WAVE;
+import static fortune.pojo.LotteryMarkSixType.JOINT_2_ALL;
+import static fortune.pojo.LotteryMarkSixType.JOINT_2_SPECIAL;
+import static fortune.pojo.LotteryMarkSixType.JOINT_3_2;
+import static fortune.pojo.LotteryMarkSixType.JOINT_3_ALL;
+import static fortune.pojo.LotteryMarkSixType.JOINT_SPECIAL;
+import static fortune.pojo.LotteryMarkSixType.JOINT_TAIL;
+import static fortune.pojo.LotteryMarkSixType.JOINT_ZODIAC;
+import static fortune.pojo.LotteryMarkSixType.ONE_ZODIAC;
+import static fortune.pojo.LotteryMarkSixType.SPECIAL;
+import static fortune.pojo.LotteryMarkSixType.SUM_ZODIAC;
+import static fortune.pojo.LotteryMarkSixType.TAIL_NUM;
+import static fortune.pojo.LotteryMarkSixType.TWO_FACES;
+import static fortune.pojo.LotteryMarkSixType.ZHENG_1_6;
+import static fortune.pojo.LotteryMarkSixType.ZHENG_BALL;
+import static fortune.pojo.LotteryMarkSixType.ZHENG_SPECIFIC;
+import static fortune.pojo.LotteryMarkSixType.ZODIAC;
+import static fortune.pojo.LotteryMarkSixType.getRealTimeAnimalList;
+import static fortune.pojo.LotteryMarkSixType.getRealTimeColorTypeList;
+import static fortune.pojo.LotteryMarkSixType.getRealTimeJointTailList;
+import static fortune.pojo.LotteryMarkSixType.getRealTimeJointZodiacList;
+import static fortune.pojo.LotteryMarkSixType.getRealTimeNotList;
+import static fortune.pojo.LotteryMarkSixType.getRealTimeTwoFacesList;
+import static fortune.pojo.LotteryMarkSixType.getRealTimeWaveTypeList;
+import static fortune.pojo.LotteryMarkSixType.getRealTimeZheng16TypeList;
+import static fortune.pojo.LotteryMarkSixType.getRealTimeZhengSpecificList;
+import static fortune.pojo.LotteryMarkSixType.getWagerTypeList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,10 +39,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.persistence.Column;
-
-import fortune.dao.TuishuiDao;
-import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +48,16 @@ import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.AtomicDouble;
 
 import common.Utils;
-import fortune.dao.PGroupDao;
 import fortune.dao.StatDao;
+import fortune.pojo.LotteryMarkSix;
+import fortune.pojo.LotteryMarkSixGroupStat;
+import fortune.pojo.LotteryMarkSixType;
+import fortune.pojo.LotteryMarkSixWager;
+import fortune.pojo.LotteryMarkSixWagerStub;
+import fortune.pojo.LotteryOdds;
+import fortune.pojo.RealTimeWager;
+import fortune.pojo.RealtimeStat;
+import fortune.util.CommonUtils;
 
 /**
  * Created by tangl9 on 2015-11-03.
@@ -1951,47 +1982,7 @@ public class StatService {
 
         for (LotteryMarkSixWager wager : wagerList) {
             if (transactionMap.containsKey(wager.getLotteryMarkSixType().name())) {
-                int transactionNum = 0;
-                switch (wager.getLotteryMarkSixType()) {
-                    case JOINT_3_ALL:
-                    case JOINT_3_2:
-                    case JOINT_2_ALL:
-                    case JOINT_2_SPECIAL:
-                    case JOINT_SPECIAL:
-                    case NOT_5:
-                    case NOT_6:
-                    case NOT_7:
-                    case NOT_8:
-                    case NOT_9:
-                    case NOT_10:
-                    case NOT_11:
-                    case NOT_12:
-                    case WAVE_RED_DA:
-                    case WAVE_RED_XIAO:
-                    case WAVE_RED_DAN:
-                    case WAVE_RED_SHUANG:
-                    case WAVE_BLUE_DA:
-                    case WAVE_BLUE_XIAO:
-                    case WAVE_BLUE_DAN:
-                    case WAVE_BLUE_SHUANG:
-                    case WAVE_GREEN_DA:
-                    case WAVE_GREEN_XIAO:
-                    case WAVE_GREEN_DAN:
-                    case WAVE_GREEN_SHUANG:
-                    case JOINT_ZODIAC_PING:
-                    case JOINT_ZODIAC_ZHENG:
-                    case JOINT_TAIL_2:
-                    case JOINT_TAIL_3:
-                    case JOINT_TAIL_4:
-                    case JOINT_TAIL_NOT_2:
-                    case JOINT_TAIL_NOT_3:
-                    case JOINT_TAIL_NOT_4:
-                        transactionNum = 1;
-                        break;
-                    default:
-                        transactionNum = wager.getLotteryMarkSixWagerStubList().size();
-                }
-
+                int transactionNum = CommonUtils.getTransactionsOfWager(wager);
                 transactionMap.get(wager.getLotteryMarkSixType().name()).addAndGet(transactionNum);
                 transactionMap.get("ALL").addAndGet(transactionNum);
             }

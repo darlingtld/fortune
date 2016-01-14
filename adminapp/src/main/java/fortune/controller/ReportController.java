@@ -1,5 +1,6 @@
 package fortune.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,8 @@ public class ReportController {
      * 根据日期范围获取某个代理商下所有子代理商的开奖统计信息
      */
     @RequestMapping(value = "group/summary/groupid/{groupid}/date_start/{start}/date_end/{end}", method = RequestMethod.GET)
-    public @ResponseBody List<LotteryMarkSixGroupStat> getSubGroupSummaryByDateRange(@PathVariable("groupid") String groupid, @PathVariable("start") String start, @PathVariable("end") String end) {
-        return adminReportService.getSubGroupSummaryByDateRange(groupid, start, end);
+    public @ResponseBody List<LotteryMarkSixGroupStat> getSubGroupReportByDateRange(@PathVariable("groupid") String groupid, @PathVariable("start") String start, @PathVariable("end") String end) {
+        return adminReportService.getSubGroupReportByDateRange(groupid, start, end);
     }
     
     /**
@@ -59,9 +60,9 @@ public class ReportController {
             @PathVariable("start") String start, 
             @PathVariable("end") String end) {
         if ("ALL".equalsIgnoreCase(type)) {
-            return adminReportService.getSummary4AllType(groupid, start, end);
+            return adminReportService.getReport4AllType(groupid, start, end);
         } else {
-            return adminReportService.getSummary4Type(type, groupid, start, end);
+            return Arrays.asList(adminReportService.getReport4Type(type, groupid, start, end));
         }
     }
     
@@ -70,7 +71,7 @@ public class ReportController {
      */
     @RequestMapping(value = "user/summary/groupid/{groupid}/date_start/{start}/date_end/{end}", method = RequestMethod.GET)
     public @ResponseBody List<LotteryMarkSixUserStat> getUserSummaryByDateRange(@PathVariable("groupid") String groupid, @PathVariable("start") String start, @PathVariable("end") String end) {
-        return adminReportService.getUserSummaryByDateRange(groupid, start, end);
+        return adminReportService.getUserReportByDateRange(groupid, start, end);
     }
 
 }
