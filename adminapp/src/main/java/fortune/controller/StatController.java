@@ -8,13 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 
 import fortune.pojo.LotteryMarkSixType;
-import fortune.pojo.RealTimeWager;
 import fortune.pojo.RealtimeStat;
 import fortune.service.StatService;
 
@@ -28,7 +26,7 @@ public class StatController {
 
     @Autowired
     private StatService statService;
-
+    
     /**
      * 获取代理商实时统计信息(实时注单)
      *
@@ -84,48 +82,6 @@ public class StatController {
     @ResponseBody
     List<RealtimeStat> getRealTimeTransactionAllStats(@PathVariable("groupid") String groupId, @PathVariable("panlei") String panlei, @PathVariable("issue") int issue) {
         return statService.getRealTimeTransactionAllStats(groupId, panlei, issue);
-    }
-    
-    /**
-     * 获取某个类型的注单的详细列表
-     * 
-     * @param type
-     * @param groupId
-     * @param panlei
-     * @param issue
-     * @param number
-     * @param subtypeStr
-     * @param content
-     * @return
-     */
-    @RequestMapping(value = "realtime/stake_detail/{type}/groupid/{groupid}/pan/{panlei}/issue/{issue}/ball/{number}", method = RequestMethod.GET)
-    public @ResponseBody List<RealTimeWager> getStakeDetail(
-            @PathVariable("type") String type,
-            @PathVariable("groupid") String groupId, 
-            @PathVariable("panlei") String panlei,
-            @PathVariable("issue") int issue, 
-            @PathVariable("number") int number,
-            @RequestParam(value = "subtype", required = false) String subtypeStr,
-            @RequestParam(value = "content", required = false) String content) {
-        LotteryMarkSixType subtype = subtypeStr == null ? null : LotteryMarkSixType.valueOf(subtypeStr.toUpperCase());
-        return statService.getStakeDetail(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase(), issue, number, subtype, content);
-    }
-    
-    @RequestMapping(value = "realtime/stake_detail/all/{type}/groupid/{groupid}/pan/{panlei}/issue/{issue}", method = RequestMethod.GET)
-    public @ResponseBody List<RealTimeWager> getAllStakeDetail4Type(
-            @PathVariable("type") String type,
-            @PathVariable("groupid") String groupId, 
-            @PathVariable("panlei") String panlei,
-            @PathVariable("issue") int issue) {
-        return statService.getAllStakeDetail4Type(LotteryMarkSixType.valueOf(type.toUpperCase()), groupId, panlei.toUpperCase(), issue);
-    }
- 
-    @RequestMapping(value = "realtime/stake_detail/{user}/groupid/{groupid}/issue/{issue}", method = RequestMethod.GET)
-    public @ResponseBody List<RealTimeWager> getAllStakeDetail4User(
-            @PathVariable("user") String userId,
-            @PathVariable("groupid") String groupId, 
-            @PathVariable("issue") int issue) {
-        return statService.getAllStakeDetail4User(userId, groupId, issue);
     }
     
 }

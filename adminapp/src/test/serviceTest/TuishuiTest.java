@@ -22,8 +22,13 @@ public class TuishuiTest {
     TuishuiDao tuishuiDao;
     
     @Test
-    public void testPopulateTuishui() {
+    public void cleanAndPopulateTuishui() {
         tuishuiDao.removeAll();
+        tuishuiService.populateTuishui4AllUser();
+    }
+    
+    @Test
+    public void populateTuishui() {
         tuishuiService.populateTuishui4AllUser();
     }
     

@@ -59,4 +59,13 @@ service('resultService', function ($q, $http) {
         });
         return deferred.promise;
     }
+    
+    this.getStakeDetails = function(groupId, userId, type, from, to) {
+        var url = 'stake_detail/groupid/' + groupId + '/from/' + from + '/to/' + to + '?userId=' + userId + '&type=' + type;
+        var deferred = $q.defer();
+        $http.get(url).success(function (data) {
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
 })

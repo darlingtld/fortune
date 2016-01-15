@@ -22,7 +22,7 @@
             <tr ng-repeat="summary in groupSummaryList">
                 <td ng-bind="summary.pgroup.name"></td>
                 <td>
-                    <a ng-bind="summary.totalStakes | currency: '￥'" href="#reportdetail?parentGroupId={{summary.pgroup.id}}&start={{start}}&end={{end}}"></a>
+                    <a ng-bind="summary.totalStakes | currency: '￥'" href="#resultdetail?parentGroupId={{summary.pgroup.id}}&subGroupId=ALL&reportType=ALL&reportDateType={{reportDateType}}&start={{start}}&end={{end}}"></a>
                 </td>
                 <td><span ng-bind="summary.userResult | currency: '￥'"></span></td>
                 <td><span ng-bind="summary.pgroupResult | currency: '￥'"></span></td>

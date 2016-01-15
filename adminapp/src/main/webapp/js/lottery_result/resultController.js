@@ -6,9 +6,6 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     $rootScope.menu = 3;
     $scope.parentGroupId = sessionStorage['pgroupid'];
     
-    $scope.formats = ['yyyy年MM月dd日', 'dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-    
     $scope.reportTypeList = [{name: 'ALL', title: '总帐'}, {name: 'SUB', title: '分类帐'}];
     $scope.reportOptionList = [{name: 'ALL', title: '全部'}, {name: 'SHANGJIAO', title: '上缴'}, {name: 'YINGFEN', title: '赢分'}];
     $scope.curDate = new Date();
@@ -95,6 +92,7 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     }
     
 }).controller('resultDetailController', function ($scope, $rootScope, $routeParams, resultService) {
+    $scope.groupId = $routeParams.subGroupId;
     $scope.reportDateType = $routeParams.reportDateType;
     $scope.reportType = $routeParams.reportType;
     $scope.curDate = new Date();
@@ -107,12 +105,11 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     
     if ($scope.reportType == 'ALL') {
         resultService.getSubGroupSummary($routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data) {
-            var subGroupId = $routeParams.subGroupId;
-            if (subGroupId == 'ALL') {
+            if ($scope.groupId == 'ALL') {
                 $scope.groupSummaryList = data;
             } else {
                 for (var i = 0; i < data.length; i ++) {
-                    if (data[i].pgroupId == subGroupId) {
+                    if (data[i].pgroupId == $scope.groupId) {
                         $scope.groupSummaryList.push(data[i]);
                         break;
                     }
@@ -141,4 +138,28 @@ controller('resultController', function ($scope, $rootScope, resultService) {
         });
     }
     
+}).controller('reportStakeDetailController', function ($rootScope, $scope, $routeParams, resultService) {
+    $scope.groupId = $routeParams.groupid;
+    $scope.from = $routeParams.from;
+    $scope.to = $routeParams.to;
+
+    if ($routeParams.userid) {
+        realtimeService.getStakesDetailByUser($routeParams.userid, $routeParams.groupid, $routeParams.issue).then(function (data) {
+            $scope.wagerList = data;
+            $scope.userLinkEnabled = false;
+        });
+    } else {
+        realtimeService.getStakesDetail(
+            $routeParams.type,
+            $routeParams.groupid,
+            $routeParams.panlei,
+            $routeParams.issue,
+            $routeParams.subtype,
+            $routeParams.number,
+            $routeParams.content,
+            $routeParams.isAll).then(function (data) {
+                $scope.wagerList = data;
+                $scope.userLinkEnabled = true;
+        });
+    }
 });

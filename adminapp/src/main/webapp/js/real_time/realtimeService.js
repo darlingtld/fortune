@@ -43,13 +43,37 @@ angular.module('AdminApp')
             return deferred.promise;
         };
         
+        this.getRealTimeTransactionTotalCount = function (groupid, panlei, issue) {
+            var deferred = $q.defer();
+            $http.get('stat/realtime/transaction_result/total_count/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+        
+        this.getRealTimeTransactionNotTop = function (groupid, panlei, issue, top) {
+            var deferred = $q.defer();
+            $http.get('stat/realtime/transaction_result/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/not_top/' + top).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+        
+        this.getRealTimeTransactionAllStats = function (groupid, panlei, issue) {
+            var deferred = $q.defer();
+            $http.get('stat/realtime/transaction_result/all/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+        
         this.getStakesDetail = function (type, groupid, panlei, issue, subtype, number, content, isAll) {
             var url = '';
             
             if (isAll) {
-                url = 'stat/realtime/stake_detail/all/' + type + '/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue;
+                url = 'stake_detail/groupid/' + groupid + '/all/type/' + type + '/pan/' + panlei + '/issue/' + issue;
             } else {
-                var url = 'stat/realtime/stake_detail/' + type + '/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/ball/' + number;
+                var url = 'stake_detail/groupid/' + groupid + '/type/' + type + '/pan/' + panlei + '/issue/' + issue + '/ball/' + number;
                 var param = '?', hasParam = false;
                 if (subtype) {
                     param += 'subtype=' + subtype + '&';
@@ -73,31 +97,7 @@ angular.module('AdminApp')
         
         this.getStakesDetailByUser = function (userid, groupid, issue) {
             var deferred = $q.defer();
-            $http.get('stat/realtime/stake_detail/' + userid + '/groupid/' + groupid + '/issue/' + issue).success(function (data) {
-                deferred.resolve(data);
-            });
-            return deferred.promise;
-        };
-        
-        this.getRealTimeTransactionTotalCount = function (groupid, panlei, issue) {
-            var deferred = $q.defer();
-            $http.get('stat/realtime/transaction_result/total_count/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue).success(function (data) {
-                deferred.resolve(data);
-            });
-            return deferred.promise;
-        };
-        
-        this.getRealTimeTransactionNotTop = function (groupid, panlei, issue, top) {
-            var deferred = $q.defer();
-            $http.get('stat/realtime/transaction_result/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue + '/not_top/' + top).success(function (data) {
-                deferred.resolve(data);
-            });
-            return deferred.promise;
-        };
-        
-        this.getRealTimeTransactionAllStats = function (groupid, panlei, issue) {
-            var deferred = $q.defer();
-            $http.get('stat/realtime/transaction_result/all/groupid/' + groupid + '/pan/' + panlei + '/issue/' + issue).success(function (data) {
+            $http.get('stake_detail/' + userid + '/groupid/' + groupid + '/issue/' + issue).success(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;
