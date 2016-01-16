@@ -95,6 +95,11 @@ public class WagerDao {
         }
         return wagerList;
     }
+    
+    public List<LotteryMarkSixWager> getWagerListByIssues(String groupId, List<Integer> issueList) {
+        Query searchWagerQuery = new Query(Criteria.where("lotteryIssue").in(issueList).andOperator(Criteria.where("pgroupId").is(groupId)));
+        return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
+    }
 
     //TODO code can be reused in getLotteryMarkSixWagerList()
     public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(LotteryMarkSixType type, String groupId, String panlei, int issue, LotteryMarkSixType ballType) {

@@ -16,7 +16,6 @@ public class Utils {
     public static final Logger logger = LoggerFactory.getLogger(Utils.class);
 
     public static final String HEADER_MESSAGE = "message";
-    private static final DecimalFormat df = new DecimalFormat("000");
 
     public static String yyyyMMddHHmmss2Format(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -29,6 +28,12 @@ public class Utils {
     }
 
     public static String formatNumber000(Object number) {
+        DecimalFormat df = new DecimalFormat("000");
+        return df.format(number);
+    }
+    
+    public static String formatNumber00(Object number) {
+        DecimalFormat df = new DecimalFormat("00");
         return df.format(number);
     }
     
