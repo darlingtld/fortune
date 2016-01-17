@@ -136,7 +136,7 @@ public class PGroupController {
     @RequestMapping(value = "pgroups/{parentId}", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<PGroup> getPGroups(@PathVariable("parentId") String parentId) {
+    List<PGroup> getPGroupsByParentID(@PathVariable("parentId") String parentId) {
         return pGroupService.getPGroupsByParentID(parentId);
     }
 

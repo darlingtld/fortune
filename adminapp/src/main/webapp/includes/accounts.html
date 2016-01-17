@@ -1,41 +1,73 @@
 <div class="sidebar">
-	<div class="side_area">
-		<div class="side_header">账号列表</div>
-		<div class="side_body">
-			<div id="account_tree">
-				<ul class="first_level">
-				</ul>
-			</div>
-			<a href="javascript:;" class="btn" id="add_pgroup">新增代理商</a>
-			<a href="javascript:;" class="btn" id="add_user">新增用户</a>
-			<a href="javascript:;" class="red_btn" id="delete_user">删除</a>
-			<div class="clear"></div>
-		</div>
-	</div>
+    <div class="side_area">
+        <div class="side_header">账号列表</div>
+        <div class="side_body">
+            <div id="account_tree">
+                <ul class="first_level">
+                </ul>
+            </div>
+            <a href="javascript:;" class="btn" id="add_pgroup">新增代理商</a>
+            <a href="javascript:;" class="btn" id="add_user">新增用户</a>
+            <a href="javascript:;" class="red_btn" id="delete_user">删除</a>
+            <div class="clear"></div>
+        </div>
+    </div>
 </div>
 
 <div class="content">
-	<table>
-		<thead>
-			<tr>
-				<th>账号名称</th>
-				<th>代理商</th>
-				<th>状态</th>
-				<th>信用额度</th>
-				<th>已用额度</th>
-				<th>操作</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="{active:userTab, '':!userTab}"><a href="javascript:;"
+                                                                            ng-click="switchTab('user')">会员账户</a></li>
+        <li role="presentation" ng-class="{active:groupTab, '':!groupTab}"><a href="javascript:;"
+                                                                              ng-click="switchTab('group')">代理账户</a>
+        </li>
+    </ul>
+
+    <div ng-show="userTab" class="userTable">
+        <table>
+            <thead>
+            <tr>
+                <th>账号名称</th>
+                <th>代理商</th>
+                <th>状态</th>
+                <th>信用额度</th>
+                <th>已用额度</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div ng-show="groupTab">
+        <table>
+            <thead>
+            <tr>
+                <th>账号名称</th>
+                <th>代理商</th>
+                <th>信用额度</th>
+                <th>占成</th>
+                <th>走飞</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="subGroup in subGroupList">
+                <td ng-bind="subGroup.admin.username"></td>
+                <td ng-bind="subGroup.name"></td>
+                <td ng-bind="subGroup.maxStakes"></td>
+                <td><span ng-bind="subGroup.zoufeiBy"></span>%</td>
+                <td>启用</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="dialog">
-	<div class="dialog_title"></div>
-	<div class="dialog_body"></div>
-	<div class="dialog_bottom">
-		<a href="javascript:;" class="btn" style="float:right;width:80px;" id="dialog_cancel">取消</a>
-		<a href="javascript:;" class="btn" style="margin-right:20px;float:right;width:80px;" id="dialog_confirm">确定</a>
-	</div>
+    <div class="dialog_title"></div>
+    <div class="dialog_body"></div>
+    <div class="dialog_bottom">
+        <a href="javascript:;" class="btn" style="float:right;width:80px;" id="dialog_cancel">取消</a>
+        <a href="javascript:;" class="btn" style="margin-right:20px;float:right;width:80px;" id="dialog_confirm">确定</a>
+    </div>
 </div>

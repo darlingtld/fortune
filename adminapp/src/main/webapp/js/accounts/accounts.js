@@ -1,6 +1,22 @@
 angular.module('AdminApp').
-controller('accountsController', function ($rootScope) {
+controller('accountsController', function ($scope, $rootScope, $http) {
     $rootScope.menu = 2;
+
+    $scope.userTab = true;
+    $scope.groupTab = false;
+    $scope.switchTab = function (tabName) {
+        if (tabName == 'user') {
+            $scope.userTab = true;
+            $scope.groupTab = false;
+        } else if (tabName == 'group') {
+            $scope.userTab = false;
+            $scope.groupTab = true;
+            $http.get('pgroup/pgroups/' + sessionStorage['pgroupid']).success(function (data) {
+                $scope.subGroupList = data;
+            })
+        }
+    };
+
 
     //TODO: validate null;  validate canDelete,canEnable,canDisable,canAdd,canSetCredit from backend
     (function ($) {
@@ -52,7 +68,7 @@ controller('accountsController', function ($rootScope) {
                                     }
 
                                 }
-                                $(".content table tbody").html(html);
+                                $(".content .userTable table tbody").html(html);
                             }
                         });
                     });
