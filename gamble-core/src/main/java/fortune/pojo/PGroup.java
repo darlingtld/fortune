@@ -25,59 +25,90 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "pgroup")
 public class PGroup {
-	@Id
-	private String id;
-	@NotNull
-	private String name;
+    @Id
+    private String id;
+    @NotNull
+    private String name;
 
-	private String parentPGroupID;
+    private String parentPGroupID;
 
-	private User admin;
+    private User admin;
 
-	private List<User> userList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
 
-	@Override
-	public String toString() {
-		return "PGroup{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", admin=" + admin + ", userList=" + userList + '}';
-	}
+    //	最大输赢金额总数，默认50000
+    private double maxStakes = 50000;
+    //	被父代理商占成比，默认为0
+    private double zoufeiBy = 0;
+    //	占据下属代理商的走飞
+    private List<Zoufei> zoufeiList = new ArrayList<>();
 
-	public User getAdmin() {
-		return admin;
-	}
+    public double getZoufeiBy() {
+        return zoufeiBy;
+    }
 
-	public void setAdmin(User admin) {
-		this.admin = admin;
-	}
+    public void setZoufeiBy(double zoufeiBy) {
+        this.zoufeiBy = zoufeiBy;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public double getMaxStakes() {
+        return maxStakes;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setMaxStakes(double maxStakes) {
+        this.maxStakes = maxStakes;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public List<Zoufei> getZoufeiList() {
+        return zoufeiList;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setZoufeiList(List<Zoufei> zoufeiList) {
+        this.zoufeiList = zoufeiList;
+    }
 
-	public List<User> getUserList() {
-		return userList;
-	}
+    @Override
+    public String toString() {
+        return "PGroup{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", admin=" + admin + ", userList=" + userList + '}';
+    }
 
-	public void setUserList(List<User> userList) {
-		this.userList = userList;
-	}
+    public User getAdmin() {
+        return admin;
+    }
 
-	public String getParentPGroupID() {
-		return parentPGroupID;
-	}
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
 
-	public void setParentPGroupID(String parentPGroupID) {
-		this.parentPGroupID = parentPGroupID;
-	}
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public String getParentPGroupID() {
+        return parentPGroupID;
+    }
+
+    public void setParentPGroupID(String parentPGroupID) {
+        this.parentPGroupID = parentPGroupID;
+    }
 }

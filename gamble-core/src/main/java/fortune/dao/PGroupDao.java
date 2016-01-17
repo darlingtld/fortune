@@ -44,6 +44,9 @@ public class PGroupDao {
         Update update = new Update();
         update.set("name", pGroup.getName());
         update.set("userList", pGroup.getUserList());
+        update.set("maxStakes", pGroup.getMaxStakes());
+        update.set("zoufeiList", pGroup.getZoufeiList());
+        update.set("zoufeiBy", pGroup.getZoufeiBy());
         return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), PGroup.class);
     }
 

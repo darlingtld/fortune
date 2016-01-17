@@ -5,10 +5,7 @@ import common.Utils;
 import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
 import fortune.dao.WagerDao;
-import fortune.pojo.PGroup;
-import fortune.pojo.PeopleStatus;
-import fortune.pojo.Role;
-import fortune.pojo.User;
+import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +30,8 @@ public class PGroupService {
 
     @Autowired
     private UserService userService;
-    
-    @Autowired 
+
+    @Autowired
     private TuishuiService tuishuiService;
 
     @Autowired
@@ -52,6 +49,13 @@ public class PGroupService {
         if (pGroupDao.getPGroupByName(pGroup.getName()) != null) {
             throw new RuntimeException("代理商或用户已存在");
         }
+//        检查最大金额以及占成比的输入是否合法
+        if (pGroup.getMaxStakes() < 0 || pGroup.getMaxStakes() > 10000 * 10000) {
+            throw new RuntimeException("最大金额不合法");
+        }
+        if (pGroup.getZoufeiBy() < 0 || pGroup.getZoufeiBy() > 100) {
+            throw new RuntimeException("占成不合法");
+        }
         // 插入管理员
         User admin = pGroup.getAdmin();
         admin.setPassword(PasswordEncryptUtil.encrypt(admin.getPassword()));
@@ -63,6 +67,16 @@ public class PGroupService {
             // 插入pgroup
             pGroup.setAdmin(userDao.getUserByUsername(admin.getUsername()));
             pGroupDao.createGroup(pGroup);
+            PGroup fatherPGroup = pGroupDao.getGroupById(pGroup.getParentPGroupID());
+//            更新父管理员走飞列表
+            if (fatherPGroup != null) {
+                List<Zoufei> zoufeiList = fatherPGroup.getZoufeiList();
+                Zoufei zoufei = new Zoufei();
+                zoufei.setPercentage(pGroup.getZoufeiBy());
+                zoufei.setChildPGroupId(pGroupDao.getPGroupByName(pGroup.getName()).getId());
+                zoufeiList.add(zoufei);
+                pGroupDao.updatePGroup(fatherPGroup);
+            }
         } else {
             throw new RuntimeException("代理商或用户已存在");
         }
@@ -106,7 +120,7 @@ public class PGroupService {
         userList.add(user);
         pGroup.setUserList(userList);
         pGroupDao.updatePGroup(pGroup);
-        
+
         // 为用户生成默认退水
         tuishuiService.populateTuishui(user.getId(), pGroupId);
     }
@@ -202,10 +216,10 @@ public class PGroupService {
         userDao.updateUser(user);
 //        删除该用户在该代理商的下注记录
         wagerDao.deleteLotteryMarkSixWager(pGroupId, userId);
-        
+
         // 删除退水
         tuishuiService.removeTuishui(userId, pGroupId);
-        
+
         if (user.getpGroupList().isEmpty()) {
             // 删除用户
             userDao.deleteUserByID(userId);
