@@ -22,7 +22,8 @@
             <tr ng-repeat="summary in groupSummaryList">
                 <td ng-bind="summary.pgroup.name"></td>
                 <td>
-                    <a ng-bind="summary.totalStakes | currency: '￥'" href="#resultdetail?parentGroupId={{summary.pgroup.id}}&subGroupId=ALL&reportType=ALL&reportDateType={{reportDateType}}&start={{start}}&end={{end}}"></a>
+                    <a ng-if="summary.totalStakes > 0" ng-bind="summary.totalStakes | currency: '￥'" href="#resultdetail?parentGroupId={{summary.pgroup.id}}&subGroupId=ALL&reportType=ALL&reportDateType={{reportDateType}}&start={{start}}&end={{end}}"></a>
+                    <span ng-if="summary.totalStakes == 0">￥0.00</span>
                 </td>
                 <td><span ng-bind="summary.userResult | currency: '￥'"></span></td>
                 <td><span ng-bind="summary.pgroupResult | currency: '￥'"></span></td>
@@ -49,7 +50,8 @@
             <tr ng-repeat="summary in userSummaryList">
                 <td ng-bind="summary.user.username"></td>
                 <td>
-                    <a ng-bind="summary.stakes | currency: '￥'" href="#"></a>
+                    <a ng-if="summary.stakes > 0" ng-bind="summary.stakes | currency: '￥'" href="#"></a>
+                    <span ng-if="summary.stakes == 0">￥0.00</span>
                 </td>
                 <td ng-bind="summary.validStakes | currency: '￥'"></td>
                 <td ng-bind="summary.tuishui | currency: '￥'"></td>
@@ -84,7 +86,9 @@
                 <td ng-bind="report.wagerTypeName"></td>
                 <td ng-bind="report.totalTransactions"></td>
                 <td>
-                    <a ng-bind="report.totalStakes | currency: '￥'" href=""></a>
+                    <a ng-if="report.totalStakes > 0" ng-bind="report.totalStakes | currency: '￥'"
+                    href="#stakesdetail/report/groupid/{{report.pgroup.id}}/from/{{start}}/to/{{end}}?&type={{report.wagerType}}"></a>
+                    <span ng-if="report.totalStakes == 0">￥0.00</span>
                 </td>
                 <td><span ng-bind="report.userResult | currency: '￥'"></span></td>
                 <td><span ng-bind="report.pgroupResult | currency: '￥'"></span></td>

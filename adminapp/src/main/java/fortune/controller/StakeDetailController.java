@@ -36,7 +36,6 @@ public class StakeDetailController {
             @PathVariable("toDate") String toDate,
             @RequestParam(value = "userid", required = false) String userId,
             @RequestParam(value = "type", required = false) String type) {
-        
             return stakeDetailService.getStakeDetailByTimeRange(groupId, userId, type, fromDate, toDate);
     }
     

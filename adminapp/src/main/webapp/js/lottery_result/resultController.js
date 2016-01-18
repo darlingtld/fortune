@@ -143,23 +143,8 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     $scope.from = $routeParams.from;
     $scope.to = $routeParams.to;
 
-    if ($routeParams.userid) {
-        realtimeService.getStakesDetailByUser($routeParams.userid, $routeParams.groupid, $routeParams.issue).then(function (data) {
-            $scope.wagerList = data;
-            $scope.userLinkEnabled = false;
-        });
-    } else {
-        realtimeService.getStakesDetail(
-            $routeParams.type,
-            $routeParams.groupid,
-            $routeParams.panlei,
-            $routeParams.issue,
-            $routeParams.subtype,
-            $routeParams.number,
-            $routeParams.content,
-            $routeParams.isAll).then(function (data) {
-                $scope.wagerList = data;
-                $scope.userLinkEnabled = true;
-        });
-    }
+    resultService.getStakeDetail($routeParams.groupid, $routeParams.userid, $routeParams.type, $routeParams.from, $routeParams.to).then(function (data) {
+        $scope.userLinkEnabled = false;
+        $scope.wagerList = data;
+    });
 });
