@@ -3,6 +3,14 @@
  */
 angular.module('AdminApp')
     .service('realtimeService', function ($q, $http) {
+        this.getCurrentGroup = function(groupId) {
+            var deferred = $q.defer();
+            $http.get('pgroup/' + groupId).success(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+        
         this.getNextLotteryMarkSixInfo = function () {
             var deferred = $q.defer();
             $http.get('lottery/next_lottery_mark_six_info').success(function (data) {

@@ -2,22 +2,10 @@ package fortune.pojo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -42,6 +30,9 @@ public class PGroup {
     private double zoufeiBy = 0;
     //	占据下属代理商的走飞
     private List<Zoufei> zoufeiList = new ArrayList<>();
+    
+    //  从某一期开始生效，否则无法查看即时注单等信息
+    private int activeAfterIssue;
 
     public double getZoufeiBy() {
         return zoufeiBy;
@@ -111,4 +102,13 @@ public class PGroup {
     public void setParentPGroupID(String parentPGroupID) {
         this.parentPGroupID = parentPGroupID;
     }
+
+    public int getActiveAfterIssue() {
+        return activeAfterIssue;
+    }
+
+    public void setActiveAfterIssue(int activeAfterIssue) {
+        this.activeAfterIssue = activeAfterIssue;
+    }
+
 }

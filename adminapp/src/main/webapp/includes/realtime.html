@@ -1,4 +1,10 @@
-<div class="real-time-info-area">
+<div ng-if="!isGroupActive">
+    <p class="alert alert-warning">
+        当前代理商尚未激活！
+    </p>
+</div>
+
+<div ng-if="isGroupActive" class="real-time-info-area">
     <div class="real-time-header">
         <span ng-show="lotteryMarkSixInfo.issue > firstLotteryIssue">
             <a ng-click="gotoLastLottery(lotteryMarkSixInfo.issue)" class="lottery-issue-link">上一期</a>
@@ -51,5 +57,5 @@
     </div>
 </div>
 
-<div ng-include="page">
+<div ng-if="isGroupActive" ng-include="page">
 </div>

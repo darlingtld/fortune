@@ -160,4 +160,12 @@ public class PGroupController {
     List<User> getAllUsersByPGroup(@PathVariable("pgroupId") String pgroupId) {
         return pGroupService.getAllUsersByPGroupID(pgroupId);
     }
+    
+    @RequestMapping(value = "/{pgroupId}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    PGroup getPGroupById(@PathVariable("pgroupId") String pgroupId) {
+        return pGroupService.getGroupById(pgroupId);
+    }
+    
 }

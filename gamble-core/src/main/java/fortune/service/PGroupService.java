@@ -29,7 +29,7 @@ public class PGroupService {
     private UserDao userDao;
 
     @Autowired
-    private UserService userService;
+    private LotteryService lotteryService;
 
     @Autowired
     private TuishuiService tuishuiService;
@@ -42,13 +42,18 @@ public class PGroupService {
         Utils.logger.info("get pGroup by id {}", id);
         return pGroupDao.getGroupById(id);
     }
-
+    
     @Transactional
     public void createGroup(PGroup pGroup) {
         Utils.logger.info("create pGroup {}", pGroup);
         if (pGroupDao.getPGroupByName(pGroup.getName()) != null) {
             throw new RuntimeException("代理商或用户已存在");
         }
+        
+//      设置在下一期之后生效
+        NextLotteryMarkSixInfo nextLotteryInfo = lotteryService.getNextLotteryMarkSixInfo();
+        pGroup.setActiveAfterIssue(nextLotteryInfo.getIssue());
+        
 //        检查最大金额以及占成比的输入是否合法
         if (pGroup.getMaxStakes() < 0 || pGroup.getMaxStakes() > 10000 * 10000) {
             throw new RuntimeException("最大金额不合法");

@@ -4,22 +4,33 @@
 angular.module('AdminApp')
     .controller('realtimeController', function ($rootScope, $scope, $interval, realtimeService, oddsService) {
         $rootScope.menu = 1;
+        
         realtimeService.getNextLotteryMarkSixInfo().then(function (data) {
-            
-            realtimeService.getAllLotteyMarkSix().then(function(data) {
-                $scope.issueList = [];
-                for (var i = data.length - 1; i >= 0; i --) {
-                    $scope.issueList.push(data[i].issue);
-                }
-                if ($scope.issueList.length > 0) {
-                    $scope.firstLotteryIssue = $scope.issueList[0];
-                }
-            });
-            
             $scope.lotteryMarkSixInfo = data;
             $scope.nextLotteryIssue = data.issue;
             $scope.nextLotteryDate = data.date;
             
+            realtimeService.getCurrentGroup(sessionStorage['pgroupid']).then(function (data) {
+                $scope.currentGroup = data;
+                
+                realtimeService.getAllLotteyMarkSix().then(function(data) {
+                    $scope.issueList = [];
+                    for (var i = data.length - 1; i >= 0; i --) {
+                        // 只显示该代理商激活后的开奖期数
+                        if (data[i].issue > $scope.currentGroup.activeAfterIssue) {
+                            $scope.issueList.push(data[i].issue);
+                        }
+                    }
+                    if ($scope.issueList.length > 0) {
+                        $scope.firstLotteryIssue = $scope.issueList[0];
+                        $scope.isGroupActive = true;
+                        buildRealtimePage();
+                    }
+                });
+            });
+        });
+        
+        function buildRealtimePage() {
             $scope.gotoNextLottery = function(issue) {
                 if (issue == $scope.issueList[$scope.issueList.length - 1]) {
                     $scope.lotteryMarkSixInfo.issue = $scope.nextLotteryIssue;
@@ -684,7 +695,7 @@ angular.module('AdminApp')
             }
 
             $scope.goto('special');
-        });
+        }
 
     }).controller('stakesDetailController', function ($rootScope, $scope, $routeParams, realtimeService) {
         $scope.groupId = sessionStorage['pgroupid'];
