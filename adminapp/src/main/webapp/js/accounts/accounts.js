@@ -144,8 +144,8 @@ controller('accountsController', function ($scope, $rootScope, $http) {
                     "<label for='admin_name_input'>管理员名称：</label><input type='text' id='admin_name_input'/><br/>" +
                     "<label for='admin_pwd_input'>密码：</label><input type='password' id='admin_pwd_input'/><br/>" +
                     "<label for='admin_repwd_input'>确认密码：</label><input type='password' id='admin_repwd_input'/>" +
-                    "<br/><label for='max_stakes_input'>最大金额：</label><input type='text' id='max_stakes_input'/>" +
-                    "<br/><span>该代理商的所能承受的最大金额（自动走飞中使用），默认￥50000</span><br/><label for='zoufei_input'>我的占成：</label><input type='text' id='zoufei_input'/>" +
+                    "<br/><label for='max_stakes_input'>最大输赢：</label><input type='text' id='max_stakes_input'/>" +
+                    "<br/><span>该代理商的所能承受的最大输赢（自动走飞中使用），默认￥50000</span><br/><label for='zoufei_input'>我的占成：</label><input type='text' id='zoufei_input'/>" +
                     "<br/><span>提示：数字8代表8%，默认为0</span>");
                 $(".dialog").show();
             });
