@@ -68,4 +68,12 @@ service('resultService', function ($q, $http) {
         });
         return deferred.promise;
     }
+
+    this.getMyLotteryMarSixStat=function(groupId, start, end){
+        var deferred = $q.defer();
+        $http.get('report/group/mysummary/groupid/' + groupId + '/date_start/' + start + '/date_end/' + end).success(function (data) {
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
 })

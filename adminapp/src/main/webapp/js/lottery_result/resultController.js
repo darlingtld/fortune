@@ -81,6 +81,8 @@ controller('resultController', function ($scope, $rootScope, resultService) {
        $scope.subGroupList.splice(0, 0, {id: 'ALL', name: '全部'});
        $scope.selectedSubGroup = data[0];
     });
+
+
     
 }).filter('chineseWeek', function () {
     return function (input) {
@@ -104,6 +106,10 @@ controller('resultController', function ($scope, $rootScope, resultService) {
     $scope.userSummaryList = [];
     
     if ($scope.reportType == 'ALL') {
+        resultService.getMyLotteryMarSixStat($routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data){
+            $scope.mysummary=data;
+        })
+
         resultService.getSubGroupSummary($routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data) {
             if ($scope.groupId == 'ALL') {
                 $scope.groupSummaryList = data;

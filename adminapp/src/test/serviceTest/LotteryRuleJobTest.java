@@ -1,6 +1,7 @@
 package serviceTest;
 
 import fortune.job.LotteryResultJob;
+import fortune.rule.RuleSPECIAL;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,17 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class LotteryRuleJobTest {
     @Autowired
     private LotteryResultJob lotteryResultJob;
+    @Autowired
+    private RuleSPECIAL ruleSPECIAL;
 
     @Test
     public void getRuleResult() throws InterruptedException {
         lotteryResultJob.calculateLotteryResult();
         Thread.sleep(1000000);
+    }
+
+    @Test
+    public void ruleSpecialTest(){
+        ruleSPECIAL.run();
     }
 }

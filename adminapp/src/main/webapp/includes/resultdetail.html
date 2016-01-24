@@ -3,7 +3,36 @@
         请注意: <span class="color-red">历史帐仅提供已结算数据报表</span>, 若日期区间含本日({{curDate | date : 'yyyy-MM-dd'}}), 
         且<span class="color-red">该日帐未结算时以本日帐报表为准</span> (时时彩结算时间为昱日0300後)
     </p>
-    
+
+    <table>
+        <thead>
+        <tr><th colspan="8">我的报表</th></tr>
+        <tr>
+            <th>下注金额</th>
+            <th>会员结果</th>
+            <th>公司结果</th>
+            <th>走飞金额</th>
+            <th>走飞结果</th>
+            <th>公司总计</th>
+            <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <a ng-if="mysummary.totalStakes > 0" ng-bind="mysummary.totalStakes | currency: '￥'"></a>
+                <span ng-if="mysummary.totalStakes == 0">￥0.00</span>
+            </td>
+            <td><span ng-bind="mysummary.userResult | currency: '￥'"></span></td>
+            <td><span ng-bind="mysummary.pgroupResult | currency: '￥'"></span></td>
+            <td><span ng-bind="mysummary.zoufeiStakes | currency: '￥'"></span></td>
+            <td><span ng-bind="mysummary.zoufeiResult | currency: '￥'"></span></td>
+            <td><span ng-bind="mysummary.pgroupTotalResult | currency: '￥'"></span></td>
+            <td><span ng-bind="mysummary.remark"></span></td>
+        </tr>
+        </tbody>
+    </table>
+
     <table ng-if="groupSummaryList.length > 0">
         <thead>
             <tr><th colspan="8">代理商报表</th></tr>

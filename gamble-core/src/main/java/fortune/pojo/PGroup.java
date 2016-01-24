@@ -28,11 +28,20 @@ public class PGroup {
     private double maxStakes = 50000;
     //	被父代理商占成比，默认为0
     private double zoufeiBy = 0;
+//    自动走飞,默认开启
+    private boolean isZoufeiAutoEnabled = true;
     //	占据下属代理商的走飞
     private List<Zoufei> zoufeiList = new ArrayList<>();
-    
     //  从某一期开始生效，否则无法查看即时注单等信息
     private int activeAfterIssue;
+
+    public boolean isZoufeiAutoEnabled() {
+        return isZoufeiAutoEnabled;
+    }
+
+    public void setZoufeiAutoEnabled(boolean zoufeiAutoEnabled) {
+        isZoufeiAutoEnabled = zoufeiAutoEnabled;
+    }
 
     public double getZoufeiBy() {
         return zoufeiBy;

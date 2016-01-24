@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tangl9 on 2015-11-23.
@@ -51,6 +53,11 @@ public class LotteryGroupStatJob {
         int jobId = jobTrackerService.save(jobTracker);
 
         List<PGroup> groupList = pGroupService.getGroupAll();
+//      构建group id map,走飞中计算需要
+        Map<String, PGroup> groupIdMap = new HashMap<>();
+        for (PGroup pGroup : groupList) {
+            groupIdMap.put(pGroup.getId(), pGroup);
+        }
         for (PGroup pGroup : groupList) {
 //            get wager result of this group
             List<LotteryResult> lotteryResultList = resultService.getLotteryResult4LotteryIssue(lotteryIssue, pGroup.getId());
@@ -64,8 +71,27 @@ public class LotteryGroupStatJob {
                 totalStakes += wager.getTotalStakes();
                 userResult += lotteryResult.getWinningMoney() + lotteryResult.getTuishui() - wager.getTotalStakes();
                 pgroupResult += wager.getTotalStakes() - lotteryResult.getWinningMoney() - lotteryResult.getTuishui();
+            }
+//                zoufei calculation
+            if (pGroup.isZoufeiAutoEnabled() && pgroupResult + pGroup.getMaxStakes() < 0) {
+//                自动走飞
+//                超出代理商最大输赢的部分
+                double spilledResult = -pgroupResult - pGroup.getMaxStakes();
+                zoufeiStakes = spilledResult;
+                zoufeiResult = spilledResult;
+//                走飞给父代理商
+                if (pGroup.getParentPGroupID() == null) {
+//                    顶级代理商,根代理商
 
-                //// TODO: 2015-11-26  
+                } else {
+                    PGroup fatherPGroup = groupIdMap.get(pGroup.getParentPGroupID());
+
+                    fatherPGroup.setMaxStakes(fatherPGroup.getMaxStakes() - spilledResult);
+                }
+
+
+            } else {
+
             }
             LotteryMarkSixGroupStat lotteryMarkSixGroupStat = new LotteryMarkSixGroupStat();
             lotteryMarkSixGroupStat.setPgroupId(pGroup.getId());

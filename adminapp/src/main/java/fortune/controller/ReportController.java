@@ -41,6 +41,14 @@ public class ReportController {
     List<LotteryMarkSixGroupStat> getLotteryMarkSixPagination(@PathVariable("groupid") String groupid, @PathVariable("from") int from, @PathVariable("count") int count) {
         return adminReportService.getLotteryMarkSixStat(groupid, from, count);
     }
+
+    /**
+     * 根据日期范围获取某个代理商的开奖统计信息
+     */
+    @RequestMapping(value = "group/mysummary/groupid/{groupid}/date_start/{start}/date_end/{end}", method = RequestMethod.GET)
+    public @ResponseBody LotteryMarkSixGroupStat getGroupReportByDateRange(@PathVariable("groupid") String groupid, @PathVariable("start") String start, @PathVariable("end") String end) {
+        return adminReportService.getGroupReportByDateRange(groupid, start, end);
+    }
     
     /**
      * 根据日期范围获取某个代理商下所有子代理商的开奖统计信息

@@ -1,5 +1,6 @@
 package fortune.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,7 +51,7 @@ public class AdminReportService {
         Utils.logger.info("get lottery mark six stat for group id {} from {}, count {}", groupid, from, count);
         return statDao.getLotteryMarkSixStat(groupid, from, count);
     }
-    
+
     /**
      * 获取某个时间段内某个代理商下各个子代理商的统计信息
      * @param groupid
@@ -83,7 +84,11 @@ public class AdminReportService {
     @Transactional
     public LotteryMarkSixGroupStat getGroupReportByDateRange(String groupid, String start, String end) {
         Utils.logger.info("get report for group id {} from {} to {}", groupid, start, end);
-        
+
+        String[] endTimeEles = end.split("-");
+        LocalDateTime time = LocalDateTime.of(Integer.parseInt(endTimeEles[0]), Integer.parseInt(endTimeEles[1]), Integer.parseInt(endTimeEles[2]), 0, 0);
+        time = time.plusDays(1);
+        end = time.getYear()+"-"+time.getMonthValue()+"-"+time.getDayOfMonth();
         List<LotteryMarkSixGroupStat> statList = statDao.getStatSummaryOfGroup(groupid, start, end);
         
         double totalStakes = 0.0;
@@ -186,7 +191,12 @@ public class AdminReportService {
     public List<LotteryMarkSixUserStat> getUserReportByDateRange(String groupid, String start, String end) {
         Utils.logger.info("get user summary for group id {} from {} to {}", groupid, start, end);
         List<LotteryMarkSixUserStat> resultList = new ArrayList<>();
-        
+
+        String[] endTimeEles = end.split("-");
+        LocalDateTime time = LocalDateTime.of(Integer.parseInt(endTimeEles[0]), Integer.parseInt(endTimeEles[1]), Integer.parseInt(endTimeEles[2]), 0, 0);
+        time = time.plusDays(1);
+        end = time.getYear()+"-"+time.getMonthValue()+"-"+time.getDayOfMonth();
+
         PGroup group = groupDao.getGroupById(groupid);
         for (User user : group.getUserList()) {
             List<LotteryMarkSixUserStat> statList = statDao.getLotteryMarkSixUserStatList(user.getId(), start, end);
