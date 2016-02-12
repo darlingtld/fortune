@@ -56,7 +56,14 @@
                 <td ng-bind="subGroup.name"></td>
                 <td ng-bind="subGroup.maxStakes"></td>
                 <td><span ng-bind="subGroup.zoufeiBy"></span>%</td>
-                <td>启用</td>
+                <td>
+                    <button ng-if="subGroup.zoufeiAutoEnabled" class="btn btn-success btn-sm"
+                            ng-click="switchZoufei(subGroup)">自动走飞
+                    </button>
+                    <button ng-if="!subGroup.zoufeiAutoEnabled" class="btn btn-danger btn-sm"
+                            ng-click="switchZoufei(subGroup)">手动走飞
+                    </button>
+                </td>
             </tr>
             </tbody>
         </table>

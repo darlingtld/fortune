@@ -76,4 +76,12 @@ public class PGroupDao {
         Query query = new Query(Criteria.where("name").is(name));
         return mongoTemplate.findOne(query, PGroup.class);
     }
+
+    public void switchZoufeiStatus(String pGroupId) {
+        PGroup pGroup = getGroupById(pGroupId);
+        Query query = new Query(Criteria.where("id").is(pGroup.getId()));
+        Update update = new Update();
+        update.set("isZoufeiAutoEnabled", !pGroup.isZoufeiAutoEnabled());
+        mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), PGroup.class);
+    }
 }

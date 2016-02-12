@@ -167,5 +167,17 @@ public class PGroupController {
     PGroup getPGroupById(@PathVariable("pgroupId") String pgroupId) {
         return pGroupService.getGroupById(pgroupId);
     }
+
+    @RequestMapping(value = "{pgroup_id}/switch_zoufei_status", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    void switchZoufeiStatus(@PathVariable("pgroup_id") String pGroupId, HttpServletResponse response) {
+        try {
+            pGroupService.switchZoufeiStatus(pGroupId);
+        } catch (Exception e) {
+            response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        }
+    }
     
 }

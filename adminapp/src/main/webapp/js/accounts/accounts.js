@@ -1,5 +1,4 @@
-angular.module('AdminApp').
-controller('accountsController', function ($scope, $rootScope, $http) {
+angular.module('AdminApp').controller('accountsController', function ($scope, $rootScope, $http) {
     $rootScope.menu = 2;
 
     $scope.userTab = true;
@@ -15,6 +14,12 @@ controller('accountsController', function ($scope, $rootScope, $http) {
                 $scope.subGroupList = data;
             })
         }
+    };
+    $scope.switchZoufei = function (group) {
+        console.log(group);
+        $http.post('pgroup/'+group.id+'/switch_zoufei_status',{}).success(function(){
+            location.reload();
+        })
     };
 
 
@@ -42,7 +47,6 @@ controller('accountsController', function ($scope, $rootScope, $http) {
                         // 并且，取出user列表
                         $.get("pgroup/allusers/" + data.id, function (data) {
                             if (data && data.length > 0) {
-                                console.log(data);
                                 var html = "";
                                 for (var i = 0; i < data.length; i++) {
                                     var user = data[i], pgroupList = user.pGroupList;

@@ -21,6 +21,10 @@ body {
     cursor: pointer;
 }
 
+.btn-danger {
+    background: red;
+}
+
 .btn:hover {
     background: #1CE845;
     color: white !important;

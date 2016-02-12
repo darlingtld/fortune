@@ -274,4 +274,9 @@ public class PGroupService {
         return pGroupDao.getPGroupByName(name);
 
     }
+
+    @Transactional
+    public void switchZoufeiStatus(String pGroupId) {
+        pGroupDao.switchZoufeiStatus(pGroupId);
+    }
 }
