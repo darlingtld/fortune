@@ -48,6 +48,7 @@
                 <th>最大输赢</th>
                 <th>占成</th>
                 <th>走飞</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -64,6 +65,12 @@
                             ng-click="switchZoufei(subGroup)">手动走飞
                     </button>
                 </td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"
+                            ng-click="saveTmpPGroup(subGroup)">
+                        修改
+                    </button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -76,5 +83,51 @@
     <div class="dialog_bottom">
         <a href="javascript:;" class="btn" style="float:right;width:80px;" id="dialog_cancel">取消</a>
         <a href="javascript:;" class="btn" style="margin-right:20px;float:right;width:80px;" id="dialog_confirm">确定</a>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td style="width: 100px">名字</td>
+                        <td><span ng-bind="tmpGroup.name"></span></td>
+                    </tr>
+                    <tr>
+                        <td>最大输赢</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="tmpGroup.maxStakes"
+                                       aria-describedby="basic-addon">
+                                <span class="input-group-addon" id="basic-addon">元</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>占成比</td>
+                        <td><div class="input-group">
+                            <input type="text" class="form-control" ng-model="tmpGroup.zoufeiBy"
+                                   aria-describedby="basic-addon2">
+                            <span class="input-group-addon" id="basic-addon2">%</span>
+                        </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="updateGroupZoufei()">保存</button>
+            </div>
+        </div>
     </div>
 </div>

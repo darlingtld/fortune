@@ -160,7 +160,7 @@ public class PGroupController {
     List<User> getAllUsersByPGroup(@PathVariable("pgroupId") String pgroupId) {
         return pGroupService.getAllUsersByPGroupID(pgroupId);
     }
-    
+
     @RequestMapping(value = "/{pgroupId}", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -179,5 +179,23 @@ public class PGroupController {
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
         }
     }
-    
+
+    @RequestMapping(value = "update_group_zoufei", method = RequestMethod.POST, headers = "content-type=application/json")
+    public
+    @ResponseBody
+    PGroup updateGroupZoufei(@RequestBody PGroup pGroup, BindingResult result, HttpServletResponse response) {
+        if (result.hasErrors()) {
+            response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
+            response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+            return null;
+        }
+        try {
+            return pGroupService.updateGroupZoufei(pGroup);
+        } catch (Exception e) {
+            response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        }
+        return pGroup;
+    }
+
 }

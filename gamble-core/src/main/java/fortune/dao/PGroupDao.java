@@ -84,4 +84,12 @@ public class PGroupDao {
         update.set("isZoufeiAutoEnabled", !pGroup.isZoufeiAutoEnabled());
         mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), PGroup.class);
     }
+
+    public PGroup updatePGroupZoufei(PGroup pGroup) {
+        Query query = new Query(Criteria.where("id").is(pGroup.getId()));
+        Update update = new Update();
+        update.set("maxStakes", pGroup.getMaxStakes());
+        update.set("zoufeiBy", pGroup.getZoufeiBy());
+        return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), PGroup.class);
+    }
 }

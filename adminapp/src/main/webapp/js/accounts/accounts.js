@@ -16,9 +16,23 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
         }
     };
     $scope.switchZoufei = function (group) {
-        console.log(group);
-        $http.post('pgroup/'+group.id+'/switch_zoufei_status',{}).success(function(){
-            location.reload();
+        $http.post('pgroup/' + group.id + '/switch_zoufei_status', {}).success(function () {
+            $http.get('pgroup/pgroups/' + sessionStorage['pgroupid']).success(function (data) {
+                $scope.subGroupList = data;
+            })
+        })
+    };
+
+    $scope.tmpGroup = null;
+    $scope.saveTmpPGroup = function (tmpGroup) {
+        $scope.tmpGroup = tmpGroup;
+    }
+    $scope.updateGroupZoufei = function () {
+        $http.post('pgroup/update_group_zoufei', $scope.tmpGroup).success(function () {
+            $http.get('pgroup/pgroups/' + sessionStorage['pgroupid']).success(function (data) {
+                $scope.subGroupList = data;
+                $('#myModal .modal-footer [data-dismiss]').click();
+            })
         })
     };
 

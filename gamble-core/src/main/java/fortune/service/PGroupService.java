@@ -279,4 +279,9 @@ public class PGroupService {
     public void switchZoufeiStatus(String pGroupId) {
         pGroupDao.switchZoufeiStatus(pGroupId);
     }
+
+    @Transactional
+    public PGroup updateGroupZoufei(PGroup pGroup) {
+        return pGroupDao.updatePGroupZoufei(pGroup);
+    }
 }

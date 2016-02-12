@@ -91,7 +91,7 @@ public class LotteryGroupStatJob {
 
 
             } else {
-
+//                手动走飞
             }
             LotteryMarkSixGroupStat lotteryMarkSixGroupStat = new LotteryMarkSixGroupStat();
             lotteryMarkSixGroupStat.setPgroupId(pGroup.getId());
