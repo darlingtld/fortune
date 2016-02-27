@@ -1,6 +1,11 @@
 angular.module('AdminApp').controller('accountsController', function ($scope, $rootScope, $http) {
     $rootScope.menu = 2;
 
+    $http.get('pgroup/' + sessionStorage['pgroupid']).success(function (data) {
+        if(data.parentPGroupID!=null){
+            $('#add_pgroup').hide();
+        }
+    })
     $scope.userTab = true;
     $scope.groupTab = false;
     $scope.switchTab = function (tabName) {
