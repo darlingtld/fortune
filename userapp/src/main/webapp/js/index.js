@@ -38,6 +38,7 @@ app.service("commonService", function ($q, $http) {
                 scope.user = data;
                 scope.reset();
             });
+            location.href = "/userapp/wagehistory.html"
         }).error(function (data, status, headers) {
             if (status == 417) {
                 alert('额度不足');
@@ -56,6 +57,7 @@ app.service("commonService", function ($q, $http) {
                 scope.user = data;
                 scope.reset();
             });
+            location.href = "/userapp/wagehistory.html"
         }).error(function (data, status, headers) {
             if (status == 417) {
                 alert('额度不足');
