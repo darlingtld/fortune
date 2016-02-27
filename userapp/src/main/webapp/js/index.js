@@ -815,6 +815,11 @@ app.controller("IndexController", function ($scope, $http, $interval, commonServ
         }
     };
 
+    $scope.clearSumZodiacItem = function (index) {
+        $scope.selectedBalls2[index]=null;
+        $scope.selectedBalls[index]="";
+    }
+
     $scope.isCheckedSumZodiac = function (zodiac) {
         for (var i = 0; i < $scope.sumZodiacList.length; i++) {
             if ($scope.sumZodiacList[i] == zodiac) {
