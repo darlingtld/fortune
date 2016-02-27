@@ -132,9 +132,10 @@ var Compare = {
         var ballNum = parseInt(ball);
         if (ballNum % 2 == 0) {
             return "double";
-        } else if (ballNum == 49) {
-            return null;
-        } else {
+        //} else if (ballNum == 49) {
+        //    return null;
+        }
+        else {
             return "single";
         }
     },
@@ -143,18 +144,19 @@ var Compare = {
         var ballNum = parseInt(ball);
         if (ballNum <= 24) {
             return "small";
-        } else if (ballNum == 49) {
-            return null;
-        } else {
+        //} else if (ballNum == 49) {
+        //    return null;
+        }
+        else {
             return "big";
         }
     },
 
     getTailBigOrSmall: function (ball) {
         var ballNum = parseInt(ball);
-        if (ballNum == 49) {
-            return null;
-        }
+        //if (ballNum == 49) {
+        //    return null;
+        //}
         var tail = ballNum % 10;
         if (tail >= 5) {
             return "big";
@@ -165,9 +167,9 @@ var Compare = {
 
     getSumSingleOrDouble: function (ball) {
         var ballNum = parseInt(ball);
-        if (ballNum == 49) {
-            return null;
-        }
+        //if (ballNum == 49) {
+        //    return null;
+        //}
         var head = Math.floor(ballNum / 10), tail = ballNum % 10, sum = head
             + tail;
         if (sum % 2 == 0) {
@@ -179,9 +181,9 @@ var Compare = {
 
     getSumBigOrSmall: function (ball) {
         var ballNum = parseInt(ball);
-        if (ballNum == 49) {
-            return null;
-        }
+        //if (ballNum == 49) {
+        //    return null;
+        //}
         var head = Math.floor(ballNum / 10), tail = ballNum % 10, sum = head
             + tail;
         if (sum <= 6) {
@@ -193,9 +195,9 @@ var Compare = {
 
     getTailSumBigOrSmall: function (ball) {
         var ballNum = parseInt(ball);
-        if (ballNum == 25) {
-            return null;
-        }
+        //if (ballNum == 25) {
+        //    return null;
+        //}
         var head = Math.floor(ballNum / 10), tail = ballNum % 10, sum = (head + tail) % 10;
         if (sum <= 4) {
             return "small";
