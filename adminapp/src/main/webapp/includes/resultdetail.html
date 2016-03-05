@@ -77,7 +77,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="summary in userSummaryList">
-                <td ng-bind="summary.user.username"></td>
+                <td><a href="#/stakesdetail/user/{{summary.user.id}}/groupid/{{parentGroupId}}" ng-bind="summary.user.username"></a></td>
                 <td>
                     <a ng-if="summary.stakes > 0" ng-bind="summary.stakes | currency: '￥'" href="#"></a>
                     <span ng-if="summary.stakes == 0">￥0.00</span>

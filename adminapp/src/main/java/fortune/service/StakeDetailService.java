@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,24 +29,19 @@ import com.google.common.collect.Lists;
 import common.Utils;
 import fortune.dao.LotteryDao;
 import fortune.dao.WagerDao;
-import fortune.pojo.LotteryMarkSix;
-import fortune.pojo.LotteryMarkSixType;
-import fortune.pojo.LotteryMarkSixWager;
-import fortune.pojo.LotteryMarkSixWagerStub;
-import fortune.pojo.RealTimeWager;
 
 /**
  * Created by Jason on 2016-01-13.
  */
 @Service
 public class StakeDetailService {
-    
+
     @Autowired
     private WagerService wagerService;
-    
+
     @Autowired
     private WagerDao wagerDao;
-    
+
     @Autowired
     private LotteryService lotteryService;
 
@@ -57,10 +53,10 @@ public class StakeDetailService {
 
     @Autowired
     private TuishuiService tuishuiService;
-    
+
     @Autowired
     private LotteryDao lotteryDao;
-    
+
     @Transactional
     public List<RealTimeWager> getAllStakeDetail4Type(LotteryMarkSixType type, String groupId, String panlei, int issue) {
         switch (type) {
@@ -248,7 +244,14 @@ public class StakeDetailService {
         List<RealTimeWager> realTimeWagerList = buildStakeDetails4WagerList(wagerList);
         return realTimeWagerList;
     }
-    
+
+    @Transactional
+    public List<RealTimeWager> getAllStakeDetail4User(String userId, String groupId) {
+        List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(userId, groupId);
+        List<RealTimeWager> realTimeWagerList = buildStakeDetails4WagerList(wagerList);
+        return realTimeWagerList;
+    }
+
     @Transactional
     public List<RealTimeWager> getStakeDetail(LotteryMarkSixType type, String groupId, String panlei, int issue, int number, LotteryMarkSixType ballType, String wagerContent) {
         switch (type) {
@@ -454,7 +457,7 @@ public class StakeDetailService {
                 return new ArrayList<>();
         }
     }
-    
+
     @Transactional
     public List<RealTimeWager> getStakeDetailByTimeRange(String groupId, String userId, String type, String fromDate, String toDate) {
         List<LotteryMarkSix> lotteryList = lotteryDao.getLotteryMarkSixByTimeRange(fromDate, toDate);
@@ -462,17 +465,17 @@ public class StakeDetailService {
         lotteryList.stream().forEach(lottery -> {
             issueList.add(lottery.getIssue());
         });
-        
+
         List<LotteryMarkSixWager> allWagerList = wagerDao.getWagerListByIssues(groupId, issueList);
-        
+
         List<LotteryMarkSixWager> selectedWagerList = allWagerList.stream()
                 .filter(wager -> (type == null || wager.getLotteryMarkSixType().name().equals(type))
                         && (userId == null || wager.getUserId().equals(userId)))
-                .collect(Collectors.toList());        
-        
+                .collect(Collectors.toList());
+
         return buildStakeDetails4WagerList(selectedWagerList);
     }
-    
+
     @Transactional
     private List<RealTimeWager> getStakeDetail4Special(String groupId, String panlei, int issue, int number) {
         List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.SPECIAL, groupId, panlei, issue, number);
@@ -940,7 +943,7 @@ public class StakeDetailService {
         }
         return realTimeWagerList;
     }
-    
+
     @Transactional
     private List<RealTimeWager> getAllStakeDetail4Special(String groupId, String panlei, int issue) {
         List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(LotteryMarkSixType.SPECIAL, groupId, panlei, issue, null);
@@ -1152,7 +1155,7 @@ public class StakeDetailService {
         }
         return wagerContent;
     }
-    
+
     private Double getOdds(int issue, String groupId, LotteryMarkSixWager wager, LotteryMarkSixWagerStub stub) {
         Double odds = 0.0;
         LotteryMarkSixType wagerType = wager.getLotteryMarkSixType();
@@ -1288,7 +1291,8 @@ public class StakeDetailService {
                         RealTimeWager realTimeWager = new RealTimeWager();
                         realTimeWager.setTs(wager.getTimestamp());
                         realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                        realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), wager.getPgroupId(), wager.getPanlei(), wager.getLotteryMarkSixType()).getTuishui());
+                        LotteryTuishui tuishui = tuishuiService.getTuishui4UserOfType(wager.getUserId(), wager.getPgroupId(), wager.getPanlei(), wager.getLotteryMarkSixType());
+                        realTimeWager.setTuishui(tuishui != null ? tuishui.getTuishui() : 0);
                         realTimeWager.setPanlei(wager.getPanlei());
                         realTimeWager.setIssue(wager.getLotteryIssue());
                         LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());

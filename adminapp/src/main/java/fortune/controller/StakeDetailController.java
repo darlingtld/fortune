@@ -65,10 +65,17 @@ public class StakeDetailController {
     }
  
     @RequestMapping(value = "/{user}/groupid/{groupid}/issue/{issue}", method = RequestMethod.GET)
-    public @ResponseBody List<RealTimeWager> getAllStakeDetail4User(
+    public @ResponseBody List<RealTimeWager> getAllStakeDetail4UserOfIssue(
             @PathVariable("user") String userId,
             @PathVariable("groupid") String groupId,
             @PathVariable("issue") int issue) {
         return stakeDetailService.getAllStakeDetail4User(userId, groupId, issue);
+    }
+
+    @RequestMapping(value = "/{user}/groupid/{groupid}", method = RequestMethod.GET)
+    public @ResponseBody List<RealTimeWager> getAllStakeDetail4User(
+            @PathVariable("user") String userId,
+            @PathVariable("groupid") String groupId) {
+        return stakeDetailService.getAllStakeDetail4User(userId, groupId);
     }
 }

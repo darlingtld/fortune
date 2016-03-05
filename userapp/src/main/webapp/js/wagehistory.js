@@ -45,7 +45,7 @@ wageHistoryApp.controller("WageHistoryController", function ($scope, $http, $sce
                 var html = '', wageSubList = wage.lotteryMarkSixWagerStubList;
                 for (var i = 0; i < wageSubList.length; i++) {
                     var item = wageSubList[i];
-                    html += '<div class="ball ball' + item.number + '">' + item.number + '</div>';
+                    html += '<div class="ball ball' + item.number + '">' + item.number + '</div><span class="pull-left">(' + item.stakes + ')</span>';
                 }
                 return $sce.trustAsHtml(html);
             },

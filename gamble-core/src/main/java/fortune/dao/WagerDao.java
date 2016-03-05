@@ -5,6 +5,7 @@ import fortune.pojo.LotteryMarkSixType;
 import fortune.pojo.LotteryMarkSixWager;
 import fortune.pojo.LotteryMarkSixWagerStub;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -33,6 +34,12 @@ public class WagerDao {
 
     public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, int lotteryIssue) {
         Query searchWagerQuery = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("lotteryIssue").is(lotteryIssue)));
+        return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
+    }
+
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, String groupId) {
+        Query searchWagerQuery = new Query(Criteria.where("userId").is(userId).andOperator(Criteria.where("pgroupId").is(groupId)));
+        searchWagerQuery.with(new Sort(Sort.Direction.DESC, "timestamp"));
         return mongoTemplate.find(searchWagerQuery, LotteryMarkSixWager.class);
     }
 

@@ -98,6 +98,12 @@ public class WagerService {
     }
 
     @Transactional
+    public List<LotteryMarkSixWager> getLotteryMarkSixWagerList(String userId, String groupId) {
+        Utils.logger.info("get lottery mark six wager list of user {}, groupId{}", userId, groupId);
+        return wagerDao.getLotteryMarkSixWagerList(userId, groupId);
+    }
+
+    @Transactional
     public void deleteLotteryMarkSixWager(String lotteryMarkSixWagerId) {
         Utils.logger.info("delete lottery mark six wager id {}", lotteryMarkSixWagerId);
         wagerDao.deleteLotteryMarkSixWager(lotteryMarkSixWagerId);

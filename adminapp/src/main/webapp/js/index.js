@@ -71,6 +71,9 @@ angular.module("AdminApp", ['ngRoute', 'ui.bootstrap']).
         }).when('/stakesdetail/user/:userid/groupid/:groupid/issue/:issue', {
             controller: 'stakesDetailController',
             templateUrl: 'includes/stakesdetail.html'
+        }).when('/stakesdetail/user/:userid/groupid/:groupid', {
+            controller: 'stakesDetailController',
+            templateUrl: 'includes/stakesdetail.html'
         }).when('/stakesdetail/report/groupid/:groupid/from/:from/to/:to', {
             controller: 'reportStakeDetailController',
             templateUrl: 'includes/stakesdetail.html'

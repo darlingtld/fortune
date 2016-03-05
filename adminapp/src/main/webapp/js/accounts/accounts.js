@@ -2,7 +2,7 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
     $rootScope.menu = 2;
 
     $http.get('pgroup/' + sessionStorage['pgroupid']).success(function (data) {
-        if(data.parentPGroupID!=null){
+        if (data.parentPGroupID != null) {
             $('#add_pgroup').hide();
         }
     })
@@ -69,7 +69,7 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
                                 var html = "";
                                 for (var i = 0; i < data.length; i++) {
                                     var user = data[i], pgroupList = user.pGroupList;
-                                    html += "<tr><td>" + user.username + "</td><td class='pgroups_cell'>" + pgroupList[0].name + "</td><td class='" + user.status.toLowerCase() + "'>" +
+                                    html += "<tr><td><a href='#/stakesdetail/user/" + user.id + "/groupid/" + sessionStorage["pgroupid"] + "'>" + user.username + "</td><td class='pgroups_cell'>" + pgroupList[0].name + "</td><td class='" + user.status.toLowerCase() + "'>" +
                                         (user.status == "ENABLED" ? "已启用" : "已禁用") + "</td><td>" +
                                         user.creditAccount + "</td><td>" + user.usedCreditAccount + "</td>";
                                     if (user.canDelete) {
