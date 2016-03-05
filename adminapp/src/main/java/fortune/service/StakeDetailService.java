@@ -1331,7 +1331,8 @@ public class StakeDetailService {
                     RealTimeWager realTimeWager = new RealTimeWager();
                     realTimeWager.setTs(wager.getTimestamp());
                     realTimeWager.setUser(userService.getUserById(wager.getUserId()));
-                    realTimeWager.setTuishui(tuishuiService.getTuishui4UserOfType(wager.getUserId(), wager.getPgroupId(), wager.getPanlei(), wager.getLotteryMarkSixType()).getTuishui());
+                    LotteryTuishui tuishui = tuishuiService.getTuishui4UserOfType(wager.getUserId(), wager.getPgroupId(), wager.getPanlei(), wager.getLotteryMarkSixType());
+                    realTimeWager.setTuishui(tuishui != null ? tuishui.getTuishui() : 0);
                     realTimeWager.setPanlei(wager.getPanlei());
                     realTimeWager.setIssue(wager.getLotteryIssue());
                     LotteryMarkSix lotteryMarkSix = lotteryService.getLotteryMarkSix(wager.getLotteryIssue());
