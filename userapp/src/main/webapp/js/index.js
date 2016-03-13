@@ -169,7 +169,7 @@ app.service("commonService", function ($q, $http) {
                 return false;
             }
             var len = wage.lotteryMarkSixWagerStubList.length;
-            if (len <= 2) {
+            if (len < 2) {
                 scope.wageError = "请选择两个以上的尾数下注！";
                 return false;
             }

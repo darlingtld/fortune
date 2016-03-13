@@ -137,6 +137,21 @@ controller('resultController', function ($scope, $rootScope, resultService) {
                 $scope.userResultTotal += ele.result;
             })
         });
+
+        resultService.getUserWageSummary($routeParams.parentGroupId).then(function(data) {
+            $scope.userWageSummaryList = data;
+
+            $scope.userWageStakesTotal = 0;
+            $scope.userWageValidStakesTotal = 0;
+            $scope.userWageTuishuiTotal = 0;
+            $scope.userWageResultTotal = 0;
+            $scope.userWageSummaryList.forEach(function (ele) {
+                $scope.userWageStakesTotal += ele.stakes;
+                $scope.userWageValidStakesTotal += ele.validStakes;
+                $scope.userWageTuishuiTotal += ele.tuishui;
+                $scope.userWageResultTotal += ele.result;
+            })
+        });
         
     } else {  // 分类账
         resultService.getSummary4Type($routeParams.wagerType, $routeParams.parentGroupId, $routeParams.start, $routeParams.end).then(function(data) {

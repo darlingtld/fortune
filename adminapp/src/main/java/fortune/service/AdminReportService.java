@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,37 +15,31 @@ import fortune.dao.LotteryDao;
 import fortune.dao.LotteryResultDao;
 import fortune.dao.PGroupDao;
 import fortune.dao.StatDao;
-import fortune.pojo.AdminReport;
-import fortune.pojo.LotteryMarkSix;
-import fortune.pojo.LotteryMarkSixGroupStat;
-import fortune.pojo.LotteryMarkSixType;
-import fortune.pojo.LotteryMarkSixUserStat;
-import fortune.pojo.LotteryMarkSixWager;
-import fortune.pojo.LotteryResult;
-import fortune.pojo.PGroup;
-import fortune.pojo.User;
 import fortune.util.CommonUtils;
 
 @Service
 public class AdminReportService {
-    
+
     @Autowired
     StatDao statDao;
-    
+
     @Autowired
     PGroupDao groupDao;
-    
+
     @Autowired
     WagerService wagerService;
-    
+
     @Autowired
     LotteryResultDao lotteryResultDao;
-    
+
     @Autowired
     LotteryDao lotteryDao;
-    
+
     @Autowired
     ResultService resultService;
+
+    @Autowired
+    TuishuiService tuishuiService;
 
     @Transactional
     public List<LotteryMarkSixGroupStat> getLotteryMarkSixStat(String groupid, int from, int count) {
@@ -54,6 +49,7 @@ public class AdminReportService {
 
     /**
      * 获取某个时间段内某个代理商下各个子代理商的统计信息
+     *
      * @param groupid
      * @param start
      * @param end
@@ -63,19 +59,20 @@ public class AdminReportService {
     public List<LotteryMarkSixGroupStat> getSubGroupReportByDateRange(String groupid, String start, String end) {
         Utils.logger.info("get report for all sub groups of group id {} from {} to {}", groupid, start, end);
         List<LotteryMarkSixGroupStat> resultList = new ArrayList<>();
-        
+
         List<PGroup> groupList = groupDao.getPGroupsByParentID(groupid);
         for (PGroup subGroup : groupList) {
             LotteryMarkSixGroupStat sumStat = getGroupReportByDateRange(subGroup.getId(), start, end);
             sumStat.setPgroup(subGroup);  // transient, used in front end
             resultList.add(sumStat);
         }
-        
+
         return resultList;
     }
-    
+
     /**
      * 获取某个时间段内某个代理商的统计信息
+     *
      * @param groupid
      * @param start
      * @param end
@@ -88,9 +85,9 @@ public class AdminReportService {
         String[] endTimeEles = end.split("-");
         LocalDateTime time = LocalDateTime.of(Integer.parseInt(endTimeEles[0]), Integer.parseInt(endTimeEles[1]), Integer.parseInt(endTimeEles[2]), 0, 0);
         time = time.plusDays(1);
-        end = time.getYear()+"-"+time.getMonthValue()+"-"+time.getDayOfMonth();
+        end = time.getYear() + "-" + time.getMonthValue() + "-" + time.getDayOfMonth();
         List<LotteryMarkSixGroupStat> statList = statDao.getStatSummaryOfGroup(groupid, start, end);
-        
+
         double totalStakes = 0.0;
         double userResult = 0.0;
         double pgroupResult = 0.0;
@@ -105,7 +102,7 @@ public class AdminReportService {
             zoufeiResult += stat.getZoufeiResult();
             pgroupTotalResult += stat.getPgroupTotalResult();
         }
-        
+
         LotteryMarkSixGroupStat sumStat = new LotteryMarkSixGroupStat();
         sumStat.setPgroupId(groupid);
         sumStat.setTotalStakes(totalStakes);
@@ -114,12 +111,13 @@ public class AdminReportService {
         sumStat.setZoufeiStakes(zoufeiStakes);
         sumStat.setZoufeiResult(zoufeiResult);
         sumStat.setPgroupTotalResult(pgroupTotalResult);
-    
+
         return sumStat;
     }
-    
+
     /**
      * 获取某个时间段所有注单类型的报表信息
+     *
      * @param groupid
      * @param start
      * @param end
@@ -133,9 +131,10 @@ public class AdminReportService {
         });
         return reportList;
     }
-    
+
     /**
      * 获取某个时间段内某种注单类型的报表信息
+     *
      * @param type
      * @param groupid
      * @param start
@@ -145,29 +144,29 @@ public class AdminReportService {
     @Transactional
     public AdminReport getReport4Type(String type, String groupid, String start, String end) {
         Utils.logger.info("get admin report for type {} for group id {} from {} to {}", type, groupid, start, end);
-        
+
         int totalTransactions = 0;
         double totalStakes = 0.0;
         double totalUserResult = 0.0;
-        
+
         LotteryMarkSixType wagerType = LotteryMarkSixType.valueOf(type);
-        
+
         List<LotteryMarkSix> lotteryList = lotteryDao.getLotteryMarkSixByTimeRange(start, end);
         for (LotteryMarkSix lottery : lotteryList) {
             int issue = lottery.getIssue();
-            
+
             List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(wagerType, groupid, "ALL", issue, null);
             for (LotteryMarkSixWager wager : wagerList) {
                 totalTransactions += CommonUtils.getTransactionsOfWager(wager);
                 totalStakes += wager.getTotalStakes();
             }
-            
+
             LotteryResult userResult = lotteryResultDao.calSumResult4WagerList(wagerList);
             totalUserResult += userResult != null ? userResult.getWinningMoney() : 0;
         }
-        
+
         PGroup group = groupDao.getGroupById(groupid);
-        
+
         AdminReport report = new AdminReport();
         report.setPgroupId(groupid);
         report.setPgroup(group);
@@ -176,12 +175,13 @@ public class AdminReportService {
         report.setUserResult(totalUserResult);
         report.setWagerType(wagerType);
         report.setWagerTypeName(wagerType.getType());
-        
+
         return report;
     }
-    
+
     /**
      * 获取某个时间段内某代理商的直属会员的报表信息
+     *
      * @param groupid
      * @param start
      * @param end
@@ -195,7 +195,7 @@ public class AdminReportService {
         String[] endTimeEles = end.split("-");
         LocalDateTime time = LocalDateTime.of(Integer.parseInt(endTimeEles[0]), Integer.parseInt(endTimeEles[1]), Integer.parseInt(endTimeEles[2]), 0, 0);
         time = time.plusDays(1);
-        end = time.getYear()+"-"+time.getMonthValue()+"-"+time.getDayOfMonth();
+        end = time.getYear() + "-" + time.getMonthValue() + "-" + time.getDayOfMonth();
 
         PGroup group = groupDao.getGroupById(groupid);
         for (User user : group.getUserList()) {
@@ -211,7 +211,7 @@ public class AdminReportService {
                 totalUserResult += stat.getResult();
                 totalTuishui += stat.getTuishui();
             }
-            
+
             LotteryMarkSixUserStat sumStat = new LotteryMarkSixUserStat();
             sumStat.setUser(user);
             sumStat.setUserId(user.getId());
@@ -221,7 +221,43 @@ public class AdminReportService {
             sumStat.setTuishui(totalTuishui);
             resultList.add(sumStat);
         }
-        
+
+        return resultList;
+    }
+
+    @Transactional
+    public List<LotteryMarkSixUserStat> getUserWageReport(String groupid) {
+        Utils.logger.info("get user wage summary for group id {}", groupid);
+        List<LotteryMarkSixUserStat> resultList = new ArrayList<>();
+
+        PGroup group = groupDao.getGroupById(groupid);
+        for (User user : group.getUserList()) {
+            List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(user.getId(), groupid, lotteryDao.getLatestLotteryIssue());
+            double totalStakes = 0.0;
+            double totalValidStakes = 0.0;
+            double totalUserResult = 0.0;
+            double totalTuishui = 0.0;
+            for (LotteryMarkSixWager wager : wagerList) {
+                totalStakes += wager.getTotalStakes();
+                totalValidStakes += wager.getTotalStakes();
+                LotteryTuishui tuishui = tuishuiService.getTuishui4UserOfType(user.getId(), groupid, wager.getPanlei(), wager.getLotteryMarkSixType());
+                if (tuishui != null) {
+                    totalTuishui += wager.getTotalStakes() * tuishui.getTuishui() / 100;
+                } else {
+                    totalTuishui += 0.0;
+                }
+            }
+
+            LotteryMarkSixUserStat sumStat = new LotteryMarkSixUserStat();
+            sumStat.setUser(user);
+            sumStat.setUserId(user.getId());
+            sumStat.setStakes(totalStakes);
+            sumStat.setValidStakes(totalValidStakes);
+            sumStat.setResult(totalUserResult);
+            sumStat.setTuishui(totalTuishui);
+            resultList.add(sumStat);
+        }
+
         return resultList;
     }
 }

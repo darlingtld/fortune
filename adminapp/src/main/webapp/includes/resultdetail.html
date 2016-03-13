@@ -66,7 +66,7 @@
     
     <table ng-if="userSummaryList.length > 0">
         <thead>
-            <tr><th colspan="5">直属会员报表</th></tr>
+            <tr><th colspan="5">直属会员报表(已开奖部分)</th></tr>
             <tr>
                 <th>帐号名称</th>
                 <th>下注金额</th>
@@ -79,7 +79,7 @@
             <tr ng-repeat="summary in userSummaryList">
                 <td><a href="#/stakesdetail/user/{{summary.user.id}}/groupid/{{parentGroupId}}" ng-bind="summary.user.username"></a></td>
                 <td>
-                    <a ng-if="summary.stakes > 0" ng-bind="summary.stakes | currency: '￥'" href="#"></a>
+                    <a ng-if="summary.stakes > 0" ng-bind="summary.stakes | currency: '￥'" href="#/stakesdetail/user/{{summary.user.id}}/groupid/{{parentGroupId}}"></a>
                     <span ng-if="summary.stakes == 0">￥0.00</span>
                 </td>
                 <td ng-bind="summary.validStakes | currency: '￥'"></td>
@@ -93,6 +93,35 @@
                 <th ng-bind="userTuishuiTotal  | currency: '￥'"></th>
                 <th ng-bind="userResultTotal | currency: '￥'"></th>
             </tr>
+        </tbody>
+    </table>
+
+    <table ng-if="userSummaryList.length > 0">
+        <thead>
+        <tr><th colspan="5">直属会员报表(未开奖部分)</th></tr>
+        <tr>
+            <th>帐号名称</th>
+            <th>下注金额</th>
+            <th>有效投注</th>
+            <th>退水</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="summary in userWageSummaryList">
+            <td><a href="#/stakesdetail/user/{{summary.user.id}}/groupid/{{parentGroupId}}/issue/0" ng-bind="summary.user.username"></a></td>
+            <td>
+                <a ng-if="summary.stakes > 0" ng-bind="summary.stakes | currency: '￥'" href="#/stakesdetail/user/{{summary.user.id}}/groupid/{{parentGroupId}}/issue/0"></a>
+                <span ng-if="summary.stakes == 0">￥0.00</span>
+            </td>
+            <td ng-bind="summary.validStakes | currency: '￥'"></td>
+            <td ng-bind="summary.tuishui | currency: '￥'"></td>
+        </tr>
+        <tr>
+            <th style="text-align: center;">合计</th>
+            <th ng-bind="userStakesTotal  | currency: '￥'"></th>
+            <th ng-bind="userValidStakesTotal  | currency: '￥'"></th>
+            <th ng-bind="userTuishuiTotal  | currency: '￥'"></th>
+        </tr>
         </tbody>
     </table>
     

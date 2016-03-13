@@ -240,6 +240,9 @@ public class StakeDetailService {
 
     @Transactional
     public List<RealTimeWager> getAllStakeDetail4User(String userId, String groupId, int issue) {
+        if (issue == 0) {
+            issue = lotteryService.getLatestLotteryIssue();
+        }
         List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(userId, groupId, issue);
         List<RealTimeWager> realTimeWagerList = buildStakeDetails4WagerList(wagerList);
         return realTimeWagerList;

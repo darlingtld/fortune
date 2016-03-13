@@ -107,7 +107,7 @@ angular.module('AdminApp')
             var deferred = $q.defer();
             var url = 'stake_detail/' + userid + '/groupid/' + groupid;
             if (issue != undefined) {
-                url += +'/issue/' + issue;
+                url += '/issue/' + issue;
             }
             $http.get(url).success(function (data) {
                 deferred.resolve(data);

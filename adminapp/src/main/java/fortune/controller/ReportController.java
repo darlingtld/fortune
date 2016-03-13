@@ -82,4 +82,12 @@ public class ReportController {
         return adminReportService.getUserReportByDateRange(groupid, start, end);
     }
 
+    /**
+     * 获取某个代理商下所有用户的当期下注统计信息
+     */
+    @RequestMapping(value = "user/wage_summary/groupid/{groupid}", method = RequestMethod.GET)
+    public @ResponseBody List<LotteryMarkSixUserStat> getUserWageSummary(@PathVariable("groupid") String groupid) {
+        return adminReportService.getUserWageReport(groupid);
+    }
+
 }
