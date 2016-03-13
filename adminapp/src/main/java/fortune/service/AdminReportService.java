@@ -36,6 +36,9 @@ public class AdminReportService {
     LotteryDao lotteryDao;
 
     @Autowired
+    LotteryService lotteryService;
+
+    @Autowired
     ResultService resultService;
 
     @Autowired
@@ -232,7 +235,7 @@ public class AdminReportService {
 
         PGroup group = groupDao.getGroupById(groupid);
         for (User user : group.getUserList()) {
-            List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(user.getId(), groupid, lotteryDao.getLatestLotteryIssue());
+            List<LotteryMarkSixWager> wagerList = wagerService.getLotteryMarkSixWagerList(user.getId(), groupid, lotteryService.getNextLotteryMarkSixInfo().getIssue());
             double totalStakes = 0.0;
             double totalValidStakes = 0.0;
             double totalUserResult = 0.0;
