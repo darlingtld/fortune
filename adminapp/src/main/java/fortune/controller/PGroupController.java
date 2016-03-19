@@ -47,8 +47,8 @@ public class PGroupController {
     @RequestMapping(value = "add_pgroup", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    void savePgroup(@RequestBody @Valid PGroup pGroup, BindingResult result,
-                    HttpServletResponse response) {
+    void addGroup(@RequestBody @Valid PGroup pGroup, BindingResult result,
+                  HttpServletResponse response) {
         if (result.hasErrors()) {
             response.setHeader(Utils.HEADER_MESSAGE, result.getFieldErrors().toString());
             response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());

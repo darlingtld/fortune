@@ -17,7 +17,7 @@ angular.module('AdminApp')
                     $scope.issueList = [];
                     for (var i = data.length - 1; i >= 0; i --) {
                         // 只显示该代理商激活后的开奖期数
-                        if (data[i].issue > $scope.currentGroup.activeAfterIssue) {
+                        if (data[i].issue >= $scope.currentGroup.activeAfterIssue) {
                             $scope.issueList.push(data[i].issue);
                         }
                     }

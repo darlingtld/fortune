@@ -21,9 +21,6 @@ import java.util.stream.Collectors;
 public class LotteryOddsPopulateJob {
 
     @Autowired
-    private ResultService resultService;
-
-    @Autowired
     private PGroupService pGroupService;
 
     @Autowired
@@ -73,6 +70,8 @@ public class LotteryOddsPopulateJob {
         Utils.logger.info("{} finished", jobName);
 
     }
+
+
 
     private void fillInMissingOdds(List<LotteryOdds> oddsList, List<LotteryOdds> lotteryOddses) {
         HashMap<String, LotteryOdds> oddsMap = new HashMap<>();

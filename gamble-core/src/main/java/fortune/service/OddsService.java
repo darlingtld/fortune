@@ -46,6 +46,18 @@ public class OddsService {
     }
 
     @Transactional
+    public void populateNow(PGroup pGroup, int lotteryIssue) {
+        for (String panlei : new String[]{"A", "B", "C", "D"}) {
+            List<LotteryOdds> oddsList = generateOddsDefault(pGroup.getId(), lotteryIssue, panlei);
+            for (LotteryOdds odds : oddsList) {
+                odds.setId(null);
+                odds.setLotteryIssue(lotteryIssue);
+                saveOdds(odds);
+            }
+        }
+    }
+
+    @Transactional
     @Deprecated
     public LotteryOdds getOdds4LotteryIssue(int lotteryIssue, String groupId, int number, String panlei) {
         Utils.logger.info("get odds for lottery issue {} of group id {} of ball {} of panlei {}", lotteryIssue, groupId, number, panlei);

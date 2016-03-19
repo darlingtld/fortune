@@ -37,23 +37,33 @@ public class PGroupService {
     @Autowired
     private WagerDao wagerDao;
 
+    @Autowired
+    private OddsService oddsService;
+
     @Transactional
     public PGroup getGroupById(String id) {
         Utils.logger.info("get pGroup by id {}", id);
         return pGroupDao.getGroupById(id);
     }
-    
+
     @Transactional
     public void createGroup(PGroup pGroup) {
         Utils.logger.info("create pGroup {}", pGroup);
         if (pGroupDao.getPGroupByName(pGroup.getName()) != null) {
             throw new RuntimeException("代理商或用户已存在");
         }
-        
+
+//        客户要求,需要立即生效!!!
+
 //      设置在下一期之后生效
+//        NextLotteryMarkSixInfo nextLotteryInfo = lotteryService.getNextLotteryMarkSixInfo();
+//        pGroup.setActiveAfterIssue(nextLotteryInfo.getIssue());
+
+//      设置在当期立即生效
         NextLotteryMarkSixInfo nextLotteryInfo = lotteryService.getNextLotteryMarkSixInfo();
-        pGroup.setActiveAfterIssue(nextLotteryInfo.getIssue());
-        
+        pGroup.setActiveAfterIssue(lotteryService.getLatestLotteryIssue());
+
+
 //        检查最大金额以及占成比的输入是否合法
         if (pGroup.getMaxStakes() < 0 || pGroup.getMaxStakes() > 10000 * 10000) {
             throw new RuntimeException("最大金额不合法");
@@ -85,6 +95,9 @@ public class PGroupService {
         } else {
             throw new RuntimeException("代理商或用户已存在");
         }
+//        获取pGroup的id,并且补充赔率数据
+        pGroup = pGroupDao.getPGroupByName(pGroup.getName());
+        oddsService.populateNow(pGroup, nextLotteryInfo.getIssue());
     }
 
     @Transactional
