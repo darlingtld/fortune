@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by tangl9 on 2015-10-13.
@@ -178,14 +179,13 @@ public class PGroupService {
                 if (creditUser != null) {
                     user.setUsedCreditAccount(creditUser.getUsedCreditAccount()); // 信用额度以user表中的为准 
                     user.setCreditAccount(creditUser.getCreditAccount());
+                    user.setZoufeiAutoEnabled(creditUser.isZoufeiAutoEnabled());
                 }
                 userList.add(user);
             }
             canDelete = false;
             List<PGroup> childPGroups = pGroupDao.getPGroupsByParentID(parentPGroupId);
-            for (PGroup pGroup : childPGroups) {
-                parentPGroupIds.add(pGroup.getId());
-            }
+            parentPGroupIds.addAll(childPGroups.stream().map(PGroup::getId).collect(Collectors.toList()));
         }
         return userList;
     }

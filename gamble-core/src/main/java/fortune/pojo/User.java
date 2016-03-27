@@ -25,6 +25,17 @@ public class User {
     private PeopleStatus status = PeopleStatus.ENABLED;
     private boolean canDelete;
     private String createdByPgroupId;
+    //    自动走飞,默认开启
+    private boolean isZoufeiAutoEnabled = true;
+
+    public boolean isZoufeiAutoEnabled() {
+        return isZoufeiAutoEnabled;
+    }
+
+    public void setZoufeiAutoEnabled(boolean zoufeiAutoEnabled) {
+        isZoufeiAutoEnabled = zoufeiAutoEnabled;
+    }
+
 
     public String getCreatedByPgroupId() {
         return createdByPgroupId;

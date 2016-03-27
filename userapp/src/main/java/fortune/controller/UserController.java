@@ -79,4 +79,16 @@ public class UserController {
             return userService.changePass(user, newPass);
         }
     }
+
+    @RequestMapping(value = "{user_id}/switch_zoufei_status", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    void switchZoufeiStatus(@PathVariable("user_id") String userId, HttpServletResponse response) {
+        try {
+            userService.switchZoufeiStatus(userId);
+        } catch (Exception e) {
+            response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        }
+    }
 }

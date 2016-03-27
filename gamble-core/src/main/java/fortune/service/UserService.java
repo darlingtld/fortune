@@ -131,4 +131,9 @@ public class UserService {
         user.setPassword(PasswordEncryptUtil.encrypt(newPass));
         return userDao.updatePassword(user);
     }
+
+    @Transactional
+    public void switchZoufeiStatus(String userId) {
+        userDao.switchZoufeiStatus(userId);
+    }
 }

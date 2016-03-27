@@ -102,4 +102,12 @@ public class UserDao {
 		update.set("password", new Date());
 		return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
 	}
+
+	public void switchZoufeiStatus(String userId) {
+		User user = getUserById(userId);
+		Query query = new Query(Criteria.where("id").is(user.getId()));
+		Update update = new Update();
+		update.set("isZoufeiAutoEnabled", !user.isZoufeiAutoEnabled());
+		mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
+	}
 }
