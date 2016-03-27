@@ -96,12 +96,12 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
                                         } else {
                                             html += (user.status == "ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='" + user.id + "'>禁用</a>" : "<td><a href='javascript:;' class='btn enable_operate' data-id='" + user.id + "'>启用</a>") +
                                                 "<a href='javascript:;' class='red_btn delete_operate' data-id='" + user.id + "'>删除</a>" +
-                                                "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "' disabled/></td></tr>";
+                                                "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "' disabled/></td><td>--</td></tr>";
 
                                         }
                                     }
                                     else {
-                                        html += "<td>--</td><td>--</td>></tr>";
+                                        html += "<td>--</td><td>--</td></tr>";
                                     }
 
                                 }
