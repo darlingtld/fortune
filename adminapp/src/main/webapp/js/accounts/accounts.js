@@ -101,7 +101,7 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
                                         }
                                     }
                                     else {
-                                        html += "<td>--</td></tr>";
+                                        html += "<td>--</td><td>--</td>></tr>";
                                     }
 
                                 }
