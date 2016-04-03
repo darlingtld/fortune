@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import fortune.pojo.ZoufeiSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -204,6 +205,44 @@ public class PGroupController {
     void switchZoufeiStatus4User(@PathVariable("pgroup_id") String pGroupId, @PathVariable("user_id") String userId, HttpServletResponse response) {
         try {
             userService.switchZoufeiStatus(pGroupId, userId);
+        } catch (Exception e) {
+            response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        }
+    }
+
+    @RequestMapping(value = "{pgroup_id}/zoufei", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    ZoufeiSetting getZoufeiByGroupId(@PathVariable("pgroup_id") String pGroupId, HttpServletResponse response) {
+        try {
+            return pGroupService.getZoufeiByGroupId(pGroupId);
+        } catch (Exception e) {
+            response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "{pgroup_id}/user/{user_id}/zoufei", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    ZoufeiSetting getZoufeiByUserId(@PathVariable("pgroup_id") String pGroupId, @PathVariable("user_id") String userId, HttpServletResponse response) {
+        try {
+            return userService.getZoufeiByUserId(pGroupId, userId);
+        } catch (Exception e) {
+            response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "{pgroup_id}/user/{user_id}/save_zoufei_settings", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    void saveZoufeiSetting(@PathVariable("pgroup_id") String pGroupId, @PathVariable("user_id") String userId, @RequestBody ZoufeiSetting zoufeiSetting, HttpServletResponse response) {
+        try {
+            userService.saveZoufeiSetting(pGroupId, userId, zoufeiSetting);
         } catch (Exception e) {
             response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());

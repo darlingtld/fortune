@@ -65,6 +65,10 @@
                     <button ng-if="!subGroup.zoufeiAutoEnabled" class="btn btn-danger btn-sm"
                             ng-click="switchZoufei(subGroup)">手动走飞
                     </button>
+                    <button class="btn btn-info btn-sm" ng-click="getZoufeiDetail(subGroup)"
+                            data-toggle="modal" data-target="#zoufeiModal">
+                        查看详情
+                    </button>
                 </td>
                 <td>
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"
@@ -115,11 +119,12 @@
                     </tr>
                     <tr>
                         <td>占成比</td>
-                        <td><div class="input-group">
-                            <input type="text" class="form-control" ng-model="tmpGroup.zoufeiBy"
-                                   aria-describedby="basic-addon2">
-                            <span class="input-group-addon" id="basic-addon2">%</span>
-                        </div>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="tmpGroup.zoufeiBy"
+                                       aria-describedby="basic-addon2">
+                                <span class="input-group-addon" id="basic-addon2">%</span>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -128,6 +133,52 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" ng-click="updateGroupZoufei()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="zoufeiModal" tabindex="-1" role="dialog" aria-labelledby="zoufeiModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="zoufeiModalLabel">走飞详情</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td style="width: 100px">走飞状态</td>
+                        <td><span ng-bind="tmpZoufei.status"></span></td>
+                    </tr>
+                    <tr ng-if="!tmpZoufei.isEditable">
+                        <td>最大输赢</td>
+                        <td><span ng-bind="tmpZoufei.maxStake"></span></td>
+                    </tr>
+                    <tr ng-if="tmpZoufei.isEditable">
+                        <td>走飞金额</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="tmpZoufei.curStake"
+                                       aria-describedby="basic-addon2">
+                                <span class="input-group-addon" id="basic-addon2">元</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>说明</td>
+                        <td>代理商:最大输赢指总代给你最大输赢额度.走飞金额与最大输赢相同.无法修改<br>
+                            用户:走飞金额指用户输赢超出部分进行走飞.可以修改</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer" ng-if="tmpZoufei.isEditable">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="saveZoufeiSettings()">保存</button>
             </div>
         </div>
     </div>

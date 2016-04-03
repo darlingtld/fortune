@@ -3,7 +3,7 @@ package fortune.service;
 import java.util.Date;
 import java.util.List;
 
-import fortune.pojo.PeopleStatus;
+import fortune.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import common.Utils;
 import fortune.dao.PGroupDao;
 import fortune.dao.UserDao;
-import fortune.pojo.PGroup;
-import fortune.pojo.Role;
-import fortune.pojo.User;
 import password.PasswordEncryptUtil;
 
 /**
@@ -135,5 +132,25 @@ public class UserService {
     @Transactional
     public void switchZoufeiStatus(String groupId, String userId) {
         userDao.switchZoufeiStatus(groupId, userId);
+    }
+
+    @Transactional
+    public ZoufeiSetting getZoufeiByUserId(String pGroupId, String userId) {
+        User user = getUserById(userId);
+        ZoufeiStub zoufeiStub = user.getZoufeiEnabledMap().get(pGroupId);
+        ZoufeiSetting zoufeiSetting = new ZoufeiSetting();
+        if (zoufeiStub == null) {
+            zoufeiStub = new ZoufeiStub();
+        }
+        zoufeiSetting.setStatus(zoufeiStub.isZoufeiAutoEnabled ? "自动走飞" : "手动走飞");
+        zoufeiSetting.setCurStake(zoufeiStub.thresholdStakes);
+        zoufeiSetting.setMaxStake(zoufeiStub.thresholdStakes);
+        return zoufeiSetting;
+
+    }
+
+    @Transactional
+    public void saveZoufeiSetting(String pGroupId, String userId, ZoufeiSetting zoufeiSetting) {
+        userDao.saveZoufeiSetting(pGroupId, userId, zoufeiSetting);
     }
 }

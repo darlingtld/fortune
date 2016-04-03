@@ -50,6 +50,22 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
         })
     };
 
+    $scope.getZoufeiDetail = function (tmpGroup) {
+        $http.get('pgroup/' + tmpGroup.id + '/zoufei').success(function (data) {
+            $scope.tmpZoufei = data;
+            $scope.tmpZoufei.isEditable = false;
+        });
+    }
+
+    $scope.saveZoufeiSettings = function () {
+        $http.post('pgroup/' + sessionStorage['pgroupid'] + '/user/' + $scope.tmpZoufei.userId + '/save_zoufei_settings', $scope.tmpZoufei).success(function () {
+            $http.get('pgroup/pgroups/' + sessionStorage['pgroupid']).success(function (data) {
+                $scope.subGroupList = data;
+                $('#zoufeiModal .modal-footer [data-dismiss]').click();
+            })
+        })
+    };
+
 
     //TODO: validate null;  validate canDelete,canEnable,canDisable,canAdd,canSetCredit from backend
     (function ($) {
@@ -64,7 +80,7 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
             };
 
             var isZoufeiAutoEnabled = function (zoufeiEnabledMap) {
-                if (zoufeiEnabledMap[sessionStorage['pgroupid']] == false) {
+                if (zoufeiEnabledMap[sessionStorage['pgroupid']] != undefined && zoufeiEnabledMap[sessionStorage['pgroupid']].isZoufeiAutoEnabled == false) {
                     return false;
                 } else {
                     return true;
@@ -94,17 +110,19 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
                                         if (user.createdByPgroupId == sessionStorage["pgroupid"]) {
                                             html += (user.status == "ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='" + user.id + "'>禁用</a>" : "<td><a href='javascript:;' class='btn enable_operate' data-id='" + user.id + "'>启用</a>") +
                                                 "<a href='javascript:;' class='red_btn delete_operate' data-id='" + user.id + "'>删除</a>" +
-                                                "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "'/><a href='javascript:;' class='btn credit_setting' data-id='" + user.id + "'>设置额度</a></td>";
+                                                "<input type='text' style='float:left;margin-left:5px;width:70px;' value='" + user.creditAccount + "'/><a href='javascript:;' class='btn credit_setting' data-id='" + user.id + "'>设置额度</a></td>";
                                         } else {
                                             html += (user.status == "ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='" + user.id + "'>禁用</a>" : "<td><a href='javascript:;' class='btn enable_operate' data-id='" + user.id + "'>启用</a>") +
                                                 "<a href='javascript:;' class='red_btn delete_operate' data-id='" + user.id + "'>删除</a>" +
-                                                "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "' disabled/></td>";
+                                                "<input type='text' style='float:left;margin-left:5px;width:70px;' value='" + user.creditAccount + "' disabled/></td>";
 
                                         }
                                         if (isZoufeiAutoEnabled(user.zoufeiEnabledMap)) {
-                                            html += "<td><button class='btn btn-success btn-sm zoufei' data-userid='" + user.id + "'>自动走飞</button></td></tr>";
+                                            html += "<td><button class='btn btn-success btn-sm zoufei' data-userid='" + user.id + "'>自动走飞</button>" +
+                                                "<button class='btn btn-info btn-sm zoufei-detail' data-toggle='modal' data-target='#zoufeiModal' data-userid='" + user.id + "'>查看详情</button></td></tr>";
                                         } else {
-                                            html += "<td><button class='btn btn-danger btn-sm zoufei' data-userid='" + user.id + "'>手动走飞</button></td></tr>";
+                                            html += "<td><button class='btn btn-danger btn-sm zoufei' data-userid='" + user.id + "'>手动走飞</button>" +
+                                                "<button class='btn btn-info btn-sm zoufei-detail' data-toggle='modal' data-target='#zoufeiModal' data-userid='" + user.id + "'>查看详情</button></td></tr>";
                                         }
                                     }
                                     else {
@@ -179,6 +197,15 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
                         $scope.subGroupList = data;
                         location.reload();
                     })
+                })
+            });
+
+            $("body").on("click", "button.zoufei-detail", function (e) {
+                var userId = $(e.target).data("userid");
+                $http.get('pgroup/' + sessionStorage['pgroupid'] + '/user/' + userId + '/zoufei').success(function (data) {
+                    $scope.tmpZoufei = data;
+                    $scope.tmpZoufei.isEditable = true;
+                    $scope.tmpZoufei.userId = userId;
                 })
             });
 
@@ -323,7 +350,7 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
                         success: function () {
                             $(".dialog").hide();
                             initState();
-                            alert("新增代理商成功！新的代理商将在下期中正式启用！");
+                            alert("新增代理商成功！新的代理商将在稍后正式启用！请耐心等候数据准备!");
                         },
                         error: function () {
                             alert("代理商或管理员已存在，请重新输入");

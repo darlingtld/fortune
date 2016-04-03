@@ -297,4 +297,14 @@ public class PGroupService {
     public PGroup updateGroupZoufei(PGroup pGroup) {
         return pGroupDao.updatePGroupZoufei(pGroup);
     }
+
+    @Transactional
+    public ZoufeiSetting getZoufeiByGroupId(String pGroupId) {
+        PGroup group = getGroupById(pGroupId);
+        ZoufeiSetting zoufeiSetting = new ZoufeiSetting();
+        zoufeiSetting.setStatus(group.isZoufeiAutoEnabled() ? "自动走飞" : "手动走飞");
+        zoufeiSetting.setMaxStake(group.getMaxStakes());
+        zoufeiSetting.setCurStake(group.getMaxStakes());
+        return zoufeiSetting;
+    }
 }

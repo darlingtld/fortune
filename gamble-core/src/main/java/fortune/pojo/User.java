@@ -24,14 +24,14 @@ public class User {
     private boolean canDelete;
     private String createdByPgroupId;
     //    走飞map
-//    groupId -> zoufeiEnabaled
-    private Map<String, Boolean> zoufeiEnabledMap = new HashMap<>();
+//    groupId -> zoufeiEnabaled,stakes
+    private Map<String, ZoufeiStub> zoufeiEnabledMap = new HashMap<>();
 
-    public Map<String, Boolean> getZoufeiEnabledMap() {
+    public Map<String, ZoufeiStub> getZoufeiEnabledMap() {
         return zoufeiEnabledMap;
     }
 
-    public void setZoufeiEnabledMap(Map<String, Boolean> zoufeiEnabledMap) {
+    public void setZoufeiEnabledMap(Map<String, ZoufeiStub> zoufeiEnabledMap) {
         this.zoufeiEnabledMap = zoufeiEnabledMap;
     }
 
