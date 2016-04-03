@@ -133,7 +133,7 @@ public class UserService {
     }
 
     @Transactional
-    public void switchZoufeiStatus(String userId) {
-        userDao.switchZoufeiStatus(userId);
+    public void switchZoufeiStatus(String groupId, String userId) {
+        userDao.switchZoufeiStatus(groupId, userId);
     }
 }

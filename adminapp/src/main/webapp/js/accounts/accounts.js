@@ -63,6 +63,14 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
                 $("#add_user").hide();
             };
 
+            var isZoufeiAutoEnabled = function (zoufeiEnabledMap) {
+                if (zoufeiEnabledMap[sessionStorage['pgroupid']] == false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
             // 展开某层pgroup
             var showPGroupLevel = function (pgroupId, selector) {
                 // 取当前用户作为管理员的pgroup
@@ -86,18 +94,17 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
                                         if (user.createdByPgroupId == sessionStorage["pgroupid"]) {
                                             html += (user.status == "ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='" + user.id + "'>禁用</a>" : "<td><a href='javascript:;' class='btn enable_operate' data-id='" + user.id + "'>启用</a>") +
                                                 "<a href='javascript:;' class='red_btn delete_operate' data-id='" + user.id + "'>删除</a>" +
-                                                "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "'/><a href='javascript:;' class='btn credit_setting' data-id='" + user.id + "'>设置额度</a></td><td>";
-                                            if (user.zoufeiAutoEnabled) {
-                                                html += "<button class='btn btn-success btn-sm zoufei' data-userid='"+user.id+"'>自动走飞</button></td></tr>";
-                                            } else {
-                                                html += "<button class='btn btn-danger btn-sm zoufei' data-userid='"+user.id+"'>手动走飞</button></td></tr>";
-                                            }
-
+                                                "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "'/><a href='javascript:;' class='btn credit_setting' data-id='" + user.id + "'>设置额度</a></td>";
                                         } else {
                                             html += (user.status == "ENABLED" ? "<td><a href='javascript:;' class='red_btn disable_operate' data-id='" + user.id + "'>禁用</a>" : "<td><a href='javascript:;' class='btn enable_operate' data-id='" + user.id + "'>启用</a>") +
                                                 "<a href='javascript:;' class='red_btn delete_operate' data-id='" + user.id + "'>删除</a>" +
-                                                "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "' disabled/></td><td>--</td></tr>";
+                                                "<input type='text' style='float:left;margin-left:5px;width:100px;' value='" + user.creditAccount + "' disabled/></td>";
 
+                                        }
+                                        if (isZoufeiAutoEnabled(user.zoufeiEnabledMap)) {
+                                            html += "<td><button class='btn btn-success btn-sm zoufei' data-userid='" + user.id + "'>自动走飞</button></td></tr>";
+                                        } else {
+                                            html += "<td><button class='btn btn-danger btn-sm zoufei' data-userid='" + user.id + "'>手动走飞</button></td></tr>";
                                         }
                                     }
                                     else {
@@ -167,7 +174,7 @@ angular.module('AdminApp').controller('accountsController', function ($scope, $r
 
             $("body").on("click", "button.zoufei", function (e) {
                 var userId = $(e.target).data("userid");
-                $http.post('pgroup/user/' + userId + '/switch_zoufei_status', {}).success(function () {
+                $http.post('pgroup/' + sessionStorage['pgroupid'] + '/user/' + userId + '/switch_zoufei_status', {}).success(function () {
                     $http.get('pgroup/pgroups/' + sessionStorage['pgroupid']).success(function (data) {
                         $scope.subGroupList = data;
                         location.reload();

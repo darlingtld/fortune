@@ -103,11 +103,13 @@ public class UserDao {
 		return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
 	}
 
-	public void switchZoufeiStatus(String userId) {
+	public void switchZoufeiStatus(String groupId, String userId) {
 		User user = getUserById(userId);
+		Boolean isZoufeiEnabled = user.getZoufeiEnabledMap().getOrDefault(groupId, true);
+        user.getZoufeiEnabledMap().put(groupId, !isZoufeiEnabled);
 		Query query = new Query(Criteria.where("id").is(user.getId()));
 		Update update = new Update();
-		update.set("isZoufeiAutoEnabled", !user.isZoufeiAutoEnabled());
+		update.set("zoufeiEnabledMap", user.getZoufeiEnabledMap());
 		mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
 	}
 }

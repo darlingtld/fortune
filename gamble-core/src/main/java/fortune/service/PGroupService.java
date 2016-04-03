@@ -179,7 +179,7 @@ public class PGroupService {
                 if (creditUser != null) {
                     user.setUsedCreditAccount(creditUser.getUsedCreditAccount()); // 信用额度以user表中的为准 
                     user.setCreditAccount(creditUser.getCreditAccount());
-                    user.setZoufeiAutoEnabled(creditUser.isZoufeiAutoEnabled());
+                    user.setZoufeiEnabledMap(creditUser.getZoufeiEnabledMap());
                 }
                 userList.add(user);
             }

@@ -198,12 +198,12 @@ public class PGroupController {
         return pGroup;
     }
 
-    @RequestMapping(value = "/user/{user_id}/switch_zoufei_status", method = RequestMethod.POST)
+    @RequestMapping(value = "{pgroup_id}/user/{user_id}/switch_zoufei_status", method = RequestMethod.POST)
     public
     @ResponseBody
-    void switchZoufeiStatus4User(@PathVariable("user_id") String userId, HttpServletResponse response) {
+    void switchZoufeiStatus4User(@PathVariable("pgroup_id") String pGroupId, @PathVariable("user_id") String userId, HttpServletResponse response) {
         try {
-            userService.switchZoufeiStatus(userId);
+            userService.switchZoufeiStatus(pGroupId, userId);
         } catch (Exception e) {
             response.setHeader(Utils.HEADER_MESSAGE, e.getMessage());
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());

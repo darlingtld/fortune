@@ -1,8 +1,6 @@
 package fortune.pojo;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.Id;
 
@@ -25,17 +23,17 @@ public class User {
     private PeopleStatus status = PeopleStatus.ENABLED;
     private boolean canDelete;
     private String createdByPgroupId;
-    //    自动走飞,默认开启
-    private boolean isZoufeiAutoEnabled = true;
+    //    走飞map
+//    groupId -> zoufeiEnabaled
+    private Map<String, Boolean> zoufeiEnabledMap = new HashMap<>();
 
-    public boolean isZoufeiAutoEnabled() {
-        return isZoufeiAutoEnabled;
+    public Map<String, Boolean> getZoufeiEnabledMap() {
+        return zoufeiEnabledMap;
     }
 
-    public void setZoufeiAutoEnabled(boolean zoufeiAutoEnabled) {
-        isZoufeiAutoEnabled = zoufeiAutoEnabled;
+    public void setZoufeiEnabledMap(Map<String, Boolean> zoufeiEnabledMap) {
+        this.zoufeiEnabledMap = zoufeiEnabledMap;
     }
-
 
     public String getCreatedByPgroupId() {
         return createdByPgroupId;
