@@ -209,11 +209,13 @@ public class AdminReportService {
             double totalValidStakes = 0.0;
             double totalUserResult = 0.0;
             double totalTuishui = 0.0;
+            double zoufeiStakes = 0.0;
             for (LotteryMarkSixUserStat stat : statList) {
                 totalStakes += stat.getStakes();
                 totalValidStakes += stat.getValidStakes();
                 totalUserResult += stat.getResult();
                 totalTuishui += stat.getTuishui();
+                zoufeiStakes += stat.getZoufeiStakes();
             }
 
             LotteryMarkSixUserStat sumStat = new LotteryMarkSixUserStat();
@@ -223,6 +225,7 @@ public class AdminReportService {
             sumStat.setValidStakes(totalValidStakes);
             sumStat.setResult(totalUserResult);
             sumStat.setTuishui(totalTuishui);
+            sumStat.setZoufeiStakes(zoufeiStakes);
             resultList.add(sumStat);
         }
 
