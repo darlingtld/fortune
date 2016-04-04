@@ -103,7 +103,8 @@ public class AdminReportService {
             pgroupResult += stat.getPgroupResult();
             zoufeiStakes += stat.getZoufeiStakes();
             zoufeiResult += stat.getZoufeiResult();
-            pgroupTotalResult += stat.getPgroupTotalResult();
+//            pgroupTotalResult += stat.getPgroupTotalResult();
+            pgroupTotalResult += stat.getPgroupResult();
         }
 
         LotteryMarkSixGroupStat sumStat = new LotteryMarkSixGroupStat();
@@ -202,7 +203,7 @@ public class AdminReportService {
 
         PGroup group = groupDao.getGroupById(groupid);
         for (User user : group.getUserList()) {
-            List<LotteryMarkSixUserStat> statList = statDao.getLotteryMarkSixUserStatList(user.getId(), start, end);
+            List<LotteryMarkSixUserStat> statList = statDao.getLotteryMarkSixUserStatList(user.getId(), groupid, start, end);
 
             double totalStakes = 0.0;
             double totalValidStakes = 0.0;

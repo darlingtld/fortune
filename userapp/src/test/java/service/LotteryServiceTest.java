@@ -73,6 +73,7 @@ public class LotteryServiceTest {
         lotteryMarkSix.setIssue(nextLotteryMarkSixInfo.getIssue());
 
         lotteryMarkSix.setTimestamp(nextLotteryMarkSixInfo.getDate());
+//        lotteryMarkSix.setTimestamp(new Date());
         System.out.println(lotteryMarkSix);
         lotteryService.saveLotteryMarkSix(lotteryMarkSix);
     }

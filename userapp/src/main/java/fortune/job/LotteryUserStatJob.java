@@ -57,28 +57,39 @@ public class LotteryUserStatJob {
 
         List<User> userList = userService.getAll();
         for (User user : userList) {
-//            get wager result of this user
+//            获取用户的中奖结果信息
+//            根据不同代理商分别进行计算
             List<LotteryResult> lotteryResultList = resultService.getLotteryResult4LotteryIssueAndUser(lotteryIssue, user.getId());
-            double totalStakes = 0;
-            double validStakes = 0;
-            double tuishui = 0;
-            double result = 0;
             for (LotteryResult lotteryResult : lotteryResultList) {
                 LotteryMarkSixWager wager = wagerService.getLotteryMarkSixWager(lotteryResult.getLotteryMarkSixWagerId());
-                totalStakes += wager.getTotalStakes();
-                result += lotteryResult.getWinningMoney();
-                tuishui+=lotteryResult.getTuishui();
+                double totalStakes = wager.getTotalStakes();
+                double result = lotteryResult.getWinningMoney();
+                double tuishui = lotteryResult.getTuishui();
+                double validStakes = totalStakes;
+                double zoufeiStakes = 0;
+
+                if (userService.isUserZoufeiAutoEnabled(user, lotteryResult.getGroupId())) {
+//                    自动走飞
+
+                } else {
+//                    手动走飞
+                    double thresholdStakes = user.getZoufeiEnabledMap().get(lotteryResult.getGroupId()).thresholdStakes;
+                    if (result > thresholdStakes){
+                        zoufeiStakes = result - thresholdStakes;
+                    }
+                }
+                LotteryMarkSixUserStat lotteryMarkSixUserStat = new LotteryMarkSixUserStat();
+                lotteryMarkSixUserStat.setIssue(lotteryIssue);
+                lotteryMarkSixUserStat.setOpenTs(lotteryMarkSix.getTimestamp());
+                lotteryMarkSixUserStat.setUserId(user.getId());
+                lotteryMarkSixUserStat.setStakes(totalStakes);
+                lotteryMarkSixUserStat.setValidStakes(validStakes);
+                lotteryMarkSixUserStat.setTuishui(tuishui);
+                lotteryMarkSixUserStat.setResult(result);
+                lotteryMarkSixUserStat.setGroupId(lotteryResult.getGroupId());
+                lotteryMarkSixUserStat.setZoufeiStakes(zoufeiStakes);
+                statService.saveLotteryMarkSixStat(lotteryMarkSixUserStat);
             }
-            validStakes = totalStakes;
-            LotteryMarkSixUserStat lotteryMarkSixUserStat = new LotteryMarkSixUserStat();
-            lotteryMarkSixUserStat.setIssue(lotteryIssue);
-            lotteryMarkSixUserStat.setOpenTs(lotteryMarkSix.getTimestamp());
-            lotteryMarkSixUserStat.setUserId(user.getId());
-            lotteryMarkSixUserStat.setStakes(totalStakes);
-            lotteryMarkSixUserStat.setValidStakes(validStakes);
-            lotteryMarkSixUserStat.setTuishui(tuishui);
-            lotteryMarkSixUserStat.setResult(result);
-            statService.saveLotteryMarkSixStat(lotteryMarkSixUserStat);
         }
 
 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by jason on 2016-01-12
+ * Created by tangl9 on 2015-11-23.
  */
 @Entity
 @Table(name = "lottery_mark_six_user_stat")
@@ -26,9 +26,37 @@ public class LotteryMarkSixUserStat {
     private double result;
     @Column(name = "userid")
     private String userId;
-    
+    @Column(name = "groupid")
+    private String groupId;
+    @Column(name = "zoufei_stakes")
+    private double zoufeiStakes;
+
     @Transient
     private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public double getZoufeiStakes() {
+        return zoufeiStakes;
+    }
+
+    public void setZoufeiStakes(double zoufeiStakes) {
+        this.zoufeiStakes = zoufeiStakes;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
 
     public long getId() {
         return id;
@@ -92,13 +120,5 @@ public class LotteryMarkSixUserStat {
 
     public void setResult(double result) {
         this.result = result;
-    }
-    
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

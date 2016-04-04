@@ -153,4 +153,12 @@ public class UserService {
     public void saveZoufeiSetting(String pGroupId, String userId, ZoufeiSetting zoufeiSetting) {
         userDao.saveZoufeiSetting(pGroupId, userId, zoufeiSetting);
     }
+
+    public boolean isUserZoufeiAutoEnabled(User user, String groupId) {
+        if (user.getZoufeiEnabledMap() != null && !user.getZoufeiEnabledMap().getOrDefault(groupId, new ZoufeiStub()).isZoufeiAutoEnabled) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

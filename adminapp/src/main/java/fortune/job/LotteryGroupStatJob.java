@@ -58,53 +58,75 @@ public class LotteryGroupStatJob {
         for (PGroup pGroup : groupList) {
             groupIdMap.put(pGroup.getId(), pGroup);
         }
-        for (PGroup pGroup : groupList) {
+        try {
+            for (PGroup pGroup : groupList) {
 //            get wager result of this group
-            List<LotteryResult> lotteryResultList = resultService.getLotteryResult4LotteryIssue(lotteryIssue, pGroup.getId());
-            double totalStakes = 0;
-            double userResult = 0;
-            double pgroupResult = 0;
-            double zoufeiStakes = 0;
-            double zoufeiResult = 0;
-            for (LotteryResult lotteryResult : lotteryResultList) {
-                LotteryMarkSixWager wager = wagerService.getLotteryMarkSixWager(lotteryResult.getLotteryMarkSixWagerId());
-                totalStakes += wager.getTotalStakes();
-                userResult += lotteryResult.getWinningMoney() + lotteryResult.getTuishui() - wager.getTotalStakes();
-                pgroupResult += wager.getTotalStakes() - lotteryResult.getWinningMoney() - lotteryResult.getTuishui();
-            }
+                List<LotteryResult> lotteryResultList = resultService.getLotteryResult4LotteryIssue(lotteryIssue, pGroup.getId());
+                double totalStakes = 0;
+                double userResult = 0;
+                double pgroupResult = 0;
+                double zoufeiStakes = 0;
+                double zoufeiResult = 0;
+                for (LotteryResult lotteryResult : lotteryResultList) {
+                    LotteryMarkSixWager wager = wagerService.getLotteryMarkSixWager(lotteryResult.getLotteryMarkSixWagerId());
+                    totalStakes += wager.getTotalStakes();
+                    userResult += lotteryResult.getWinningMoney() + lotteryResult.getTuishui() - wager.getTotalStakes();
+                    pgroupResult += wager.getTotalStakes() - lotteryResult.getWinningMoney() - lotteryResult.getTuishui();
+                }
 //                zoufei calculation
-            if (pGroup.isZoufeiAutoEnabled() && pgroupResult + pGroup.getMaxStakes() < 0) {
+                if (pGroup.isZoufeiAutoEnabled() && pgroupResult + pGroup.getMaxStakes() < 0) {
 //                自动走飞
 //                超出代理商最大输赢的部分
-                double spilledResult = -pgroupResult - pGroup.getMaxStakes();
-                zoufeiStakes = spilledResult;
-                zoufeiResult = spilledResult;
+                    double spilledResult = -pgroupResult - pGroup.getMaxStakes();
+                    zoufeiStakes = spilledResult;
+                    zoufeiResult = spilledResult;
 //                走飞给父代理商
-                if (pGroup.getParentPGroupID() == null) {
+                    if (pGroup.getParentPGroupID() == null) {
 //                    顶级代理商,根代理商
+                        PGroup rootGroup = groupIdMap.get(pGroup.getParentPGroupID());
+                        rootGroup.setMaxStakes(rootGroup.getMaxStakes() + spilledResult);
 
+                    } else {
+                        PGroup fatherPGroup = groupIdMap.get(pGroup.getParentPGroupID());
+
+                        fatherPGroup.setMaxStakes(fatherPGroup.getMaxStakes() - spilledResult);
+                    }
+
+
+                } else if (!pGroup.isZoufeiAutoEnabled() && pgroupResult + pGroup.getMaxStakes() < 0) {
+//                手动走飞(目前为止,代理商的自动走飞和手动走飞计算方式一样!!!)
+//                TODO
+//                超出代理商最大输赢的部分
+                    double spilledResult = -pgroupResult - pGroup.getMaxStakes();
+                    zoufeiStakes = spilledResult;
+                    zoufeiResult = spilledResult;
+//                走飞给父代理商
+                    if (pGroup.getParentPGroupID() == null) {
+//                    顶级代理商,根代理商
+                        pGroup.setMaxStakes(pGroup.getMaxStakes() + spilledResult);
+                    } else {
+                        PGroup fatherPGroup = groupIdMap.get(pGroup.getParentPGroupID());
+
+                        fatherPGroup.setMaxStakes(fatherPGroup.getMaxStakes() - spilledResult);
+                    }
                 } else {
-                    PGroup fatherPGroup = groupIdMap.get(pGroup.getParentPGroupID());
 
-                    fatherPGroup.setMaxStakes(fatherPGroup.getMaxStakes() - spilledResult);
                 }
-
-
-            } else {
-//                手动走飞
+                LotteryMarkSixGroupStat lotteryMarkSixGroupStat = new LotteryMarkSixGroupStat();
+                lotteryMarkSixGroupStat.setPgroupId(pGroup.getId());
+                lotteryMarkSixGroupStat.setLotteryMarkSix(lotteryService.getLotteryMarkSix(lotteryIssue));
+                lotteryMarkSixGroupStat.setTotalStakes(totalStakes);
+                lotteryMarkSixGroupStat.setUserResult(userResult);
+                lotteryMarkSixGroupStat.setPgroupResult(pgroupResult);
+                lotteryMarkSixGroupStat.setZoufeiStakes(zoufeiStakes);
+                lotteryMarkSixGroupStat.setZoufeiResult(zoufeiResult);
+                lotteryMarkSixGroupStat.setRemark("");
+                statService.saveLotteryMarkSixStat(lotteryMarkSixGroupStat);
             }
-            LotteryMarkSixGroupStat lotteryMarkSixGroupStat = new LotteryMarkSixGroupStat();
-            lotteryMarkSixGroupStat.setPgroupId(pGroup.getId());
-            lotteryMarkSixGroupStat.setLotteryMarkSix(lotteryService.getLotteryMarkSix(lotteryIssue));
-            lotteryMarkSixGroupStat.setTotalStakes(totalStakes);
-            lotteryMarkSixGroupStat.setUserResult(userResult);
-            lotteryMarkSixGroupStat.setPgroupResult(pgroupResult);
-            lotteryMarkSixGroupStat.setZoufeiStakes(zoufeiStakes);
-            lotteryMarkSixGroupStat.setZoufeiResult(zoufeiResult);
-            lotteryMarkSixGroupStat.setRemark("");
-            statService.saveLotteryMarkSixStat(lotteryMarkSixGroupStat);
+        } catch (Exception e) {
+            jobTrackerService.updateEndStatus(jobId, new Date(), String.format("%s[%s]", JobTracker.FAILED, e.getMessage()));
+            Utils.logger.info("{} erred", jobName);
         }
-
 
         jobTrackerService.updateEndStatus(jobId, new Date(), JobTracker.SUCCESS);
         Utils.logger.info("{} finished", jobName);
