@@ -5,7 +5,7 @@
 2. localhost:8080/userapp/druid
     open database monitoring stuff provided by druid
 
-3. install memcached (mac)
+3. install memcached (mac)(optional)
     use 'brew install memcached'
     start it up with '/usr/local/opt/memcached/bin/memcached'
     default port is 11211
@@ -17,15 +17,15 @@
 4. install mongodb
     refer to http://www.mongoing.com/downloads
 
+    start mongodb mongod --dbpath ~/mongodb_data/db
+
     create a database named 'fortune'
 
     mongodump -h localhost -d fortune -o dbdirectory
 
-    mongorestore --host localhost -d fortune --dir '/Users/frank/workspace/fortune/configuration/src/main/database/mongo_db_init/fortune' --drop
+    mongorestore --host localhost -d fortune --dir '/Users/lingda/IdeaProjects/fortune/configuration/src/main/database/mongo_db_init/fortune' --drop
     
-    (just for frank):mongod --dbpath /Users/frank/software/mongodb/dbs/
-
-5. configure kafka
+5. configure kafka(optional)
     refer to http://kafka.apache.org/documentation.html#quickstart
 
     bin/zookeeper-server-start.sh config/zookeeper.properties
@@ -50,12 +50,12 @@
 
     bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic lingda-test
 
-6. install redis
+6. install redis(optional)
     refer to http://redis.io/
     for windows, https://github.com/MSOpenTech/redis/releases
     run with 'redis-server'
 
-7. tomcat remote debug
+7. tomcat remote debug(optional)
     sh ./catalina.sh jpda start
 
 
